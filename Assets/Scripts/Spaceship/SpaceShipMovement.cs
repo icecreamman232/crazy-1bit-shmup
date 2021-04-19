@@ -6,15 +6,12 @@ using Lean.Touch;
 
 public class SpaceShipMovement : MonoBehaviour
 {
-    public Canvas canvas;
     public float sensitivity;
-    public float screenToGameMultiplier;
     bool isTouching;
 
     // Start is called before the first frame update
     void Start()
     {
-        screenToGameMultiplier = GameHelper.SizeOfCamera().y / Screen.height;
         isTouching = false;
         OnEnableTouch();
     }
@@ -56,7 +53,7 @@ public class SpaceShipMovement : MonoBehaviour
         if(camera!=null)
         {
             var screen_pts = camera.WorldToScreenPoint(transform.position);
-            screen_pts += (Vector3)delta * sensitivity /** screenToGameMultiplier*/;
+            screen_pts += (Vector3)delta * sensitivity;
 
             var world_pts = camera.ScreenToWorldPoint(screen_pts);
 
