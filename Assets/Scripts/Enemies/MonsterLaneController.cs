@@ -9,12 +9,16 @@ public class MonsterLaneController : MonoBehaviour
 
     float spawn_delay;
 
+
+    public int wave_index;
     public List<GameObject> list_monsters;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        wave_index = 0;
+        StopAllCoroutines();
         StartCoroutine(OnSpawnNextMonster());
     }
 
@@ -43,5 +47,6 @@ public class MonsterLaneController : MonoBehaviour
         var rand = Random.Range(0, 2);
         var monster = Lean.Pool.LeanPool.Spawn(list_monsters[rand], this.transform);
         monster.GetComponent<BaseMonster>().Run();
+        wave_index += 1;
     }
 }

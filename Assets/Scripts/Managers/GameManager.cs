@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
     public int current_coin;
     public TextMeshProUGUI coin_text;
     #endregion
+
+    #region Level
+    public List<GameObject> list_monster_lanes;
+    #endregion
+
     public ParticleSystem star_front_layer;
     public ParticleSystem star_back_layer;
 
@@ -35,7 +40,7 @@ public class GameManager : MonoBehaviour
     public GameObject left_barrel;
     public GameObject right_barrel;
 
-    
+    public AudioSource BGM;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +65,8 @@ public class GameManager : MonoBehaviour
         left_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
         right_barrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x/2+0.5f, 0, 0);
         right_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
+
+        BGM.Play();
     }
     public void UpdateScore(int score)
     {
