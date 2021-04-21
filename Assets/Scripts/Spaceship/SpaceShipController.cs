@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class SpaceShipController : MonoBehaviour
 {
-    public ParticleSystem gun_particle;
+    public int base_hp;
+    public int current_hp;
+    public float firerate;
+    public int damage;
+
+    public Lean.Pool.LeanGameObjectPool bullet_pool;
+
+
     void Start()
     {
         
@@ -25,15 +32,30 @@ public class SpaceShipController : MonoBehaviour
     /// </summary>
     void StartShip()
     {
-        gun_particle.gameObject.SetActive(true);
-        if(gun_particle.isPlaying)
+        current_hp = base_hp;
+        StartCoroutine(Shoot());
+    }
+    void UpdateHP(int damage)
+    {
+        current_hp -= damage;
+    }
+    IEnumerator Shoot()
+    {
+        while(true)
         {
-            gun_particle.Stop();
-            gun_particle.Play();
+            var bullet = bullet_pool.Spawn(this.transform.position, Quaternion.identity);
+            bullet.GetComponent<BaseBullet>().damage = damage;
+            bullet.GetComponent<BaseBullet>().Shoot();
+            yield return new WaitForSeconds(firerate);
         }
     }
-    void test(int a)
-    {
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag =="Enemy")
+        {
+
+            Debug.Log("Ship hit enemies");
+        }
     }
 }

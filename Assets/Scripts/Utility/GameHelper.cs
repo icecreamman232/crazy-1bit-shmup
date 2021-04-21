@@ -13,6 +13,12 @@ public static class GameHelper
         }
         return sizeOfCamera;
     }
+    public static Vector2 HalfSizeOfCamera()
+    {
+        return SizeOfCamera() * 0.5f;
+    }
+    public static float BotLimitation = -HalfSizeOfCamera().y;
+    public static float TopLimitation = SizeOfCamera().y;
     public static void ReCalculateSizeOfCamera()
     {
         Vector2 A = new Vector2();
