@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public ParticleSystem star_back_layer;
 
     public GameObject die_explosion_fx;
+    public CameraShake camera_shake_fx;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
     void InitGameManager()
     {
         current_score = 0;
+        camera_shake_fx.Setup();
     }
     public void UpdateScore(int score)
     {

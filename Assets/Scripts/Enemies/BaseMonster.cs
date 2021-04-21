@@ -45,6 +45,7 @@ public class BaseMonster:  MonoBehaviour
         yield return new WaitUntil(() => current_hp <= 0);
         GameManager.Instance.UpdateScore(base_score);
         GameManager.Instance.CreateDieFx(transform.position);
+        GameManager.Instance.camera_shake_fx.Shake();
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
     private void OnTriggerEnter2D(Collider2D collision)
