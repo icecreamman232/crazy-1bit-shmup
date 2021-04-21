@@ -15,17 +15,27 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Score Management
+    [Header("Score Management")]
     public TextMeshProUGUI score_number_text;
     public int current_score;
 
     #endregion
 
+    #region Coin Management
+    [Header("Coin Management")]
+    public int current_coin;
+    public TextMeshProUGUI coin_text;
+    #endregion
     public ParticleSystem star_front_layer;
     public ParticleSystem star_back_layer;
 
     public GameObject die_explosion_fx;
     public CameraShake camera_shake_fx;
 
+    public GameObject left_barrel;
+    public GameObject right_barrel;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -40,14 +50,27 @@ public class GameManager : MonoBehaviour
     }
     void InitGameManager()
     {
+        current_coin = 0;
+        coin_text.text = current_coin.ToString();
         current_score = 0;
+        score_number_text.text = current_score.ToString();
         camera_shake_fx.Setup();
+
+        left_barrel.transform.position = new Vector3(-GameHelper.SizeOfCamera().x/2-0.5f, 0, 0);
+        left_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
+        right_barrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x/2+0.5f, 0, 0);
+        right_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
     }
     public void UpdateScore(int score)
     {
         current_score += score;
         score_number_text.GetComponent<Animator>().Play("score_increase_anim");
         score_number_text.text = current_score.ToString();
+    }
+    public void UpdateCoin(int value)
+    {
+        current_coin += value;
+        coin_text.text = current_coin.ToString();
     }
     public void CreateDieFx(Vector3 position)
     {

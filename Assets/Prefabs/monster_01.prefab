@@ -150,7 +150,8 @@ MonoBehaviour:
   current_hp: 0
   base_movespeed: 3
   base_score: 10
-  die_explosion_fx: {fileID: 0}
+  base_coin: 2
+  coin_prefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
 --- !u!50 &5166777713280954633
 Rigidbody2D:
   serializedVersion: 4

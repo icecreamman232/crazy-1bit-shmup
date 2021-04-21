@@ -63,9 +63,16 @@ public class SpaceShipController : MonoBehaviour
         if(collision.gameObject.tag =="Enemy")
         {
 
-            Debug.Log("Ship hit enemies");
             UpdateHP(1);
             heart_panel.UpdateHeartUI();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<CoinController>().coin_value);
+            Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }
     }
 }

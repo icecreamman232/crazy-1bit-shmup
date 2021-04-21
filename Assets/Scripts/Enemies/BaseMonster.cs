@@ -18,8 +18,8 @@ public class BaseMonster:  MonoBehaviour
 
     public float base_movespeed;
     public int base_score;
-
-
+    public int base_coin;
+    public GameObject coin_prefab;
 
     private void Start()
     {
@@ -46,6 +46,7 @@ public class BaseMonster:  MonoBehaviour
         GameManager.Instance.UpdateScore(base_score);
         GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.camera_shake_fx.Shake();
+        DropCoin();
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,6 +55,19 @@ public class BaseMonster:  MonoBehaviour
         {
             UpdateHP(collision.gameObject.GetComponent<BaseBullet>().damage);
             collision.gameObject.GetComponent<BaseBullet>().Reset();
+        }
+    }
+    void DropCoin()
+    {
+        Vector3 trajectory = Random.insideUnitCircle * 100.0f;
+        for (int i =0; i< base_coin; i++)
+        {
+            var coin = Lean.Pool.LeanPool.Spawn(coin_prefab, this.transform.position, Quaternion.identity);
+            coin.GetComponent<CoinController>().Init();
+            var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
+            coin.GetComponent<Rigidbody2D>().AddForce(force_vector);
+
+
         }
     }
 }
