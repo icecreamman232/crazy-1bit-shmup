@@ -149,8 +149,8 @@ MonoBehaviour:
   base_hp: 50
   current_hp: 0
   base_movespeed: 3
-  isDied: 0
-  test_constant: 0
+  base_score: 10
+  die_explosion_fx: {fileID: 0}
 --- !u!50 &5166777713280954633
 Rigidbody2D:
   serializedVersion: 4

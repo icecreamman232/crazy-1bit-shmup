@@ -12,7 +12,7 @@ public class SpaceShipController : MonoBehaviour
     public int damage;
 
     public Lean.Pool.LeanGameObjectPool bullet_pool;
-
+    public Transform fire_point;
 
     #region UI
     public UIHeartController heart_panel;
@@ -51,7 +51,7 @@ public class SpaceShipController : MonoBehaviour
     {
         while(true)
         {
-            var bullet = bullet_pool.Spawn(this.transform.position, Quaternion.identity);
+            var bullet = bullet_pool.Spawn(fire_point.position, Quaternion.identity);
             bullet.GetComponent<BaseBullet>().damage = damage;
             bullet.GetComponent<BaseBullet>().Shoot();
             yield return new WaitForSeconds(firerate);

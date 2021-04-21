@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Monster01Controller : BaseMonster
 {
-    public bool isDied;
-    public float test_constant;
     // Start is called before the first frame update
     void Start()
     {

@@ -6,6 +6,7 @@ using SWS;
 
 public class BaseMonster:  MonoBehaviour
 {
+
     public bool isRunning;
     public Vector3 origin_position;
     public float t_lerp = 0.1f;
@@ -16,6 +17,10 @@ public class BaseMonster:  MonoBehaviour
     public  int current_hp;
 
     public float base_movespeed;
+    public int base_score;
+
+
+
     private void Start()
     {
        
@@ -25,6 +30,7 @@ public class BaseMonster:  MonoBehaviour
         current_hp = base_hp;
         origin_position = transform.position;
         isRunning = false;
+        this.StopAllCoroutines();
     }
 
     public virtual void Run() { }
@@ -35,8 +41,11 @@ public class BaseMonster:  MonoBehaviour
     }
     protected IEnumerator CheckDie()
     {
+        
         yield return new WaitUntil(() => current_hp <= 0);
-        this.gameObject.SetActive(false);
+        GameManager.Instance.UpdateScore(base_score);
+        GameManager.Instance.CreateDieFx(transform.position);
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,7 +53,6 @@ public class BaseMonster:  MonoBehaviour
         {
             UpdateHP(collision.gameObject.GetComponent<BaseBullet>().damage);
             collision.gameObject.GetComponent<BaseBullet>().Reset();
-            Debug.Log("Bullet hit mons");
         }
     }
 }
