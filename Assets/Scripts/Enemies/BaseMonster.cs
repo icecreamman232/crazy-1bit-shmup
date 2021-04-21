@@ -6,6 +6,8 @@ using SWS;
 
 public class BaseMonster:  MonoBehaviour
 {
+    public bool isRunning;
+    public Vector3 origin_position;
     public float t_lerp = 0.1f;
     public  int base_hp;
     /// <summary>
@@ -21,6 +23,8 @@ public class BaseMonster:  MonoBehaviour
     public virtual void InitMonster()
     {
         current_hp = base_hp;
+        origin_position = transform.position;
+        isRunning = false;
     }
 
     public virtual void Run() { }
@@ -31,7 +35,6 @@ public class BaseMonster:  MonoBehaviour
     }
     protected IEnumerator CheckDie()
     {
-        Debug.Log("Coroutine");
         yield return new WaitUntil(() => current_hp <= 0);
         this.gameObject.SetActive(false);
     }

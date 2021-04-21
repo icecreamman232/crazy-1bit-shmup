@@ -6,15 +6,23 @@ public class SpaceShipController : MonoBehaviour
 {
     public int base_hp;
     public int current_hp;
+
+
     public float firerate;
     public int damage;
 
     public Lean.Pool.LeanGameObjectPool bullet_pool;
 
 
+    #region UI
+    public UIHeartController heart_panel;
+
+
+    #endregion
+
     void Start()
     {
-        
+        StartShip();
     }
 
     // Update is called once per frame
@@ -56,6 +64,8 @@ public class SpaceShipController : MonoBehaviour
         {
 
             Debug.Log("Ship hit enemies");
+            UpdateHP(1);
+            heart_panel.UpdateHeartUI();
         }
     }
 }

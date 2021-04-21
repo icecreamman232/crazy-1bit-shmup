@@ -17,8 +17,9 @@ public static class GameHelper
     {
         return SizeOfCamera() * 0.5f;
     }
-    public static float BotLimitation = -HalfSizeOfCamera().y;
+    public static float BotLimitation = -10.0f;//-SizeOfCamera().y;
     public static float TopLimitation = SizeOfCamera().y;
+
     public static void ReCalculateSizeOfCamera()
     {
         Vector2 A = new Vector2();
@@ -26,5 +27,10 @@ public static class GameHelper
         A.x = (Camera.main.aspect * Camera.main.orthographicSize) * 2;
         sizeOfCamera = A;
     }
-    
+
+    public static Vector2 get_current_screenbound()
+    {
+        return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+    }
+
 }
