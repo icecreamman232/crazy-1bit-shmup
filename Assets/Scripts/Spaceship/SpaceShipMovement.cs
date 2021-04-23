@@ -8,11 +8,18 @@ public class SpaceShipMovement : MonoBehaviour
 {
     public float sensitivity;
     bool isTouching;
+    public SpriteRenderer ship_sprite;
+    float ship_sprite_width;
+    float ship_sprite_height;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        ship_sprite_width = ship_sprite.bounds.size.x;
+        ship_sprite_height = ship_sprite.bounds.size.y;
         isTouching = false;
+        SetShipPosition();
         OnEnableTouch();
     }
 
@@ -46,7 +53,12 @@ public class SpaceShipMovement : MonoBehaviour
     {
         isTouching = false;
     }
-  
+    void SetShipPosition()
+    {
+        var postion = transform.position;
+        postion.y = -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f;
+        transform.position = postion;
+    }
     void TranslateShip(Vector2 delta)
     {
         var camera = Camera.main;
@@ -57,9 +69,12 @@ public class SpaceShipMovement : MonoBehaviour
 
             var world_pts = camera.ScreenToWorldPoint(screen_pts);
 
-            if (world_pts.x <= -2.5f) world_pts.x = -2.5f;
-            if (world_pts.x >= 2.5f) world_pts.x = 2.5f;
-            world_pts.y = -4;
+            var screen_bound = GameHelper.get_current_screenbound();
+            
+
+            if (world_pts.x <= -screen_bound.x + ship_sprite_width*0.5f) world_pts.x = -screen_bound.x+ ship_sprite_width * 0.5f;
+            if (world_pts.x >= screen_bound.x - ship_sprite_width *0.5f) world_pts.x = screen_bound.x - ship_sprite_width * 0.5f;
+            world_pts.y = -screen_bound.y+ship_sprite_height*1.5f; //-4;
             transform.position = world_pts;
         }
         else

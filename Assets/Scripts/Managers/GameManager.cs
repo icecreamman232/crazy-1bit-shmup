@@ -143,9 +143,7 @@ public class GameManager : MonoBehaviour
     {
         var min = endless_mode_data.min_speed;
         var max = endless_mode_data.max_speed;
-        
         var result = min + (max - min) * (Mathf.Exp(speed_factor * index));
-        Debug.Log("Result=" + result);
         return result;
     }
     IEnumerator count_time()
@@ -153,7 +151,6 @@ public class GameManager : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(2.0f);
-            Debug.Log("Increase spd");
             wave_index += 1;
             var main_front = star_front_layer.main;
             var main_back = star_back_layer.main;
