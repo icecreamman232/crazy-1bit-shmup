@@ -57,7 +57,8 @@ public class GameManager : MonoBehaviour
 
     #region Sound & Music
     public AudioSource BGM;
-    public AudioSource coin_collect_sfx;
+    public AudioSource sfx;
+    public AudioClip monster_die_sfx;
     #endregion
 
 

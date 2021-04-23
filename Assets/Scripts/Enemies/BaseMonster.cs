@@ -48,6 +48,7 @@ public class BaseMonster:  MonoBehaviour
         yield return new WaitUntil(() => current_hp <= 0);
         GameManager.Instance.UpdateScore(base_score);
         GameManager.Instance.CreateDieFx(transform.position);
+        GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         GameManager.Instance.camera_shake_fx.Shake();
         DropCoin();
         Lean.Pool.LeanPool.Despawn(this.gameObject);
