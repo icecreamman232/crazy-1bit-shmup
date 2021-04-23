@@ -20,6 +20,8 @@ public class SpaceShipController : MonoBehaviour
 
     #endregion
 
+    private int counter;
+
     void Start()
     {
         StartShip();
@@ -40,6 +42,7 @@ public class SpaceShipController : MonoBehaviour
     /// </summary>
     void StartShip()
     {
+        counter = 0;
         current_hp = base_hp;
         StartCoroutine(Shoot());
     }
@@ -60,9 +63,13 @@ public class SpaceShipController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Ship is invincible state after hit the enemies
+        if (counter > 1) return;
+
         if(collision.gameObject.tag =="Enemy")
         {
-
+            GameManager.Instance.camera_shake_fx.Shake();
+            GetComponent<Animator>().Play("ship_get_hit_anim");
             UpdateHP(1);
             heart_panel.UpdateHeartUI();
         }
@@ -74,5 +81,16 @@ public class SpaceShipController : MonoBehaviour
             GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<CoinController>().coin_value);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }
+    }
+    public void IncreaseCounterAnimator()
+    {
+        if (counter >= 5) 
+        { 
+            counter = 0;
+            GetComponent<Animator>().SetInteger("Counter", counter);
+            return;
+        }
+        counter = counter + 1;
+        GetComponent<Animator>().SetInteger("Counter", counter);
     }
 }

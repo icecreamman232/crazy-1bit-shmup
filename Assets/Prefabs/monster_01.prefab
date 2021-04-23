@@ -146,7 +146,7 @@ MonoBehaviour:
   isRunning: 0
   origin_position: {x: 0, y: 0, z: 0}
   t_lerp: 0.1
-  base_hp: 50
+  base_hp: 30
   current_hp: 0
   base_movespeed: 3
   base_score: 10

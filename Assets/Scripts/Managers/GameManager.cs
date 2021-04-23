@@ -4,6 +4,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameManagerState
+{
+    STANDBY = 0,
+    PLAYING = 1,
+    LOSE    = 2,
+    RESET   = 3,
+    IDLE    = -1,
+}
+
+
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -11,6 +21,15 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+    #endregion
+
+    #region Game State
+    [Header("GameState")]
+    public GameManagerState current_game_state;
+    public void SetState(GameManagerState new_state)
+    {
+        current_game_state = new_state;
     }
     #endregion
 
@@ -28,9 +47,23 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Level
+    [Header("Levels")]
     public List<GameObject> list_monster_lanes;
+    public EndlessModeDO endless_mode_data;
+    public const float speed_factor = 0.08f;
+    public int wave_index;
+    public float current_spd;
     #endregion
 
+    #region Sound & Music
+    public AudioSource BGM;
+    #endregion
+
+
+
+
+    #region Ref Holders
+    [Header("Ref Holders")]
     public ParticleSystem star_front_layer;
     public ParticleSystem star_back_layer;
 
@@ -40,21 +73,43 @@ public class GameManager : MonoBehaviour
     public GameObject left_barrel;
     public GameObject right_barrel;
 
-    public AudioSource BGM;
+    #endregion
+
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        InitGameManager();
+        SetState(GameManagerState.STANDBY);
+        //InitGameManager();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        switch(current_game_state)
+        {
+            case GameManagerState.STANDBY:
+                InitGameManager();
+                SetState(GameManagerState.PLAYING);
+                break;
+            case GameManagerState.PLAYING:
+                break;
+            case GameManagerState.LOSE:
+                break;
+            case GameManagerState.RESET:
+                break;
+            case GameManagerState.IDLE:
+                break;
+        }
     }
     void InitGameManager()
     {
+
+        StopAllCoroutines();
+        current_spd = 1;
+        wave_index = 1;
         current_coin = 0;
         coin_text.text = current_coin.ToString();
         current_score = 0;
@@ -66,7 +121,12 @@ public class GameManager : MonoBehaviour
         right_barrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x/2+0.5f, 0, 0);
         right_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
 
+
+        StartCoroutine(count_time());
         BGM.Play();
+
+        current_game_state = GameManagerState.STANDBY;
+
     }
     public void UpdateScore(int score)
     {
@@ -79,6 +139,30 @@ public class GameManager : MonoBehaviour
         current_coin += value;
         coin_text.text = current_coin.ToString();
     }
+    public float GetCurrentLevelSpeed(int index)
+    {
+        var min = endless_mode_data.min_speed;
+        var max = endless_mode_data.max_speed;
+        
+        var result = min + (max - min) * (Mathf.Exp(speed_factor * index));
+        Debug.Log("Result=" + result);
+        return result;
+    }
+    IEnumerator count_time()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(2.0f);
+            Debug.Log("Increase spd");
+            wave_index += 1;
+            var main_front = star_front_layer.main;
+            var main_back = star_back_layer.main;
+            current_spd = GetCurrentLevelSpeed(wave_index);
+            main_front.simulationSpeed = current_spd;
+            main_back.simulationSpeed = current_spd;
+        }
+    }
+
     public void CreateDieFx(Vector3 position)
     {
         var obj = Lean.Pool.LeanPool.Spawn(die_explosion_fx, position, Quaternion.identity);

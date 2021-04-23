@@ -167,9 +167,9 @@ MonoBehaviour:
   isRunning: 0
   origin_position: {x: 0, y: 0, z: 0}
   t_lerp: 0.1
-  base_hp: 70
+  base_hp: 50
   current_hp: 0
   base_movespeed: 3
   base_score: 15
-  base_coin: 4
+  base_coin: 3
   coin_prefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}

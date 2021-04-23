@@ -24,10 +24,11 @@ public class Monster02Controller : BaseMonster
             }
         }
     }
-    public override void Run()
+    public override void Run(float speed)
     {
         InitMonster();
         isRunning = true;
+        base_movespeed = base_movespeed + speed * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
         StartCoroutine(CheckDie());
     }
 }

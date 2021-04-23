@@ -5368,7 +5368,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 1
       minScalar: 2
       maxCurve:
         serializedVersion: 2
@@ -10770,6 +10770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0325bb713a9f3445a090cdf1672a254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  current_game_state: 0
   score_number_text: {fileID: 2012788458}
   current_score: 0
   current_coin: 0
@@ -10780,13 +10781,16 @@ MonoBehaviour:
   - {fileID: 531319689}
   - {fileID: 1105180180}
   - {fileID: 1256214170}
+  endless_mode_data: {fileID: 11400000, guid: e655caa2fa79cfb4fbd31b5759a05994, type: 2}
+  wave_index: 0
+  current_spd: 0
+  BGM: {fileID: 1463149753}
   star_front_layer: {fileID: 16668153}
   star_back_layer: {fileID: 294739167}
   die_explosion_fx: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
   camera_shake_fx: {fileID: 519420030}
   left_barrel: {fileID: 1903038248}
   right_barrel: {fileID: 274210944}
-  BGM: {fileID: 1463149753}
 --- !u!1 &963125079
 GameObject:
   m_ObjectHideFlags: 0
@@ -11282,6 +11286,7 @@ GameObject:
   - component: {fileID: 1598937693}
   - component: {fileID: 1598937694}
   - component: {fileID: 1598937695}
+  - component: {fileID: 1598937696}
   m_Layer: 9
   m_Name: spaceship
   m_TagString: Untagged
@@ -11385,6 +11390,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &1598937696
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598937690}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 02c472bf4fb6ec94cb03cc2048704da3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1692244333 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1906852948952535370, guid: 6fe992e4906866948a3b17ffbaad5911, type: 3}

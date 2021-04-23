@@ -33,7 +33,10 @@ public class BaseMonster:  MonoBehaviour
         this.StopAllCoroutines();
     }
 
-    public virtual void Run() { }
+    public virtual void Run(float speed) 
+    { 
+        
+    }
 
     public void UpdateHP(int _damage)
     {
