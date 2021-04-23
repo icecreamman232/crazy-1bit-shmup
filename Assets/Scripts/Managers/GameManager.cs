@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     #region Sound & Music
     public AudioSource BGM;
+    public AudioSource coin_collect_sfx;
     #endregion
 
 
@@ -143,7 +144,8 @@ public class GameManager : MonoBehaviour
     {
         var min = endless_mode_data.min_speed;
         var max = endless_mode_data.max_speed;
-        var result = min + (max - min) * (Mathf.Exp(speed_factor * index));
+        
+        var result = Mathf.Clamp(min + (max - min) * (Mathf.Exp(speed_factor * index)),0,10.0f);
         return result;
     }
     IEnumerator count_time()

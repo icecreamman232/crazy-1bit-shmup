@@ -16,10 +16,14 @@ public class SpaceShipController : MonoBehaviour
 
     #region UI
     public UIHeartController heart_panel;
-
-
     #endregion
 
+
+    #region SFX
+    [Header("SFX")]
+    public AudioSource sfx;
+    public AudioClip coin_collect_sfx;
+    #endregion
     private int counter;
 
     void Start()
@@ -79,6 +83,7 @@ public class SpaceShipController : MonoBehaviour
         if (collision.gameObject.tag == "Coin")
         {
             GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<CoinController>().coin_value);
+            sfx.PlayOneShot(coin_collect_sfx);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }
     }
