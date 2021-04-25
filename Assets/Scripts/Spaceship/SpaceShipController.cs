@@ -34,10 +34,7 @@ public class SpaceShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            StartShip();
-        }
+
     }
 
 
@@ -49,6 +46,7 @@ public class SpaceShipController : MonoBehaviour
         counter = 0;
         current_hp = base_hp;
         StartCoroutine(Shoot());
+        StartCoroutine(CheckDie());
     }
     void UpdateHP(int damage)
     {
@@ -64,7 +62,13 @@ public class SpaceShipController : MonoBehaviour
             yield return new WaitForSeconds(firerate);
         }
     }
-
+    IEnumerator CheckDie()
+    {
+        yield return new WaitUntil(() => current_hp <= 0);
+        GetComponent<SpaceShipMovement>().OnDisableTouch();
+        this.gameObject.SetActive(false);
+        StopAllCoroutines();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Ship is invincible state after hit the enemies

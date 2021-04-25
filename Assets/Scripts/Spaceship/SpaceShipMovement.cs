@@ -35,12 +35,12 @@ public class SpaceShipMovement : MonoBehaviour
     {
         OnDisableTouch();
     }
-    private void OnEnableTouch()
+    public void OnEnableTouch()
     {
         LeanTouch.OnFingerDown += OnTouchDown;
         LeanTouch.OnFingerUp += OnTouchUp;
     }
-    private void OnDisableTouch()
+    public void OnDisableTouch()
     {
         LeanTouch.OnFingerDown -= OnTouchDown;
         LeanTouch.OnFingerUp -= OnTouchUp;

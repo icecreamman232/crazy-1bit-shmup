@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Ship
+    [Header("Ship")]
+    public GameObject space_ship;
+    #endregion
+
     #region Score Management
     [Header("Score Management")]
     public TextMeshProUGUI score_number_text;
@@ -61,9 +66,6 @@ public class GameManager : MonoBehaviour
     public AudioClip monster_die_sfx;
     #endregion
 
-
-
-
     #region Ref Holders
     [Header("Ref Holders")]
     public ParticleSystem star_front_layer;
@@ -77,8 +79,13 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region UI
+    [Header("End Game Menu")]
+    public GameObject endgame_panel;
+    public Animator endgame_frame_ui;
+    public UIScoreNumberCounter endgame_score_counter;
+    #endregion
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -90,15 +97,29 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(current_game_state)
+        switch (current_game_state)
         {
             case GameManagerState.STANDBY:
                 InitGameManager();
                 SetState(GameManagerState.PLAYING);
                 break;
             case GameManagerState.PLAYING:
+                if (space_ship.GetComponent<SpaceShipController>().current_hp <= 0 || Input.GetKeyDown(KeyCode.Z))
+                {
+                    endgame_panel.SetActive(true);
+                    endgame_frame_ui.Play("EndGame_frame_anim");
+                    star_back_layer.Stop();
+                    star_front_layer.Stop();
+                    for (int i = 0; i < 5; i++)
+                    {
+                        list_monster_lanes[i].GetComponent<MonsterLaneController>().StopAllCoroutines();
+                    }
+                    endgame_score_counter.StartCounting(3000/*current_score*/);
+                    SetState(GameManagerState.LOSE);
+                }
                 break;
             case GameManagerState.LOSE:
+                
                 break;
             case GameManagerState.RESET:
                 break;
