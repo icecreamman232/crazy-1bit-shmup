@@ -19,6 +19,7 @@ public class BaseMonster:  MonoBehaviour
     public float base_movespeed;
     public int base_score;
     public int base_coin;
+    public int base_coin_value;
     public GameObject coin_prefab;
 
     private void Start()
@@ -61,17 +62,24 @@ public class BaseMonster:  MonoBehaviour
             collision.gameObject.GetComponent<BaseBullet>().Reset();
         }
     }
+
     void DropCoin()
     {
+        
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
         for (int i =0; i< base_coin; i++)
         {
             var coin = Lean.Pool.LeanPool.Spawn(coin_prefab, this.transform.position, Quaternion.identity);
-            coin.GetComponent<CoinController>().Init();
+            coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
             var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
             coin.GetComponent<Rigidbody2D>().AddForce(force_vector);
 
 
         }
+    }
+    int  CoinValueBasedOnLevelSpeed()
+    {
+        return Mathf.RoundToInt(base_coin_value * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.coin_increase_per_wave
+            * GameManager.Instance.GetCurrentLevelSpeed(GameManager.Instance.wave_index)));
     }
 }

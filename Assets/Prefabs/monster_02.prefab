@@ -172,4 +172,5 @@ MonoBehaviour:
   base_movespeed: 3
   base_score: 15
   base_coin: 3
+  base_coin_value: 8
   coin_prefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}

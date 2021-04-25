@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour
 {
+    
     public int coin_value;
     // Start is called before the first frame update
     void Start()
@@ -16,10 +17,11 @@ public class CoinController : MonoBehaviour
     {
         
     }
-    public void Init()
+    public void Init(int new_coin_value)
     {
         StopAllCoroutines();
         StartCoroutine(CheckCoinAlive());
+        coin_value = new_coin_value;
     }
     /// <summary>
     /// Check if coin is out of screen or collected by ship

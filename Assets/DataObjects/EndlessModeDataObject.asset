@@ -15,3 +15,5 @@ MonoBehaviour:
   speed_increase_per_wave: 0.25
   min_speed: 0
   max_speed: 1
+  speed_limit: 8
+  coin_increase_per_wave: 0.8

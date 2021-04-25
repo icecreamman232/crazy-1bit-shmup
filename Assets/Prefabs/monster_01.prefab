@@ -151,6 +151,7 @@ MonoBehaviour:
   base_movespeed: 3
   base_score: 10
   base_coin: 2
+  base_coin_value: 5
   coin_prefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
 --- !u!50 &5166777713280954633
 Rigidbody2D:
