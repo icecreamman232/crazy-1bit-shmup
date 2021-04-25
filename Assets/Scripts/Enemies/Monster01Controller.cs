@@ -14,10 +14,10 @@ public class Monster01Controller : BaseMonster
     {
         if(isRunning)
         {
-            Vector3 target = new Vector3(transform.position.x, GameHelper.BotLimitation, 0f);
+            Vector3 target = new Vector3(transform.position.x, -GameHelper.get_current_screenbound().y-2.0f, 0f);
             transform.position = Vector3.MoveTowards(transform.position,
             Vector3.Lerp(transform.position, target, t_lerp), current_movespeed * Time.deltaTime);
-            if(transform.position.y <= -GameHelper.get_current_screenbound().y-2.0f)
+            if(transform.position.y <= -GameHelper.get_current_screenbound().y-0.5f)
             {
                 isRunning = false;
                 this.StopCoroutine(CheckDie());

@@ -17,7 +17,7 @@ public class BaseBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y >= GameHelper.TopLimitation)
+        if(transform.position.y >= GameHelper.get_current_screenbound().y)
         {
             Reset();
         }
