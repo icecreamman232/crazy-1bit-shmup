@@ -15,7 +15,7 @@ public class Monster02Controller : BaseMonster
         {
             Vector3 target = new Vector3(transform.position.x, GameHelper.BotLimitation, 0f);
             transform.position = Vector3.MoveTowards(transform.position,
-            Vector3.Lerp(transform.position, target, t_lerp), base_movespeed * Time.deltaTime);
+            Vector3.Lerp(transform.position, target, t_lerp), current_movespeed * Time.deltaTime);
             if (transform.position.y <= -GameHelper.get_current_screenbound().y - 2.0f)
             {
                 isRunning = false;
@@ -28,7 +28,7 @@ public class Monster02Controller : BaseMonster
     {
         InitMonster();
         isRunning = true;
-        base_movespeed = base_movespeed + speed * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
+        current_movespeed = base_movespeed + speed * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
         StartCoroutine(CheckDie());
     }
 }

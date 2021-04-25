@@ -17,6 +17,7 @@ public class BaseMonster:  MonoBehaviour
     public  int current_hp;
 
     public float base_movespeed;
+    public float current_movespeed;
     public int base_score;
     public int base_coin;
     public int base_coin_value;
@@ -31,6 +32,7 @@ public class BaseMonster:  MonoBehaviour
         current_hp = base_hp;
         origin_position = transform.position;
         isRunning = false;
+        current_movespeed = base_movespeed;
         this.StopAllCoroutines();
     }
 
@@ -51,6 +53,7 @@ public class BaseMonster:  MonoBehaviour
         GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         GameManager.Instance.camera_shake_fx.Shake();
+        current_movespeed = base_movespeed;
         DropCoin();
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7e9d87d281214cba6faf94bc235a4, type: 3}
   m_Name: EndlessModeDataObject
   m_EditorClassIdentifier: 
-  speed_increase_per_wave: 0.25
+  speed_increase_per_wave: 0.5
   min_speed: 0
   max_speed: 1
   speed_limit: 8

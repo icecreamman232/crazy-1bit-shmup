@@ -147,8 +147,7 @@ public class GameManager : MonoBehaviour
     public void OnStandBy()
     {
         endgame_panel.SetActive(false);
-        star_back_layer.Play();
-        star_front_layer.Play();
+        
         
         SetState(GameManagerState.STANDBY);
     }
@@ -178,7 +177,14 @@ public class GameManager : MonoBehaviour
 
         space_ship.GetComponent<SpaceShipController>().StartShip();
 
+        var main_front = star_front_layer.main;
+        var main_back = star_back_layer.main;
+        current_spd = GetCurrentLevelSpeed(wave_index);
+        main_front.simulationSpeed = current_spd;
+        main_back.simulationSpeed = current_spd;
 
+        star_back_layer.Play();
+        star_front_layer.Play();
         StartCoroutine(count_time());
         BGM.Play();
 
