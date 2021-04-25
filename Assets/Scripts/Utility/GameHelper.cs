@@ -17,8 +17,7 @@ public static class GameHelper
     {
         return SizeOfCamera() * 0.5f;
     }
-    public static float BotLimitation = -10.0f;//-SizeOfCamera().y;
-    public static float TopLimitation = SizeOfCamera().y;
+
 
     public static void ReCalculateSizeOfCamera()
     {
