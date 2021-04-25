@@ -28,7 +28,6 @@ public class SpaceShipController : MonoBehaviour
 
     void Start()
     {
-        StartShip();
     }
 
     // Update is called once per frame
@@ -37,14 +36,16 @@ public class SpaceShipController : MonoBehaviour
 
     }
 
-
     /// <summary>
     /// Init all parameters and start ship
     /// </summary>
-    void StartShip()
+    public void StartShip()
     {
         counter = 0;
         current_hp = base_hp;
+        GetComponent<SpaceShipMovement>().OnEnableTouch();
+        this.gameObject.SetActive(true);
+        GetComponent<Animator>().Play("New State");
         StartCoroutine(Shoot());
         StartCoroutine(CheckDie());
     }

@@ -11,13 +11,21 @@ public class UIHeartController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        last_index = list_heart_ui.Count-1;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void Reset()
+    {
+        last_index = list_heart_ui.Count - 1;
+        foreach (var heart in list_heart_ui)
+        {
+            heart.GetComponent<Animator>().Play("New State");
+        }
     }
     public void UpdateHeartUI()
     {

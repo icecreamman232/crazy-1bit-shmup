@@ -85,6 +85,13 @@ public class GameManager : MonoBehaviour
     public Animator endgame_frame_ui;
     public UINumberCounter endgame_score_counter;
     public UINumberCounter endgame_coin_counter;
+
+    public Button retry_btn_ui;
+    public Button back_to_menu_btn_ui;
+
+    [Header("Heart UI")]
+    public GameObject heart_ui_panel;
+
     #endregion
 
 
@@ -92,7 +99,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetState(GameManagerState.STANDBY);
-        //InitGameManager();
     }
 
     // Update is called once per frame
@@ -109,14 +115,17 @@ public class GameManager : MonoBehaviour
                 {
                     endgame_panel.SetActive(true);
                     endgame_frame_ui.Play("EndGame_frame_anim");
+                    retry_btn_ui.gameObject.SetActive(false);
+                    back_to_menu_btn_ui.gameObject.SetActive(false);
                     star_back_layer.Stop();
                     star_front_layer.Stop();
                     for (int i = 0; i < 5; i++)
                     {
                         list_monster_lanes[i].GetComponent<MonsterLaneController>().StopAllCoroutines();
-                    }
-                    endgame_coin_counter.StartCounting(current_coin);
+                    }                  
                     endgame_score_counter.StartCounting(current_score);
+                    endgame_coin_counter.StartCounting(current_coin);
+                    endgame_coin_counter.callback_function += ShowEndGameButtons;
                     SetState(GameManagerState.LOSE);
                 }
                 break;
@@ -129,9 +138,22 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    void ShowEndGameButtons()
+    {
+        retry_btn_ui.gameObject.SetActive(true);
+        back_to_menu_btn_ui.gameObject.SetActive(true);
+    }
+    public void OnStandBy()
+    {
+        endgame_panel.SetActive(false);
+        star_back_layer.Play();
+        star_front_layer.Play();
+        
+        SetState(GameManagerState.STANDBY);
+    }
     void InitGameManager()
     {
-
         StopAllCoroutines();
         current_spd = 1;
         wave_index = 1;
@@ -145,6 +167,16 @@ public class GameManager : MonoBehaviour
         left_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
         right_barrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x/2+0.5f, 0, 0);
         right_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
+
+        heart_ui_panel.GetComponent<UIHeartController>().Reset();
+
+
+        for (int i = 0; i < 5; i++)
+        {
+            list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane();
+        }
+
+        space_ship.GetComponent<SpaceShipController>().StartShip();
 
 
         StartCoroutine(count_time());

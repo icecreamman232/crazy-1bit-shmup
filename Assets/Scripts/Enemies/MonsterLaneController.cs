@@ -17,11 +17,13 @@ public class MonsterLaneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    }
+    public void StartMonsterLane()
+    {
         wave_index = 0;
         StopAllCoroutines();
         StartCoroutine(OnSpawnNextMonster());
     }
-
     // Update is called once per frame
     void Update()
     {
