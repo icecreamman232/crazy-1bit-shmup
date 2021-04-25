@@ -83,7 +83,8 @@ public class GameManager : MonoBehaviour
     [Header("End Game Menu")]
     public GameObject endgame_panel;
     public Animator endgame_frame_ui;
-    public UIScoreNumberCounter endgame_score_counter;
+    public UINumberCounter endgame_score_counter;
+    public UINumberCounter endgame_coin_counter;
     #endregion
 
 
@@ -114,7 +115,8 @@ public class GameManager : MonoBehaviour
                     {
                         list_monster_lanes[i].GetComponent<MonsterLaneController>().StopAllCoroutines();
                     }
-                    endgame_score_counter.StartCounting(3000/*current_score*/);
+                    endgame_coin_counter.StartCounting(current_coin);
+                    endgame_score_counter.StartCounting(current_score);
                     SetState(GameManagerState.LOSE);
                 }
                 break;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UIScoreNumberCounter : MonoBehaviour
+public class UINumberCounter : MonoBehaviour
 {
     //Score need to count to
-    public int target_score;
-    public int current_score;
-    public TextMeshProUGUI score_text;
+    public int target_number;
+    public int current_number;
+    public TextMeshProUGUI text;
 
     //second
     public float duration;
@@ -28,20 +28,20 @@ public class UIScoreNumberCounter : MonoBehaviour
     }
     public void StartCounting(int target)
     {
-        current_score = 0;
-        target_score = target;
+        current_number = 0;
+        target_number = target;
         count_increase_factor = Mathf.RoundToInt(target/(duration*60));
-        score_text.text = current_score.ToString();
+        text.text = current_number.ToString();
         StartCoroutine(CountScore());
     }
     IEnumerator CountScore()
     {   
         while(true)
         {
-            current_score += count_increase_factor;
-            score_text.text = current_score.ToString();
+            current_number += count_increase_factor;
+            text.text = current_number.ToString();
             yield return new WaitForSeconds(0.005f);
-            yield return new WaitUntil(() => current_score < target_score);
+            yield return new WaitUntil(() => current_number < target_number);
         }
     }
 }
