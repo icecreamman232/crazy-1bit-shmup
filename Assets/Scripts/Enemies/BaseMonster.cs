@@ -10,10 +10,11 @@ public class BaseMonster:  MonoBehaviour
     public bool isRunning;
     public Vector3 origin_position;
     public float t_lerp = 0.1f;
+
+
+    bool isHit;
+    public GameObject hp_bar_ui;
     public  int base_hp;
-    /// <summary>
-    /// Máu hiện tại của quái
-    /// </summary>
     public  int current_hp;
 
     public float base_movespeed;
@@ -33,6 +34,9 @@ public class BaseMonster:  MonoBehaviour
         origin_position = transform.position;
         isRunning = false;
         current_movespeed = base_movespeed;
+        hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
+
+
         this.StopAllCoroutines();
     }
 
@@ -44,8 +48,14 @@ public class BaseMonster:  MonoBehaviour
     public void UpdateHP(int _damage)
     {
         current_hp -= _damage;
+
+        //Update HealthBar
+        var percent_hp = (float)current_hp / base_hp;
+        var last_scale = hp_bar_ui.transform.localScale;
+        last_scale.x = percent_hp;
+        hp_bar_ui.transform.localScale = last_scale;
     }
-    protected IEnumerator CheckDie()
+    public virtual  IEnumerator CheckDie()
     {
         
         yield return new WaitUntil(() => current_hp <= 0);
@@ -62,6 +72,8 @@ public class BaseMonster:  MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             UpdateHP(collision.gameObject.GetComponent<BaseBullet>().damage);
+            if (!gameObject.transform.GetChild(0).gameObject.activeSelf) gameObject.transform.GetChild(0).gameObject.SetActive(true);
+
             collision.gameObject.GetComponent<BaseBullet>().Reset();
         }
     }
