@@ -12502,6 +12502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 1
   ship_sprite: {fileID: 1824837311}
+  ship_animator: {fileID: 1598937696}
 --- !u!61 &1598937694
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12888,7 +12889,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2511721fd12d294ebf3394b0051902f, type: 3}
+  m_Sprite: {fileID: 9069317106639567337, guid: bf56336795eb112469baf8ebabc0938b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

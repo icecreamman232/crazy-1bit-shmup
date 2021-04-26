@@ -11,7 +11,8 @@ public class SpaceShipMovement : MonoBehaviour
     public SpriteRenderer ship_sprite;
     float ship_sprite_width;
     float ship_sprite_height;
-
+    float last_pos_x;
+    public Animator ship_animator;
 
     // Start is called before the first frame update
     void Start()
@@ -51,12 +52,14 @@ public class SpaceShipMovement : MonoBehaviour
     }
     public void OnTouchUp(LeanFinger fingers)
     {
-        isTouching = false;
+        isTouching = false; 
+        ship_animator.Play("New State");
     }
     void SetShipPosition()
     {
         var postion = transform.position;
         postion.y = -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f;
+        last_pos_x = postion.x;
         transform.position = postion;
     }
     void TranslateShip(Vector2 delta)
@@ -75,6 +78,23 @@ public class SpaceShipMovement : MonoBehaviour
             if (world_pts.x <= -screen_bound.x + ship_sprite_width*0.5f) world_pts.x = -screen_bound.x+ ship_sprite_width * 0.5f;
             if (world_pts.x >= screen_bound.x - ship_sprite_width *0.5f) world_pts.x = screen_bound.x - ship_sprite_width * 0.5f;
             world_pts.y = -screen_bound.y+ship_sprite_height*1.5f; //-4;
+
+            //Ship keep turning left
+            if(world_pts.x < last_pos_x)
+            {
+                ship_animator.Play("ship_turn_left_anim");
+            }
+            else if(world_pts.x > last_pos_x)
+            {
+                ship_animator.Play("ship_turn_right_anim");
+            }
+            else
+            {
+                ship_animator.Play("New State");
+            }
+            last_pos_x = world_pts.x;
+
+
             transform.position = world_pts;
         }
         else
