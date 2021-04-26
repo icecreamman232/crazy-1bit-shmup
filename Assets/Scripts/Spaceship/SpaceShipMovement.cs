@@ -77,14 +77,15 @@ public class SpaceShipMovement : MonoBehaviour
 
             if (world_pts.x <= -screen_bound.x + ship_sprite_width*0.5f) world_pts.x = -screen_bound.x+ ship_sprite_width * 0.5f;
             if (world_pts.x >= screen_bound.x - ship_sprite_width *0.5f) world_pts.x = screen_bound.x - ship_sprite_width * 0.5f;
-            world_pts.y = -screen_bound.y+ship_sprite_height*1.5f; //-4;
+            world_pts.y = -screen_bound.y+ship_sprite_height*1.5f; 
 
             //Ship keep turning left
             if(world_pts.x < last_pos_x)
             {
                 ship_animator.Play("ship_turn_left_anim");
             }
-            else if(world_pts.x > last_pos_x)
+            //Ship keep turning right
+            else if (world_pts.x > last_pos_x)
             {
                 ship_animator.Play("ship_turn_right_anim");
             }
