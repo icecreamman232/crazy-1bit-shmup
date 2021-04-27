@@ -24,7 +24,12 @@ public class SpaceShipController : MonoBehaviour
     public AudioSource sfx;
     public AudioClip coin_collect_sfx;
     #endregion
-    private int counter;
+
+
+    public SpriteRenderer ship_sprite;
+    float time_counter;
+    public float invincible_duration;
+
 
     void Start()
     {
@@ -41,9 +46,10 @@ public class SpaceShipController : MonoBehaviour
     /// </summary>
     public void StartShip()
     {
-        counter = 0;
+        time_counter = 0;
         current_hp = base_hp;
         GetComponent<SpaceShipMovement>().OnEnableTouch();
+        GetComponent<SpaceShipMovement>().SetShipPosition();
         this.gameObject.SetActive(true);
         GetComponent<Animator>().Play("New State");
         StartCoroutine(Shoot());
@@ -73,12 +79,12 @@ public class SpaceShipController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Ship is invincible state after hit the enemies
-        if (counter > 1) return;
+        if (time_counter > 0) return;
 
         if(collision.gameObject.tag =="Enemy")
         {
             GameManager.Instance.camera_shake_fx.Shake();
-            GetComponent<Animator>().Play("ship_get_hit_anim");
+            StartCoroutine(OnInvincible());
             UpdateHP(1);
             heart_panel.UpdateHeartUI();
         }
@@ -92,15 +98,25 @@ public class SpaceShipController : MonoBehaviour
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }
     }
-    public void IncreaseCounterAnimator()
+    IEnumerator OnInvincible()
     {
-        if (counter >= 5) 
-        { 
-            counter = 0;
-            GetComponent<Animator>().SetInteger("Counter", counter);
-            return;
+        while(true)
+        {
+            if (time_counter >= invincible_duration)
+            {
+                time_counter = 0;
+                yield break;
+            }
+            yield return new WaitForSeconds(.15f);
+            Color c = ship_sprite.color;
+            float save_alpha = c.a;
+            c.a = 0f;
+            ship_sprite.color = c;
+            yield return new WaitForSeconds(.15f);
+            c.a = save_alpha;
+            ship_sprite.color = c;
+            time_counter += Time.deltaTime + 0.3f;
         }
-        counter = counter + 1;
-        GetComponent<Animator>().SetInteger("Counter", counter);
+        
     }
 }

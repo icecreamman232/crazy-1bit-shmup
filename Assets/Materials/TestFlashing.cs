@@ -23,11 +23,11 @@ public class TestFlashing : MonoBehaviour
         counter = 0;
         while(true)
         {
-            if (counter >= duration)
-            {
-                Debug.Log("Counter=" + counter);
-                yield break; 
-            }
+            //if (counter >= duration)
+            //{
+            //    Debug.Log("Counter=" + counter);
+            //    yield break; 
+            //}
             yield return new WaitForSeconds(.25f);
             Color c = sr.color;
             float save_alpha = c.a;

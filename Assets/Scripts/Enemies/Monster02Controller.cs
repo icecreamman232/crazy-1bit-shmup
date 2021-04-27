@@ -18,8 +18,10 @@ public class Monster02Controller : BaseMonster
             Vector3.Lerp(transform.position, target, t_lerp), current_movespeed * Time.deltaTime);
             if (transform.position.y <= -GameHelper.get_current_screenbound().y - 0.5f)
             {
+
                 isRunning = false;
                 this.StopCoroutine(CheckDie());
+                
                 Lean.Pool.LeanPool.Despawn(this.gameObject);
             }
         }

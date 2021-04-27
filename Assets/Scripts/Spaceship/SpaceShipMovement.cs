@@ -11,7 +11,7 @@ public class SpaceShipMovement : MonoBehaviour
     public SpriteRenderer ship_sprite;
     float ship_sprite_width;
     float ship_sprite_height;
-    float last_pos_x;
+    public float last_pos_x;
     public Animator ship_animator;
 
     // Start is called before the first frame update
@@ -55,10 +55,9 @@ public class SpaceShipMovement : MonoBehaviour
         isTouching = false; 
         ship_animator.Play("New State");
     }
-    void SetShipPosition()
+    public void SetShipPosition()
     {
-        var postion = transform.position;
-        postion.y = -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f;
+        var postion = new Vector3(0, -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f, 0);
         last_pos_x = postion.x;
         transform.position = postion;
     }
@@ -82,7 +81,7 @@ public class SpaceShipMovement : MonoBehaviour
             //Ship keep turning left
             if(world_pts.x < last_pos_x)
             {
-                ship_animator.Play("ship_turn_left_anim");
+               ship_animator.Play("ship_turn_left_anim");
             }
             //Ship keep turning right
             else if (world_pts.x > last_pos_x)

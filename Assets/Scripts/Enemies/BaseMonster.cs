@@ -36,6 +36,9 @@ public class BaseMonster:  MonoBehaviour
         current_movespeed = base_movespeed;
         hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
 
+        var hp_gameobject = hp_bar_ui.transform.parent;
+        hp_gameobject.gameObject.SetActive(false);
+
 
         this.StopAllCoroutines();
     }

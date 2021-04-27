@@ -12488,6 +12488,8 @@ MonoBehaviour:
   heart_panel: {fileID: 307363186}
   sfx: {fileID: 463750029}
   coin_collect_sfx: {fileID: 8300000, guid: cdf40b5abded2774092788556cd1455e, type: 3}
+  ship_sprite: {fileID: 1824837311}
+  invincible_duration: 5
 --- !u!114 &1598937693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12868,7 +12870,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 190d3b17444809344b282e3c4b18f3aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
