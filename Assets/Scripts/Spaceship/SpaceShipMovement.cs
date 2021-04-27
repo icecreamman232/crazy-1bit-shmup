@@ -53,13 +53,15 @@ public class SpaceShipMovement : MonoBehaviour
     public void OnTouchUp(LeanFinger fingers)
     {
         isTouching = false; 
-        ship_animator.Play("New State");
+        ship_animator.Play("ship_idle");
     }
     public void SetShipPosition()
     {
         var postion = new Vector3(0, -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f, 0);
         last_pos_x = postion.x;
         transform.position = postion;
+
+        isTouching = false;
     }
     void TranslateShip(Vector2 delta)
     {
@@ -90,7 +92,7 @@ public class SpaceShipMovement : MonoBehaviour
             }
             else
             {
-                ship_animator.Play("New State");
+                ship_animator.Play("ship_idle");
             }
             last_pos_x = world_pts.x;
 
