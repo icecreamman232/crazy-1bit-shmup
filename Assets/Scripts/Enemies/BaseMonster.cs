@@ -14,8 +14,17 @@ public class BaseMonster:  MonoBehaviour
 
     bool isHit;
     public GameObject hp_bar_ui;
-    public  int base_hp;
-    public  int current_hp;
+
+    /// <summary>
+    /// Máu gốc của quái vật
+    /// </summary>
+    public int base_hp;
+    /// <summary>
+    /// Máu của quái vật khi được spawn ra tại wave cụ thể
+    /// </summary>
+    public int max_hp;
+    public int current_hp;
+    
 
     public float base_movespeed;
     public float current_movespeed;
@@ -30,7 +39,9 @@ public class BaseMonster:  MonoBehaviour
     }
     public virtual void InitMonster()
     {
-        current_hp = base_hp;
+        max_hp = base_hp + base_hp * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.hp_increase_per_wave
+            * GameManager.Instance.GetCurrentLevelSpeed(GameManager.Instance.wave_index));
+        current_hp = max_hp;
         origin_position = transform.position;
         isRunning = false;
         current_movespeed = base_movespeed;
@@ -53,7 +64,7 @@ public class BaseMonster:  MonoBehaviour
         current_hp -= _damage;
 
         //Update HealthBar
-        var percent_hp = (float)current_hp / base_hp;
+        var percent_hp = (float)current_hp / max_hp;
         var last_scale = hp_bar_ui.transform.localScale;
         last_scale.x = percent_hp;
         hp_bar_ui.transform.localScale = last_scale;

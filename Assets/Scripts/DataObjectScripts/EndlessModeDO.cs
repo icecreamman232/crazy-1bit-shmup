@@ -14,4 +14,7 @@ public class EndlessModeDO : ScriptableObject
     [Header("Coin Design")]
     public float coin_increase_per_wave;
 
+    [Header("HP Design")]
+    public float hp_increase_per_wave;
+
 }
