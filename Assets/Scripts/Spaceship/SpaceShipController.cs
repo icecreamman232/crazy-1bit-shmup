@@ -51,7 +51,7 @@ public class SpaceShipController : MonoBehaviour
         GetComponent<SpaceShipMovement>().OnEnableTouch();
         GetComponent<SpaceShipMovement>().SetShipPosition();
         this.gameObject.SetActive(true);
-        GetComponent<Animator>().Play("New State");
+        GetComponent<Animator>().Play("ship_idle");
         StartCoroutine(Shoot());
         StartCoroutine(CheckDie());
     }
@@ -81,7 +81,7 @@ public class SpaceShipController : MonoBehaviour
         //Ship is invincible state after hit the enemies
         if (time_counter > 0) return;
 
-        if(collision.gameObject.tag =="Enemy")
+        if(collision.gameObject.CompareTag("Enemy"))
         {
             GameManager.Instance.camera_shake_fx.Shake();
             StartCoroutine(OnInvincible());
@@ -91,7 +91,7 @@ public class SpaceShipController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Coin")
+        if (collision.gameObject.CompareTag("Coin"))
         {
             GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<CoinController>().coin_value);
             sfx.PlayOneShot(coin_collect_sfx);

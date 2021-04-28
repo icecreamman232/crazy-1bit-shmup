@@ -6,15 +6,7 @@ using UnityEngine;
 
 public class BaseMonster:  MonoBehaviour
 {
-
-    public bool isRunning;
-    public Vector3 origin_position;
-    public float t_lerp = 0.1f;
-
-
-    bool isHit;
-    public GameObject hp_bar_ui;
-
+    [Header("Monster Information")]
     /// <summary>
     /// Máu gốc của quái vật
     /// </summary>
@@ -24,13 +16,19 @@ public class BaseMonster:  MonoBehaviour
     /// </summary>
     public int max_hp;
     public int current_hp;
-    
-
     public float base_movespeed;
     public float current_movespeed;
-    public int base_score;
     public int base_coin;
     public int base_coin_value;
+    public int base_score;
+
+    public bool isRunning;
+    public Vector3 origin_position;
+    protected float t_lerp = 0.1f;
+
+
+    [Header("Reference Holders")]
+    public GameObject hp_bar_ui;
     public GameObject coin_prefab;
 
     private void Start()
@@ -42,11 +40,14 @@ public class BaseMonster:  MonoBehaviour
         max_hp = base_hp + base_hp * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.hp_increase_per_wave
             * GameManager.Instance.GetCurrentLevelSpeed(GameManager.Instance.wave_index));
         current_hp = max_hp;
+        current_movespeed = base_movespeed + GameManager.Instance.GetCurrentLevelSpeed(GameManager.Instance.wave_index) 
+            * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
+
         origin_position = transform.position;
         isRunning = false;
-        current_movespeed = base_movespeed;
-        hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
+        
 
+        hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
         var hp_gameobject = hp_bar_ui.transform.parent;
         hp_gameobject.gameObject.SetActive(false);
 
@@ -70,8 +71,7 @@ public class BaseMonster:  MonoBehaviour
         hp_bar_ui.transform.localScale = last_scale;
     }
     public virtual  IEnumerator CheckDie()
-    {
-        
+    {       
         yield return new WaitUntil(() => current_hp <= 0);
         GameManager.Instance.UpdateScore(base_score);
         GameManager.Instance.CreateDieFx(transform.position);
@@ -83,7 +83,7 @@ public class BaseMonster:  MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             UpdateHP(collision.gameObject.GetComponent<BaseBullet>().damage);
             if (!gameObject.transform.GetChild(0).gameObject.activeSelf) gameObject.transform.GetChild(0).gameObject.SetActive(true);
@@ -93,8 +93,7 @@ public class BaseMonster:  MonoBehaviour
     }
 
     void DropCoin()
-    {
-        
+    { 
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
         for (int i =0; i< base_coin; i++)
         {
@@ -102,8 +101,6 @@ public class BaseMonster:  MonoBehaviour
             coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
             var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
             coin.GetComponent<Rigidbody2D>().AddForce(force_vector);
-
-
         }
     }
     int  CoinValueBasedOnLevelSpeed()
