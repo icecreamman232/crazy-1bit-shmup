@@ -55,7 +55,7 @@ public class BaseMonster:  MonoBehaviour
         this.StopAllCoroutines();
     }
 
-    public virtual void Run(float speed) 
+    public virtual void Run() 
     { 
         
     }

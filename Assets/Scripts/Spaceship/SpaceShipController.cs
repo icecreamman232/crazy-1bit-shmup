@@ -100,6 +100,7 @@ public class SpaceShipController : MonoBehaviour
     }
     IEnumerator OnInvincible()
     {
+        WaitForSeconds delay = new WaitForSeconds(.15f);
         while(true)
         {
             if (time_counter >= invincible_duration)
@@ -107,12 +108,12 @@ public class SpaceShipController : MonoBehaviour
                 time_counter = 0;
                 yield break;
             }
-            yield return new WaitForSeconds(.15f);
+            yield return delay;
             Color c = ship_sprite.color;
             float save_alpha = c.a;
             c.a = 0f;
             ship_sprite.color = c;
-            yield return new WaitForSeconds(.15f);
+            yield return delay;
             c.a = save_alpha;
             ship_sprite.color = c;
             time_counter += Time.deltaTime + 0.3f;

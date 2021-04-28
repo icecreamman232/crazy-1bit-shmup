@@ -48,7 +48,8 @@ public class MonsterLaneController : MonoBehaviour
         //Can switch to other monster here?
         var rand = Random.Range(0, 2);
         var monster = Lean.Pool.LeanPool.Spawn(list_monsters[rand], this.transform);
-        monster.GetComponent<BaseMonster>().Run(GameManager.Instance.GetCurrentLevelSpeed(GameManager.Instance.wave_index));
+        //monster.GetComponent<BaseMonster>().Run(GameManager.Instance.GetCurrentLevelSpeed(GameManager.Instance.wave_index));
+        monster.GetComponent<BaseMonster>().Run();
         wave_index += 1;
     }
 }

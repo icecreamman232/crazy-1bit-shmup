@@ -26,7 +26,7 @@ public class Monster02Controller : BaseMonster
             }
         }
     }
-    public override void Run(float speed)
+    public override void Run()
     {
         InitMonster();
         isRunning = true;
