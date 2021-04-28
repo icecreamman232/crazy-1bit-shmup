@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
 
         var main_front = star_front_layer.main;
         var main_back = star_back_layer.main;
-        current_spd = GetCurrentLevelSpeed(wave_index);
+        current_spd = GetCurrentLevelSpeed();
         main_front.simulationSpeed = current_spd;
         main_back.simulationSpeed = current_spd;
 
@@ -202,24 +202,25 @@ public class GameManager : MonoBehaviour
         current_coin += value;
         coin_text.text = current_coin.ToString();
     }
-    public float GetCurrentLevelSpeed(int index)
+    public float GetCurrentLevelSpeed()
     {
         var min = endless_mode_data.min_speed;
         var max = endless_mode_data.max_speed;
         
-        var result = Mathf.Clamp(min + (max - min) * (Mathf.Exp(speed_factor * index)),0,endless_mode_data.speed_limit);
+        var result = Mathf.Clamp(min + (max - min) * (Mathf.Exp(speed_factor * wave_index)),0,endless_mode_data.speed_limit);
         
         return result;
     }
     IEnumerator count_time()
     {
+        WaitForSeconds delay = new WaitForSeconds(2.0f);
         while(true)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return delay;
             wave_index += 1;
             var main_front = star_front_layer.main;
             var main_back = star_back_layer.main;
-            current_spd = GetCurrentLevelSpeed(wave_index);
+            current_spd = GetCurrentLevelSpeed();
             main_front.simulationSpeed = current_spd;
             main_back.simulationSpeed = current_spd;
         }
