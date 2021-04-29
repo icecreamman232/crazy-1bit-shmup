@@ -7,6 +7,11 @@ public class MonsterLaneController : MonoBehaviour
     public float min_spawn_delay;
     public float max_spawn_delay;
 
+    float min_limit;
+    float max_limit;
+
+
+
     float spawn_delay;
 
 
@@ -18,9 +23,11 @@ public class MonsterLaneController : MonoBehaviour
     void Start()
     {
     }
-    public void StartMonsterLane()
+    public void StartMonsterLane(float MinLimit, float MaxLimit)
     {
         wave_index = 0;
+        min_limit = MinLimit;
+        max_limit = MaxLimit;
         StopAllCoroutines();
         StartCoroutine(OnSpawnNextMonster());
     }
@@ -28,6 +35,14 @@ public class MonsterLaneController : MonoBehaviour
     void Update()
     {
         
+    }
+    public void UpdateSpawnRate(float min_decrease_rate, float max_decrease_rate )
+    {
+        min_spawn_delay -= min_decrease_rate;
+        if(min_spawn_delay < min_limit) { min_spawn_delay = min_limit; }
+
+        max_spawn_delay -= max_decrease_rate;
+        if (max_spawn_delay < max_limit) { max_spawn_delay = max_limit; }
     }
     void  GetRandomDelay()
     {
@@ -48,7 +63,6 @@ public class MonsterLaneController : MonoBehaviour
         //Can switch to other monster here?
         var rand = Random.Range(0, 2);
         var monster = Lean.Pool.LeanPool.Spawn(list_monsters[rand], this.transform);
-        //monster.GetComponent<BaseMonster>().Run(GameManager.Instance.GetCurrentLevelSpeed(GameManager.Instance.wave_index));
         monster.GetComponent<BaseMonster>().Run();
         wave_index += 1;
     }

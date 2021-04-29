@@ -111,6 +111,11 @@ public class GameManager : MonoBehaviour
                 SetState(GameManagerState.PLAYING);
                 break;
             case GameManagerState.PLAYING:
+                
+
+
+
+
                 if (space_ship.GetComponent<SpaceShipController>().current_hp <= 0 || Input.GetKeyDown(KeyCode.Z))
                 {
                     endgame_panel.SetActive(true);
@@ -128,6 +133,8 @@ public class GameManager : MonoBehaviour
                     endgame_coin_counter.callback_function += ShowEndGameButtons;
                     SetState(GameManagerState.LOSE);
                 }
+                
+
                 break;
             case GameManagerState.LOSE:
                 
@@ -172,7 +179,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane();
+            list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane(endless_mode_data.min_delay_limit,endless_mode_data.max_delay_limit);
         }
 
         space_ship.GetComponent<SpaceShipController>().StartShip();
@@ -218,6 +225,10 @@ public class GameManager : MonoBehaviour
         {
             yield return delay;
             wave_index += 1;
+            for (int i = 0; i < 5; i++)
+            {
+                list_monster_lanes[i].GetComponent<MonsterLaneController>().UpdateSpawnRate(endless_mode_data.min_decrease_rate, endless_mode_data.max_decrease_rate);
+            }
             var main_front = star_front_layer.main;
             var main_back = star_back_layer.main;
             current_spd = GetCurrentLevelSpeed();
