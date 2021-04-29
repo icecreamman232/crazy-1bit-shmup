@@ -18,8 +18,8 @@ MonoBehaviour:
   speed_limit: 8
   min_delay_limit: 1
   max_delay_limit: 3
-  min_decrease_rate: 0.05
-  max_decrease_rate: 0.1
+  min_decrease_rate: 0.025
+  max_decrease_rate: 0.08
   wave_milestone: 
   coin_increase_per_wave: 0.8
   hp_increase_per_wave: 0.1

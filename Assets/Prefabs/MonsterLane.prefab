@@ -45,6 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   min_spawn_delay: 2
   max_spawn_delay: 8
+  wave_index: 0
   list_monsters:
   - {fileID: 5166777713280954636, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
   - {fileID: 4871298725674283292, guid: c92e9697787d1a240a1bb7d5c25a1da3, type: 3}
+  - {fileID: 2818297302741676963, guid: 2969e76dfa6dcee49bbd394e5afafed6, type: 3}

@@ -60,8 +60,17 @@ public class MonsterLaneController : MonoBehaviour
     }
     void SpawnMonster()
     {
+        int rand = 0;
+        if(GameManager.Instance.wave_index <= 5)
+        {
+            rand = Random.Range(0, list_monsters.Count-1);
+        }
+        else if(GameManager.Instance.wave_index > 5)
+        {
+            rand = Random.Range(0, list_monsters.Count);
+        }
         //Can switch to other monster here?
-        var rand = Random.Range(0, 2);
+        
         var monster = Lean.Pool.LeanPool.Spawn(list_monsters[rand], this.transform);
         monster.GetComponent<BaseMonster>().Run();
         wave_index += 1;
