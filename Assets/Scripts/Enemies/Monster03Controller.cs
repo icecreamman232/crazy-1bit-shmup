@@ -41,11 +41,15 @@ public class Monster03Controller : BaseMonster
     public override void Run()
     {
         InitMonster();
-        sign_animator.Play("alert_sign_anim");
+        sign_animator.Play("alert_sign_intro");
         StartCoroutine(WaitForEndAlert());
     }
     IEnumerator WaitForEndAlert()
     {
+        if(alert_duration==null)
+        {
+            alert_duration = new WaitForSeconds(2.0f);
+        }
         yield return alert_duration;
         sign_animator.Play("New State");
         alert_sign.SetActive(false);
