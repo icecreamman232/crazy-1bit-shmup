@@ -18,7 +18,7 @@ public class MonsterLaneController : MonoBehaviour
     public int wave_index;
     public List<GameObject> list_monsters;
 
-
+    public GameObject alert_sign;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +55,6 @@ public class MonsterLaneController : MonoBehaviour
             GetRandomDelay();
             yield return new WaitForSeconds(spawn_delay);
             SpawnMonster();
-            
         }
     }
     void SpawnMonster()
@@ -72,6 +71,12 @@ public class MonsterLaneController : MonoBehaviour
         //Can switch to other monster here?
         
         var monster = Lean.Pool.LeanPool.Spawn(list_monsters[rand], this.transform);
+        if(rand == 2)
+        {
+            alert_sign.SetActive(true);
+            monster.GetComponent<Monster03Controller>().alert_sign = alert_sign;
+            monster.GetComponent<Monster03Controller>().sign_animator = GetComponent<Animator>();
+        }
         monster.GetComponent<BaseMonster>().Run();
         wave_index += 1;
     }

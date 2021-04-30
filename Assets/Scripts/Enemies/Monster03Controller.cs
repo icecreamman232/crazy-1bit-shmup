@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Monster03Controller : BaseMonster
 {
-    
+    public GameObject alert_sign;
+    public Animator sign_animator;
+    WaitForSeconds alert_duration;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        alert_duration = new WaitForSeconds(2.0f);
     }
 
     // Update is called once per frame
@@ -33,13 +37,20 @@ public class Monster03Controller : BaseMonster
     {
         base.InitMonster();
     }
+
     public override void Run()
     {
         InitMonster();
+        sign_animator.Play("alert_sign_anim");
+        StartCoroutine(WaitForEndAlert());
+    }
+    IEnumerator WaitForEndAlert()
+    {
+        yield return alert_duration;
+        sign_animator.Play("New State");
+        alert_sign.SetActive(false);
         isRunning = true;
-        //GetComponent<Rigidbody2D>().velocity = new Vector2(0,current_movespeed);
         StartCoroutine(CheckDie());
-        base.Run();
     }
     public override IEnumerator CheckDie()
     {
