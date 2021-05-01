@@ -13,6 +13,8 @@ public class SpaceShipController : MonoBehaviour
 
     public Lean.Pool.LeanGameObjectPool bullet_pool;
     public Transform fire_point;
+    public ParticleSystem fire_jet_particle;
+    public ParticleSystem ship_explosion_fx;
 
     #region UI
     public UIHeartController heart_panel;
@@ -27,8 +29,11 @@ public class SpaceShipController : MonoBehaviour
 
 
     public SpriteRenderer ship_sprite;
-    float time_counter;
+    public float time_counter;
     public float invincible_duration;
+
+    public bool isDied;
+    
 
 
     void Start()
@@ -48,9 +53,17 @@ public class SpaceShipController : MonoBehaviour
     {
         time_counter = 0;
         current_hp = base_hp;
+        isDied = false;
+        ship_sprite.enabled = true;
+
+        //Reset alpha for some case that ship get died so fast cause alpha controlled by shader disrupted
+        Color c = ship_sprite.color;
+        c.a = 1.0f;
+        ship_sprite.color = c;
+
+        fire_jet_particle.Play();
         GetComponent<SpaceShipMovement>().OnEnableTouch();
         GetComponent<SpaceShipMovement>().SetShipPosition();
-        this.gameObject.SetActive(true);
         GetComponent<Animator>().Play("ship_idle");
         StartCoroutine(Shoot());
         StartCoroutine(CheckDie());
@@ -61,19 +74,26 @@ public class SpaceShipController : MonoBehaviour
     }
     IEnumerator Shoot()
     {
-        while(true)
+        WaitForSeconds fire_rate_delay = new WaitForSeconds(firerate);
+        while(current_hp > 0)
         {
+            
             var bullet = bullet_pool.Spawn(fire_point.position, Quaternion.identity);
             bullet.GetComponent<BaseBullet>().damage = damage;
             bullet.GetComponent<BaseBullet>().Shoot();
-            yield return new WaitForSeconds(firerate);
+            yield return fire_rate_delay;
         }
     }
     IEnumerator CheckDie()
     {
         yield return new WaitUntil(() => current_hp <= 0);
         GetComponent<SpaceShipMovement>().OnDisableTouch();
-        this.gameObject.SetActive(false);
+        //GameManager.Instance.CreateDieFx(transform.position);
+        ship_explosion_fx.Play();
+        ship_sprite.enabled = false;
+        fire_jet_particle.Stop();
+        yield return new WaitForSeconds(1.5f);
+        isDied = true;
         StopAllCoroutines();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -101,7 +121,7 @@ public class SpaceShipController : MonoBehaviour
     IEnumerator OnInvincible()
     {
         WaitForSeconds delay = new WaitForSeconds(.15f);
-        while(true)
+        while(current_hp > 0)
         {
             if (time_counter >= invincible_duration)
             {

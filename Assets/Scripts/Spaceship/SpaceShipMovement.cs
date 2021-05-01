@@ -21,7 +21,6 @@ public class SpaceShipMovement : MonoBehaviour
         ship_sprite_height = ship_sprite.bounds.size.y;
         isTouching = false;
         SetShipPosition();
-        OnEnableTouch();
     }
 
     // Update is called once per frame
@@ -45,6 +44,7 @@ public class SpaceShipMovement : MonoBehaviour
     {
         LeanTouch.OnFingerDown -= OnTouchDown;
         LeanTouch.OnFingerUp -= OnTouchUp;
+        isTouching = false;
     }
     public void OnTouchDown(LeanFinger fingers)
     {

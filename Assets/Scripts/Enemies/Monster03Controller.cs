@@ -67,13 +67,17 @@ public class Monster03Controller : BaseMonster
     }
     public override void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            UpdateHP(1);
-        }
-        else if(collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             collision.gameObject.GetComponent<BaseBullet>().Reset();
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.gameObject.GetComponent<SpaceShipController>().time_counter > 0)
+            {
+                return;
+            }
+            UpdateHP(1);
         }
     }
 }

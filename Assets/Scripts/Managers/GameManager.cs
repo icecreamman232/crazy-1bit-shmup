@@ -111,12 +111,7 @@ public class GameManager : MonoBehaviour
                 SetState(GameManagerState.PLAYING);
                 break;
             case GameManagerState.PLAYING:
-                
-
-
-
-
-                if (space_ship.GetComponent<SpaceShipController>().current_hp <= 0 || Input.GetKeyDown(KeyCode.Z))
+                if (space_ship.GetComponent<SpaceShipController>().isDied || Input.GetKeyDown(KeyCode.Z))
                 {
                     endgame_panel.SetActive(true);
                     endgame_frame_ui.Play("EndGame_frame_anim");
@@ -182,7 +177,7 @@ public class GameManager : MonoBehaviour
             list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane(endless_mode_data.min_delay_limit,endless_mode_data.max_delay_limit);
         }
 
-        space_ship.GetComponent<SpaceShipController>().StartShip();
+        
 
         var main_front = star_front_layer.main;
         var main_back = star_back_layer.main;
@@ -194,7 +189,7 @@ public class GameManager : MonoBehaviour
         star_front_layer.Play();
         StartCoroutine(count_time());
         BGM.Play();
-
+        space_ship.GetComponent<SpaceShipController>().StartShip();
         current_game_state = GameManagerState.STANDBY;
 
     }

@@ -76,7 +76,6 @@ public class MonsterLaneController : MonoBehaviour
             alert_sign.SetActive(true);
             monster.GetComponent<Monster03Controller>().alert_sign = alert_sign;
             monster.GetComponent<Monster03Controller>().sign_animator = GetComponent<Animator>();
-            Debug.Log("alert");
         }
         monster.GetComponent<BaseMonster>().Run();
         wave_index += 1;
