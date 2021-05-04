@@ -7,12 +7,16 @@ using Lean.Touch;
 public class SpaceShipMovement : MonoBehaviour
 {
     public float sensitivity;
-    bool isTouching;
+    public bool isTouching;
     public SpriteRenderer ship_sprite;
     float ship_sprite_width;
     float ship_sprite_height;
     public float last_pos_x;
     public Animator ship_animator;
+    public Animator hold_to_play_animator;
+
+    public bool firstTouch;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +24,8 @@ public class SpaceShipMovement : MonoBehaviour
         ship_sprite_width = ship_sprite.bounds.size.x;
         ship_sprite_height = ship_sprite.bounds.size.y;
         isTouching = false;
-        SetShipPosition();
+        firstTouch = false;
+        //SetShipPosition();
     }
 
     // Update is called once per frame
@@ -45,9 +50,15 @@ public class SpaceShipMovement : MonoBehaviour
         LeanTouch.OnFingerDown -= OnTouchDown;
         LeanTouch.OnFingerUp -= OnTouchUp;
         isTouching = false;
+        firstTouch = false;
     }
     public void OnTouchDown(LeanFinger fingers)
     {
+        if(!firstTouch)
+        {
+            firstTouch = true;
+            hold_to_play_animator.Play("holdtoplay_outtro_anim");
+        }
         isTouching = true;
     }
     public void OnTouchUp(LeanFinger fingers)
@@ -58,10 +69,21 @@ public class SpaceShipMovement : MonoBehaviour
     public void SetShipPosition()
     {
         var postion = new Vector3(0, -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f, 0);
+        var target = postion;
         last_pos_x = postion.x;
+        postion.y = postion.y - 3.0f;
         transform.position = postion;
-
         isTouching = false;
+
+        LeanTween.moveY(gameObject, target.y, 1.2f).setEase(LeanTweenType.easeOutBack)
+            .setOnComplete(OnCompleteSetupShipPosition);
+
+    }
+    void OnCompleteSetupShipPosition()
+    {
+        OnEnableTouch();
+        hold_to_play_animator.gameObject.SetActive(true);
+        hold_to_play_animator.Play("holdtoplay_intro_anim");
     }
     void TranslateShip(Vector2 delta)
     {

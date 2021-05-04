@@ -108,10 +108,14 @@ public class GameManager : MonoBehaviour
         {
             case GameManagerState.STANDBY:
                 InitGameManager();
-                SetState(GameManagerState.PLAYING);
+                SetState(GameManagerState.IDLE);
                 break;
             case GameManagerState.PLAYING:
-                if (space_ship.GetComponent<SpaceShipController>().isDied || Input.GetKeyDown(KeyCode.Z))
+                if(Input.GetKeyDown(KeyCode.Z))
+                {
+                    space_ship.GetComponent<SpaceShipController>().current_hp = 0;
+                }
+                if (space_ship.GetComponent<SpaceShipController>().isDied)
                 {
                     endgame_panel.SetActive(true);
                     endgame_frame_ui.Play("EndGame_frame_anim");
@@ -137,6 +141,11 @@ public class GameManager : MonoBehaviour
             case GameManagerState.RESET:
                 break;
             case GameManagerState.IDLE:
+                if(space_ship.GetComponent<SpaceShipMovement>().firstTouch)
+                {
+                    StartGame();
+                    SetState(GameManagerState.PLAYING);
+                }
                 break;
         }
     }
@@ -171,14 +180,6 @@ public class GameManager : MonoBehaviour
 
         heart_ui_panel.GetComponent<UIHeartController>().Reset();
 
-
-        for (int i = 0; i < 5; i++)
-        {
-            list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane(endless_mode_data.min_delay_limit,endless_mode_data.max_delay_limit);
-        }
-
-        
-
         var main_front = star_front_layer.main;
         var main_back = star_back_layer.main;
         current_spd = GetCurrentLevelSpeed();
@@ -187,11 +188,20 @@ public class GameManager : MonoBehaviour
 
         star_back_layer.Play();
         star_front_layer.Play();
-        StartCoroutine(count_time());
+        
         BGM.Play();
         space_ship.GetComponent<SpaceShipController>().StartShip();
         current_game_state = GameManagerState.STANDBY;
 
+    }
+    void StartGame()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane(endless_mode_data.min_delay_limit, endless_mode_data.max_delay_limit);
+        }
+        StartCoroutine(count_time());
+        space_ship.GetComponent<SpaceShipController>().BeginShoot();
     }
     public void UpdateScore(int score)
     {

@@ -62,22 +62,29 @@ public class SpaceShipController : MonoBehaviour
         ship_sprite.color = c;
 
         fire_jet_particle.Play();
-        GetComponent<SpaceShipMovement>().OnEnableTouch();
+        //GetComponent<SpaceShipMovement>().OnEnableTouch();
         GetComponent<SpaceShipMovement>().SetShipPosition();
         GetComponent<Animator>().Play("ship_idle");
-        StartCoroutine(Shoot());
+       
         StartCoroutine(CheckDie());
     }
     void UpdateHP(int damage)
     {
         current_hp -= damage;
     }
+    public void BeginShoot()
+    {
+        StartCoroutine(Shoot());
+    }
     IEnumerator Shoot()
     {
         WaitForSeconds fire_rate_delay = new WaitForSeconds(firerate);
         while(current_hp > 0)
         {
-            
+            if(current_hp <=0)
+            {
+                yield break;
+            }
             var bullet = bullet_pool.Spawn(fire_point.position, Quaternion.identity);
             bullet.GetComponent<BaseBullet>().damage = damage;
             bullet.GetComponent<BaseBullet>().Shoot();
@@ -88,7 +95,6 @@ public class SpaceShipController : MonoBehaviour
     {
         yield return new WaitUntil(() => current_hp <= 0);
         GetComponent<SpaceShipMovement>().OnDisableTouch();
-        //GameManager.Instance.CreateDieFx(transform.position);
         ship_explosion_fx.Play();
         ship_sprite.enabled = false;
         fire_jet_particle.Stop();

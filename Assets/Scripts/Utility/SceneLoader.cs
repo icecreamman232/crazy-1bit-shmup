@@ -17,8 +17,8 @@ public class SceneLoader : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(this);
-        DontDestroyOnLoad(loading_bg.gameObject.transform.parent);
+        //DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(loading_bg.gameObject.transform.parent);
     }
     void Start()
     {
