@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     #region Score Management
     [Header("Score Management")]
+    public UIScoreController ui_score_controller;
     public TextMeshProUGUI score_number_text;
     public int current_score;
 
@@ -160,7 +161,8 @@ public class GameManager : MonoBehaviour
         current_coin = 0;
         //coin_text.text = current_coin.ToString();
         current_score = 0;
-        score_number_text.text = current_score.ToString();
+        ui_score_controller.Setup(current_score);
+        //score_number_text.text = current_score.ToString();
         camera_shake_fx.Setup();
 
         left_barrel.transform.position = new Vector3(-GameHelper.SizeOfCamera().x/2-0.5f, 0, 0);
@@ -195,9 +197,10 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateScore(int score)
     {
+        ui_score_controller.UpdateUIScore(current_score,current_score+score);
         current_score += score;
-        score_number_text.GetComponent<Animator>().Play("score_increase_anim");
-        score_number_text.text = current_score.ToString();
+        
+        //score_number_text.text = current_score.ToString();
     }
     public void UpdateCoin(int value)
     {

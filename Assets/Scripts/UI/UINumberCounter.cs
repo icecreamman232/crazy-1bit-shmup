@@ -29,9 +29,9 @@ public class UINumberCounter : MonoBehaviour
     {
 
     }
-    public void StartCounting(int target)
+    public void StartCounting(int current,int target)
     {
-        current_number = 0;
+        current_number = current;
         target_number = target;
         count_increase_factor = Mathf.RoundToInt(target/(duration*60));
         if(count_increase_factor <=0)
