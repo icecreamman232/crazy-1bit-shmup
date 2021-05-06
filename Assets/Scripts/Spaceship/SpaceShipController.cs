@@ -17,7 +17,7 @@ public class SpaceShipController : MonoBehaviour
     public ParticleSystem ship_explosion_fx;
 
     #region UI
-    public UIHeartController heart_panel;
+    public UIHealthBarController ui_ship_health_bar;
     #endregion
 
 
@@ -112,7 +112,8 @@ public class SpaceShipController : MonoBehaviour
             GameManager.Instance.camera_shake_fx.Shake();
             StartCoroutine(OnInvincible());
             UpdateHP(1);
-            heart_panel.UpdateHeartUI();
+            ui_ship_health_bar.UpdateHealthBarUI();
+            //heart_panel.UpdateHeartUI();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)

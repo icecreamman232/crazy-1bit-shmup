@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     #region Coin Management
     [Header("Coin Management")]
     public int current_coin;
-    public TextMeshProUGUI coin_text;
+    //public TextMeshProUGUI coin_text;
     #endregion
 
     #region Level
@@ -81,17 +81,19 @@ public class GameManager : MonoBehaviour
 
     #region UI
     [Header("End Game Menu")]
-    public GameObject endgame_panel;
-    public Animator endgame_frame_ui;
-    public UINumberCounter endgame_score_counter;
-    public UINumberCounter endgame_coin_counter;
+    public UIEndGameCanvasController ui_endgame_controller;
 
-    public Button retry_btn_ui;
-    public Button back_to_menu_btn_ui;
 
-    [Header("Heart UI")]
-    public GameObject heart_ui_panel;
+    //public GameObject endgame_panel;
+    //public Animator endgame_frame_ui;
+    //public UINumberCounter endgame_score_counter;
+    //public UINumberCounter endgame_coin_counter;
 
+    //public Button retry_btn_ui;
+    //public Button back_to_menu_btn_ui;
+
+    [Header("Health Bar UI")]
+    public UIHealthBarController ui_ship_health_bar;
     #endregion
 
 
@@ -117,22 +119,16 @@ public class GameManager : MonoBehaviour
                 }
                 if (space_ship.GetComponent<SpaceShipController>().isDied)
                 {
-                    endgame_panel.SetActive(true);
-                    endgame_frame_ui.Play("EndGame_frame_anim");
-                    retry_btn_ui.gameObject.SetActive(false);
-                    back_to_menu_btn_ui.gameObject.SetActive(false);
+                    ui_endgame_controller.gameObject.SetActive(true);
+                    ui_endgame_controller.PlayIntro(current_score.ToString());
                     star_back_layer.Stop();
                     star_front_layer.Stop();
                     for (int i = 0; i < 5; i++)
                     {
                         list_monster_lanes[i].GetComponent<MonsterLaneController>().StopAllCoroutines();
                     }                  
-                    endgame_score_counter.StartCounting(current_score);
-                    endgame_coin_counter.StartCounting(current_coin);
-                    endgame_coin_counter.callback_function += ShowEndGameButtons;
                     SetState(GameManagerState.LOSE);
                 }
-                
 
                 break;
             case GameManagerState.LOSE:
@@ -150,16 +146,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ShowEndGameButtons()
-    {
-        retry_btn_ui.gameObject.SetActive(true);
-        back_to_menu_btn_ui.gameObject.SetActive(true);
-    }
+
     public void OnStandBy()
     {
-        endgame_panel.SetActive(false);
-        
-        
+        ui_endgame_controller.PlayOuttro();
         SetState(GameManagerState.STANDBY);
     }
     void InitGameManager()
@@ -168,7 +158,7 @@ public class GameManager : MonoBehaviour
         current_spd = 1;
         wave_index = 1;
         current_coin = 0;
-        coin_text.text = current_coin.ToString();
+        //coin_text.text = current_coin.ToString();
         current_score = 0;
         score_number_text.text = current_score.ToString();
         camera_shake_fx.Setup();
@@ -178,7 +168,7 @@ public class GameManager : MonoBehaviour
         right_barrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x/2+0.5f, 0, 0);
         right_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
 
-        heart_ui_panel.GetComponent<UIHeartController>().Reset();
+        ui_ship_health_bar.HealthBarSetup();
 
         var main_front = star_front_layer.main;
         var main_back = star_back_layer.main;
@@ -212,7 +202,7 @@ public class GameManager : MonoBehaviour
     public void UpdateCoin(int value)
     {
         current_coin += value;
-        coin_text.text = current_coin.ToString();
+        //coin_text.text = current_coin.ToString();
     }
     public float GetCurrentLevelSpeed()
     {
