@@ -30,7 +30,6 @@ public class Monster02Controller : BaseMonster
     {
         InitMonster();
         isRunning = true;
-        //current_movespeed = base_movespeed + speed * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
         StartCoroutine(CheckDie());
     }
     

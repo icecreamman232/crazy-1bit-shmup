@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Game State
-    [Header("GameState")]
     public GameManagerState current_game_state;
     public void SetState(GameManagerState new_state)
     {
@@ -33,29 +32,21 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Ship
-    [Header("Ship")]
-    public GameObject space_ship;
-    #endregion
-
     #region Score Management
-    [Header("Score Management")]
     public TextMeshProUGUI score_number_text;
     public int current_score;
 
     #endregion
 
     #region Coin Management
-    [Header("Coin Management")]
     public int current_coin;
     //public TextMeshProUGUI coin_text;
     #endregion
 
     #region Level
-    [Header("Levels")]
     public List<GameObject> list_monster_lanes;
     public EndlessModeDO endless_mode_data;
-    public const float speed_factor = 0.08f;
+    const float speed_factor = 0.08f;
     public int wave_index;
     public float current_spd;
     #endregion
@@ -67,32 +58,18 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Ref Holders
-    [Header("Ref Holders")]
+    public GameObject space_ship;
     public ParticleSystem star_front_layer;
     public ParticleSystem star_back_layer;
-
     public GameObject die_explosion_fx;
     public CameraShake camera_shake_fx;
-
     public GameObject left_barrel;
     public GameObject right_barrel;
-
     #endregion
 
     #region UI
-    [Header("End Game Menu")]
+    
     public UIEndGameCanvasController ui_endgame_controller;
-
-
-    //public GameObject endgame_panel;
-    //public Animator endgame_frame_ui;
-    //public UINumberCounter endgame_score_counter;
-    //public UINumberCounter endgame_coin_counter;
-
-    //public Button retry_btn_ui;
-    //public Button back_to_menu_btn_ui;
-
-    [Header("Health Bar UI")]
     public UIHealthBarController ui_ship_health_bar;
     #endregion
 
@@ -113,6 +90,7 @@ public class GameManager : MonoBehaviour
                 SetState(GameManagerState.IDLE);
                 break;
             case GameManagerState.PLAYING:
+                //Cheat to Death
                 if(Input.GetKeyDown(KeyCode.Z))
                 {
                     space_ship.GetComponent<SpaceShipController>().current_hp = 0;
@@ -207,11 +185,8 @@ public class GameManager : MonoBehaviour
     public float GetCurrentLevelSpeed()
     {
         var min = endless_mode_data.min_speed;
-        var max = endless_mode_data.max_speed;
-        
-        var result = Mathf.Clamp(min + (max - min) * (Mathf.Exp(speed_factor * wave_index)),0,endless_mode_data.speed_limit);
-        
-        return result;
+        var max = endless_mode_data.max_speed;     
+        return Mathf.Clamp(min + (max - min) * (Mathf.Exp(speed_factor * wave_index)),0,endless_mode_data.speed_limit);
     }
     IEnumerator count_time()
     {
