@@ -174,7 +174,6 @@ public class GameManager : MonoBehaviour
     public void UpdateScore(int score)
     {
         current_score += score;
-        score_number_text.GetComponent<Animator>().Play("score_increase_anim");
         score_number_text.text = current_score.ToString();
     }
     public void UpdateCoin(int value)

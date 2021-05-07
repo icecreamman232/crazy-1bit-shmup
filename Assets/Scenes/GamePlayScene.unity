@@ -11125,8 +11125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   current_game_state: 0
-  space_ship: {fileID: 1598937690}
-  ui_score_controller: {fileID: 1982516332}
   score_number_text: {fileID: 2012788458}
   current_score: 0
   current_coin: 0
@@ -11142,6 +11140,7 @@ MonoBehaviour:
   BGM: {fileID: 1463149753}
   sfx: {fileID: 2092622390}
   monster_die_sfx: {fileID: 8300000, guid: a0943f1f899c1d742bfa27379c232a5c, type: 3}
+  space_ship: {fileID: 1598937690}
   star_front_layer: {fileID: 16668153}
   star_back_layer: {fileID: 294739167}
   die_explosion_fx: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
