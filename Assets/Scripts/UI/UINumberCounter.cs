@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System;
 
 public class UINumberCounter : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class UINumberCounter : MonoBehaviour
     public int target_number;
     public int current_number;
     public TextMeshProUGUI text;
+ 
     public System.Action callback_function; 
 
 
@@ -31,6 +32,7 @@ public class UINumberCounter : MonoBehaviour
     }
     public void StartCounting(int current,int target)
     {
+        if (target == 0) return;
         current_number = current;
         target_number = target;
         count_increase_factor = Mathf.RoundToInt(target/(duration*60));
@@ -46,12 +48,14 @@ public class UINumberCounter : MonoBehaviour
         while(current_number >= 0)
         {
             current_number += count_increase_factor;
-            text.text = current_number.ToString();
-            yield return new WaitForSeconds(0.005f);
             if (current_number >= target_number)
             {
                 callback_function?.Invoke();
+                current_number = target_number;
             }
+            text.text = current_number.ToString();
+            yield return new WaitForSeconds(0.005f);
+            
             yield return new WaitUntil(() => current_number < target_number);
         }
     }
