@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.Events;
 
 public class UINumberCounter : MonoBehaviour
 {
@@ -10,7 +10,10 @@ public class UINumberCounter : MonoBehaviour
     public int target_number;
     public int current_number;
     public TextMeshProUGUI text;
-    public System.Action callback_function; 
+    /// <summary>
+    /// Gọi vào function này khi kết thúc đếm số
+    /// </summary>
+    public UnityEvent callback_function; 
 
 
     //second
@@ -43,11 +46,12 @@ public class UINumberCounter : MonoBehaviour
     }
     IEnumerator CountScore()
     {
+        WaitForSeconds delay = new WaitForSeconds(0.005f);
         while(current_number >= 0)
         {
             current_number += count_increase_factor;
             text.text = current_number.ToString();
-            yield return new WaitForSeconds(0.005f);
+            yield return delay;
             if (current_number >= target_number)
             {
                 callback_function?.Invoke();

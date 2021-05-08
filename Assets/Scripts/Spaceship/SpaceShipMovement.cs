@@ -16,7 +16,7 @@ public class SpaceShipMovement : MonoBehaviour
     public Animator hold_to_play_animator;
 
     public bool firstTouch;
-
+    Camera main_camera;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +25,8 @@ public class SpaceShipMovement : MonoBehaviour
         ship_sprite_height = ship_sprite.bounds.size.y;
         isTouching = false;
         firstTouch = false;
+        main_camera = Camera.main;
+
         //SetShipPosition();
     }
 
@@ -68,6 +70,7 @@ public class SpaceShipMovement : MonoBehaviour
     }
     public void SetShipPosition()
     {
+        main_camera = Camera.main;
         var postion = new Vector3(0, -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f, 0);
         var target = postion;
         last_pos_x = postion.x;
@@ -87,20 +90,21 @@ public class SpaceShipMovement : MonoBehaviour
     }
     void TranslateShip(Vector2 delta)
     {
-        var camera = Camera.main;
-        if(camera!=null)
+        var main_camera = Camera.main;
+        if(main_camera != null)
         {
-            var screen_pts = camera.WorldToScreenPoint(transform.position);
+            var screen_pts = main_camera.WorldToScreenPoint(transform.position);
             screen_pts += (Vector3)delta * sensitivity;
 
-            var world_pts = camera.ScreenToWorldPoint(screen_pts);
+            var world_pts = main_camera.ScreenToWorldPoint(screen_pts);
 
             var screen_bound = GameHelper.get_current_screenbound();
             
 
             if (world_pts.x <= -screen_bound.x + ship_sprite_width*0.5f) world_pts.x = -screen_bound.x+ ship_sprite_width * 0.5f;
             if (world_pts.x >= screen_bound.x - ship_sprite_width *0.5f) world_pts.x = screen_bound.x - ship_sprite_width * 0.5f;
-            world_pts.y = -screen_bound.y+ship_sprite_height*1.5f; 
+            if (world_pts.y <= -screen_bound.y) world_pts.y = -screen_bound.y;
+            //world_pts.y = -screen_bound.y+ship_sprite_height*1.5f; 
 
             //Ship keep turning left
             if(world_pts.x < last_pos_x)

@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.Events;
 
 public class BaseMonster:  MonoBehaviour
 {
@@ -26,14 +25,23 @@ public class BaseMonster:  MonoBehaviour
     public Vector3 origin_position;
     protected float t_lerp = 0.1f;
 
+    public UnityEvent OnDie;
+
 
     [Header("Reference Holders")]
     public GameObject hp_bar_ui;
     public GameObject coin_prefab;
+    public GameObject item_prefab;
+    public List<ItemType> list_dropable_items;
+    int max_item;
+    /// <summary>
+    /// Value từ 0 ->1000
+    /// </summary>
+    public int item_drop_rate;
 
     private void Start()
     {
-       
+        max_item = list_dropable_items.Count;
     }
     public virtual void InitMonster()
     {
@@ -42,7 +50,6 @@ public class BaseMonster:  MonoBehaviour
         current_hp = max_hp;
         current_movespeed = base_movespeed + GameManager.Instance.GetCurrentLevelSpeed() 
             * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
-
         origin_position = transform.position;
         isRunning = false;
         
@@ -72,12 +79,18 @@ public class BaseMonster:  MonoBehaviour
     public virtual  IEnumerator CheckDie()
     {       
         yield return new WaitUntil(() => current_hp <= 0);
+        OnDie?.Invoke();
         GameManager.Instance.UpdateScore(base_score);
         GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         GameManager.Instance.camera_shake_fx.Shake();
         current_movespeed = base_movespeed;
-        DropCoin();
+        var drop_rate = ItemManager.Instance.GetRandomDropRate();
+        if(drop_rate<=item_drop_rate)
+        {
+            //DropCoin();
+            DropItem();
+        }
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
     public virtual void OnTriggerEnter2D(Collider2D collision)
@@ -101,6 +114,15 @@ public class BaseMonster:  MonoBehaviour
             var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
             coin.GetComponent<Rigidbody2D>().AddForce(force_vector);
         }
+    }
+    void DropItem()
+    {
+        Vector3 trajectory = Random.insideUnitCircle * 100.0f;
+        var item = Lean.Pool.LeanPool.Spawn(item_prefab, transform.position, Quaternion.identity);
+        var item_type = (ItemType)Random.Range(0, max_item);
+        item.GetComponent<BaseItem>().SetupItem(item_type);
+        var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
+        item.GetComponent<Rigidbody2D>().AddForce(force_vector); 
     }
     int  CoinValueBasedOnLevelSpeed()
     {

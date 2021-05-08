@@ -62,7 +62,6 @@ public class SpaceShipController : MonoBehaviour
         ship_sprite.color = c;
 
         fire_jet_particle.Play();
-        //GetComponent<SpaceShipMovement>().OnEnableTouch();
         GetComponent<SpaceShipMovement>().SetShipPosition();
         GetComponent<Animator>().Play("ship_idle");
        
@@ -113,7 +112,6 @@ public class SpaceShipController : MonoBehaviour
             StartCoroutine(OnInvincible());
             UpdateHP(1);
             ui_ship_health_bar.UpdateHealthBarUI();
-            //heart_panel.UpdateHeartUI();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -121,6 +119,12 @@ public class SpaceShipController : MonoBehaviour
         if (collision.gameObject.CompareTag("Coin"))
         {
             GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<CoinController>().coin_value);
+            sfx.PlayOneShot(coin_collect_sfx);
+            Lean.Pool.LeanPool.Despawn(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            DataManager.Instance.UpdateGold(collision.gameObject.GetComponent<BaseItem>().m_item_value);
             sfx.PlayOneShot(coin_collect_sfx);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }

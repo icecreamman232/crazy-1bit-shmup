@@ -1,24 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MonsterLaneController : MonoBehaviour
 {
     public float min_spawn_delay;
     public float max_spawn_delay;
-
     float min_limit;
     float max_limit;
-
-
-
     float spawn_delay;
-
-
     public int wave_index;
     public List<GameObject> list_monsters;
-
     public GameObject alert_sign;
+
+    public UnityEvent TestEvent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +74,7 @@ public class MonsterLaneController : MonoBehaviour
             monster.GetComponent<Monster03Controller>().alert_sign = alert_sign;
             monster.GetComponent<Monster03Controller>().sign_animator = GetComponent<Animator>();
         }
+        monster.GetComponent<BaseMonster>().OnDie = TestEvent;
         monster.GetComponent<BaseMonster>().Run();
         wave_index += 1;
     }
