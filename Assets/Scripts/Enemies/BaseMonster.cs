@@ -119,8 +119,8 @@ public class BaseMonster:  MonoBehaviour
     {
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
         var item = Lean.Pool.LeanPool.Spawn(item_prefab, transform.position, Quaternion.identity);
-        var item_type = (ItemType)Random.Range(0, max_item);
-        item.GetComponent<BaseItem>().SetupItem(item_type);
+        var item_type_index = Random.Range(0, max_item);
+        item.GetComponent<BaseItem>().SetupItem(list_dropable_items[item_type_index]);
         var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
         item.GetComponent<Rigidbody2D>().AddForce(force_vector); 
     }

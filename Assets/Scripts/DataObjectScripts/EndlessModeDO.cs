@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "EndlessModeDataObject", menuName = "Game Mode DO/Endless Mode", order = 0)]
+[CreateAssetMenu(fileName = "EndlessModeDataObject", menuName = "Data Objects/Endless Mode Data", order = 0)]
 public class EndlessModeDO : ScriptableObject
 {
     [Header("Speed Design")]

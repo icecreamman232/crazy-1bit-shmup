@@ -18,6 +18,9 @@ public class DataManager : MonoBehaviour
     /// </summary>
     public int gold_total_value;
 
+    
+    public int current_rank;
+
     public void UpdateGold(int new_gold_amount)
     {
         gold_total_value += new_gold_amount;
