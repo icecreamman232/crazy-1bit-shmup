@@ -38,8 +38,17 @@ public class DataManager : MonoBehaviour
     {
         LoadDataFromLocalStorage();
     }
- 
-  
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Reset save!!");
+            ResetData();
+        }
+#endif
+    }
+
     public void LoadDataFromLocalStorage()
     {
         if (File.Exists(save_path))
@@ -59,11 +68,22 @@ public class DataManager : MonoBehaviour
     {
         BinaryFormatter binary_formatter = new BinaryFormatter();
         FileStream stream = new FileStream(save_path, FileMode.Create);
-        save_data = new SaveFile();
         save_data.current_rank = rank_manager.current_rank;
         save_data.current_points = rank_manager.total_rank_points;
 
         binary_formatter.Serialize(stream, save_data);
         stream.Close();
     }
+#if UNITY_EDITOR
+    [ContextMenu("ResetData")]
+    public void ResetData()
+    {
+        save_data.current_rank = 0;
+        save_data.current_points = 0;
+        BinaryFormatter binary_formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(save_path, FileMode.Create);
+        binary_formatter.Serialize(stream, save_data);
+        stream.Close();
+    }
+#endif
 }

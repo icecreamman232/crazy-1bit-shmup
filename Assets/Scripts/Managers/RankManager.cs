@@ -40,7 +40,7 @@ public class RankManager : MonoBehaviour
         }
         else
         {
-            current_rank = 1;
+            current_rank = 0;
             total_rank_points = 0;
             current_index_points = 0;
         }

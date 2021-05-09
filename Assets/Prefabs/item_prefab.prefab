@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 5508725064705088119, guid: f52906f9cf5ad4149bdea4871dcd2fbb, type: 3}
   - {fileID: -68751727340038015, guid: f52906f9cf5ad4149bdea4871dcd2fbb, type: 3}
   - {fileID: 6099581493293703690, guid: f52906f9cf5ad4149bdea4871dcd2fbb, type: 3}
+  m_rank_point: 0
 --- !u!212 &649832116354899699
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -148,4 +149,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
