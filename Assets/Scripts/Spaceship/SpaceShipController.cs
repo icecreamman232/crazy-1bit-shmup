@@ -33,7 +33,8 @@ public class SpaceShipController : MonoBehaviour
     public float invincible_duration;
 
     public bool isDied;
-    
+
+    public RankManager rank_manager;
 
 
     void Start()
@@ -124,7 +125,10 @@ public class SpaceShipController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Item"))
         {
-            DataManager.Instance.UpdateGold(collision.gameObject.GetComponent<BaseItem>().m_item_value);
+            //DataManager.Instance.UpdateGold(collision.gameObject.GetComponent<BaseItem>().m_rank_point);
+            var points = collision.gameObject.GetComponent<BaseItem>().m_rank_point;
+            rank_manager.UpdateRankPoints(points);
+            Debug.Log("Item value =" + points);
             sfx.PlayOneShot(coin_collect_sfx);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }

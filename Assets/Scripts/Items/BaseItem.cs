@@ -25,7 +25,7 @@ public class BaseItem : MonoBehaviour
     private SpriteRenderer m_sprite_renderer;
 
     protected int m_item_id;
-    public int m_item_value;
+    public int m_rank_point;
     protected ItemRank m_item_rank;
     protected ItemType m_item_type;
     private void Awake()
@@ -80,16 +80,16 @@ public class BaseItem : MonoBehaviour
         switch (m_item_type)
         {
             case ItemType.ITEM0:
-                m_item_value = 10;
+                m_rank_point = 1;
                 break;
             case ItemType.ITEM1:
-                m_item_value = 20;
+                m_rank_point = 2;
                 break;
             case ItemType.ITEM2:
-                m_item_value = 30;
+                m_rank_point = 2;
                 break;
             case ItemType.ITEM3:
-                m_item_value = 40;
+                m_rank_point = 3;
                 break;
         }
     }

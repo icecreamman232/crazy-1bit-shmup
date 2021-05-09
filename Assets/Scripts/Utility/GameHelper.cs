@@ -4,6 +4,13 @@ using UnityEngine;
 
 public static class GameHelper
 {
+    #region Constants
+    public const int MAX_RANK_POINTS = 5;
+    public const int MAX_RANK = 9;
+    #endregion
+
+
+
     public static Vector2 sizeOfCamera = Vector2.zero;
     public static Vector2 SizeOfCamera()
     {
