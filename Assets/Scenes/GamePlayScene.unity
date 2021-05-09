@@ -11460,6 +11460,7 @@ MonoBehaviour:
   right_barrel: {fileID: 274210944}
   ui_endgame_controller: {fileID: 1943548763}
   ui_ship_health_bar: {fileID: 1511538135}
+  rank_manager: {fileID: 413932889}
 --- !u!114 &929344307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11473,6 +11474,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rank_manager: {fileID: 413932889}
+  save_path: 
+  save_data:
+    current_rank: 0
+    current_points: 0
 --- !u!114 &929344308
 MonoBehaviour:
   m_ObjectHideFlags: 0

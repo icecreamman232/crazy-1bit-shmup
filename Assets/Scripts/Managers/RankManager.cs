@@ -21,7 +21,7 @@ public class RankManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Setup();
+  
     }
 
     // Update is called once per frame
@@ -32,9 +32,22 @@ public class RankManager : MonoBehaviour
     public void Setup()
     {
         //Về sau nhớ load từ Data Manager ->save
-        current_rank = 1;
-        total_rank_points = 0;
-        current_index_points = 0;
+        if(DataManager.Instance.save_data!=null)
+        {
+            current_rank = DataManager.Instance.save_data.current_rank;
+            total_rank_points = DataManager.Instance.save_data.current_points;
+            current_index_points = 0;
+        }
+        else
+        {
+            current_rank = 1;
+            total_rank_points = 0;
+            current_index_points = 0;
+        }
+
+        //Sau khi lấy data từ save thì update data lên UI
+        ui_rank_controller.UpdateRankBadge(current_rank);
+        
     }
     public void UpdateRankPoints(int points)
     {

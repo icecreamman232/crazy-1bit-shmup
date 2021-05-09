@@ -15,6 +15,7 @@ public class GameManagerEditor : Editor
     bool audio_foldout;
 
     SerializedProperty current_game_state_prop;
+    SerializedProperty rank_manager_prop;
 
     SerializedProperty current_score_prop;
     SerializedProperty score_text_prop;
@@ -44,7 +45,7 @@ public class GameManagerEditor : Editor
 
 
     readonly GUIContent current_game_state_content = new GUIContent("Current GameState");
-
+    readonly GUIContent rank_manager_content = new GUIContent("Rank Manager");
     readonly GUIContent current_score_content = new GUIContent("Current Score");
     readonly GUIContent score_text_prop_content = new GUIContent("Score Text");
 
@@ -86,6 +87,9 @@ public class GameManagerEditor : Editor
     void OnEnable()
     {
         current_game_state_prop = serializedObject.FindProperty("current_game_state");
+        rank_manager_prop = serializedObject.FindProperty("rank_manager");
+
+
 
         current_score_prop  = serializedObject.FindProperty("current_score");
         score_text_prop     = serializedObject.FindProperty("score_number_text");
@@ -120,6 +124,7 @@ public class GameManagerEditor : Editor
 
         serializedObject.Update();
         EditorGUILayout.PropertyField(current_game_state_prop, current_game_state_content);
+        EditorGUILayout.PropertyField(rank_manager_prop, rank_manager_content);
 
         #region Score
         EditorGUILayout.BeginVertical(GUI.skin.box);

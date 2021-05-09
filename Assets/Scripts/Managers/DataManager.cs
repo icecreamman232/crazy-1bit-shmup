@@ -26,7 +26,7 @@ public class DataManager : MonoBehaviour
 
     public string save_path ;
 
-    SaveFile save_data;
+    public SaveFile save_data;
 
     void Awake()
     {
@@ -38,9 +38,7 @@ public class DataManager : MonoBehaviour
     {
         LoadDataFromLocalStorage();
     }
-    /// <summary>
-    /// Tổng tiền hiện có của người chơi
-    /// </summary>
+ 
   
     public void LoadDataFromLocalStorage()
     {

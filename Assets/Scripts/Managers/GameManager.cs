@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     public UIHealthBarController ui_ship_health_bar;
     #endregion
 
-
+    public RankManager rank_manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -104,7 +104,8 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < 5; i++)
                     {
                         list_monster_lanes[i].GetComponent<MonsterLaneController>().StopAllCoroutines();
-                    }                  
+                    }
+                    DataManager.Instance.SaveDataToLocalStorage();
                     SetState(GameManagerState.LOSE);
                 }
 
@@ -159,6 +160,8 @@ public class GameManager : MonoBehaviour
         
         BGM.Play();
         space_ship.GetComponent<SpaceShipController>().StartShip();
+
+        rank_manager.Setup();
         current_game_state = GameManagerState.STANDBY;
 
     }
