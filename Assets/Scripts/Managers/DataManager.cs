@@ -1,33 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
+[System.Serializable]
+public class SaveFile
+{
+    public int current_rank;
+    public int current_points;
+
+    public SaveFile()
+    {
+        current_rank = 0;
+        current_points = 0;
+    }
+}
+
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
-    private void Awake()
+
+    public RankManager rank_manager;
+
+    public string save_path ;
+
+    SaveFile save_data;
+
+    void Awake()
     {
+        save_data = new SaveFile();
+        save_path = Application.persistentDataPath + "/SpaceGuadians.sgs";
         Instance = this;
     }
-    private void Start()
+    void Start()
     {
-        LoadDataFromSave();
+        LoadDataFromLocalStorage();
     }
     /// <summary>
     /// Tổng tiền hiện có của người chơi
     /// </summary>
-    public int gold_total_value;
-
-    
-    public int current_rank;
-
-    public void UpdateGold(int new_gold_amount)
+  
+    public void LoadDataFromLocalStorage()
     {
-        gold_total_value += new_gold_amount;
+        if (File.Exists(save_path))
+        {
+            BinaryFormatter binary_formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(save_path, FileMode.Open);
+            save_data = binary_formatter.Deserialize(stream) as SaveFile;
+            stream.Close();
+        }
+        else
+        {
+            Debug.LogError("Save file not Found in" + save_path);
+          
+        }
     }
-    public void LoadDataFromSave()
+    public void SaveDataToLocalStorage()
     {
-        //Về sau thì load lên từ save, hiện tại thì reset về 0
-        gold_total_value = 0;
+        BinaryFormatter binary_formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(save_path, FileMode.Create);
+        save_data = new SaveFile();
+        save_data.current_rank = rank_manager.current_rank;
+        save_data.current_points = rank_manager.total_rank_points;
+
+        binary_formatter.Serialize(stream, save_data);
+        stream.Close();
     }
 }

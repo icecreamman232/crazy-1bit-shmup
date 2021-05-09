@@ -125,10 +125,8 @@ public class SpaceShipController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Item"))
         {
-            //DataManager.Instance.UpdateGold(collision.gameObject.GetComponent<BaseItem>().m_rank_point);
-            var points = collision.gameObject.GetComponent<BaseItem>().m_rank_point;
-            rank_manager.UpdateRankPoints(points);
-            Debug.Log("Item value =" + points);
+            DataManager.Instance.SaveDataToLocalStorage();
+            rank_manager.UpdateRankPoints(collision.gameObject.GetComponent<BaseItem>().m_rank_point);
             sfx.PlayOneShot(coin_collect_sfx);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }

@@ -38,6 +38,7 @@ public class RankManager : MonoBehaviour
     }
     public void UpdateRankPoints(int points)
     {
+        total_rank_points += points;
         StartCoroutine(OnUpdateRankPoints(points));
     }
     IEnumerator OnUpdateRankPoints(int points)

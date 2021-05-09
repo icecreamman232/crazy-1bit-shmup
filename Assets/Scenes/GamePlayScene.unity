@@ -10460,6 +10460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   total_rank_points: 0
+  current_index_points: 0
   current_rank: 0
   ui_rank_controller: {fileID: 443717258}
 --- !u!1 &443717256
@@ -10530,6 +10531,7 @@ MonoBehaviour:
   - {fileID: 1905906238}
   - {fileID: 25239392}
   - {fileID: 1710389435}
+  last_index_points: 0
 --- !u!1 &448382647
 GameObject:
   m_ObjectHideFlags: 0
@@ -11470,8 +11472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813929e912274c348bae1e7ec2b73946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold_total_value: 0
-  current_rank: 0
+  rank_manager: {fileID: 413932889}
 --- !u!114 &929344308
 MonoBehaviour:
   m_ObjectHideFlags: 0
