@@ -19,10 +19,12 @@ public class RankEditor : Editor
         c = target as CollectorRankDO;
         serialized_obj = new SerializedObject(c);
         serialized_list = serialized_obj.FindProperty("list_collector_rank");
-        foldout_list = new List<bool>(serialized_list.arraySize);
-        for(int i = 0; i < serialized_list.arraySize; i++)
+        var count = serialized_list.arraySize;
+        foldout_list = new List<bool>();
+       
+        for (int i = 0; i < count; i++)
         {
-            foldout_list[i] = false;
+            foldout_list.Add(false);
         }
     }
     public override void OnInspectorGUI()
