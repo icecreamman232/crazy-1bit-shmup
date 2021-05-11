@@ -119,101 +119,102 @@ public class GameManagerEditor : Editor
     }
     public override void OnInspectorGUI()
     {
-        //Dòng này sẽ vẽ lại toàn bộ GUI cũ
-        //base.OnInspectorGUI()
+        ////Dòng này sẽ vẽ lại toàn bộ GUI cũ
+        ////base.OnInspectorGUI()
 
-        serializedObject.Update();
-        EditorGUILayout.PropertyField(current_game_state_prop, current_game_state_content);
-        EditorGUILayout.PropertyField(rank_manager_prop, rank_manager_content);
+        //serializedObject.Update();
+        //EditorGUILayout.PropertyField(current_game_state_prop, current_game_state_content);
+        //EditorGUILayout.PropertyField(rank_manager_prop, rank_manager_content);
 
-        #region Score
-        EditorGUILayout.BeginVertical(GUI.skin.box);
-        EditorGUI.indentLevel++;
-        score_foldout = EditorGUILayout.Foldout(score_foldout, score_content);
-        if(score_foldout)
-        {          
-            EditorGUILayout.PropertyField(current_score_prop, current_score_content);
-            EditorGUILayout.PropertyField(score_text_prop, score_text_prop_content);         
-        }
-        EditorGUI.indentLevel--;
-        EditorGUILayout.EndVertical();
-        #endregion
+        //#region Score
+        //EditorGUILayout.BeginVertical(GUI.skin.box);
+        //EditorGUI.indentLevel++;
+        //score_foldout = EditorGUILayout.Foldout(score_foldout, score_content);
+        //if(score_foldout)
+        //{          
+        //    EditorGUILayout.PropertyField(current_score_prop, current_score_content);
+        //    EditorGUILayout.PropertyField(score_text_prop, score_text_prop_content);         
+        //}
+        //EditorGUI.indentLevel--;
+        //EditorGUILayout.EndVertical();
+        //#endregion
 
-        #region Coin
-        EditorGUILayout.BeginVertical(GUI.skin.box);
-        EditorGUI.indentLevel++;
-        coin_foldout = EditorGUILayout.Foldout(coin_foldout, coin_content);
-        if (coin_foldout)
-        {
-            EditorGUILayout.PropertyField(current_coin_prop, current_coin_content);
-        }
-        EditorGUI.indentLevel--;
-        EditorGUILayout.EndVertical();
-        #endregion
+        //#region Coin
+        //EditorGUILayout.BeginVertical(GUI.skin.box);
+        //EditorGUI.indentLevel++;
+        //coin_foldout = EditorGUILayout.Foldout(coin_foldout, coin_content);
+        //if (coin_foldout)
+        //{
+        //    EditorGUILayout.PropertyField(current_coin_prop, current_coin_content);
+        //}
+        //EditorGUI.indentLevel--;
+        //EditorGUILayout.EndVertical();
+        //#endregion
 
-        #region Level
-        EditorGUILayout.BeginVertical(GUI.skin.box);
-        EditorGUI.indentLevel++;
-        level_design_foldout = EditorGUILayout.Foldout(level_design_foldout, level_design);
-        if (level_design_foldout)
-        {
-            EditorGUILayout.PropertyField(endless_mode_data_prop, endless_mode_data_content);
-            //EditorGUILayout.PropertyField(speed_factor_prop, speed_factor_content);
-            EditorGUILayout.PropertyField(wave_index_prop, wave_index_content);
-            EditorGUILayout.PropertyField(current_spd_prop, current_spd_content);
-            EditorGUILayout.Space(10);
-            EditorGUILayout.PropertyField(list_monster_lanes_prop, list_monster_lanes_content);
+        //#region Level
+        //EditorGUILayout.BeginVertical(GUI.skin.box);
+        //EditorGUI.indentLevel++;
+        //level_design_foldout = EditorGUILayout.Foldout(level_design_foldout, level_design);
+        //if (level_design_foldout)
+        //{
+        //    EditorGUILayout.PropertyField(endless_mode_data_prop, endless_mode_data_content);
+        //    //EditorGUILayout.PropertyField(speed_factor_prop, speed_factor_content);
+        //    EditorGUILayout.PropertyField(wave_index_prop, wave_index_content);
+        //    EditorGUILayout.PropertyField(current_spd_prop, current_spd_content);
+        //    EditorGUILayout.Space(10);
+        //    EditorGUILayout.PropertyField(list_monster_lanes_prop, list_monster_lanes_content);
             
-        }
-        EditorGUI.indentLevel--;
-        EditorGUILayout.EndVertical();
-        #endregion
+        //}
+        //EditorGUI.indentLevel--;
+        //EditorGUILayout.EndVertical();
+        //#endregion
 
-        #region Refs
-        EditorGUILayout.BeginVertical(GUI.skin.box);
-        EditorGUI.indentLevel++;
-        reference_holders_folderout = EditorGUILayout.Foldout(reference_holders_folderout, reference_holders);
-        if (reference_holders_folderout)
-        {
-            EditorGUILayout.PropertyField(space_ship_prop, space_ship_content);
-            EditorGUILayout.PropertyField(star_front_layer_prop, star_front_layer_content);
-            EditorGUILayout.PropertyField(star_back_layer_prop, star_back_layer_content);
-            EditorGUILayout.PropertyField(die_explosion_fx_prop, die_explosion_fx_content);
-            EditorGUILayout.PropertyField(camera_shake_fx_prop, camera_shake_fx_content);
-            EditorGUILayout.PropertyField(left_barrel_prop, left_barrel_content);
-            EditorGUILayout.PropertyField(right_barrel_prop, right_barrel_content);
-        }
-        EditorGUI.indentLevel--;
-        EditorGUILayout.EndVertical();
-        #endregion
+        //#region Refs
+        //EditorGUILayout.BeginVertical(GUI.skin.box);
+        //EditorGUI.indentLevel++;
+        //reference_holders_folderout = EditorGUILayout.Foldout(reference_holders_folderout, reference_holders);
+        //if (reference_holders_folderout)
+        //{
+        //    EditorGUILayout.PropertyField(space_ship_prop, space_ship_content);
+        //    EditorGUILayout.PropertyField(star_front_layer_prop, star_front_layer_content);
+        //    EditorGUILayout.PropertyField(star_back_layer_prop, star_back_layer_content);
+        //    EditorGUILayout.PropertyField(die_explosion_fx_prop, die_explosion_fx_content);
+        //    EditorGUILayout.PropertyField(camera_shake_fx_prop, camera_shake_fx_content);
+        //    EditorGUILayout.PropertyField(left_barrel_prop, left_barrel_content);
+        //    EditorGUILayout.PropertyField(right_barrel_prop, right_barrel_content);
+        //}
+        //EditorGUI.indentLevel--;
+        //EditorGUILayout.EndVertical();
+        //#endregion
 
-        #region UI
-        EditorGUILayout.BeginVertical(GUI.skin.box);
-        EditorGUI.indentLevel++;
-        UI_foldout = EditorGUILayout.Foldout(UI_foldout, ui_content);
-        if (UI_foldout)
-        {
-            EditorGUILayout.PropertyField(ui_endgame_controller_prop, ui_endgame_controller_content);
-            EditorGUILayout.PropertyField(ui_ship_health_bar_prop, ui_ship_health_bar_content);
-        }
-        EditorGUI.indentLevel--;
-        EditorGUILayout.EndVertical();
-        #endregion
+        //#region UI
+        //EditorGUILayout.BeginVertical(GUI.skin.box);
+        //EditorGUI.indentLevel++;
+        //UI_foldout = EditorGUILayout.Foldout(UI_foldout, ui_content);
+        //if (UI_foldout)
+        //{
+        //    EditorGUILayout.PropertyField(ui_endgame_controller_prop, ui_endgame_controller_content);
+        //    EditorGUILayout.PropertyField(ui_ship_health_bar_prop, ui_ship_health_bar_content);
+        //}
+        //EditorGUI.indentLevel--;
+        //EditorGUILayout.EndVertical();
+        //#endregion
 
 
-        #region Audio
-        EditorGUILayout.BeginVertical(GUI.skin.box);
-        EditorGUI.indentLevel++;
-        audio_foldout = EditorGUILayout.Foldout(audio_foldout, audio_content);
-        if (audio_foldout)
-        {
-            EditorGUILayout.PropertyField(BGM_prop, BGM_content);
-            EditorGUILayout.PropertyField(sfx_prop, sfx_content);
-            EditorGUILayout.PropertyField(monster_die_sfx_prop, monster_die_sfx_content);
-        }
-        EditorGUI.indentLevel--;
-        EditorGUILayout.EndVertical();
-        #endregion
-        serializedObject.ApplyModifiedProperties();
+        //#region Audio
+        //EditorGUILayout.BeginVertical(GUI.skin.box);
+        //EditorGUI.indentLevel++;
+        //audio_foldout = EditorGUILayout.Foldout(audio_foldout, audio_content);
+        //if (audio_foldout)
+        //{
+        //    EditorGUILayout.PropertyField(BGM_prop, BGM_content);
+        //    EditorGUILayout.PropertyField(sfx_prop, sfx_content);
+        //    EditorGUILayout.PropertyField(monster_die_sfx_prop, monster_die_sfx_content);
+        //}
+        //EditorGUI.indentLevel--;
+        //EditorGUILayout.EndVertical();
+        //#endregion
+        //serializedObject.ApplyModifiedProperties();
+        base.OnInspectorGUI();
     }
 }

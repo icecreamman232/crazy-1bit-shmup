@@ -74,6 +74,10 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public RankManager rank_manager;
+
+
+    public WaveSpawner waveSpawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -162,15 +166,18 @@ public class GameManager : MonoBehaviour
         space_ship.GetComponent<SpaceShipController>().StartShip();
 
         rank_manager.Setup();
+
+        waveSpawner.Setup();
         current_game_state = GameManagerState.STANDBY;
 
     }
     void StartGame()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane(endless_mode_data.min_delay_limit, endless_mode_data.max_delay_limit);
-        }
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane(endless_mode_data.min_delay_limit, endless_mode_data.max_delay_limit);
+        //}
+        waveSpawner.Run();
         StartCoroutine(count_time());
         space_ship.GetComponent<SpaceShipController>().BeginShoot();
     }

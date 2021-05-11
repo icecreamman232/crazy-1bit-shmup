@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster01Controller : BaseMonster
+public class Monster01Controller : MonsterWithSplineMove
 {
     // Start is called before the first frame update
     void Start()
@@ -26,10 +26,5 @@ public class Monster01Controller : BaseMonster
             }
         }
     }
-    public override void Run()
-    {
-        InitMonster();
-        isRunning = true;
-        StartCoroutine(CheckDie());
-    }
+
 }

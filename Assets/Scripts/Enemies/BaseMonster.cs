@@ -62,8 +62,9 @@ public class BaseMonster:  MonoBehaviour
     }
 
     public virtual void Run() 
-    { 
-        
+    {
+        InitMonster();
+        StartCoroutine(CheckDie());
     }
 
     public void UpdateHP(int _damage)
