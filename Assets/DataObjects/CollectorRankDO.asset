@@ -15,11 +15,7 @@ MonoBehaviour:
   list_collector_rank:
   - rank_id: 0
     exp_needed: 0
+    rank_sprite: {fileID: 21300000, guid: ab0956ca492adbb489e6c702cba89281, type: 3}
   - rank_id: 0
     exp_needed: 0
-  - rank_id: 0
-    exp_needed: 0
-  - rank_id: 0
-    exp_needed: 0
-  - rank_id: 0
-    exp_needed: 0
+    rank_sprite: {fileID: 21300000, guid: 5f7fa9a7940a64e79b5a42d9f661d42c, type: 3}

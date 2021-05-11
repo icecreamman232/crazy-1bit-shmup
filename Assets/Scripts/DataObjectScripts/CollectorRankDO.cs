@@ -14,5 +14,6 @@ public class CollectorRank
 {
     public int rank_id;
     public int exp_needed;
+    public Sprite rank_sprite;
 }
 
