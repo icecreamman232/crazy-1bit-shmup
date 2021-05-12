@@ -364,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 5133090435103757054}
     - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -473,7 +473,7 @@ PrefabInstance:
       objectReference: {fileID: 544399931668814071}
     - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

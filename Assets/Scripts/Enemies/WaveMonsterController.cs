@@ -25,7 +25,11 @@ public class WaveMonsterController : MonoBehaviour
         numberMonsterList = monsterList.Count;
         for (int i = 0; i < monsterList.Count; i++)
         {
+            //Add event if monster died
             monsterList[i].OnDie.AddListener(ThereisMonsterDied);
+
+            //Add event if monster go to end point on the path
+            monsterList[i].splineMove.movementEndEvent += ThereisMonsterDied;
         }
         StartCoroutine(OnMonsterRunning());
     }
@@ -42,7 +46,11 @@ public class WaveMonsterController : MonoBehaviour
         numberMonsterList--;
         if(numberMonsterList <= 0)
         {
-            Lean.Pool.LeanPool.Despawn(this.gameObject);
+            OnDead();
         }
+    }
+    public void OnDead()
+    {
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
 }
