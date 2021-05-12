@@ -53,4 +53,15 @@ public class WaveMonsterController : MonoBehaviour
     {
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        //9:16
+        Gizmos.DrawWireCube(transform.position, new Vector3(2.9f*2, 5.1f*2));
+        Gizmos.color = Color.blue;
+        //9:18
+        Gizmos.DrawWireCube(transform.position, new Vector3(2.9f * 2, 5.8f*2));
+    }
+#endif
 }
