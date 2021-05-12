@@ -9,6 +9,8 @@ public class WaveMonsterController : MonoBehaviour
 
     public int numberMonsterList;
 
+    public bool isWaveFinished;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class WaveMonsterController : MonoBehaviour
     public void Run()
     {
         numberMonsterList = monsterList.Count;
+
+        isWaveFinished = false;
         for (int i = 0; i < monsterList.Count; i++)
         {
             //Add event if monster died
@@ -46,12 +50,13 @@ public class WaveMonsterController : MonoBehaviour
         numberMonsterList--;
         if(numberMonsterList <= 0)
         {
-            OnDead();
+            isWaveFinished = true;
+            for (int i = 0; i < monsterList.Count; i++)
+            {
+                monsterList[i].splineMove.Stop();
+            }
+            Lean.Pool.LeanPool.Despawn(this.gameObject);
         }
-    }
-    public void OnDead()
-    {
-        Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
 #if UNITY_EDITOR
     private void OnDrawGizmos()

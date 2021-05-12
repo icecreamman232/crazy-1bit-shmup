@@ -32,13 +32,13 @@ public class RankManager : MonoBehaviour
     public void Setup()
     {
         //Về sau nhớ load từ Data Manager ->save
-        if(DataManager.Instance.save_data!=null)
-        {
-            current_rank = DataManager.Instance.save_data.current_rank;
-            total_rank_points = DataManager.Instance.save_data.current_points;
-            current_index_points = 0;
-        }
-        else
+        //if(DataManager.Instance.save_data!=null)
+        //{
+        //    current_rank = DataManager.Instance.save_data.current_rank;
+        //    total_rank_points = DataManager.Instance.save_data.current_points;
+        //    current_index_points = 0;
+        //}
+        //else
         {
             current_rank = 0;
             total_rank_points = 0;
