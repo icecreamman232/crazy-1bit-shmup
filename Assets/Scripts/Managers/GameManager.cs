@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Level
-    public List<GameObject> list_monster_lanes;
     public EndlessModeDO endless_mode_data;
     const float speed_factor = 0.08f;
     public int wave_index;
@@ -105,10 +104,6 @@ public class GameManager : MonoBehaviour
                     ui_endgame_controller.PlayIntro(current_score.ToString());
                     star_back_layer.Stop();
                     star_front_layer.Stop();
-                    for (int i = 0; i < 5; i++)
-                    {
-                        list_monster_lanes[i].GetComponent<MonsterLaneController>().StopAllCoroutines();
-                    }
                     DataManager.Instance.SaveDataToLocalStorage();
                     SetState(GameManagerState.LOSE);
                 }
@@ -203,11 +198,7 @@ public class GameManager : MonoBehaviour
         while(true)
         {
             yield return delay;
-            wave_index += 1;
-            for (int i = 0; i < 5; i++)
-            {
-                list_monster_lanes[i].GetComponent<MonsterLaneController>().UpdateSpawnRate(endless_mode_data.min_decrease_rate, endless_mode_data.max_decrease_rate);
-            }
+            wave_index += 1;           
             var main_front = star_front_layer.main;
             var main_back = star_back_layer.main;
             current_spd = GetCurrentLevelSpeed();

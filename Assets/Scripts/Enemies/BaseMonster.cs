@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class BaseMonster:  MonoBehaviour
 {
     [Header("Monster Information")]
@@ -39,12 +40,15 @@ public class BaseMonster:  MonoBehaviour
     /// </summary>
     public int item_drop_rate;
 
+
+
     private void Start()
     {
         max_item = list_dropable_items.Count;
     }
     public virtual void InitMonster()
     {
+        this.gameObject.SetActive(true);
         max_hp = base_hp + base_hp * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.hp_increase_per_wave
             * GameManager.Instance.GetCurrentLevelSpeed());
         current_hp = max_hp;
@@ -57,6 +61,9 @@ public class BaseMonster:  MonoBehaviour
         hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
         var hp_gameobject = hp_bar_ui.transform.parent;
         hp_gameobject.gameObject.SetActive(false);
+
+
+        
 
         this.StopAllCoroutines();
     }
@@ -80,7 +87,7 @@ public class BaseMonster:  MonoBehaviour
     public virtual  IEnumerator CheckDie()
     {       
         yield return new WaitUntil(() => current_hp <= 0);
-        OnDie?.Invoke();
+        
         GameManager.Instance.UpdateScore(base_score);
         GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
@@ -92,7 +99,8 @@ public class BaseMonster:  MonoBehaviour
             //DropCoin();
             DropItem();
         }
-        Lean.Pool.LeanPool.Despawn(this.gameObject);
+        OnDie?.Invoke();
+        this.gameObject.SetActive(false);
     }
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {

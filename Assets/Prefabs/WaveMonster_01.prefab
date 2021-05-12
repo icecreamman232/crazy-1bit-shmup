@@ -109,6 +109,7 @@ MonoBehaviour:
   monsterList:
   - {fileID: 1920240801966387317}
   - {fileID: 5589906300448772886}
+  numberMonsterList: 0
 --- !u!1 &5012454081218693798
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,16 +206,48 @@ PrefabInstance:
     m_TransformParent: {fileID: 5746181274814401757}
     m_Modifications:
     - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: pathContainer
       value: 
       objectReference: {fileID: 544399931668814071}
-    - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
-      propertyPath: speed
-      value: 3
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8770411602387256099}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ThereisMonsterDied
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WaveMonsterController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954636, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_Name
       value: monster_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -229,6 +262,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -239,14 +276,6 @@ PrefabInstance:
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -286,16 +315,48 @@ PrefabInstance:
     m_TransformParent: {fileID: 5746181274814401757}
     m_Modifications:
     - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: pathContainer
       value: 
       objectReference: {fileID: 544399931668814071}
-    - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
-      propertyPath: speed
-      value: 3
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8770411602387256099}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ThereisMonsterDied
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WaveMonsterController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954636, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_Name
       value: monster_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -310,6 +371,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -319,14 +384,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
