@@ -1,4 +1,4 @@
-/*  This file is part of the "Simple Waypoint System" project by Rebound Games.
+/*  This file is part of the "Simple Waypoint System" project by FLOBUK.
  *  You are only allowed to use these resources if you've bought them from the Unity Asset Store.
  * 	You shall not license, sublicense, sell, resell, transfer, assign, distribute or
  * 	otherwise make available to any third party the Service or the Content. */
@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEngine.Events;
 
 namespace SWS
 {
@@ -236,4 +237,11 @@ namespace SWS
             return curvedPoints;
         }
     }
+
+    /// <summary>
+    /// UnityEvent with int parameter type.
+    /// Used in movement scripts for movementChange event.
+    /// </summary>
+    [System.Serializable]
+    public class WaypointEvent : UnityEvent<int> { }
 }

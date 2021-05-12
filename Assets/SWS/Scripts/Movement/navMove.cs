@@ -1,4 +1,4 @@
-﻿/*  This file is part of the "Simple Waypoint System" project by Rebound Games.
+﻿/*  This file is part of the "Simple Waypoint System" project by FLOBUK.
  *  You are only allowed to use these resources if you've bought them from the Unity Asset Store.
  * 	You shall not license, sublicense, sell, resell, transfer, assign, distribute or
  * 	otherwise make available to any third party the Service or the Content. */
@@ -60,12 +60,6 @@ namespace SWS
         public bool updateRotation = true;
 
         /// <summary>
-        /// List of Unity Events invoked when reaching waypoints.
-        /// <summary>
-        [HideInInspector]
-        public List<UnityEvent> events = new List<UnityEvent>();
-
-        /// <summary>
         /// Supported movement looptypes when moving on the path. 
         /// <summary>
         public enum LoopType
@@ -83,8 +77,30 @@ namespace SWS
         [HideInInspector]
         public Transform[] waypoints;
 
-        //used on loopType "pingPong" for determining forward or backward movement.
-        //private bool repeat = false;
+        /// <summary>
+        /// UnityEvent invoked on each new movement iteration.
+        /// Note that this includes a call when moveToPath starts.
+        /// </summary>
+        public UnityEvent movementStart;
+        public event Action movementStartEvent;
+
+        /// <summary>
+        /// UnityEvent invoked per waypoint, delivering the current waypoint index.
+        /// Note that on loop types, this could mean double invokes for the same waypoint.
+        /// E.g. on ping-pong loop type you can check the reverse flag for more control. 
+        /// </summary>
+        public WaypointEvent movementChange;
+        public event Action<int> movementChangeEvent;
+
+        /// <summary>
+        /// UnityEvent invoked on each ending movement iteration.
+        /// Note that this is not called when moveToPath ends.
+        /// </summary>
+        public UnityEvent movementEnd;
+        public event Action movementEndEvent;
+
+        //temporary bool to indicate when moveToPath is in progress
+        private bool moveToPathBool;
         //reference to the agent component
         private NavMeshAgent agent;
         //looptype random generator
@@ -101,6 +117,8 @@ namespace SWS
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
+            if (agent && agent.stoppingDistance == 0)
+                agent.stoppingDistance = 0.5f;
         }
 
 
@@ -127,15 +145,12 @@ namespace SWS
             //get Transform array with waypoint positions
             waypoints = new Transform[pathContainer.waypoints.Length];
             Array.Copy(pathContainer.waypoints, waypoints, pathContainer.waypoints.Length);
-            
+            //cache bool whether to move to the path
+            moveToPathBool = moveToPath;
+
             //initialize waypoint positions
             startPoint = Mathf.Clamp(startPoint, 0, waypoints.Length - 1);
             currentPoint = startPoint;
-
-            //event count is smaller than waypoint count,
-            //add empty event per waypoint
-            for (int i = events.Count; i <= waypoints.Length - 1; i++)
-                events.Add(new UnityEvent());
 
             Stop();
             StartCoroutine(Move());
@@ -154,24 +169,34 @@ namespace SWS
             //set an additional destination to the first waypoint
             if (moveToPath)
             {
+                //moveToPath start event
+                movementStart.Invoke();
+                if (movementStartEvent != null)
+                    movementStartEvent();
+
                 agent.SetDestination(waypoints[currentPoint].position);
                 yield return StartCoroutine(WaitForDestination());
+                moveToPathBool = false;
             }
 
             //we're now at the first waypoint position, so directly call the next waypoint.
             //on looptype random we have to initialize a random order of waypoints first.
             if (loopType == LoopType.random)
             {
-                StartCoroutine(ReachedEnd());
+                RandomizeWaypoints();
+                StartCoroutine(NextWaypoint());
                 yield break;
             }
+
+            //path start event
+            movementStart.Invoke();
+            if (movementStartEvent != null)
+                movementStartEvent();
 
             if (moveToPath)
                 StartCoroutine(NextWaypoint());
             else
                 GoToWaypoint(startPoint);
-
-            moveToPath = false;
         }
 
 
@@ -215,7 +240,10 @@ namespace SWS
             //determine if the agent reached the path's end
             if (loopType != LoopType.random && currentPoint == waypoints.Length - 1
                 || rndIndex == waypoints.Length - 1 || reverse && currentPoint == 0)
+            {
+                OnWaypointChange(currentPoint);
                 StartCoroutine(ReachedEnd());
+            }
             else
                 StartCoroutine(NextWaypoint());
         }
@@ -242,48 +270,66 @@ namespace SWS
         //called at every waypoint to invoke events
         private void OnWaypointChange(int index)
         {
-            if (events == null || events.Count - 1 < index || events[index] == null)
-                return;
-
-            events[index].Invoke();
+            movementChange.Invoke(index);
+            if (movementChangeEvent != null)
+                movementChangeEvent(index);
         }
 
 
         //object reached the end of its path
         private IEnumerator ReachedEnd()
         {
+            movementEnd.Invoke();
+            if (movementEndEvent != null)
+                movementEndEvent();
+
             //each looptype has specific properties
             switch (loopType)
             {
                 //LoopType.none means there will be no repeat,
                 //so we just execute the final event
                 case LoopType.none:
-                    OnWaypointChange(currentPoint);
                     isMoving = false;
                     yield break;
 
                 //in a loop we set our position indicator back to zero,
                 //also executing last event
                 case LoopType.loop:
-                    OnWaypointChange(currentPoint);
                     int nextPoint = reverse ? waypoints.Length - 1 : 0;
 
                     //additional option: if the path was closed, we move our object
                     //from the last to the first waypoint instead of just "appearing" there
                     if (closeLoop)
                     {
+                        moveToPathBool = true;
                         agent.SetDestination(waypoints[nextPoint].position);
                         yield return StartCoroutine(WaitForDestination());
+                        moveToPathBool = false;
                     }
                     else
                         agent.Warp(waypoints[nextPoint].position);
 
                     currentPoint = nextPoint;
+
+                    //the Move() method and start event is not called after the first iteration anymore
+                    //invoke it manually to stay consistent with the splineMove behavior
+                    movementStart.Invoke();
+                    if (movementStartEvent != null)
+                        movementStartEvent();
                     break;
 
                 //on LoopType.pingPong, we have to invert currentPoint updates
                 case LoopType.pingPong:
                     reverse = !reverse;
+
+                    //the Move() method and start event is not called after the first iteration anymore
+                    //invoke it manually to stay consistent with the splineMove behavior
+                    if(!reverse)
+                    {
+                        movementStart.Invoke();
+                        if (movementStartEvent != null)
+                            movementStartEvent();
+                    }
                     break;
 
                 //on LoopType.random, we calculate a random order between all waypoints
@@ -395,7 +441,7 @@ namespace SWS
             else startPoint = currentPoint + 1;
             
             //start new iteration
-            moveToPath = true;
+            moveToPathBool = true;
             StartMove();
         }
 
@@ -460,6 +506,16 @@ namespace SWS
         public bool IsMoving()
         {
             return isMoving;
+        }
+
+
+        /// <summary>
+        /// Returns whether the movement tween is active and moving to path.
+        /// Returns false afterwards.
+        /// </summary>
+        public bool IsMovingToPath()
+        {
+            return IsMoving() && moveToPathBool;
         }
 
 

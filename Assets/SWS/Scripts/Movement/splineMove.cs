@@ -1,4 +1,4 @@
-﻿/*  This file is part of the "Simple Waypoint System" project by Rebound Games.
+﻿/*  This file is part of the "Simple Waypoint System" project by FLOBUK.
  *  You are only allowed to use these resources if you've bought them from the Unity Asset Store.
  * 	You shall not license, sublicense, sell, resell, transfer, assign, distribute or
  * 	otherwise make available to any third party the Service or the Content. */
@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 
 using DG.Tweening.Core;
@@ -118,12 +117,6 @@ namespace SWS
         public Vector3[] waypoints;
 
         /// <summary>
-        /// List of Unity Events invoked when reaching waypoints.
-        /// <summary>
-        [HideInInspector]
-        public List<UnityEvent> events = new List<UnityEvent>();
-
-        /// <summary>
         /// Animation path type, linear or curved.
         /// <summary>
         public DG.Tweening.PathType pathType = DG.Tweening.PathType.CatmullRom;
@@ -170,9 +163,35 @@ namespace SWS
         /// </summary>
         public Transform rotationTarget;
 
+        /// <summary>
+        /// UnityEvent invoked on each new movement iteration.
+        /// Note that this includes a call when moveToPath starts.
+        /// It is also called on both endpoints on loop type = ping pong.
+        /// </summary>
+        public UnityEvent movementStart;
+        public event Action movementStartEvent;
+
+        /// <summary>
+        /// UnityEvent invoked per waypoint, delivering the current waypoint index.
+        /// Note that on loop types, this could mean double invokes for the same waypoint.
+        /// E.g. on ping-pong loop type you can check the reverse flag for more control. 
+        /// </summary>
+        public WaypointEvent movementChange;
+        public event Action<int> movementChangeEvent;
+
+        /// <summary>
+        /// UnityEvent invoked on each ending movement iteration.
+        /// Note that this is not called when moveToPath ends.
+        /// It is also called on both endpoints on loop type = ping pong.
+        /// </summary>
+        public UnityEvent movementEnd;
+        public event Action movementEndEvent;
+
         //---DOTween animation helper variables---
         [HideInInspector]
         public Tweener tween;
+        //temporary bool to indicate when moveToPath is in progress
+        private bool moveToPathBool;
         //array of modified waypoint positions for the tween
         private Vector3[] wpPos;
         //original speed when changing the tween's speed
@@ -213,6 +232,8 @@ namespace SWS
             originSpeed = speed;
             //cache original rotation if waypoint rotation is enabled
             originRot = transform.rotation;
+            //cache bool whether to move to the path
+            moveToPathBool = moveToPath;
 
             //initialize waypoint positions
             startPoint = Mathf.Clamp(startPoint, 0, waypoints.Length - 1);
@@ -234,7 +255,7 @@ namespace SWS
         //check for message count and reinitialize if necessary
         private void Initialize(int startAt = 0)
         {
-            if (!moveToPath) startAt = 0;
+            if (!moveToPathBool) startAt = 0;
             wpPos = new Vector3[waypoints.Length - startAt];
             for (int i = 0; i < wpPos.Length; i++)
                 wpPos[i] = waypoints[i + startAt] + new Vector3(0, sizeToAdd, 0);
@@ -245,11 +266,6 @@ namespace SWS
                 for (int i = 0; i < wpPos.Length; i++)
                     wpPos[i] = transform.position + wpPos[i];
             }
-
-            //message count is smaller than waypoint count,
-            //add empty message per waypoint
-            for (int i = events.Count; i <= pathContainer.GetWaypointCount() - 1; i++)
-                events.Add(new UnityEvent());
         }
 
 
@@ -272,7 +288,7 @@ namespace SWS
             else
                 parms.SetEase(easeType);
 
-            if (moveToPath)
+            if (moveToPathBool)
                 parms.OnWaypointChange(OnWaypointReached);
             else
             {
@@ -314,7 +330,8 @@ namespace SWS
                                  .SetLookAt(lookAhead);
             }
 
-            if (!moveToPath && startPoint > 0)
+            tween.Play();
+            if (!moveToPathBool && startPoint > 0)
             {
                 GoToWaypoint(startPoint);
                 startPoint = 0;
@@ -323,6 +340,10 @@ namespace SWS
             //continue new tween with adjusted speed if it was changed before
             if (originSpeed != speed)
                 ChangeSpeed(speed);
+
+            movementStart.Invoke();
+            if (movementStartEvent != null)
+                movementStartEvent();
         }
 
 
@@ -332,7 +353,7 @@ namespace SWS
             if (index <= 0) return;
 
             Stop();
-            moveToPath = false;
+            moveToPathBool = false;
             Initialize();
             CreateTween();
         }
@@ -351,8 +372,9 @@ namespace SWS
 
             currentPoint = index;
 
-            if (events == null || events.Count - 1 < index || events[index] == null
-                || loopType == LoopType.random && index == rndArray[rndArray.Length - 1])
+            //do not invoke waypoint change event on random path last waypoint,
+            //since that is already the first waypoint on the new random iteration
+            if (loopType == LoopType.random && index == rndArray[rndArray.Length - 1])
                 return;
 
             //work around internal DOTween thing firing all previous OnWaypointChange events too,
@@ -360,7 +382,9 @@ namespace SWS
             if (startPoint > 0 && pathContainer.GetWaypointIndex(startPoint) != index)
                 return;
 
-            events[index].Invoke();
+            movementChange.Invoke(index);
+            if (movementChangeEvent != null)
+                movementChangeEvent(index);
         }
 
 
@@ -383,7 +407,7 @@ namespace SWS
             float currentPerc = 0f;
             int targetPoint = currentPoint;
 
-            if (moveToPath)
+            if (moveToPathBool)
             {
                 pathLength = tweenPath.changeValue.wpLengths[1];
                 currentPerc = currentDist / pathLength;
@@ -462,7 +486,6 @@ namespace SWS
 			rotationTarget.rotation = rotation;
 
 			//limit rotation to specific axis
-			//IN DEVELOPMENT
 			/*
             switch (waypointRotation)
             {
@@ -485,6 +508,10 @@ namespace SWS
 
         private void ReachedEnd()
         {
+            movementEnd.Invoke();
+            if (movementEndEvent != null)
+                movementEndEvent();
+
             //each looptype has specific properties
             switch (loopType)
             {
@@ -708,11 +735,21 @@ namespace SWS
 
         /// <summary>
         /// Returns whether the movement tween is active.
-        /// Still true when moveToPath or paused.
+        /// Also true when moving to path or paused.
         /// </summary>
         public bool IsMoving()
         {
             return tween != null;
+        }
+
+
+        /// <summary>
+        /// Returns whether the movement tween is active and moving to path.
+        /// Returns false afterwards.
+        /// </summary>
+        public bool IsMovingToPath()
+        {
+            return IsMoving() && moveToPathBool;
         }
 
 

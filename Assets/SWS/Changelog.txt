@@ -1,6 +1,17 @@
 **************************************
 CHANGELOG (v5 and above)
 **************************************
+v5.5.0
+- changed events on waypoints: UnityEvents for all waypoints in the
+  inspector are gone, as feedback told they were difficult to maintain.
+  Instead, three UnityEvents were added: start, change (waypoint), end.
+  You can also listen to these events via code on the corresponding Action.
+  Be aware that when updating, your existing events need to be re-added.
+  See the scripting documentation for more details and event descriptions.
+- changed NavMeshAgent stoppingDistance default to 0.5 if kept at zero
+- fixed splineMove not starting to play with DOTween AutoPlay set to none
+- fixed documentation links
+
 v5.4.7
 - DOTween updated to 1.2.420
 - added IsMoving() and IsPaused() convenience methods to movement scripts

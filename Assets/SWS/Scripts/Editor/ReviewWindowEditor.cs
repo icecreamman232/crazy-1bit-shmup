@@ -37,19 +37,20 @@ namespace SWS
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Please consider giving us a rating on the");
-            EditorGUILayout.LabelField("Unity Asset Store. Your support helps us");
-            EditorGUILayout.LabelField("to improve this product. Thank you!");
+            EditorGUILayout.LabelField("Please consider leaving a rating on the");
+            EditorGUILayout.LabelField("Unity Asset Store. Your support helps me");
+            EditorGUILayout.LabelField("to stay motivated and improve this asset.");
+            EditorGUILayout.LabelField("Thank you!", GUILayout.Width(220));
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("Review now!", GUILayout.Height(40)))
+            if (GUILayout.Button("Review", GUILayout.Height(40)))
             {
                 Help.BrowseURL("https://assetstore.unity.com/packages/slug/2506?aid=1011lGiF&pubref=editor_sws");
             }
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("If you are looking for support, please");
-            EditorGUILayout.LabelField("head over to our support forum instead.");
+            EditorGUILayout.LabelField("head over to the support forum instead.");
         }
     }
 }

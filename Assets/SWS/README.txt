@@ -16,8 +16,8 @@ addon package and additional docs in the "Plugins" folder.
 SUPPORT
 ************************************ 
 
-For support queries, visit our support forum or drop us a line.
-To support us, please consider writing a review on the Asset
+For support queries, visit the support forum.
+To support me, please consider writing a review on the Asset
 Store. The corresponding links are located in the top menu
 under Window > Simple Waypoint System > About. Thank you!
 

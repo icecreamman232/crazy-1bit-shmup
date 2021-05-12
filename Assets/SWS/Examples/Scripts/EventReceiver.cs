@@ -1,4 +1,4 @@
-﻿/*  This file is part of the "Simple Waypoint System" project by Rebound Games.
+﻿/*  This file is part of the "Simple Waypoint System" project by FLOBUK.
  *  You are only allowed to use these resources if you've bought them from the Unity Asset Store.
  * 	You shall not license, sublicense, sell, resell, transfer, assign, distribute or
  * 	otherwise make available to any third party the Service or the Content. */
@@ -19,10 +19,29 @@ public class EventReceiver : MonoBehaviour
     }
 
 
+    public void PrintWaypoint(int index)
+    {
+        Debug.Log(index.ToString());
+    }
+
+
     //prints text to the console
     public void PrintText(string text)
     {
         Debug.Log(text);
+    }
+
+
+    //delay movement on specific waypoints
+    public void DelayAtWaypoint(int index)
+    {
+        switch(index)
+        {
+            case 1:
+            case 3:
+                GetComponent<splineMove>().Pause(3);
+                break;
+        }
     }
 
 
