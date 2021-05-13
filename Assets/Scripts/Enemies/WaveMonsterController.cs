@@ -68,5 +68,37 @@ public class WaveMonsterController : MonoBehaviour
         //9:18
         Gizmos.DrawWireCube(transform.position, new Vector3(2.9f * 2, 5.8f*2));
     }
+
+    public bool IsNullList()
+    {
+        for(int i = 0;i < monsterList.Count; i++)
+        {
+            if(monsterList[i] == null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool IsThereUnusedPath()
+    {
+        for (int i = 0; i < monsterList.Count; i++)
+        {
+            if (monsterList[i].splineMove.pathContainer==null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool IsThereMonsterNotInTheList()
+    {
+        MonsterWithSplineMove[] listObjects = FindObjectsOfType<MonsterWithSplineMove>();
+        if(listObjects.Length!=monsterList.Count)
+        {
+            return true;
+        }
+        return false;
+    }
 #endif
 }
