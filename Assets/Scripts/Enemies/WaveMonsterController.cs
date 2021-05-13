@@ -17,6 +17,8 @@ public class WaveMonsterController : MonoBehaviour
 
 
     public int numberMonsterList;
+    public int currentIndexMonster;
+
 
     public bool isWaveFinished;
 
@@ -34,15 +36,15 @@ public class WaveMonsterController : MonoBehaviour
     public void Run()
     {
         numberMonsterList = waveMonsterList.Count;
-
+        currentIndexMonster = 0;
         isWaveFinished = false;
         for (int i = 0; i < waveMonsterList.Count; i++)
         {
             //Add event if monster died
-            waveMonsterList[i].monster.OnDie.AddListener(ThereisMonsterDied);
+            waveMonsterList[i].monster.OnDie += ThereisMonsterDied;
 
             //Add event if monster go to end point on the path
-            waveMonsterList[i].monster.splineMove.movementEndEvent += ThereisMonsterDied;
+            waveMonsterList[i].monster.splineMove.movementEndEvent += FinishedRun;
         }
 
         StartCoroutine(OnSpawningMonster());
@@ -57,17 +59,33 @@ public class WaveMonsterController : MonoBehaviour
     }
     public void ThereisMonsterDied()
     {
+        currentIndexMonster++;
         numberMonsterList--;
+        Debug.Log("Dead State, Monster Left=" + numberMonsterList);
         if(numberMonsterList <= 0)
         {
             isWaveFinished = true;
             for (int i = 0; i < waveMonsterList.Count; i++)
             {
+               
                 waveMonsterList[i].monster.splineMove.Stop();
             }
             Lean.Pool.LeanPool.Despawn(this.gameObject);
         }
     }
+    public void FinishedRun()
+    {
+        currentIndexMonster++;
+        numberMonsterList--;
+        Debug.Log("Finished Run, Monster Left=" + numberMonsterList);
+        if (numberMonsterList <=0)
+        {
+            isWaveFinished = true;
+            Lean.Pool.LeanPool.Despawn(this.gameObject);
+        }
+    }
+
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

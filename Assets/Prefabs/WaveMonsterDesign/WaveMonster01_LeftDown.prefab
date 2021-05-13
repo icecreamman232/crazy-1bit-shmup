@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 5746181274814401757}
   - component: {fileID: 8770411602387256099}
   m_Layer: 0
-  m_Name: WaveMonster01_2LineTopDown
+  m_Name: WaveMonster01_LeftDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveMonsterList:
   - monster: {fileID: 1920240801966387317}
-    delayToNextMonster: 0
+    delayToNextMonster: 0.5
   - monster: {fileID: 5589906300448772886}
     delayToNextMonster: 0.5
   - monster: {fileID: 3304500647571177767}
@@ -321,6 +321,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5746181274814401757}
     m_Modifications:
     - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: movementStart.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: speed
       value: 3
       objectReference: {fileID: 0}
@@ -328,6 +332,14 @@ PrefabInstance:
       propertyPath: pathContainer
       value: 
       objectReference: {fileID: 544399931668814071}
+    - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: movementStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 367357453471507698, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
+      propertyPath: movementStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954634, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
       value: 0

@@ -26,7 +26,7 @@ public class BaseMonster:  MonoBehaviour
     public Vector3 origin_position;
     protected float t_lerp = 0.1f;
 
-    public UnityEvent OnDie;
+    public System.Action OnDie;
 
 
     [Header("Reference Holders")]
@@ -99,6 +99,7 @@ public class BaseMonster:  MonoBehaviour
             //DropCoin();
             DropItem();
         }
+        Debug.Log("Check die");
         OnDie?.Invoke();
         this.gameObject.SetActive(false);
     }

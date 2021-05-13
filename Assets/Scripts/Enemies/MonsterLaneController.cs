@@ -14,7 +14,6 @@ public class MonsterLaneController : MonoBehaviour
     public List<GameObject> list_monsters;
     public GameObject alert_sign;
 
-    public UnityEvent TestEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +73,6 @@ public class MonsterLaneController : MonoBehaviour
             monster.GetComponent<Monster03Controller>().alert_sign = alert_sign;
             monster.GetComponent<Monster03Controller>().sign_animator = GetComponent<Animator>();
         }
-        monster.GetComponent<BaseMonster>().OnDie = TestEvent;
         monster.GetComponent<BaseMonster>().Run();
         wave_index += 1;
     }
