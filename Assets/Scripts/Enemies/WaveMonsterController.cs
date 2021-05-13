@@ -3,9 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class WaveMonster
+{
+    public MonsterWithSplineMove monster;
+    public float delayToNextMonster;
+}
+
+
 public class WaveMonsterController : MonoBehaviour
 {
-    public List<MonsterWithSplineMove> monsterList;
+    public List<WaveMonster> waveMonsterList;
+
 
     public int numberMonsterList;
 
@@ -24,25 +33,26 @@ public class WaveMonsterController : MonoBehaviour
     }
     public void Run()
     {
-        numberMonsterList = monsterList.Count;
+        numberMonsterList = waveMonsterList.Count;
 
         isWaveFinished = false;
-        for (int i = 0; i < monsterList.Count; i++)
+        for (int i = 0; i < waveMonsterList.Count; i++)
         {
             //Add event if monster died
-            monsterList[i].OnDie.AddListener(ThereisMonsterDied);
+            waveMonsterList[i].monster.OnDie.AddListener(ThereisMonsterDied);
 
             //Add event if monster go to end point on the path
-            monsterList[i].splineMove.movementEndEvent += ThereisMonsterDied;
+            waveMonsterList[i].monster.splineMove.movementEndEvent += ThereisMonsterDied;
         }
-        StartCoroutine(OnMonsterRunning());
+
+        StartCoroutine(OnSpawningMonster());
     }
-    IEnumerator OnMonsterRunning()
+    IEnumerator OnSpawningMonster()
     {
-        for(int i  = 0; i < monsterList.Count; i++)
+        for (int i = 0; i < waveMonsterList.Count; i++)
         {
-            monsterList[i].Run(); 
-            yield return new WaitForSeconds(0.5f);
+            waveMonsterList[i].monster.Run();
+            yield return new WaitForSeconds(waveMonsterList[i].delayToNextMonster);
         }
     }
     public void ThereisMonsterDied()
@@ -51,9 +61,9 @@ public class WaveMonsterController : MonoBehaviour
         if(numberMonsterList <= 0)
         {
             isWaveFinished = true;
-            for (int i = 0; i < monsterList.Count; i++)
+            for (int i = 0; i < waveMonsterList.Count; i++)
             {
-                monsterList[i].splineMove.Stop();
+                waveMonsterList[i].monster.splineMove.Stop();
             }
             Lean.Pool.LeanPool.Despawn(this.gameObject);
         }
@@ -71,9 +81,9 @@ public class WaveMonsterController : MonoBehaviour
 
     public bool IsNullList()
     {
-        for(int i = 0;i < monsterList.Count; i++)
+        for(int i = 0;i < waveMonsterList.Count; i++)
         {
-            if(monsterList[i] == null)
+            if(waveMonsterList[i].monster == null)
             {
                 return true;
             }
@@ -82,9 +92,9 @@ public class WaveMonsterController : MonoBehaviour
     }
     public bool IsThereUnusedPath()
     {
-        for (int i = 0; i < monsterList.Count; i++)
+        for (int i = 0; i < waveMonsterList.Count; i++)
         {
-            if (monsterList[i].splineMove.pathContainer==null)
+            if (waveMonsterList[i].monster.splineMove.pathContainer==null)
             {
                 return true;
             }
@@ -94,7 +104,7 @@ public class WaveMonsterController : MonoBehaviour
     public bool IsThereMonsterNotInTheList()
     {
         MonsterWithSplineMove[] listObjects = FindObjectsOfType<MonsterWithSplineMove>();
-        if(listObjects.Length!=monsterList.Count)
+        if(listObjects.Length!= waveMonsterList.Count)
         {
             return true;
         }
