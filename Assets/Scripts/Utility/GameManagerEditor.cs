@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(GameManager))]
 public class GameManagerEditor : Editor
 {
@@ -218,3 +219,4 @@ public class GameManagerEditor : Editor
         base.OnInspectorGUI();
     }
 }
+#endif

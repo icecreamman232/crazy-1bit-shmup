@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 [CustomEditor(typeof(CollectorRankDO))]
 public class RankEditor : Editor
 {
@@ -87,3 +89,4 @@ public class RankEditor : Editor
         serialized_obj.ApplyModifiedProperties();
     }
 }
+#endif
