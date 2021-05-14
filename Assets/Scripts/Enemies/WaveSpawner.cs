@@ -11,7 +11,7 @@ public class WaveSpawner : MonoBehaviour
     public int waveIndex;
     public int maxWave;
 
-
+    bool isSpawning;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,21 +28,29 @@ public class WaveSpawner : MonoBehaviour
         waveIndex = 0;
         maxWave = levelDesignDO.monsterList.Count;
         currentWaveMonster = null;
+        isSpawning = false;
     }
     public void Run()
     {
+        isSpawning = true;
         StartCoroutine(OnWaveRunning());
     }
 
     public void Reset()
     {
+        isSpawning = false;
         StopCoroutine(OnWaveRunning());
+        currentWaveMonster.isWaveFinished = true;
         currentWaveMonster.Reset();
     }
     IEnumerator OnWaveRunning()
     {
         while(true)
         {
+            if(!isSpawning)
+            {
+                yield break;
+            }
             currentWaveMonster = Lean.Pool.LeanPool.Spawn(levelDesignDO.monsterList[waveIndex].waveMonster, this.transform);
             currentWaveMonster.Run();         
             yield return new WaitUntil(()=> currentWaveMonster.isWaveFinished);

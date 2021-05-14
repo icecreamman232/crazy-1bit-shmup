@@ -29,6 +29,7 @@ public class WaveMonsterController : MonoBehaviour
         }
         //Add event if monster go to end point on the path
         waveMonsterList[waveMonsterList.Count-1].monster.splineMove.movementEndEvent += OnFinishRun;
+
     }
     private void OnDisable()
     {
@@ -44,7 +45,17 @@ public class WaveMonsterController : MonoBehaviour
     }
     public void Reset()
     {
-        
+        for (int i = 0; i < waveMonsterList.Count; i++)
+        {
+            //Unsubscribe events to prevent memory leak
+            waveMonsterList[i].monster.OnDie -= OnMonsterDead;
+            if (i == waveMonsterList.Count - 1)
+            {
+                waveMonsterList[i].monster.splineMove.movementEndEvent -= OnFinishRun;
+            }
+            waveMonsterList[i].monster.splineMove.ResetToStart();
+        }
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
     IEnumerator OnSpawningMonster()
     {
