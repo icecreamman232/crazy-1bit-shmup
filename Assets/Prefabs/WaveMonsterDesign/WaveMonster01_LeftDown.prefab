@@ -113,7 +113,7 @@ MonoBehaviour:
   - monster: {fileID: 5589906300448772886}
     delayToNextMonster: 0.5
   - monster: {fileID: 3304500647571177767}
-    delayToNextMonster: 0.5
+    delayToNextMonster: 0
   numberMonsterList: 0
   isWaveFinished: 0
 --- !u!1 &5012454081218693798

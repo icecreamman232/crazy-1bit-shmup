@@ -58,7 +58,6 @@ public class WaveMonsterController : MonoBehaviour
     public void FinishedRun()
     {
         if (isWaveFinished) return;
-        Debug.Log("Finished Run, Monster Left=" + numberMonsterList);
         if (numberMonsterList <= 0)
         {
             for (int i = 0; i < waveMonsterList.Count; i++)

@@ -31,13 +31,14 @@ public class WaveSpawner : MonoBehaviour
     }
     IEnumerator OnWaveRunning()
     {
+        var delay = new WaitForSeconds(0.25f);
         while(true)
         {
             var randomIndex = Random.Range(0, numberMonster);
             var wave = Lean.Pool.LeanPool.Spawn(waveMonsterControllers[randomIndex], this.transform);
             wave.Run();
             yield return new WaitUntil(()=> wave.isWaveFinished);
-            yield return new WaitForSeconds(1.0f);
+            yield return delay;
         }
     }
 }
