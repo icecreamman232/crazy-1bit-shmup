@@ -70,7 +70,7 @@ public class SpaceShipController : MonoBehaviour
     }
     void UpdateHP(int damage)
     {
-        //current_hp -= damage;
+        current_hp -= damage;
     }
     public void BeginShoot()
     {

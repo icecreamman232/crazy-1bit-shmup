@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class WaveMonster
+public class WaveMonsterHolder
 {
     public MonsterWithSplineMove monster;
-    public float delayToNextMonster;
+    /// <summary>
+    /// Delay Time to Next Monster
+    /// </summary>
+    [Tooltip("Delay time before spawnning next monster")]
+    public float delayTime;
 }
 
 
 public class WaveMonsterController : MonoBehaviour
 {
-    public List<WaveMonster> waveMonsterList;
+    public List<WaveMonsterHolder> waveMonsterList;
 
 
     public int numberMonsterList;
@@ -52,7 +56,7 @@ public class WaveMonsterController : MonoBehaviour
         for (int i = 0; i < waveMonsterList.Count; i++)
         {
             waveMonsterList[i].monster.Run();
-            yield return new WaitForSeconds(waveMonsterList[i].delayToNextMonster);
+            yield return new WaitForSeconds(waveMonsterList[i].delayTime);
         }
     }
     public void FinishedRun()
@@ -65,7 +69,6 @@ public class WaveMonsterController : MonoBehaviour
                 //Unsubscribe events to prevent memory leak
                 waveMonsterList[i].monster.OnDie -= FinishedRun;
                 waveMonsterList[i].monster.splineMove.movementEndEvent -= FinishedRun;
-
                 waveMonsterList[i].monster.splineMove.ResetToStart();
             }
             isWaveFinished = true;

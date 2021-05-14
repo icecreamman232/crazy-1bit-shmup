@@ -5,15 +5,15 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
     public List<WaveMonsterController> waveMonsterControllers;
+    public LevelDesignDO levelDesignDO;
+    public int waveIndex;
+    public int maxWave;
 
-    private int numberMonster;
-    WaitForSeconds delay;
-    public float delayTime;
+
     // Start is called before the first frame update
     void Start()
     {
-        delay = new WaitForSeconds(delayTime);
-        numberMonster = waveMonsterControllers.Count;
+
     }
 
     // Update is called once per frame
@@ -23,7 +23,8 @@ public class WaveSpawner : MonoBehaviour
     }
     public void Setup()
     {
-
+        waveIndex = 0;
+        maxWave = levelDesignDO.monsterList.Count;
     }
     public void Run()
     {
@@ -31,14 +32,18 @@ public class WaveSpawner : MonoBehaviour
     }
     IEnumerator OnWaveRunning()
     {
-        var delay = new WaitForSeconds(0.25f);
         while(true)
         {
-            var randomIndex = Random.Range(0, numberMonster);
-            var wave = Lean.Pool.LeanPool.Spawn(waveMonsterControllers[randomIndex], this.transform);
-            wave.Run();
+            var wave = Lean.Pool.LeanPool.Spawn(levelDesignDO.monsterList[waveIndex].waveMonster, this.transform);
+            wave.Run();         
             yield return new WaitUntil(()=> wave.isWaveFinished);
-            yield return delay;
+            yield return new WaitForSeconds(levelDesignDO.monsterList[waveIndex].delayNextWave);
+            waveIndex++;
+            //Safety iteration
+            if (waveIndex >= maxWave)
+            {
+                waveIndex = 0;
+            }
         }
     }
 }

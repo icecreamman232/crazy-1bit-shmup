@@ -104,7 +104,6 @@ public class SpaceShipMovement : MonoBehaviour
             if (world_pts.x <= -screen_bound.x + ship_sprite_width*0.5f) world_pts.x = -screen_bound.x+ ship_sprite_width * 0.5f;
             if (world_pts.x >= screen_bound.x - ship_sprite_width *0.5f) world_pts.x = screen_bound.x - ship_sprite_width * 0.5f;
             if (world_pts.y <= -screen_bound.y) world_pts.y = -screen_bound.y;
-            //world_pts.y = -screen_bound.y+ship_sprite_height*1.5f; 
 
             //Ship keep turning left
             if(world_pts.x < last_pos_x)

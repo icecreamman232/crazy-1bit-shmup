@@ -5,12 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="LevelDesign",menuName ="Data Objects/Level",order =2)]
 public class LevelDesignDO : ScriptableObject
 {
-    public List<MonsterWaveDO> monsterList;
+    public List<WaveMonsterCointainer> monsterList;
 }
 
+
 [System.Serializable]
-public class MonsterWaveDO
+public class WaveMonsterCointainer
 {
     public WaveMonsterController waveMonster;
-    public float delayTime;
+    public float delayNextWave;
 }

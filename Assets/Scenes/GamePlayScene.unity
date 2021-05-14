@@ -11744,7 +11744,9 @@ MonoBehaviour:
   waveMonsterControllers:
   - {fileID: 8770411602387256099, guid: 16d6247a7ffe4ca4590545542d82e023, type: 3}
   - {fileID: 8770411602387256099, guid: 65beaf7a267c2d24689c207093df174e, type: 3}
-  delayTime: 3
+  levelDesignDO: {fileID: 11400000, guid: 786b56be99b667a49ac6d283c4b11e0f, type: 2}
+  waveIndex: 0
+  maxWave: 0
 --- !u!4 &1324474170
 Transform:
   m_ObjectHideFlags: 0
