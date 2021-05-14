@@ -20,8 +20,7 @@ public class MonsterWithSplineMove : BaseMonster
     }
     public override void Run()
     {
-
+        base.Run(); 
         splineMove.StartMove();
-        base.Run();
     }
 }

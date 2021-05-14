@@ -99,7 +99,6 @@ public class BaseMonster:  MonoBehaviour
             //DropCoin();
             DropItem();
         }
-        Debug.Log("Check die");
         OnDie?.Invoke();
         this.gameObject.SetActive(false);
     }

@@ -17,7 +17,6 @@ public class WaveMonsterController : MonoBehaviour
 
 
     public int numberMonsterList;
-    public int currentIndexMonster;
 
 
     public bool isWaveFinished;
@@ -36,12 +35,11 @@ public class WaveMonsterController : MonoBehaviour
     public void Run()
     {
         numberMonsterList = waveMonsterList.Count;
-        currentIndexMonster = 0;
         isWaveFinished = false;
         for (int i = 0; i < waveMonsterList.Count; i++)
         {
             //Add event if monster died
-            waveMonsterList[i].monster.OnDie += ThereisMonsterDied;
+            waveMonsterList[i].monster.OnDie += FinishedRun;
 
             //Add event if monster go to end point on the path
             waveMonsterList[i].monster.splineMove.movementEndEvent += FinishedRun;
@@ -57,32 +55,24 @@ public class WaveMonsterController : MonoBehaviour
             yield return new WaitForSeconds(waveMonsterList[i].delayToNextMonster);
         }
     }
-    public void ThereisMonsterDied()
-    {
-        currentIndexMonster++;
-        numberMonsterList--;
-        Debug.Log("Dead State, Monster Left=" + numberMonsterList);
-        if(numberMonsterList <= 0)
-        {
-            isWaveFinished = true;
-            for (int i = 0; i < waveMonsterList.Count; i++)
-            {
-               
-                waveMonsterList[i].monster.splineMove.Stop();
-            }
-            Lean.Pool.LeanPool.Despawn(this.gameObject);
-        }
-    }
     public void FinishedRun()
     {
-        currentIndexMonster++;
-        numberMonsterList--;
+        if (isWaveFinished) return;
         Debug.Log("Finished Run, Monster Left=" + numberMonsterList);
-        if (numberMonsterList <=0)
+        if (numberMonsterList <= 0)
         {
+            for (int i = 0; i < waveMonsterList.Count; i++)
+            {
+                //Unsubscribe events to prevent memory leak
+                waveMonsterList[i].monster.OnDie -= FinishedRun;
+                waveMonsterList[i].monster.splineMove.movementEndEvent -= FinishedRun;
+
+                waveMonsterList[i].monster.splineMove.ResetToStart();
+            }
             isWaveFinished = true;
             Lean.Pool.LeanPool.Despawn(this.gameObject);
         }
+        numberMonsterList--;      
     }
 
 
