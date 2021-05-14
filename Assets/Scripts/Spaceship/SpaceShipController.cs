@@ -139,6 +139,7 @@ public class SpaceShipController : MonoBehaviour
             if (time_counter >= invincible_duration)
             {
                 time_counter = 0;
+                ship_sprite.color = new Color(1, 1, 1, 1);
                 yield break;
             }
             yield return delay;

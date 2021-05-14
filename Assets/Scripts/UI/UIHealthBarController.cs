@@ -26,6 +26,10 @@ public class UIHealthBarController : MonoBehaviour
     {
         list_hp_bar_animator[index].Play("hp_bar_explode");
         index--;
+        if(index < 0)
+        {
+            index = 0;
+        }
     }
     IEnumerator play_anim()
     {
