@@ -18,38 +18,33 @@ public class WaveMonsterHolder
 public class WaveMonsterController : MonoBehaviour
 {
     public List<WaveMonsterHolder> waveMonsterList;
-
-
     public int numberMonsterList;
-
-
     public bool isWaveFinished;
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        for (int i = 0; i < waveMonsterList.Count; i++)
+        {
+            //Add event if monster died
+            waveMonsterList[i].monster.OnDie += OnMonsterDead;          
+        }
+        //Add event if monster go to end point on the path
+        waveMonsterList[waveMonsterList.Count-1].monster.splineMove.movementEndEvent += OnFinishRun;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+ 
     }
     public void Run()
     {
         numberMonsterList = waveMonsterList.Count;
         isWaveFinished = false;
-        for (int i = 0; i < waveMonsterList.Count; i++)
-        {
-            //Add event if monster died
-            waveMonsterList[i].monster.OnDie += FinishedRun;
-
-            //Add event if monster go to end point on the path
-            waveMonsterList[i].monster.splineMove.movementEndEvent += FinishedRun;
-        }
+        
 
         StartCoroutine(OnSpawningMonster());
+    }
+    public void Reset()
+    {
+        
     }
     IEnumerator OnSpawningMonster()
     {
@@ -59,7 +54,7 @@ public class WaveMonsterController : MonoBehaviour
             yield return new WaitForSeconds(waveMonsterList[i].delayTime);
         }
     }
-    public void FinishedRun()
+    public void OnMonsterDead()
     {
         if (isWaveFinished) return;
         if (numberMonsterList <= 0)
@@ -67,17 +62,36 @@ public class WaveMonsterController : MonoBehaviour
             for (int i = 0; i < waveMonsterList.Count; i++)
             {
                 //Unsubscribe events to prevent memory leak
-                waveMonsterList[i].monster.OnDie -= FinishedRun;
-                waveMonsterList[i].monster.splineMove.movementEndEvent -= FinishedRun;
+                waveMonsterList[i].monster.OnDie -= OnMonsterDead;
+                if(i == waveMonsterList.Count-1)
+                {
+                    waveMonsterList[i].monster.splineMove.movementEndEvent -= OnFinishRun;
+                }              
                 waveMonsterList[i].monster.splineMove.ResetToStart();
             }
+
             isWaveFinished = true;
             Lean.Pool.LeanPool.Despawn(this.gameObject);
         }
         numberMonsterList--;      
     }
+    public void OnFinishRun()
+    {
+        for (int i = 0; i < waveMonsterList.Count; i++)
+        {
+            //Unsubscribe events to prevent memory leak
+            waveMonsterList[i].monster.OnDie -= OnMonsterDead;
+            if (i == waveMonsterList.Count - 1)
+            {
+                waveMonsterList[i].monster.splineMove.movementEndEvent -= OnFinishRun;
+            }
+            waveMonsterList[i].monster.splineMove.ResetToStart();
+        }
+        isWaveFinished = true;
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
+    }
 
-
+    #region Editor
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -121,4 +135,5 @@ public class WaveMonsterController : MonoBehaviour
         return false;
     }
 #endif
+    #endregion
 }

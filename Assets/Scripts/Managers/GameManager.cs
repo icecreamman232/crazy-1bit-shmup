@@ -104,6 +104,8 @@ public class GameManager : MonoBehaviour
                     ui_endgame_controller.PlayIntro(current_score.ToString());
                     star_back_layer.Stop();
                     star_front_layer.Stop();
+
+                    waveSpawner.Reset();
                     DataManager.Instance.SaveDataToLocalStorage();
                     SetState(GameManagerState.LOSE);
                 }

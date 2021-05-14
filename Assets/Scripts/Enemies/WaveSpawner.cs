@@ -6,6 +6,8 @@ public class WaveSpawner : MonoBehaviour
 {
     public List<WaveMonsterController> waveMonsterControllers;
     public LevelDesignDO levelDesignDO;
+    public WaveMonsterController currentWaveMonster;
+
     public int waveIndex;
     public int maxWave;
 
@@ -25,21 +27,28 @@ public class WaveSpawner : MonoBehaviour
     {
         waveIndex = 0;
         maxWave = levelDesignDO.monsterList.Count;
+        currentWaveMonster = null;
     }
     public void Run()
     {
         StartCoroutine(OnWaveRunning());
     }
+
+    public void Reset()
+    {
+        StopCoroutine(OnWaveRunning());
+        currentWaveMonster.Reset();
+    }
     IEnumerator OnWaveRunning()
     {
         while(true)
         {
-            var wave = Lean.Pool.LeanPool.Spawn(levelDesignDO.monsterList[waveIndex].waveMonster, this.transform);
-            wave.Run();         
-            yield return new WaitUntil(()=> wave.isWaveFinished);
+            currentWaveMonster = Lean.Pool.LeanPool.Spawn(levelDesignDO.monsterList[waveIndex].waveMonster, this.transform);
+            currentWaveMonster.Run();         
+            yield return new WaitUntil(()=> currentWaveMonster.isWaveFinished);
             yield return new WaitForSeconds(levelDesignDO.monsterList[waveIndex].delayNextWave);
             waveIndex++;
-            //Safety iteration
+            //Safety looping iteration
             if (waveIndex >= maxWave)
             {
                 waveIndex = 0;

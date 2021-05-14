@@ -26,8 +26,6 @@ public class SpaceShipMovement : MonoBehaviour
         isTouching = false;
         firstTouch = false;
         main_camera = Camera.main;
-
-        //SetShipPosition();
     }
 
     // Update is called once per frame
