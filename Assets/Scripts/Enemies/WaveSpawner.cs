@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public List<WaveMonsterController> waveMonsterControllers;
     public LevelDesignDO levelDesignDO;
     public WaveMonsterController currentWaveMonster;
 
