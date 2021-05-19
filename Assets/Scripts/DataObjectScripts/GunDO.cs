@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="GunDataObject",menuName ="Gun/Gun Data",order = 0)]
 public class GunDO : ScriptableObject
 {
+
+    public float fireRate;
+
     [Tooltip("Số lượt đạn trong 1 lần bắn")]
     public int numWavePerShot;
 

@@ -21,6 +21,7 @@ public class EnemyGunController : MonoBehaviour
     IEnumerator OnShooting()
     {
         WaitForSeconds waveDelay = new WaitForSeconds(gunData.delayperWaveShot);
+        WaitForSeconds fireRate = new WaitForSeconds(gunData.fireRate);
         while (true)
         {
             for(int i = 0; i < gunData.numWavePerShot; i++)
@@ -36,8 +37,9 @@ public class EnemyGunController : MonoBehaviour
                     bullet.Shoot(gunData.waveShot[j].m_Rotation);
                     yield return new WaitForSeconds(gunData.waveShot[j].m_delay);
                 }
+                yield return waveDelay;
             }
-            yield return waveDelay;
+            yield return fireRate;
         }
     }
 
