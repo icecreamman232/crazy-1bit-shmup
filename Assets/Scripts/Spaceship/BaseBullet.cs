@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BaseBullet : MonoBehaviour
 {
-    private int damage;
+    [SerializeField]
+    private int damage;  
     public int Damage
     {
         set
@@ -13,6 +14,9 @@ public class BaseBullet : MonoBehaviour
             if(damage < 0)
             {
                 damage = 0;
+            #if UNITY_EDITOR
+                Debug.Log("Damage is negative");    
+            #endif
             }
         }
         get
@@ -23,8 +27,13 @@ public class BaseBullet : MonoBehaviour
     public float bullet_movespeed;
     Vector3 origin_position;
     public Rigidbody2D rigidbody2D;
+
+    private void Awake()
+    {
+        rigidbody2D = GetComponent<Rigidbody2D>();
+    }
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         origin_position = transform.position;
     }
@@ -32,7 +41,20 @@ public class BaseBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Culling bullet
         if(transform.position.y >= GameHelper.get_current_screenbound().y)
+        {
+            Reset();
+        }
+        else if(transform.position.y <= -GameHelper.get_current_screenbound().y)
+        {
+            Reset();
+        }
+        else if(transform.position.x >= GameHelper.get_current_screenbound().x)
+        {
+            Reset();
+        }
+        else if(transform.position.x <= -GameHelper.get_current_screenbound().x)
         {
             Reset();
         }
@@ -40,6 +62,11 @@ public class BaseBullet : MonoBehaviour
     public void Shoot()
     {
         rigidbody2D.velocity = new Vector2(0f, bullet_movespeed);
+    }
+    public void Shoot(Vector3 direction)
+    {
+        var vec = new Vector2(0f, bullet_movespeed);
+        rigidbody2D.velocity = Quaternion.Euler(direction) * vec;
     }
     public void Reset()
     {
