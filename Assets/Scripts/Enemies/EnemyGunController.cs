@@ -8,10 +8,12 @@ public class EnemyGunController : MonoBehaviour
 
     public GunDO gunData;
 
+    public System.Action OnPlayAnimShooting;
+
 
     private void Start()
     {
-        Shoot();
+
     }
     
     public void Shoot()
@@ -24,7 +26,8 @@ public class EnemyGunController : MonoBehaviour
         WaitForSeconds fireRate = new WaitForSeconds(gunData.fireRate);
         while (true)
         {
-            for(int i = 0; i < gunData.numWavePerShot; i++)
+            OnPlayAnimShooting?.Invoke();
+            for (int i = 0; i < gunData.numWavePerShot; i++)
             {
                 for (int j = 0; j < gunData.waveShot.Count; j++)
                 {

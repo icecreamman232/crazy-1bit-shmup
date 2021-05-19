@@ -13,7 +13,7 @@ public class GunDO : ScriptableObject
 
     public float delayperWaveShot;
 
-
+    [Space(30)]
     [Tooltip("Thông tin các bullet trong 1 wave")]
     public List<BulletShot> waveShot;
 

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d41b1950d0c0441952eb40d698a20a, type: 3}
   m_Name: MonsterGun03_DataObject
   m_EditorClassIdentifier: 
-  fireRate: 1
+  fireRate: 0.5
   numWavePerShot: 3
   delayperWaveShot: 0.03
   waveShot:
-  - m_Position: {x: 0, y: 0, z: 0}
+  - m_Position: {x: 0.5, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: -20}
     m_delay: 0
-  - m_Position: {x: 0, y: 0, z: 0}
+  - m_Position: {x: -0.5, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 20}
     m_delay: 0
