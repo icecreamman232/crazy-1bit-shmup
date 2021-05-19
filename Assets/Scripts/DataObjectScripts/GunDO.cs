@@ -8,6 +8,8 @@ public class GunDO : ScriptableObject
 
     public float fireRate;
 
+    public float bulletMoveSpeed;
+
     [Tooltip("Số lượt đạn trong 1 lần bắn")]
     public int numWavePerShot;
 

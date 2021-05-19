@@ -61,10 +61,12 @@ public class BaseBullet : MonoBehaviour
     }
     public void Shoot()
     {
+        //Hàm này dùng cho ship
         rigidbody2D.velocity = new Vector2(0f, bullet_movespeed);
     }
     public void Shoot(Vector3 direction)
     {
+        //Hàm này dùng cho monster nên sẽ bắn thẳng từ trên xuống
         var vec = new Vector2(0f, -bullet_movespeed);       
         rigidbody2D.velocity = Quaternion.Euler(direction) * vec;
     }

@@ -14,9 +14,13 @@ public class EnemyGunController : MonoBehaviour
 
     private void Start()
     {
-        Shoot();
     }
 
+    public void SetupGun()
+    {
+        m_bullet.bullet_movespeed = gunData.bulletMoveSpeed;
+        m_bullet.Damage = 1;
+    }
     public void Shoot()
     {
         
@@ -36,9 +40,8 @@ public class EnemyGunController : MonoBehaviour
                     var quaternion = Quaternion.Euler(gunData.waveShot[j].m_Rotation);
                     var bullet = Lean.Pool.LeanPool.Spawn(
                         m_bullet,
-                        gunData.waveShot[j].m_Position + m_firePoint.position /*+this.transform.position*/,
+                        gunData.waveShot[j].m_Position + m_firePoint.position,
                         quaternion);
-                    bullet.Damage = 10;
                     bullet.Shoot(gunData.waveShot[j].m_Rotation);
                     yield return new WaitForSeconds(gunData.waveShot[j].m_delay);
                 }
