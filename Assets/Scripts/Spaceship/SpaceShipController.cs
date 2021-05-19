@@ -86,7 +86,7 @@ public class SpaceShipController : MonoBehaviour
                 yield break;
             }
             var bullet = bullet_pool.Spawn(fire_point.position, Quaternion.identity);
-            bullet.GetComponent<BaseBullet>().damage = damage;
+            bullet.GetComponent<BaseBullet>().Damage = damage;
             bullet.GetComponent<BaseBullet>().Shoot();
             yield return fire_rate_delay;
         }

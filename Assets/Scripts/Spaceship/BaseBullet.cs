@@ -4,7 +4,22 @@ using UnityEngine;
 
 public class BaseBullet : MonoBehaviour
 {
-    public int damage;
+    private int damage;
+    public int Damage
+    {
+        set
+        {
+            damage = value;
+            if(damage < 0)
+            {
+                damage = 0;
+            }
+        }
+        get
+        {
+            return damage;
+        }
+    }
     public float bullet_movespeed;
     Vector3 origin_position;
     public Rigidbody2D rigidbody2D;
