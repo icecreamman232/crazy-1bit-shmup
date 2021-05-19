@@ -30,8 +30,9 @@ public class Monster04Controller : MonsterWithSplineMove
     }
     public override void Run()
     {
-        base.Run();
         m_gun.Shoot();
+        base.Run();
+        
     }
 
 

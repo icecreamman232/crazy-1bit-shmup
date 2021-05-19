@@ -65,11 +65,12 @@ public class BaseBullet : MonoBehaviour
     }
     public void Shoot(Vector3 direction)
     {
-        var vec = new Vector2(0f, bullet_movespeed);
+        var vec = new Vector2(0f, -bullet_movespeed);       
         rigidbody2D.velocity = Quaternion.Euler(direction) * vec;
     }
     public void Reset()
     {
+        
         rigidbody2D.velocity = Vector3.zero;
         this.transform.position = origin_position;
         Lean.Pool.LeanPool.Despawn(this.gameObject);

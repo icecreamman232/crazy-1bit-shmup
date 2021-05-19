@@ -108,7 +108,6 @@ public class BaseMonster:  MonoBehaviour
         {
             UpdateHP(collision.gameObject.GetComponent<BaseBullet>().Damage);
             if (!gameObject.transform.GetChild(0).gameObject.activeSelf) gameObject.transform.GetChild(0).gameObject.SetActive(true);
-
             collision.gameObject.GetComponent<BaseBullet>().Reset();
         }
     }

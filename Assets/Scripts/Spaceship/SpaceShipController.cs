@@ -74,7 +74,7 @@ public class SpaceShipController : MonoBehaviour
     }
     public void BeginShoot()
     {
-        StartCoroutine(Shoot());
+       // StartCoroutine(Shoot());
     }
     IEnumerator Shoot()
     {
@@ -107,7 +107,7 @@ public class SpaceShipController : MonoBehaviour
         //Ship is invincible state after hit the enemies
         if (time_counter > 0) return;
 
-        if(collision.gameObject.CompareTag("Enemy"))
+        if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))
         {
             GameManager.Instance.camera_shake_fx.Shake();
             StartCoroutine(OnInvincible());
