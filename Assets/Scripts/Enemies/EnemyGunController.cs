@@ -10,14 +10,9 @@ public class EnemyGunController : MonoBehaviour
 
     public System.Action OnPlayAnimShooting;
 
-
-    private void Start()
-    {
-
-    }
-    
     public void Shoot()
     {
+        
         StartCoroutine(OnShooting());
     }
     IEnumerator OnShooting()

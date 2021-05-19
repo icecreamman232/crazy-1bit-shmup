@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelDesignDO
   m_EditorClassIdentifier: 
   monsterList:
-  - waveMonster: {fileID: 8770411602387256099, guid: 16d6247a7ffe4ca4590545542d82e023, type: 3}
+  - waveMonster: {fileID: 8770411602387256099, guid: ac7a42d63a9066d4a8e62a521f062839, type: 3}
     delayNextWave: 0
   - waveMonster: {fileID: 8770411602387256099, guid: 1dd479590fb60714fbfab6f78eb294b8, type: 3}
     delayNextWave: 0
