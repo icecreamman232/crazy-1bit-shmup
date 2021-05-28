@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class WaveMonsterHolder
 {
-    public MonsterWithSplineMove monster;
+    public MonsterWithCustomPath/*MonsterWithSplineMove*/ monster;
     /// <summary>
     /// Delay Time to Next Monster
     /// </summary>
@@ -28,7 +28,9 @@ public class WaveMonsterController : MonoBehaviour
             waveMonsterList[i].monster.OnDie += OnMonsterDied;          
         }
         //Add event if monster go to end point on the path
-        waveMonsterList[waveMonsterList.Count-1].monster.splineMove.movementEndEvent += OnFinishRun;
+        //waveMonsterList[waveMonsterList.Count-1].monster.splineMove.movementEndEvent += OnFinishRun;
+
+        waveMonsterList[waveMonsterList.Count - 1].monster.OnFinishRun += OnFinishRun;
 
     }
     private void OnDisable()
@@ -51,9 +53,9 @@ public class WaveMonsterController : MonoBehaviour
             waveMonsterList[i].monster.OnDie -= OnMonsterDied;
             if (i == waveMonsterList.Count - 1)
             {
-                waveMonsterList[i].monster.splineMove.movementEndEvent -= OnFinishRun;
+                waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
-            waveMonsterList[i].monster.splineMove.ResetToStart();
+            waveMonsterList[i].monster.moveController.ResetToStart();
         }
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
@@ -75,9 +77,9 @@ public class WaveMonsterController : MonoBehaviour
             waveMonsterList[i].monster.OnDie -= OnMonsterDied;
             if (i == waveMonsterList.Count - 1)
             {
-                waveMonsterList[i].monster.splineMove.movementEndEvent -= OnFinishRun;
+                waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
-            waveMonsterList[i].monster.splineMove.ResetToStart();
+            waveMonsterList[i].monster.moveController.ResetToStart();
         }
         
         Lean.Pool.LeanPool.Despawn(this.gameObject);
@@ -125,7 +127,7 @@ public class WaveMonsterController : MonoBehaviour
     {
         for (int i = 0; i < waveMonsterList.Count; i++)
         {
-            if (waveMonsterList[i].monster.splineMove.pathContainer==null)
+            if (waveMonsterList[i].monster.moveController.pathContainer==null)
             {
                 return true;
             }

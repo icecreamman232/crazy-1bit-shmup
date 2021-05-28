@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster04Controller : MonsterWithSplineMove
+public class Monster04Controller : MonsterWithCustomPath//MonsterWithSplineMove
 {
     public EnemyGunController m_gun;
 

@@ -7,6 +7,12 @@ using SWS;
 public class MonsterWithSplineMove : BaseMonster
 {
     public splineMove splineMove;
+
+    public splineMove retreatMove;
+
+    public float patrolTime;
+
+    public System.Action OnFinishedRun;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +26,8 @@ public class MonsterWithSplineMove : BaseMonster
     }
     public override void Run()
     {
-        base.Run(); 
+        base.Run();
         splineMove.StartMove();
+        if (retreatMove == null) return;
     }
 }

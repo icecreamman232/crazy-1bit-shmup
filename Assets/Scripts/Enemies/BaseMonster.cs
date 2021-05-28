@@ -28,6 +28,7 @@ public class BaseMonster:  MonoBehaviour
 
     public System.Action OnDie;
 
+    
 
     [Header("Reference Holders")]
     public GameObject hp_bar_ui;
