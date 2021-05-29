@@ -58,7 +58,7 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
     private void Start()
     {
         //Default loop type that made sense!
-        patrolType = splineMove.LoopType.pingPong;
+        patrolType = splineMove.LoopType.yoyo;
     }
 
     public override void Run()
@@ -75,37 +75,47 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
         moveController.loopType = splineMove.LoopType.none;
         moveController.movementEndEvent += Patrol;
         moveController.StartMove();
+        
     }
 
     public void Patrol()
     {
         if (patrolPath == null)
         {
-            Debug.Log("On Finish In Patrol");
             OnFinishRun?.Invoke();
             return;
         }
         moveController.pathContainer = patrolPath;
         moveController.moveToPath = true;
-        moveController.loopType = patrolType;
-        moveController.movementEndEvent += PrepareToRetreat;
+        moveController.loopType = splineMove.LoopType.yoyo;
         moveController.StartMove();
+        PrepareToRetreat();   
     }
     void PrepareToRetreat()
     {
+        moveController.movementEndEvent -= Patrol;
         StartCoroutine(OnRetreating());
     }
     IEnumerator OnRetreating()
     {
         yield return new WaitForSeconds(patrolDuration);
+        Debug.Log("Start to retreat+"+Time.time);
         Retreat();
     }
     public void Retreat()
     {
-        if (retreatPath == null) return;
+        if (retreatPath == null)
+        {
+            Debug.Log("Null retreat");
+            OnFinishRun?.Invoke();
+            return;
+
+        }
+        Debug.Log("retreat");
         moveController.moveToPath = true;
         moveController.pathContainer = retreatPath;
-        moveController.movementEndEvent += OnMoveEnd;
+        moveController.loopType = splineMove.LoopType.none;
+       // moveController.movementEndEvent += OnMoveEnd;
         moveController.StartMove();
     }
     void OnMoveEnd()

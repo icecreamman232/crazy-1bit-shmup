@@ -69,7 +69,7 @@ public class WaveMonsterController : MonoBehaviour
     }
 
     public void OnFinishRun()
-    {
+    {       
         isWaveFinished = true;
         for (int i = 0; i < waveMonsterList.Count; i++)
         {
@@ -77,6 +77,7 @@ public class WaveMonsterController : MonoBehaviour
             waveMonsterList[i].monster.OnDie -= OnMonsterDied;
             if (i == waveMonsterList.Count - 1)
             {
+                Debug.Log("Finish Run");
                 waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
             waveMonsterList[i].monster.moveController.ResetToStart();
