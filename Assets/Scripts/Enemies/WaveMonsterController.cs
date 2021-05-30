@@ -28,8 +28,6 @@ public class WaveMonsterController : MonoBehaviour
             waveMonsterList[i].monster.OnDie += OnMonsterDied;          
         }
         //Add event if monster go to end point on the path
-        //waveMonsterList[waveMonsterList.Count-1].monster.splineMove.movementEndEvent += OnFinishRun;
-
         waveMonsterList[waveMonsterList.Count - 1].monster.OnFinishRun += OnFinishRun;
 
     }
@@ -77,7 +75,6 @@ public class WaveMonsterController : MonoBehaviour
             waveMonsterList[i].monster.OnDie -= OnMonsterDied;
             if (i == waveMonsterList.Count - 1)
             {
-                Debug.Log("Finish Run");
                 waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
             waveMonsterList[i].monster.moveController.ResetToStart();

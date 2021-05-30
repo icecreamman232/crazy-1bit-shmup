@@ -75,8 +75,7 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
         moveController.loopType = splineMove.LoopType.none;
         moveController.movementEndEvent -= OnMoveEnd;
         moveController.movementEndEvent += Patrol;
-        moveController.StartMove();
-        
+        moveController.StartMove();       
     }
 
     public void Patrol()
@@ -95,24 +94,26 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
     void PrepareToRetreat()
     {
         moveController.movementEndEvent -= Patrol;
+        if (this.gameObject == null)
+        {
+            OnFinishRun?.Invoke();
+            return;
+        }
         StartCoroutine(OnRetreating());
     }
     IEnumerator OnRetreating()
     {
         yield return new WaitForSeconds(patrolDuration);
-        Debug.Log("Start to retreat+"+Time.time);
         Retreat();
     }
     public void Retreat()
     {
         if (retreatPath == null)
         {
-            Debug.Log("Null retreat");
             OnFinishRun?.Invoke();
             return;
 
         }
-        Debug.Log("retreat");
         moveController.moveToPath = true;
         moveController.pathContainer = retreatPath;
         moveController.loopType = splineMove.LoopType.none;
@@ -121,7 +122,6 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
     }
     void OnMoveEnd()
     {
-        Debug.Log("On Finish In Retreat");
         OnFinishRun?.Invoke();
     }
 }
