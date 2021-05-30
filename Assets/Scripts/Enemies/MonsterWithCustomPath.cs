@@ -73,6 +73,7 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
         moveController.pathContainer = introPath;
         moveController.moveToPath = false;
         moveController.loopType = splineMove.LoopType.none;
+        moveController.movementEndEvent -= OnMoveEnd;
         moveController.movementEndEvent += Patrol;
         moveController.StartMove();
         
@@ -115,7 +116,7 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
         moveController.moveToPath = true;
         moveController.pathContainer = retreatPath;
         moveController.loopType = splineMove.LoopType.none;
-       // moveController.movementEndEvent += OnMoveEnd;
+        moveController.movementEndEvent += OnMoveEnd;
         moveController.StartMove();
     }
     void OnMoveEnd()
