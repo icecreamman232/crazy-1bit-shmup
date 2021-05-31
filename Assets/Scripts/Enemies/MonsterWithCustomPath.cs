@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using SWS;
 
+public enum MovementState
+{
+    INTRO   = 0,
+    PATROL  = 1,
+    RETREAT = 2,
+}
+
 public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
 {
+    public MovementState currentMovementState;
+
     [SerializeField]
     private PathManager introPath;
     [SerializeField]
@@ -75,21 +84,27 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
         moveController.loopType = splineMove.LoopType.none;
         moveController.movementEndEvent -= OnMoveEnd;
         moveController.movementEndEvent += Patrol;
-        moveController.StartMove();       
+        moveController.StartMove();
+        currentMovementState = MovementState.INTRO;
     }
 
     public void Patrol()
     {
+        //if (patrolPath == null)
+        //{
+        //    OnFinishRun?.Invoke();
+        //    return;
+        //}
+        PrepareToRetreat();
+        currentMovementState = MovementState.PATROL;
         if (patrolPath == null)
         {
-            OnFinishRun?.Invoke();
             return;
         }
         moveController.pathContainer = patrolPath;
         moveController.moveToPath = true;
         moveController.loopType = splineMove.LoopType.yoyo;
         moveController.StartMove();
-        PrepareToRetreat();   
     }
     void PrepareToRetreat()
     {
@@ -119,6 +134,7 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
         moveController.loopType = splineMove.LoopType.none;
         moveController.movementEndEvent += OnMoveEnd;
         moveController.StartMove();
+        currentMovementState = MovementState.RETREAT;
     }
     void OnMoveEnd()
     {

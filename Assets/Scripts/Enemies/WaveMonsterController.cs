@@ -110,37 +110,7 @@ public class WaveMonsterController : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, new Vector3(2.9f * 2, 5.8f*2));
     }
 
-    public bool IsNullList()
-    {
-        for(int i = 0;i < waveMonsterList.Count; i++)
-        {
-            if(waveMonsterList[i].monster == null)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    public bool IsThereUnusedPath()
-    {
-        for (int i = 0; i < waveMonsterList.Count; i++)
-        {
-            if (waveMonsterList[i].monster.moveController.pathContainer==null)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    public bool IsThereMonsterNotInTheList()
-    {
-        MonsterWithSplineMove[] listObjects = FindObjectsOfType<MonsterWithSplineMove>();
-        if(listObjects.Length!= waveMonsterList.Count)
-        {
-            return true;
-        }
-        return false;
-    }
+
 #endif
     #endregion
 }

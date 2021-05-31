@@ -17,18 +17,7 @@ public class WaveMonsterEditor : Editor
     {
         base.OnInspectorGUI();
         //Do check null
-        if (targetObject.IsNullList())
-        {
-            EditorGUILayout.HelpBox("There is null member in List", MessageType.Error);
-        }
-        if(targetObject.IsThereUnusedPath())
-        {
-            EditorGUILayout.HelpBox("There is a monster without a path attached", MessageType.Error);
-        }
-        if(targetObject.IsThereMonsterNotInTheList())
-        {
-            EditorGUILayout.HelpBox("There is a monster not listed", MessageType.Error);
-        }
+
     }
 
 }
