@@ -19,24 +19,21 @@ public class MoveToTargetComponent : MonoBehaviour
     public bool isShowGuideline;
     public Transform originPositon;
     public Transform targetTransform;
-    private float distanceFromObjectToShip;
-    private float distanceFromCenterToShip;
 
+    private float distance_from_center_to_ship;
+    private float distance_from_object_to_center;
     private void Start()
     {
-        if(targetTransform==null)
-        {
-            targetTransform = GameManager.Instance.space_ship.transform;
-        }
+        targetTransform = GameManager.Instance.space_ship.transform;
     }
 
     private void Update()
     {
-        float distance_from_center_to_ship = Vector3.Distance(originPositon.position, targetTransform.position);
+        distance_from_center_to_ship = Vector3.Distance(originPositon.position, targetTransform.position);
         if(distance_from_center_to_ship < triggeredRange)
         {
             transform.position = Vector3.MoveTowards(transform.position, originPositon.position, zoomInSpeed * Time.deltaTime);
-            float distance_from_object_to_center = Vector3.Distance(transform.position, originPositon.position);
+            distance_from_object_to_center = Vector3.Distance(transform.position, originPositon.position);
             if(distance_from_object_to_center < innerRange)
             {
                 Vector3 direction = targetTransform.position - originPositon.position;
@@ -46,8 +43,8 @@ public class MoveToTargetComponent : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, zoomOutSpeed * Time.deltaTime);
-            float distance_from_center_to_object = Vector3.Distance(originPositon.position, transform.position);
-            if(distance_from_center_to_object > outerRange)
+            distance_from_object_to_center = Vector3.Distance(originPositon.position, transform.position);
+            if(distance_from_object_to_center > outerRange)
             {
                 Vector3 direction = targetTransform.position - transform.position;
                 transform.position = originPositon.position + Vector3.ClampMagnitude(direction, outerRange);
@@ -55,39 +52,6 @@ public class MoveToTargetComponent : MonoBehaviour
                
         }
     }
-    void minorUpdate()
-    {
-        //Zoom in
-        if (distanceFromObjectToShip <= triggeredRange)
-        {
-            //Vector3 targetDirect = targetTransform.position - transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, originPositon.position, zoomInSpeed * Time.deltaTime);
-            float distanceFromObjecToCenter = Vector3.Distance(transform.position, originPositon.position);
-            if (distanceFromObjecToCenter <= innerRange)
-            {
-                Debug.Log("here");
-                Vector3 direction = transform.position - originPositon.position;
-                transform.position = originPositon.position + Vector3.ClampMagnitude(direction, innerRange);
-            }
-            //Vector3 direction = transform.position - originPositon.position;
-            //transform.position = originPositon.position + Vector3.ClampMagnitude(direction, innerRange);          
-        }
-        //Zoom out
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, zoomOutSpeed * Time.deltaTime);
-            distanceFromCenterToShip = Vector3.Distance(transform.position, originPositon.position);
-            if (distanceFromCenterToShip > outerRange)
-            {
-                Vector3 fromOriginToObject = transform.position - originPositon.position;
-                fromOriginToObject *= outerRange / distanceFromCenterToShip;
-                transform.position = originPositon.position + fromOriginToObject;
-            }
-        }
-
-        distanceFromObjectToShip = Vector3.Distance(transform.position, targetTransform.position);
-    }
-
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
