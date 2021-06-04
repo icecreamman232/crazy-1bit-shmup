@@ -1,83 +1,49 @@
-﻿using System.Collections;
+﻿using SWS;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster03Controller : BaseMonster
+public class Monster03Controller : BaseMonster, IMovementWithCustomPath
 {
-    public GameObject alert_sign;
-    public Animator sign_animator;
-    WaitForSeconds alert_duration;
+    public MoveToTargetComponent moveToComponent;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        alert_duration = new WaitForSeconds(2.0f);
+        //moveToComponent.SetStart();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isRunning)
-        {
-            Vector3 target = new Vector3(transform.position.x, -GameHelper.get_current_screenbound().y - 5.5f, 0f);
-            transform.position = Vector3.MoveTowards(transform.position,
-            Vector3.Lerp(transform.position, target, t_lerp), current_movespeed * Time.deltaTime);
-            if (transform.position.y <= -GameHelper.get_current_screenbound().y - 5.0f)
-            {
-
-                isRunning = false;
-                current_movespeed = base_movespeed;
-                this.StopCoroutine(CheckDie());
-                Lean.Pool.LeanPool.Despawn(this.gameObject);
-            }
-        }
+    public PathManager IntroPath 
+    { 
+        get => throw new System.NotImplementedException(); 
+        set => throw new System.NotImplementedException(); 
     }
-    public override void InitMonster()
-    {
-        base.InitMonster();
+    public PathManager PatrolPath 
+    { 
+        get => throw new System.NotImplementedException(); 
+        set => throw new System.NotImplementedException(); 
+    }
+    public PathManager RetreatPath 
+    { 
+        get => throw new System.NotImplementedException(); 
+        set => throw new System.NotImplementedException(); 
     }
 
     public override void Run()
     {
-        InitMonster();
-        sign_animator.Play("alert_sign_intro");
-        StartCoroutine(WaitForEndAlert());
+        //base.Run();
     }
-    IEnumerator WaitForEndAlert()
+
+    public void Move()
     {
-        if(alert_duration==null)
-        {
-            alert_duration = new WaitForSeconds(2.0f);
-        }
-        yield return alert_duration;
-        sign_animator.Play("New State");
-        alert_sign.SetActive(false);
-        isRunning = true;
-        StartCoroutine(CheckDie());
+        throw new System.NotImplementedException();
     }
-    public override IEnumerator CheckDie()
+
+    public void Patrol()
     {
-        yield return new WaitUntil(() => current_hp <= 0);
-        GameManager.Instance.CreateDieFx(transform.position);
-        GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx, 0.3f);
-        GameManager.Instance.camera_shake_fx.Shake();
-        current_movespeed = base_movespeed;
-        Lean.Pool.LeanPool.Despawn(this.gameObject);
+        throw new System.NotImplementedException();
     }
-    public override void OnTriggerEnter2D(Collider2D collision)
+
+    public void Retreat()
     {
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            collision.gameObject.GetComponent<BaseBullet>().Reset();
-        }
-        else if (collision.gameObject.CompareTag("Player"))
-        {
-            if (collision.gameObject.GetComponent<SpaceShipController>().time_counter > 0)
-            {
-                return;
-            }
-            UpdateHP(1);
-        }
+        throw new System.NotImplementedException();
     }
 }

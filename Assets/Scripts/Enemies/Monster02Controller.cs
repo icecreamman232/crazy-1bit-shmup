@@ -6,9 +6,12 @@ using UnityEngine;
 public class Monster02Controller : MonsterWithCustomPath
 {
     public CircleCollider2D circleCollider;
+    public int dodgeCount;
+    private int counter;
     public bool isDodgeAlready;
     private bool isFinishedDodge;
     private BoxCollider2D m_Collider;
+
 
     void Start()
     {
@@ -24,6 +27,7 @@ public class Monster02Controller : MonsterWithCustomPath
     {
         isDodgeAlready = false;
         isFinishedDodge = false;
+        counter = dodgeCount;
         base.Run();
     }
     void DoDodgeIncomingBullet()
@@ -32,11 +36,11 @@ public class Monster02Controller : MonsterWithCustomPath
         Vector3 randomPos = Vector3.one;
         if(randomPos.x < 0)
         {
-            randomPos.x = randomPos.x - Random.Range(0.5f, 1.0f);
+            randomPos.x -= Random.Range(0.5f, 1.0f);
         }
         else
         {
-            randomPos.x = randomPos.x + Random.Range(0.5f, 1.0f);
+            randomPos.x += Random.Range(0.5f, 1.0f);
         }
         randomPos.y = transform.position.y + 1.0f;
         randomPos.z = 0;
@@ -46,24 +50,24 @@ public class Monster02Controller : MonsterWithCustomPath
     }
     void OnFinishDodge()
     {
-        moveController.Resume();
-        isFinishedDodge = true;
+        moveController.Resume();      
     }
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
             {
-                if (!isDodgeAlready)
+                if (counter > 0)
                 {
                     if (circleCollider.IsTouching(collision))
                     {
                         moveController.Stop();
                         DoDodgeIncomingBullet();
+                        dodgeCount--;
                     }
                 }
             }
-            if (isFinishedDodge)
+            if (counter <= 0)
             {
                 base.OnTriggerEnter2D(collision);
             }
