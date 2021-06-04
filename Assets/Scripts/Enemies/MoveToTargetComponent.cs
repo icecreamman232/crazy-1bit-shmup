@@ -24,39 +24,57 @@ public class MoveToTargetComponent : MonoBehaviour
 
     private void Start()
     {
-        targetTransform = GameManager.Instance.space_ship.transform;
+        if(targetTransform==null)
+        {
+            targetTransform = GameManager.Instance.space_ship.transform;
+        }
     }
 
     private void Update()
-    {    
+    {
+        float distance_from_center_to_ship = Vector3.Distance(originPositon.position, targetTransform.position);
+        if(distance_from_center_to_ship < triggeredRange)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, originPositon.position, zoomInSpeed * Time.deltaTime);
+            float distance_from_object_to_center = Vector3.Distance(transform.position, originPositon.position);
+            if(distance_from_object_to_center < innerRange)
+            {
+                Vector3 direction = targetTransform.position - originPositon.position;
+                transform.position = originPositon.position + Vector3.ClampMagnitude(direction, innerRange);
+            }
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, zoomOutSpeed * Time.deltaTime);
+            float distance_from_center_to_object = Vector3.Distance(originPositon.position, transform.position);
+            if(distance_from_center_to_object > outerRange)
+            {
+                Vector3 direction = targetTransform.position - transform.position;
+                transform.position = originPositon.position + Vector3.ClampMagnitude(direction, outerRange);
+            }
+               
+        }
+    }
+    void minorUpdate()
+    {
         //Zoom in
         if (distanceFromObjectToShip <= triggeredRange)
         {
-            #region Scale Codeblock
-            transform.localScale -= Vector3.one * scaleSpeed * Time.deltaTime;
-            if (transform.localScale.x <= minScaleAtCenter)
+            //Vector3 targetDirect = targetTransform.position - transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, originPositon.position, zoomInSpeed * Time.deltaTime);
+            float distanceFromObjecToCenter = Vector3.Distance(transform.position, originPositon.position);
+            if (distanceFromObjecToCenter <= innerRange)
             {
-                transform.localScale = Vector3.one * minScaleAtCenter;
+                Debug.Log("here");
+                Vector3 direction = transform.position - originPositon.position;
+                transform.position = originPositon.position + Vector3.ClampMagnitude(direction, innerRange);
             }
-            #endregion
-            Vector3 targetDirect = targetTransform.position - transform.position;
-            transform.position = Vector3.MoveTowards(targetDirect, originPositon.position, zoomInSpeed * Time.deltaTime);
-            Vector3 direction = transform.position - originPositon.position;
-            transform.position = originPositon.position + Vector3.ClampMagnitude(direction, innerRange);
-            
-
+            //Vector3 direction = transform.position - originPositon.position;
+            //transform.position = originPositon.position + Vector3.ClampMagnitude(direction, innerRange);          
         }
         //Zoom out
         else
         {
-            #region Scale Codeblock
-            transform.localScale += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (transform.localScale.x >= 1.0f)
-            {
-                transform.localScale = Vector3.one;
-            }
-            #endregion
-
             transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, zoomOutSpeed * Time.deltaTime);
             distanceFromCenterToShip = Vector3.Distance(transform.position, originPositon.position);
             if (distanceFromCenterToShip > outerRange)
@@ -69,7 +87,6 @@ public class MoveToTargetComponent : MonoBehaviour
 
         distanceFromObjectToShip = Vector3.Distance(transform.position, targetTransform.position);
     }
-   
 
 
 #if UNITY_EDITOR
