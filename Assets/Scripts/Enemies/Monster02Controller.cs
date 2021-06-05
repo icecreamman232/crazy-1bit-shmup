@@ -21,10 +21,10 @@ public class Monster02Controller : MonsterWithCustomPath
     {
 
     }
-    public override void Run()
+    public override void Setup()
     {
         counter = dodgeCount;
-        base.Run();
+        base.Setup();
         Move();
     }
     public override void Move()
@@ -50,7 +50,7 @@ public class Monster02Controller : MonsterWithCustomPath
     {
         while(true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentShipTransform.position, base_movespeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, currentShipTransform.position, baseMoveSpeed * Time.deltaTime);
             yield return null;
         }
     }

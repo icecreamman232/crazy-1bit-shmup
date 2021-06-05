@@ -28,11 +28,11 @@ public class Monster04Controller : MonsterWithCustomPath//MonsterWithSplineMove
     {
         m_animator.Play("Monster04_Shot_Anim");
     }
-    public override void Run()
+    public override void Setup()
     {
         m_gun.SetupGun();
         m_gun.Shoot();
-        base.Run();
+        base.Setup();
         
     }
 

@@ -61,7 +61,7 @@ public class WaveMonsterController : MonoBehaviour
     {
         for (int i = 0; i < waveMonsterList.Count; i++)
         {
-            waveMonsterList[i].monster.Run();
+            waveMonsterList[i].monster.Setup();
             yield return new WaitForSeconds(waveMonsterList[i].delayTime);
         }
     }

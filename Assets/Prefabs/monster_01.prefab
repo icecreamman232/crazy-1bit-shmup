@@ -145,22 +145,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b40031c927b3545af19fc0d8115edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  base_hp: 30
-  max_hp: 0
-  current_hp: 0
-  base_movespeed: 3
-  current_movespeed: 0
-  base_coin: 2
-  base_coin_value: 5
-  base_score: 10
-  isRunning: 0
-  origin_position: {x: 0, y: 0, z: 0}
+  baseHP: 30
+  maxHP: 0
+  currentHP: 0
+  baseMoveSpeed: 3
+  currentMoveSpeed: 0
+  baseNumberCoin: 2
+  baseCoinValue: 5
+  baseScore: 10
   hp_bar_ui: {fileID: 5984741312599184319}
   coin_prefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
   item_prefab: {fileID: 649832116354899698, guid: 9e6ccc94b5ac2a044979338aa0cb9edb, type: 3}
   list_dropable_items: 0000000001000000
   item_drop_rate: 700
-  splineMove: {fileID: 367357453471507698}
+  currentMovementState: 0
+  introPath: {fileID: 0}
+  patrolPath: {fileID: 0}
+  retreatPath: {fileID: 0}
+  patrolDuration: 0
+  moveController: {fileID: 0}
 --- !u!50 &5166777713280954633
 Rigidbody2D:
   serializedVersion: 4

@@ -167,16 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44769cd4ec2f624f925f2a4f7239aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  base_hp: 50
-  max_hp: 0
-  current_hp: 0
-  base_movespeed: 3
-  current_movespeed: 0
-  base_coin: 3
-  base_coin_value: 8
-  base_score: 15
-  isRunning: 0
-  origin_position: {x: 0, y: 0, z: 0}
+  baseHP: 50
+  maxHP: 0
+  currentHP: 0
+  baseMoveSpeed: 3
+  currentMoveSpeed: 0
+  baseNumberCoin: 3
+  baseCoinValue: 8
+  baseScore: 15
   hp_bar_ui: {fileID: 6995218986214757596}
   coin_prefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
   item_prefab: {fileID: 649832116354899698, guid: 9e6ccc94b5ac2a044979338aa0cb9edb, type: 3}
@@ -187,10 +185,9 @@ MonoBehaviour:
   patrolPath: {fileID: 0}
   retreatPath: {fileID: 0}
   patrolDuration: 0
-  patrolType: 0
   moveController: {fileID: 0}
   circleCollider: {fileID: 1571164727320186315}
-  isDodgeAlready: 0
+  dodgeCount: 0
 --- !u!114 &8662820166725430607
 MonoBehaviour:
   m_ObjectHideFlags: 0

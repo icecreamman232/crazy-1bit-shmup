@@ -27,7 +27,7 @@ public class Monster03Controller : BaseMonster, IMovementWithCustomPath
         set => throw new System.NotImplementedException(); 
     }
 
-    public override void Run()
+    public override void Setup()
     {
         //base.Run();
     }

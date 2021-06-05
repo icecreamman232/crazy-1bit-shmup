@@ -7,17 +7,17 @@ using UnityEngine.Events;
 public class BaseMonster:  MonoBehaviour
 {
     [Header("Monster Information")]
-    public int base_hp;
-    public int max_hp;
-    public int current_hp;
-    public float base_movespeed;
-    public float current_movespeed;
-    public int base_coin;
-    public int base_coin_value;
-    public int base_score;
+    public int baseHP;
+    public int maxHP;
+    public int currentHP;
+    public float baseMoveSpeed;
+    public float currentMoveSpeed;
+    public int baseNumberCoin;
+    public int baseCoinValue;
+    public int baseScore;
 
 
-    protected float t_lerp = 0.1f;
+    readonly protected float tLerp = 0.1f;
 
     public System.Action OnDie;
 
@@ -28,7 +28,7 @@ public class BaseMonster:  MonoBehaviour
     public GameObject coin_prefab;
     public GameObject item_prefab;
     public List<ItemType> list_dropable_items;
-    int max_item;
+    private int max_item;
     /// <summary>
     /// Value từ 0 ->1000
     /// </summary>
@@ -43,24 +43,30 @@ public class BaseMonster:  MonoBehaviour
     public virtual void InitMonster()
     {
         this.gameObject.SetActive(true);
-        max_hp = base_hp + base_hp * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.hp_increase_per_wave
+        SetupHP();
+        SetupUIHealthBar();
+        SetupMoveSpeed();
+        StopAllCoroutines();
+    }
+    public virtual void SetupHP()
+    {
+        maxHP = baseHP + baseHP * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.hp_increase_per_wave
             * GameManager.Instance.GetCurrentLevelSpeed());
-        current_hp = max_hp;
-        current_movespeed = base_movespeed + GameManager.Instance.GetCurrentLevelSpeed() 
-            * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
-        
-
+        currentHP = maxHP;
+    }
+    private void SetupUIHealthBar()
+    {
         hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
         var hp_gameobject = hp_bar_ui.transform.parent;
         hp_gameobject.gameObject.SetActive(false);
-
-
-        
-
-        this.StopAllCoroutines();
+    }
+    public virtual void SetupMoveSpeed()
+    {
+        currentMoveSpeed = baseMoveSpeed + GameManager.Instance.GetCurrentLevelSpeed()
+                    * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
     }
 
-    public virtual void Run() 
+    public virtual void Setup() 
     {
         InitMonster();
         StartCoroutine(CheckDie());
@@ -68,23 +74,23 @@ public class BaseMonster:  MonoBehaviour
 
     public void UpdateHP(int _damage)
     {
-        current_hp -= _damage;
+        currentHP -= _damage;
 
-        //Update HealthBar
-        var percent_hp = (float)current_hp / max_hp;
+        //Update Health Bar UI
+        var percent_hp = (float)currentHP / maxHP;
         var last_scale = hp_bar_ui.transform.localScale;
         last_scale.x = percent_hp;
         hp_bar_ui.transform.localScale = last_scale;
     }
     public virtual  IEnumerator CheckDie()
     {       
-        yield return new WaitUntil(() => current_hp <= 0);
+        yield return new WaitUntil(() => currentHP <= 0);
         
-        GameManager.Instance.UpdateScore(base_score);
+        GameManager.Instance.UpdateScore(baseScore);
         GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         GameManager.Instance.camera_shake_fx.Shake();
-        current_movespeed = base_movespeed;
+        currentMoveSpeed = baseMoveSpeed;
         var drop_rate = ItemManager.Instance.GetRandomDropRate();
         if(drop_rate<=item_drop_rate)
         {
@@ -107,7 +113,7 @@ public class BaseMonster:  MonoBehaviour
     void DropCoin()
     { 
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
-        for (int i =0; i< base_coin; i++)
+        for (int i =0; i< baseNumberCoin; i++)
         {
             var coin = Lean.Pool.LeanPool.Spawn(coin_prefab, this.transform.position, Quaternion.identity);
             coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
@@ -126,7 +132,7 @@ public class BaseMonster:  MonoBehaviour
     }
     int  CoinValueBasedOnLevelSpeed()
     {
-        return Mathf.RoundToInt(base_coin_value * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.coin_increase_per_wave
+        return Mathf.RoundToInt(baseCoinValue * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.coin_increase_per_wave
             * GameManager.Instance.GetCurrentLevelSpeed()));
     }
 }
