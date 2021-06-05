@@ -109,7 +109,7 @@ public class SpaceShipController : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))
         {
-            GameManager.Instance.camera_shake_fx.Shake();
+            GameManager.Instance.cameraShakeFX.Shake();
             StartCoroutine(OnInvincible());
             UpdateHP(1);
             ui_ship_health_bar.UpdateHealthBarUI();

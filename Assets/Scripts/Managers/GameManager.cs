@@ -25,29 +25,28 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Game State
-    public GameManagerState current_game_state;
-    public void SetState(GameManagerState new_state)
+    public GameManagerState currentGameState;
+    public void SetState(GameManagerState newState)
     {
-        current_game_state = new_state;
+        currentGameState = newState;
     }
     #endregion
 
     #region Score Management
-    public TextMeshProUGUI score_number_text;
-    public int current_score;
+    public TextMeshProUGUI scoreNumberText;
+    public int currentScore;
 
     #endregion
 
     #region Coin Management
-    public int current_coin;
-    //public TextMeshProUGUI coin_text;
+    public int currentCoin;
     #endregion
 
     #region Level
-    public EndlessModeDO endless_mode_data;
-    const float speed_factor = 0.08f;
-    public int wave_index;
-    public float current_spd;
+    public EndlessModeDO endlessModeData;
+    private const float speedFactor = 0.08f;
+    public int currentWaveIndex;
+    public float currentSpeed;
     #endregion
 
     #region Sound & Music
@@ -57,23 +56,22 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Ref Holders
-    public GameObject space_ship;
-    public ParticleSystem star_front_layer;
-    public ParticleSystem star_back_layer;
-    public GameObject die_explosion_fx;
-    public CameraShake camera_shake_fx;
-    public GameObject left_barrel;
-    public GameObject right_barrel;
+    public GameObject spaceShip;
+    public ParticleSystem starFrontLayer;
+    public ParticleSystem starBackLayer;
+    public GameObject dieExplosionFX;
+    public CameraShake cameraShakeFX;
+    public GameObject leftBarrel;
+    public GameObject rightBarrel;
     #endregion
 
     #region UI
     
-    public UIEndGameCanvasController ui_endgame_controller;
-    public UIHealthBarController ui_ship_health_bar;
+    public UIEndGameCanvasController uiEndgameCanvas;
+    public UIHealthBarController uiShipHPBar;
     #endregion
 
-    public RankManager rank_manager;
-
+    public RankManager rankManager;
 
     public WaveSpawner waveSpawner;
 
@@ -86,7 +84,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (current_game_state)
+        switch (currentGameState)
         {
             case GameManagerState.STANDBY:
                 InitGameManager();
@@ -96,28 +94,26 @@ public class GameManager : MonoBehaviour
                 //Cheat to Death
                 if(Input.GetKeyDown(KeyCode.Z))
                 {
-                    space_ship.GetComponent<SpaceShipController>().current_hp = 0;
+                    spaceShip.GetComponent<SpaceShipController>().current_hp = 0;
                 }
-                if (space_ship.GetComponent<SpaceShipController>().isDied)
+                if (spaceShip.GetComponent<SpaceShipController>().isDied)
                 {
-                    ui_endgame_controller.gameObject.SetActive(true);
-                    ui_endgame_controller.PlayIntro(current_score.ToString());
-                    star_back_layer.Stop();
-                    star_front_layer.Stop();
+                    uiEndgameCanvas.gameObject.SetActive(true);
+                    uiEndgameCanvas.PlayIntro(currentScore.ToString());
+                    starBackLayer.Stop();
+                    starFrontLayer.Stop();
 
                     waveSpawner.Reset();
                     DataManager.Instance.SaveDataToLocalStorage();
                     SetState(GameManagerState.LOSE);
                 }
-
                 break;
-            case GameManagerState.LOSE:
-                
+            case GameManagerState.LOSE:               
                 break;
             case GameManagerState.RESET:
                 break;
             case GameManagerState.IDLE:
-                if(space_ship.GetComponent<SpaceShipMovement>().firstTouch)
+                if(spaceShip.GetComponent<SpaceShipMovement>().firstTouch)
                 {
                     StartGame();
                     SetState(GameManagerState.PLAYING);
@@ -125,99 +121,122 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
-
     public void OnStandBy()
     {
-        ui_endgame_controller.PlayOuttro();
+        uiEndgameCanvas.PlayOuttro();
         SetState(GameManagerState.STANDBY);
     }
     void InitGameManager()
     {
         StopAllCoroutines();
-        current_spd = 1;
-        wave_index = 1;
-        current_coin = 0;
-        //coin_text.text = current_coin.ToString();
-        current_score = 0;
-        score_number_text.text = current_score.ToString();
-        camera_shake_fx.Setup();
-
-        left_barrel.transform.position = new Vector3(-GameHelper.SizeOfCamera().x/2-0.5f, 0, 0);
-        left_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
-        right_barrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x/2+0.5f, 0, 0);
-        right_barrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
-
-        ui_ship_health_bar.HealthBarSetup();
-
-        var main_front = star_front_layer.main;
-        var main_back = star_back_layer.main;
-        current_spd = GetCurrentLevelSpeed();
-        main_front.simulationSpeed = current_spd;
-        main_back.simulationSpeed = current_spd;
-
-        star_back_layer.Play();
-        star_front_layer.Play();
-        
+        SetupLevel();
+        SetupCoin();
+        SetupScore();
+        cameraShakeFX.Setup();
+        SetupBarrels();
+        uiShipHPBar.HealthBarSetup();
+        SetupParticleBackground();
         BGM.Play();
-        space_ship.GetComponent<SpaceShipController>().StartShip();
-
-        rank_manager.Setup();
-
+        spaceShip.GetComponent<SpaceShipController>().StartShip();
+        rankManager.Setup();
         waveSpawner.Setup();
-        current_game_state = GameManagerState.STANDBY;
 
+        currentGameState = GameManagerState.STANDBY;
     }
-    void StartGame()
+    private void StartGame()
     {
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    list_monster_lanes[i].GetComponent<MonsterLaneController>().StartMonsterLane(endless_mode_data.min_delay_limit, endless_mode_data.max_delay_limit);
-        //}
         waveSpawner.Run();
-        StartCoroutine(count_time());
-        space_ship.GetComponent<SpaceShipController>().BeginShoot();
+        StartCoroutine(OnLifeTimeCounter());
+        spaceShip.GetComponent<SpaceShipController>().BeginShoot();
+    }
+    #region Setup Methods
+    private void SetupLevel()
+    {
+        currentSpeed = 1;
+        currentWaveIndex = 1;
+    }
+    private void SetupCoin()
+    {
+        //Data
+        currentCoin = 0;
+
+        //UI
+        //coin_text.text = current_coin.ToString();
+    }
+    private void SetupScore()
+    {
+        //Data
+        currentScore = 0;
+
+        //UI
+        scoreNumberText.text = currentScore.ToString();
+    }
+    private void SetupBarrels()
+    {
+        //This barrels would prevent item, coin, monster.etc.. from going out of screen
+        leftBarrel.transform.position = new Vector3(-GameHelper.SizeOfCamera().x / 2 - 0.5f, 0, 0);
+        leftBarrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
+        rightBarrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x / 2 + 0.5f, 0, 0);
+        rightBarrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
+    }
+    private void SetupParticleBackground()
+    {
+        var front = starFrontLayer.main;
+        var back = starBackLayer.main;
+        currentSpeed = GetCurrentLevelSpeed();
+        front.simulationSpeed = currentSpeed;
+        back.simulationSpeed = currentSpeed;
+
+        starBackLayer.Play();
+        starFrontLayer.Play();
+    }
+    #endregion
+
+    #region Update Methods
+    public void UpdateCoin(int value)
+    {
+        currentCoin += value;
+        //coin_text.text = current_coin.ToString();
     }
     public void UpdateScore(int score)
     {
-        current_score += score;
-        score_number_text.text = current_score.ToString();
+        currentScore += score;
+        scoreNumberText.text = currentScore.ToString();
     }
-    public void UpdateCoin(int value)
-    {
-        current_coin += value;
-        //coin_text.text = current_coin.ToString();
-    }
+    #endregion
+
+
+    
     public float GetCurrentLevelSpeed()
     {
-        var min = endless_mode_data.min_speed;
-        var max = endless_mode_data.max_speed;     
-        return Mathf.Clamp(min + (max - min) * (Mathf.Exp(speed_factor * wave_index)),0,endless_mode_data.speed_limit);
+        var min = endlessModeData.min_speed;
+        var max = endlessModeData.max_speed;     
+        return Mathf.Clamp(min + (max - min) * (Mathf.Exp(speedFactor * currentWaveIndex)),0,endlessModeData.speed_limit);
     }
-    IEnumerator count_time()
+    private IEnumerator OnLifeTimeCounter()
     {
         WaitForSeconds delay = new WaitForSeconds(2.0f);
         while(true)
         {
             yield return delay;
-            wave_index += 1;           
-            var main_front = star_front_layer.main;
-            var main_back = star_back_layer.main;
-            current_spd = GetCurrentLevelSpeed();
-            main_front.simulationSpeed = current_spd;
-            main_back.simulationSpeed = current_spd;
+            currentWaveIndex += 1;           
+            var front = starFrontLayer.main;
+            var back = starBackLayer.main;
+            currentSpeed = GetCurrentLevelSpeed();
+            front.simulationSpeed = currentSpeed;
+            back.simulationSpeed = currentSpeed;
         }
     }
 
     public void CreateDieFx(Vector3 position)
     {
-        var obj = Lean.Pool.LeanPool.Spawn(die_explosion_fx, position, Quaternion.identity);
+        var obj = Lean.Pool.LeanPool.Spawn(dieExplosionFX, position, Quaternion.identity);
         obj.GetComponent<ParticleSystem>().Play();
         StartCoroutine(DespawnDieFX(obj));
     }
-    IEnumerator DespawnDieFX(GameObject die_fx)
+    private IEnumerator DespawnDieFX(GameObject dieFX)
     {
-        yield return new WaitUntil(() => die_fx.GetComponent<ParticleSystem>().isEmitting == false);
-        Lean.Pool.LeanPool.Despawn(die_fx);
+        yield return new WaitUntil(() => dieFX.GetComponent<ParticleSystem>().isEmitting == false);
+        Lean.Pool.LeanPool.Despawn(dieFX);
     }
 }

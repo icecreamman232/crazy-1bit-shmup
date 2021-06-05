@@ -24,7 +24,7 @@ public class MoveToTargetComponent : MonoBehaviour
     private float distance_from_object_to_center;
     private void Start()
     {
-        targetTransform = GameManager.Instance.space_ship.transform;
+        targetTransform = GameManager.Instance.spaceShip.transform;
     }
 
     private void Update()

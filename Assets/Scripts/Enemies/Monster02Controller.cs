@@ -13,7 +13,7 @@ public class Monster02Controller : MonsterWithCustomPath
 
     void Start()
     {
-        currentShipTransform = GameManager.Instance.space_ship.transform;
+        currentShipTransform = GameManager.Instance.spaceShip.transform;
     }
 
 
