@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
                 //Cheat to Death
                 if(Input.GetKeyDown(KeyCode.Z))
                 {
-                    spaceShip.GetComponent<SpaceShipController>().current_hp = 0;
+                    spaceShip.GetComponent<SpaceShipController>().currentHP = 0;
                 }
                 if (spaceShip.GetComponent<SpaceShipController>().isDied)
                 {

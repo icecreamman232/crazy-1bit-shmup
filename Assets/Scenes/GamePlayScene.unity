@@ -11161,26 +11161,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0325bb713a9f3445a090cdf1672a254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current_game_state: 0
-  score_number_text: {fileID: 2012788458}
-  current_score: 0
-  current_coin: 0
-  endless_mode_data: {fileID: 11400000, guid: e655caa2fa79cfb4fbd31b5759a05994, type: 2}
-  wave_index: 0
-  current_spd: 0
+  currentGameState: 0
+  scoreNumberText: {fileID: 2012788458}
+  currentScore: 0
+  currentCoin: 0
+  endlessModeData: {fileID: 11400000, guid: e655caa2fa79cfb4fbd31b5759a05994, type: 2}
+  currentWaveIndex: 0
+  currentSpeed: 0
   BGM: {fileID: 1463149753}
   sfx: {fileID: 2092622390}
   monster_die_sfx: {fileID: 8300000, guid: a0943f1f899c1d742bfa27379c232a5c, type: 3}
-  space_ship: {fileID: 1598937690}
-  star_front_layer: {fileID: 16668153}
-  star_back_layer: {fileID: 294739167}
-  die_explosion_fx: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
-  camera_shake_fx: {fileID: 519420030}
-  left_barrel: {fileID: 1903038248}
-  right_barrel: {fileID: 274210944}
-  ui_endgame_controller: {fileID: 1943548763}
-  ui_ship_health_bar: {fileID: 1511538135}
-  rank_manager: {fileID: 413932889}
+  spaceShip: {fileID: 1598937690}
+  starFrontLayer: {fileID: 16668153}
+  starBackLayer: {fileID: 294739167}
+  dieExplosionFX: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
+  cameraShakeFX: {fileID: 519420030}
+  leftBarrel: {fileID: 1903038248}
+  rightBarrel: {fileID: 274210944}
+  uiEndgameCanvas: {fileID: 1943548763}
+  uiShipHPBar: {fileID: 1511538135}
+  rankManager: {fileID: 413932889}
   waveSpawner: {fileID: 1324474169}
 --- !u!114 &929344307
 MonoBehaviour:
@@ -12231,22 +12231,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678f0e1ce8850084d9a70411432dd9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  base_hp: 3
-  current_hp: 0
+  baseHP: 3
+  currentHP: 0
   firerate: 0.1
   damage: 20
-  bullet_pool: {fileID: 861135899}
-  fire_point: {fileID: 825416728}
-  fire_jet_particle: {fileID: 1939733787}
-  ship_explosion_fx: {fileID: 1785376699}
-  ui_ship_health_bar: {fileID: 1511538135}
+  bulletPool: {fileID: 861135899}
+  firePoint: {fileID: 825416728}
+  fireJetParticle: {fileID: 1939733787}
+  shipExplosionFX: {fileID: 1785376699}
+  uiShipHPBar: {fileID: 1511538135}
   sfx: {fileID: 463750029}
-  coin_collect_sfx: {fileID: 8300000, guid: cdf40b5abded2774092788556cd1455e, type: 3}
-  ship_sprite: {fileID: 1824837311}
-  time_counter: 0
-  invincible_duration: 5
+  sfxCoinCollect: {fileID: 8300000, guid: cdf40b5abded2774092788556cd1455e, type: 3}
+  shipSprite: {fileID: 1824837311}
+  invincibleDuration: 3
   isDied: 0
-  rank_manager: {fileID: 413932889}
+  rankManager: {fileID: 413932889}
 --- !u!114 &1598937693
 MonoBehaviour:
   m_ObjectHideFlags: 0

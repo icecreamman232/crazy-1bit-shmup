@@ -4,41 +4,35 @@ using UnityEngine;
 
 public class SpaceShipController : MonoBehaviour
 {
-    public int base_hp;
-    public int current_hp;
-
-
+    [Header("Basic Information")]
+    public int baseHP;
+    public int currentHP;
     public float firerate;
     public int damage;
 
-    public Lean.Pool.LeanGameObjectPool bullet_pool;
-    public Transform fire_point;
-    public ParticleSystem fire_jet_particle;
-    public ParticleSystem ship_explosion_fx;
+    public Lean.Pool.LeanGameObjectPool bulletPool;
+    public Transform firePoint;
+    public ParticleSystem fireJetParticle;
+    public ParticleSystem shipExplosionFX;
 
     #region UI
-    public UIHealthBarController ui_ship_health_bar;
+    public UIHealthBarController uiShipHPBar;
     #endregion
-
 
     #region SFX
     [Header("SFX")]
     public AudioSource sfx;
-    public AudioClip coin_collect_sfx;
+    public AudioClip sfxCoinCollect;
     #endregion
 
-
-    public SpriteRenderer ship_sprite;
-    public float time_counter;
-    public float invincible_duration;
-
+    public SpriteRenderer shipSprite;
+    private float timer;
+    public float invincibleDuration;
     public bool isDied;
-
-    public RankManager rank_manager;
-
-
+    public RankManager rankManager;
     void Start()
     {
+        
     }
 
     // Update is called once per frame
@@ -52,52 +46,52 @@ public class SpaceShipController : MonoBehaviour
     /// </summary>
     public void StartShip()
     {
-        time_counter = 0;
-        current_hp = base_hp;
+        timer = 0;
+        currentHP = baseHP;
         isDied = false;
-        ship_sprite.enabled = true;
+        shipSprite.enabled = true;
 
         //Reset alpha for some case that ship get died so fast cause alpha controlled by shader disrupted
-        Color c = ship_sprite.color;
+        Color c = shipSprite.color;
         c.a = 1.0f;
-        ship_sprite.color = c;
+        shipSprite.color = c;
 
-        fire_jet_particle.Play();
+        fireJetParticle.Play();
         GetComponent<SpaceShipMovement>().SetShipPosition();
         GetComponent<Animator>().Play("ship_idle");
        
         StartCoroutine(CheckDie());
     }
-    void UpdateHP(int damage)
+    private void UpdateHP(int damage)
     {
-        current_hp -= damage;
+        currentHP -= damage;
     }
     public void BeginShoot()
     {
        StartCoroutine(Shoot());
     }
-    IEnumerator Shoot()
+    private IEnumerator Shoot()
     {
-        WaitForSeconds fire_rate_delay = new WaitForSeconds(firerate);
-        while(current_hp > 0)
+        WaitForSeconds firerateDelay = new WaitForSeconds(firerate);
+        while(currentHP > 0)
         {
-            if(current_hp <=0)
+            if(currentHP <=0)
             {
                 yield break;
             }
-            var bullet = bullet_pool.Spawn(fire_point.position, Quaternion.identity);
+            var bullet = bulletPool.Spawn(firePoint.position, Quaternion.identity);
             bullet.GetComponent<BaseBullet>().Damage = damage;
             bullet.GetComponent<BaseBullet>().Shoot();
-            yield return fire_rate_delay;
+            yield return firerateDelay;
         }
     }
-    IEnumerator CheckDie()
+    private IEnumerator CheckDie()
     {
-        yield return new WaitUntil(() => current_hp <= 0);
+        yield return new WaitUntil(() => currentHP <= 0);
         GetComponent<SpaceShipMovement>().OnDisableTouch();
-        ship_explosion_fx.Play();
-        ship_sprite.enabled = false;
-        fire_jet_particle.Stop();
+        shipExplosionFX.Play();
+        shipSprite.enabled = false;
+        fireJetParticle.Stop();
         yield return new WaitForSeconds(1.5f);
         isDied = true;
         StopAllCoroutines();
@@ -105,14 +99,14 @@ public class SpaceShipController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Ship is invincible state after hit the enemies
-        if (time_counter > 0) return;
+        if (timer > 0) return;
 
         if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))
         {
             GameManager.Instance.cameraShakeFX.Shake();
             StartCoroutine(OnInvincible());
             UpdateHP(1);
-            ui_ship_health_bar.UpdateHealthBarUI();
+            uiShipHPBar.UpdateHealthBarUI();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -120,37 +114,37 @@ public class SpaceShipController : MonoBehaviour
         if (collision.gameObject.CompareTag("Coin"))
         {
             GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<CoinController>().coin_value);
-            sfx.PlayOneShot(coin_collect_sfx);
+            sfx.PlayOneShot(sfxCoinCollect);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("Item"))
         {
             DataManager.Instance.SaveDataToLocalStorage();
-            rank_manager.UpdateRankPoints(collision.gameObject.GetComponent<BaseItem>().m_rank_point);
-            sfx.PlayOneShot(coin_collect_sfx);
+            rankManager.UpdateRankPoints(collision.gameObject.GetComponent<BaseItem>().m_rank_point);
+            sfx.PlayOneShot(sfxCoinCollect);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }
     }
-    IEnumerator OnInvincible()
+    private IEnumerator OnInvincible()
     {
         WaitForSeconds delay = new WaitForSeconds(.15f);
-        while(current_hp > 0)
+        while(currentHP > 0)
         {
-            if (time_counter >= invincible_duration)
+            if (timer >= invincibleDuration)
             {
-                time_counter = 0;
-                ship_sprite.color = new Color(1, 1, 1, 1);
+                timer = 0;
+                shipSprite.color = new Color(1, 1, 1, 1);
                 yield break;
             }
             yield return delay;
-            Color c = ship_sprite.color;
-            float save_alpha = c.a;
+            Color c = shipSprite.color;
+            float saveAlpha = c.a;
             c.a = 0f;
-            ship_sprite.color = c;
+            shipSprite.color = c;
             yield return delay;
-            c.a = save_alpha;
-            ship_sprite.color = c;
-            time_counter += Time.deltaTime + 0.3f;
+            c.a = saveAlpha;
+            shipSprite.color = c;
+            timer += Time.deltaTime + 0.3f;
         }
         
     }

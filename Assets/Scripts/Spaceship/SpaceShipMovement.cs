@@ -9,8 +9,8 @@ public class SpaceShipMovement : MonoBehaviour
     public float sensitivity;
     public bool isTouching;
     public SpriteRenderer ship_sprite;
-    float ship_sprite_width;
-    float ship_sprite_height;
+    private float ship_sprite_width;
+    private float ship_sprite_height;
     public float last_pos_x;
     public Animator ship_animator;
     public Animator hold_to_play_animator;
