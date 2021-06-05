@@ -47,7 +47,7 @@ public class BaseMonster:  MonoBehaviour
     }
     public virtual void SetupHP()
     {
-        maxHP = baseHP + baseHP * Mathf.RoundToInt(GameManager.Instance.endlessModeData.hp_increase_per_wave
+        maxHP = baseHP + baseHP * Mathf.RoundToInt(GameManager.Instance.endlessModeData.HPIncreasePerWave
             * GameManager.Instance.GetCurrentLevelSpeed());
         currentHP = maxHP;
     }
@@ -60,7 +60,7 @@ public class BaseMonster:  MonoBehaviour
     public virtual void SetupMoveSpeed()
     {
         currentMoveSpeed = baseMoveSpeed + GameManager.Instance.GetCurrentLevelSpeed()
-                    * GameManager.Instance.endlessModeData.speed_increase_per_wave;
+                    * GameManager.Instance.endlessModeData.speedIncreasePerWave;
     }
 
     public virtual void Setup() 
@@ -139,7 +139,7 @@ public class BaseMonster:  MonoBehaviour
     private int  CoinValueBasedOnLevelSpeed()
     {
         return Mathf.RoundToInt(baseCoinValue 
-            * Mathf.RoundToInt(GameManager.Instance.endlessModeData.coin_increase_per_wave
+            * Mathf.RoundToInt(GameManager.Instance.endlessModeData.coinIncreasePerWave
             * GameManager.Instance.GetCurrentLevelSpeed()));
     }
 }

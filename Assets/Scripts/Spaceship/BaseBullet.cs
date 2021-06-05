@@ -24,18 +24,18 @@ public class BaseBullet : MonoBehaviour
             return damage;
         }
     }
-    public float bullet_movespeed;
-    Vector3 origin_position;
-    public Rigidbody2D rigidbody2D;
+    public float bulletMoveSpeed;
+    private Vector3 originPos;
+    private Rigidbody2D rigidBody;
 
     private void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
     // Start is called before the first frame update
     private void Start()
     {
-        origin_position = transform.position;
+        originPos = transform.position;
     }
 
     // Update is called once per frame
@@ -62,19 +62,18 @@ public class BaseBullet : MonoBehaviour
     public void Shoot()
     {
         //Hàm này dùng cho ship
-        rigidbody2D.velocity = new Vector2(0f, bullet_movespeed);
+        rigidBody.velocity = new Vector2(0f, bulletMoveSpeed);
     }
     public void Shoot(Vector3 direction)
     {
         //Hàm này dùng cho monster nên sẽ bắn thẳng từ trên xuống
-        var vec = new Vector2(0f, -bullet_movespeed);       
-        rigidbody2D.velocity = Quaternion.Euler(direction) * vec;
+        var vec = new Vector2(0f, -bulletMoveSpeed);       
+        rigidBody.velocity = Quaternion.Euler(direction) * vec;
     }
     public void Reset()
-    {
-        
-        rigidbody2D.velocity = Vector3.zero;
-        this.transform.position = origin_position;
+    {       
+        rigidBody.velocity = Vector3.zero;
+        this.transform.position = originPos;
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
 }

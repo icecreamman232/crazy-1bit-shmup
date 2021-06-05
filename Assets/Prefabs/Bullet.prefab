@@ -145,5 +145,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  bullet_movespeed: 10
-  rigidbody2D: {fileID: 6607014637547512002}
+  bulletMoveSpeed: 10

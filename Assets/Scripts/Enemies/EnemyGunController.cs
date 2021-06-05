@@ -18,7 +18,7 @@ public class EnemyGunController : MonoBehaviour
 
     public void SetupGun()
     {
-        m_bullet.bullet_movespeed = gunData.bulletMoveSpeed;
+        m_bullet.bulletMoveSpeed = gunData.bulletMoveSpeed;
         m_bullet.Damage = 1;
     }
     public void Shoot()

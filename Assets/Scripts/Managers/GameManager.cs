@@ -209,9 +209,9 @@ public class GameManager : MonoBehaviour
     
     public float GetCurrentLevelSpeed()
     {
-        var min = endlessModeData.min_speed;
-        var max = endlessModeData.max_speed;     
-        return Mathf.Clamp(min + (max - min) * (Mathf.Exp(speedFactor * currentWaveIndex)),0,endlessModeData.speed_limit);
+        var min = endlessModeData.minSpeed;
+        var max = endlessModeData.maxSpeed;     
+        return Mathf.Clamp(min + (max - min) * (Mathf.Exp(speedFactor * currentWaveIndex)),0,endlessModeData.speedLimit);
     }
     private IEnumerator OnLifeTimeCounter()
     {
