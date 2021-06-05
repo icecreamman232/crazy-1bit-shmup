@@ -1,21 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using SWS;
 
 public class Monster02Controller : MonsterWithCustomPath
 {
+    [Header("Dodging Behaviour")]
     public CircleCollider2D circleCollider;
     public int dodgeCount;
     private int counter;
-    public bool isDodgeAlready;
-    private bool isFinishedDodge;
-    private BoxCollider2D m_Collider;
-
+    private Transform currentShipTransform;
 
     void Start()
     {
-        m_Collider = GetComponent<BoxCollider2D>();
+        currentShipTransform = GameManager.Instance.space_ship.transform;
     }
 
 
@@ -25,30 +23,58 @@ public class Monster02Controller : MonsterWithCustomPath
     }
     public override void Run()
     {
-        isDodgeAlready = false;
-        isFinishedDodge = false;
         counter = dodgeCount;
         base.Run();
+        Move();
     }
-    void DoDodgeIncomingBullet()
+    public override void Move()
     {
-        isDodgeAlready = true;
-        Vector3 randomPos = Vector3.one;
-        if(randomPos.x < 0)
+        base.Move();
+        //Remember to unsubribe event before destroy something
+        moveController.movementEndEvent -= OnMoveEnd;
+        moveController.movementEndEvent -= ChasingAfterShip;
+
+
+        moveController.pathContainer = introPath;
+        moveController.moveToPath = false;
+        moveController.loopType = splineMove.LoopType.none;
+        moveController.movementEndEvent += ChasingAfterShip;
+        moveController.StartMove();
+        currentMovementState = MovementState.INTRO;
+    }
+    private void ChasingAfterShip()
+    {
+        StartCoroutine(OnChasing());
+    }
+    private IEnumerator OnChasing()
+    {
+        while(true)
         {
-            randomPos.x -= Random.Range(0.5f, 1.0f);
+            transform.position = Vector3.MoveTowards(transform.position, currentShipTransform.position, base_movespeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+    private void DoDodgeIncomingBullet(Collider2D bullet_collider)
+    {
+        Vector3 nextPos = transform.position;
+
+        //Check the side of bullet, if it's on the left side, monster will dodge to the right side and vice versa
+        if(bullet_collider.transform.position.x > transform.position.x)
+        {
+            nextPos.x -= Random.Range(0.8f, 1.5f);
         }
         else
         {
-            randomPos.x += Random.Range(0.5f, 1.0f);
+            nextPos.x += Random.Range(0.8f, 1.5f);
         }
-        randomPos.y = transform.position.y + 1.0f;
-        randomPos.z = 0;
-        LeanTween.move(this.gameObject, randomPos, 0.5f)
+
+        nextPos.y += 0.8f;
+
+        LeanTween.move(gameObject, nextPos, 0.3f)
             .setOnComplete(OnFinishDodge)
             .setEase(LeanTweenType.easeOutQuart);
     }
-    void OnFinishDodge()
+    private void OnFinishDodge()
     {
         moveController.Resume();      
     }
@@ -56,21 +82,18 @@ public class Monster02Controller : MonsterWithCustomPath
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            if (counter > 0)
             {
-                if (counter > 0)
+                if (circleCollider.IsTouching(collision))
                 {
-                    if (circleCollider.IsTouching(collision))
-                    {
-                        moveController.Stop();
-                        DoDodgeIncomingBullet();
-                        dodgeCount--;
-                    }
+                    //Stop current path moving and resume later after dodging.
+                    //This could cause weird teleport back to path!
+                    moveController.Pause();
+                    DoDodgeIncomingBullet(collision);
+                    counter--;
                 }
             }
-            if (counter <= 0)
-            {
-                base.OnTriggerEnter2D(collision);
-            }
+            base.OnTriggerEnter2D(collision);
         }       
     }
 }

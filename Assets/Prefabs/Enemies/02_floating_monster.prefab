@@ -76,7 +76,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.2
 --- !u!1 &7730885451818391331
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,11 +355,9 @@ MonoBehaviour:
   patrolPath: {fileID: 0}
   retreatPath: {fileID: 0}
   patrolDuration: 0
-  patrolType: 0
   moveController: {fileID: 7642898754985102861}
   circleCollider: {fileID: 7730885451012456410}
   dodgeCount: 5
-  isDodgeAlready: 0
 --- !u!50 &67743736285988727
 Rigidbody2D:
   serializedVersion: 4

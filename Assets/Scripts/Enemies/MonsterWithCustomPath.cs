@@ -15,11 +15,11 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
     public MovementState currentMovementState;
 
     [SerializeField]
-    private PathManager introPath;
+    protected PathManager introPath;
     [SerializeField]
-    private PathManager patrolPath;
+    protected PathManager patrolPath;
     [SerializeField]
-    private PathManager retreatPath;
+    protected PathManager retreatPath;
 
     public PathManager IntroPath
     {
@@ -58,53 +58,45 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
 
     public float patrolDuration;
 
-    public SWS.splineMove.LoopType patrolType;
-
     public System.Action OnFinishRun;
 
     public splineMove moveController;
 
     private void Start()
     {
-        //Default loop type that made sense!
-        patrolType = splineMove.LoopType.yoyo;
+
     }
 
     public override void Run()
     {
         base.Run();
-        Move();
     }
 
 
-    public void Move()
+    public virtual void Move()
     {
-        moveController.pathContainer = introPath;
-        moveController.moveToPath = false;
-        moveController.loopType = splineMove.LoopType.none;
-        moveController.movementEndEvent -= OnMoveEnd;
-        moveController.movementEndEvent += Patrol;
-        moveController.StartMove();
-        currentMovementState = MovementState.INTRO;
+        //moveController.pathContainer = introPath;
+        //moveController.moveToPath = false;
+        //moveController.loopType = splineMove.LoopType.none;
+        //moveController.movementEndEvent -= OnMoveEnd;
+        //moveController.movementEndEvent += Patrol;
+        //moveController.StartMove();
+        //currentMovementState = MovementState.INTRO;
     }
 
-    public void Patrol()
+    public virtual void Patrol()
     {
+
+        //PrepareToRetreat();
+        //currentMovementState = MovementState.PATROL;
         //if (patrolPath == null)
         //{
-        //    OnFinishRun?.Invoke();
         //    return;
         //}
-        PrepareToRetreat();
-        currentMovementState = MovementState.PATROL;
-        if (patrolPath == null)
-        {
-            return;
-        }
-        moveController.pathContainer = patrolPath;
-        moveController.moveToPath = true;
-        moveController.loopType = splineMove.LoopType.yoyo;
-        moveController.StartMove();
+        //moveController.pathContainer = patrolPath;
+        //moveController.moveToPath = true;
+        //moveController.loopType = splineMove.LoopType.yoyo;
+        //moveController.StartMove();
     }
     void PrepareToRetreat()
     {
@@ -121,22 +113,22 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
         yield return new WaitForSeconds(patrolDuration);
         Retreat();
     }
-    public void Retreat()
+    public virtual void Retreat()
     {
-        if (retreatPath == null)
-        {
-            OnFinishRun?.Invoke();
-            return;
+        //if (retreatPath == null)
+        //{
+        //    OnFinishRun?.Invoke();
+        //    return;
 
-        }
-        moveController.moveToPath = true;
-        moveController.pathContainer = retreatPath;
-        moveController.loopType = splineMove.LoopType.none;
-        moveController.movementEndEvent += OnMoveEnd;
-        moveController.StartMove();
-        currentMovementState = MovementState.RETREAT;
+        //}
+        //moveController.moveToPath = true;
+        //moveController.pathContainer = retreatPath;
+        //moveController.loopType = splineMove.LoopType.none;
+        //moveController.movementEndEvent += OnMoveEnd;
+        //moveController.StartMove();
+        //currentMovementState = MovementState.RETREAT;
     }
-    void OnMoveEnd()
+    public virtual void OnMoveEnd()
     {
         OnFinishRun?.Invoke();
     }
