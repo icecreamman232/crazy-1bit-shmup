@@ -76,7 +76,7 @@ public class Monster02Controller : MonsterWithCustomPath
     }
     private void OnFinishDodge()
     {
-        moveController.Resume();      
+        //moveController.Resume();      
     }
     public override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -88,7 +88,7 @@ public class Monster02Controller : MonsterWithCustomPath
                 {
                     //Stop current path moving and resume later after dodging.
                     //This could cause weird teleport back to path!
-                    moveController.Pause();
+                    //moveController.Pause();
                     DoDodgeIncomingBullet(collision);
                     counter--;
                 }

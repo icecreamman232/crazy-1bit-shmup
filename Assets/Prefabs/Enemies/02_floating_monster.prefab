@@ -147,7 +147,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7123628045900910386, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -230,7 +230,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 355a4a28e5add66469a2ec8899e5fc79, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -343,8 +343,6 @@ MonoBehaviour:
   base_coin: 3
   base_coin_value: 8
   base_score: 15
-  isRunning: 0
-  origin_position: {x: 0, y: 0, z: 0}
   hp_bar_ui: {fileID: 235899854288359287}
   coin_prefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
   item_prefab: {fileID: 649832116354899698, guid: 9e6ccc94b5ac2a044979338aa0cb9edb, type: 3}
