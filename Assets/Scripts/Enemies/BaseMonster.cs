@@ -16,19 +16,16 @@ public class BaseMonster:  MonoBehaviour
     public int baseCoinValue;
     public int baseScore;
 
-
     readonly protected float tLerp = 0.1f;
 
     public System.Action OnDie;
 
-    
-
     [Header("Reference Holders")]
-    public GameObject hp_bar_ui;
-    public GameObject coin_prefab;
-    public GameObject item_prefab;
-    public List<ItemType> list_dropable_items;
-    private int max_item;
+    public GameObject uiHPBar;
+    public GameObject coinPrefab;
+    public GameObject itemPrefab;
+    public List<ItemType> dropableItemList;
+    private int maxItem;
     /// <summary>
     /// Value từ 0 ->1000
     /// </summary>
@@ -38,11 +35,11 @@ public class BaseMonster:  MonoBehaviour
 
     private void Start()
     {
-        max_item = list_dropable_items.Count;
+        maxItem = dropableItemList.Count;
     }
     public virtual void InitMonster()
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         SetupHP();
         SetupUIHealthBar();
         SetupMoveSpeed();
@@ -56,8 +53,8 @@ public class BaseMonster:  MonoBehaviour
     }
     private void SetupUIHealthBar()
     {
-        hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
-        var hp_gameobject = hp_bar_ui.transform.parent;
+        uiHPBar.transform.localScale = new Vector3(1, 0.5f, 1);
+        var hp_gameobject = uiHPBar.transform.parent;
         hp_gameobject.gameObject.SetActive(false);
     }
     public virtual void SetupMoveSpeed()
@@ -78,9 +75,9 @@ public class BaseMonster:  MonoBehaviour
 
         //Update Health Bar UI
         var percent_hp = (float)currentHP / maxHP;
-        var last_scale = hp_bar_ui.transform.localScale;
+        var last_scale = uiHPBar.transform.localScale;
         last_scale.x = percent_hp;
-        hp_bar_ui.transform.localScale = last_scale;
+        uiHPBar.transform.localScale = last_scale;
     }
     public virtual  IEnumerator CheckDie()
     {       
@@ -115,7 +112,7 @@ public class BaseMonster:  MonoBehaviour
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
         for (int i =0; i< baseNumberCoin; i++)
         {
-            var coin = Lean.Pool.LeanPool.Spawn(coin_prefab, this.transform.position, Quaternion.identity);
+            var coin = Lean.Pool.LeanPool.Spawn(coinPrefab, this.transform.position, Quaternion.identity);
             coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
             var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
             coin.GetComponent<Rigidbody2D>().AddForce(force_vector);
@@ -124,9 +121,9 @@ public class BaseMonster:  MonoBehaviour
     void DropItem()
     {
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
-        var item = Lean.Pool.LeanPool.Spawn(item_prefab, transform.position, Quaternion.identity);
-        var item_type_index = Random.Range(0, max_item);
-        item.GetComponent<BaseItem>().SetupItem(list_dropable_items[item_type_index]);
+        var item = Lean.Pool.LeanPool.Spawn(itemPrefab, transform.position, Quaternion.identity);
+        var item_type_index = Random.Range(0, maxItem);
+        item.GetComponent<BaseItem>().SetupItem(dropableItemList[item_type_index]);
         var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
         item.GetComponent<Rigidbody2D>().AddForce(force_vector); 
     }
