@@ -8,33 +8,34 @@ public class SpaceShipMovement : MonoBehaviour
 {
     public float sensitivity;
     public bool isTouching;
-    public SpriteRenderer ship_sprite;
-    private float ship_sprite_width;
-    private float ship_sprite_height;
-    public float last_pos_x;
-    public Animator ship_animator;
-    public Animator hold_to_play_animator;
+    public SpriteRenderer shipSprite;
+    private float shipSpriteWidth;
+    private float shipSpriteHeight;
+    private float lastPosX;
+    private Animator shipAnimator;
+    public Animator holdToPlayAnimator;
 
     public bool firstTouch;
-    Camera main_camera;
+    private Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        ship_sprite_width = ship_sprite.bounds.size.x;
-        ship_sprite_height = ship_sprite.bounds.size.y;
+        shipSpriteWidth = shipSprite.bounds.size.x;
+        shipSpriteHeight = shipSprite.bounds.size.y;
+        shipAnimator = GetComponent<Animator>();
         isTouching = false;
         firstTouch = false;
-        main_camera = Camera.main;
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!isTouching) return;
-        var screen_delta = LeanGesture.GetScreenDelta();
-        if (screen_delta == Vector2.zero) return;
-        TranslateShip(screen_delta);
+        var screenDelta = LeanGesture.GetScreenDelta();
+        if (screenDelta == Vector2.zero) return;
+        TranslateShip(screenDelta);
     }
     private void OnDestroy()
     {
@@ -57,70 +58,65 @@ public class SpaceShipMovement : MonoBehaviour
         if(!firstTouch)
         {
             firstTouch = true;
-            hold_to_play_animator.Play("holdtoplay_outtro_anim");
+            holdToPlayAnimator.Play("holdtoplay_outtro_anim");
         }
         isTouching = true;
     }
     public void OnTouchUp(LeanFinger fingers)
     {
         isTouching = false; 
-        ship_animator.Play("ship_idle");
+        shipAnimator.Play("ship_idle");
     }
     public void SetShipPosition()
     {
-        main_camera = Camera.main;
-        var postion = new Vector3(0, -GameHelper.get_current_screenbound().y + ship_sprite_height * 1.5f, 0);
+        mainCamera = Camera.main;
+        var postion = new Vector3(0, -GameHelper.GetCurrentScreenBounds().y + shipSpriteHeight * 1.5f, 0);
         var target = postion;
-        last_pos_x = postion.x;
-        postion.y = postion.y - 3.0f;
+        lastPosX = postion.x;
+        postion.y -= 3.0f;
         transform.position = postion;
         isTouching = false;
 
-        LeanTween.moveY(gameObject, target.y, 1.2f).setEase(LeanTweenType.easeOutBack)
+        LeanTween.moveY(gameObject, target.y, 1.2f)
+            .setEase(LeanTweenType.easeOutBack)
             .setOnComplete(OnCompleteSetupShipPosition);
-
     }
     void OnCompleteSetupShipPosition()
     {
         OnEnableTouch();
-        hold_to_play_animator.gameObject.SetActive(true);
-        hold_to_play_animator.Play("holdtoplay_intro_anim");
+        holdToPlayAnimator.gameObject.SetActive(true);
+        holdToPlayAnimator.Play("holdtoplay_intro_anim");
     }
     void TranslateShip(Vector2 delta)
     {
-        var main_camera = Camera.main;
-        if(main_camera != null)
+        if(mainCamera != null)
         {
-            var screen_pts = main_camera.WorldToScreenPoint(transform.position);
-            screen_pts += (Vector3)delta * sensitivity;
-
-            var world_pts = main_camera.ScreenToWorldPoint(screen_pts);
-
-            var screen_bound = GameHelper.get_current_screenbound();
+            var screenPts = mainCamera.WorldToScreenPoint(transform.position);
+            screenPts += (Vector3)delta * sensitivity;
+            var worldPts = mainCamera.ScreenToWorldPoint(screenPts);
+            var screenBounds = GameHelper.GetCurrentScreenBounds();
             
-
-            if (world_pts.x <= -screen_bound.x + ship_sprite_width*0.5f) world_pts.x = -screen_bound.x+ ship_sprite_width * 0.5f;
-            if (world_pts.x >= screen_bound.x - ship_sprite_width *0.5f) world_pts.x = screen_bound.x - ship_sprite_width * 0.5f;
-            if (world_pts.y <= -screen_bound.y) world_pts.y = -screen_bound.y;
+            if (worldPts.x <= -screenBounds.x + shipSpriteWidth*0.5f) worldPts.x = -screenBounds.x+ shipSpriteWidth * 0.5f;
+            if (worldPts.x >= screenBounds.x - shipSpriteWidth *0.5f) worldPts.x = screenBounds.x - shipSpriteWidth * 0.5f;
+            if (worldPts.y <= -screenBounds.y) worldPts.y = -screenBounds.y;
 
             //Ship keep turning left
-            if(world_pts.x < last_pos_x)
+            if(worldPts.x < lastPosX)
             {
-               ship_animator.Play("ship_turn_left_anim");
+               shipAnimator.Play("ship_turn_left_anim");
             }
             //Ship keep turning right
-            else if (world_pts.x > last_pos_x)
+            else if (worldPts.x > lastPosX)
             {
-                ship_animator.Play("ship_turn_right_anim");
+                shipAnimator.Play("ship_turn_right_anim");
             }
             else
             {
-                ship_animator.Play("ship_idle");
+                shipAnimator.Play("ship_idle");
             }
-            last_pos_x = world_pts.x;
 
-
-            transform.position = world_pts;
+            lastPosX = worldPts.x;
+            transform.position = worldPts;
         }
         else
         {

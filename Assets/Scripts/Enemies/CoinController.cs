@@ -29,7 +29,7 @@ public class CoinController : MonoBehaviour
     /// <returns></returns>
     IEnumerator CheckCoinAlive()
     {
-        yield return new WaitUntil(() => transform.position.y <= -GameHelper.get_current_screenbound().y - 2.0f);
+        yield return new WaitUntil(() => transform.position.y <= -GameHelper.GetCurrentScreenBounds().y - 2.0f);
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
 }

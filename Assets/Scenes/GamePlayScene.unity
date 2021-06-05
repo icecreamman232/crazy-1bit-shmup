@@ -12260,10 +12260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 1
   isTouching: 0
-  ship_sprite: {fileID: 1824837311}
-  last_pos_x: 0
-  ship_animator: {fileID: 1598937696}
-  hold_to_play_animator: {fileID: 1398079979}
+  shipSprite: {fileID: 1824837311}
+  holdToPlayAnimator: {fileID: 1398079979}
   firstTouch: 0
 --- !u!61 &1598937694
 BoxCollider2D:

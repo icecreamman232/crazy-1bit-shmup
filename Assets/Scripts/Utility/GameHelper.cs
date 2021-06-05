@@ -34,7 +34,7 @@ public static class GameHelper
         sizeOfCamera = A;
     }
 
-    public static Vector2 get_current_screenbound()
+    public static Vector2 GetCurrentScreenBounds()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }

@@ -42,19 +42,19 @@ public class BaseBullet : MonoBehaviour
     void Update()
     {
         //Culling bullet
-        if(transform.position.y >= GameHelper.get_current_screenbound().y)
+        if(transform.position.y >= GameHelper.GetCurrentScreenBounds().y)
         {
             Reset();
         }
-        else if(transform.position.y <= -GameHelper.get_current_screenbound().y)
+        else if(transform.position.y <= -GameHelper.GetCurrentScreenBounds().y)
         {
             Reset();
         }
-        else if(transform.position.x >= GameHelper.get_current_screenbound().x)
+        else if(transform.position.x >= GameHelper.GetCurrentScreenBounds().x)
         {
             Reset();
         }
-        else if(transform.position.x <= -GameHelper.get_current_screenbound().x)
+        else if(transform.position.x <= -GameHelper.GetCurrentScreenBounds().x)
         {
             Reset();
         }
