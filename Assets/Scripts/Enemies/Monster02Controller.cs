@@ -93,7 +93,10 @@ public class Monster02Controller : MonsterWithCustomPath
                     counter--;
                 }
             }
-            base.OnTriggerEnter2D(collision);
+            else
+            {
+                base.OnTriggerEnter2D(collision);
+            }          
         }       
     }
 }

@@ -66,67 +66,16 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
     {
 
     }
-
-    public override void Run()
-    {
-        base.Run();
-    }
-
-
     public virtual void Move()
     {
-        //moveController.pathContainer = introPath;
-        //moveController.moveToPath = false;
-        //moveController.loopType = splineMove.LoopType.none;
-        //moveController.movementEndEvent -= OnMoveEnd;
-        //moveController.movementEndEvent += Patrol;
-        //moveController.StartMove();
-        //currentMovementState = MovementState.INTRO;
     }
 
     public virtual void Patrol()
     {
 
-        //PrepareToRetreat();
-        //currentMovementState = MovementState.PATROL;
-        //if (patrolPath == null)
-        //{
-        //    return;
-        //}
-        //moveController.pathContainer = patrolPath;
-        //moveController.moveToPath = true;
-        //moveController.loopType = splineMove.LoopType.yoyo;
-        //moveController.StartMove();
-    }
-    void PrepareToRetreat()
-    {
-        moveController.movementEndEvent -= Patrol;
-        if (this.gameObject == null)
-        {
-            OnFinishRun?.Invoke();
-            return;
-        }
-        StartCoroutine(OnRetreating());
-    }
-    IEnumerator OnRetreating()
-    {
-        yield return new WaitForSeconds(patrolDuration);
-        Retreat();
     }
     public virtual void Retreat()
     {
-        //if (retreatPath == null)
-        //{
-        //    OnFinishRun?.Invoke();
-        //    return;
-
-        //}
-        //moveController.moveToPath = true;
-        //moveController.pathContainer = retreatPath;
-        //moveController.loopType = splineMove.LoopType.none;
-        //moveController.movementEndEvent += OnMoveEnd;
-        //moveController.StartMove();
-        //currentMovementState = MovementState.RETREAT;
     }
     public virtual void OnMoveEnd()
     {

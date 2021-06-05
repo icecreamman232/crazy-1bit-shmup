@@ -7,13 +7,7 @@ using UnityEngine.Events;
 public class BaseMonster:  MonoBehaviour
 {
     [Header("Monster Information")]
-    /// <summary>
-    /// Máu gốc của quái vật
-    /// </summary>
     public int base_hp;
-    /// <summary>
-    /// Máu của quái vật khi được spawn ra tại wave cụ thể
-    /// </summary>
     public int max_hp;
     public int current_hp;
     public float base_movespeed;
@@ -22,8 +16,7 @@ public class BaseMonster:  MonoBehaviour
     public int base_coin_value;
     public int base_score;
 
-    public bool isRunning;
-    public Vector3 origin_position;
+
     protected float t_lerp = 0.1f;
 
     public System.Action OnDie;
@@ -55,8 +48,6 @@ public class BaseMonster:  MonoBehaviour
         current_hp = max_hp;
         current_movespeed = base_movespeed + GameManager.Instance.GetCurrentLevelSpeed() 
             * GameManager.Instance.endless_mode_data.speed_increase_per_wave;
-        origin_position = transform.position;
-        isRunning = false;
         
 
         hp_bar_ui.transform.localScale = new Vector3(1, 0.5f, 1);
