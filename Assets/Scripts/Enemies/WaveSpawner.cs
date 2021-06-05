@@ -10,15 +10,15 @@ public class WaveSpawner : MonoBehaviour
     public int waveIndex;
     public int maxWave;
 
-    bool isSpawning;
+    private bool isSpawning;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
@@ -42,7 +42,7 @@ public class WaveSpawner : MonoBehaviour
         currentWaveMonster.isWaveFinished = true;
         currentWaveMonster.Reset();
     }
-    IEnumerator OnWaveRunning()
+    private IEnumerator OnWaveRunning()
     {
         while(true)
         {

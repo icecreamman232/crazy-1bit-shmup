@@ -57,7 +57,7 @@ public class WaveMonsterController : MonoBehaviour
         }
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
-    IEnumerator OnSpawningMonster()
+    private IEnumerator OnSpawningMonster()
     {
         for (int i = 0; i < waveMonsterList.Count; i++)
         {
