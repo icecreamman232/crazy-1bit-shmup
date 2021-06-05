@@ -347,7 +347,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
   itemPrefab: {fileID: 649832116354899698, guid: 9e6ccc94b5ac2a044979338aa0cb9edb, type: 3}
   dropableItemList: 0000000001000000
-  item_drop_rate: 300
+  itemDropRate: 300
   currentMovementState: 0
   introPath: {fileID: 0}
   patrolPath: {fileID: 0}

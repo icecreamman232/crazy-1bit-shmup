@@ -29,7 +29,7 @@ public class BaseMonster:  MonoBehaviour
     /// <summary>
     /// Value từ 0 ->1000
     /// </summary>
-    public int item_drop_rate;
+    public int itemDropRate;
 
 
 
@@ -69,15 +69,15 @@ public class BaseMonster:  MonoBehaviour
         StartCoroutine(CheckDie());
     }
 
-    public void UpdateHP(int _damage)
+    public void UpdateHP(int damage)
     {
-        currentHP -= _damage;
+        currentHP -= damage;
 
         //Update Health Bar UI
-        var percent_hp = (float)currentHP / maxHP;
-        var last_scale = uiHPBar.transform.localScale;
-        last_scale.x = percent_hp;
-        uiHPBar.transform.localScale = last_scale;
+        var HPPercent = (float)currentHP / maxHP;
+        var lastScale = uiHPBar.transform.localScale;
+        lastScale.x = HPPercent;
+        uiHPBar.transform.localScale = lastScale;
     }
     public virtual  IEnumerator CheckDie()
     {       
@@ -88,48 +88,58 @@ public class BaseMonster:  MonoBehaviour
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         GameManager.Instance.camera_shake_fx.Shake();
         currentMoveSpeed = baseMoveSpeed;
-        var drop_rate = ItemManager.Instance.GetRandomDropRate();
-        if(drop_rate<=item_drop_rate)
+        var dropRate = ItemManager.Instance.GetRandomDropRate();
+        if(dropRate <= itemDropRate)
         {
             //DropCoin();
             DropItem();
         }
         OnDie?.Invoke();
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
             UpdateHP(collision.gameObject.GetComponent<BaseBullet>().Damage);
-            if (!gameObject.transform.GetChild(0).gameObject.activeSelf) gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
+            {
+                gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
             collision.gameObject.GetComponent<BaseBullet>().Reset();
         }
     }
 
-    void DropCoin()
+    private void DropCoin()
     { 
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
         for (int i =0; i< baseNumberCoin; i++)
         {
             var coin = Lean.Pool.LeanPool.Spawn(coinPrefab, this.transform.position, Quaternion.identity);
             coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
-            var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
-            coin.GetComponent<Rigidbody2D>().AddForce(force_vector);
+            var forceVector = new Vector3(
+                Random.Range(-100f, 100f) + trajectory.x, 
+                Random.Range(-100f, 300f) + trajectory.y, 
+                0f);
+            coin.GetComponent<Rigidbody2D>().AddForce(forceVector);
         }
     }
-    void DropItem()
+    private void DropItem()
     {
         Vector3 trajectory = Random.insideUnitCircle * 100.0f;
         var item = Lean.Pool.LeanPool.Spawn(itemPrefab, transform.position, Quaternion.identity);
-        var item_type_index = Random.Range(0, maxItem);
-        item.GetComponent<BaseItem>().SetupItem(dropableItemList[item_type_index]);
-        var force_vector = new Vector3(Random.Range(-100f, 100f) + trajectory.x, Random.Range(-100f, 300f) + trajectory.y, 0f);
+        var itemTypeIndex = Random.Range(0, maxItem);
+        item.GetComponent<BaseItem>().SetupItem(dropableItemList[itemTypeIndex]);
+        var force_vector = new Vector3(
+            Random.Range(-100f, 100f) + trajectory.x, 
+            Random.Range(-100f, 300f) + trajectory.y, 
+            0f);
         item.GetComponent<Rigidbody2D>().AddForce(force_vector); 
     }
-    int  CoinValueBasedOnLevelSpeed()
+    private int  CoinValueBasedOnLevelSpeed()
     {
-        return Mathf.RoundToInt(baseCoinValue * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.coin_increase_per_wave
+        return Mathf.RoundToInt(baseCoinValue 
+            * Mathf.RoundToInt(GameManager.Instance.endless_mode_data.coin_increase_per_wave
             * GameManager.Instance.GetCurrentLevelSpeed()));
     }
 }
