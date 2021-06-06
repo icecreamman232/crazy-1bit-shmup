@@ -113,7 +113,7 @@ public class SpaceShipController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
-            GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<CoinController>().coin_value);
+            GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<BaseCoin>().coinValue);
             sfx.PlayOneShot(sfxCoinCollect);
             Lean.Pool.LeanPool.Despawn(collision.gameObject);
         }

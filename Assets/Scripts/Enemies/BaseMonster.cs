@@ -22,20 +22,13 @@ public class BaseMonster:  MonoBehaviour
 
     [Header("Reference Holders")]
     public GameObject uiHPBar;
-    public GameObject coinPrefab;
-    public GameObject itemPrefab;
-    public List<ItemType> dropableItemList;
-    private int maxItem;
-    /// <summary>
-    /// Value từ 0 ->1000
-    /// </summary>
-    public int itemDropRate;
 
-
-
+    [Header("Components")]
+    public ItemSpawner itemSpawner;
+    public CoinSpawner coinSpawner;
     private void Start()
     {
-        maxItem = dropableItemList.Count;
+
     }
     public virtual void InitMonster()
     {
@@ -89,10 +82,10 @@ public class BaseMonster:  MonoBehaviour
         GameManager.Instance.cameraShakeFX.Shake();
         currentMoveSpeed = baseMoveSpeed;
         var dropRate = ItemManager.Instance.GetRandomDropRate();
-        if(dropRate <= itemDropRate)
+        if(dropRate <= itemSpawner.itemDropRate)
         {
-            //DropCoin();
-            DropItem();
+            coinSpawner.DropCoin(transform.position,baseCoinValue,baseNumberCoin);
+            itemSpawner.DropItem(transform.position);
         }
         OnDie?.Invoke();
         gameObject.SetActive(false);
@@ -110,36 +103,25 @@ public class BaseMonster:  MonoBehaviour
         }
     }
 
-    private void DropCoin()
-    { 
-        Vector3 trajectory = Random.insideUnitCircle * 100.0f;
-        for (int i =0; i< baseNumberCoin; i++)
-        {
-            var coin = Lean.Pool.LeanPool.Spawn(coinPrefab, this.transform.position, Quaternion.identity);
-            coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
-            var forceVector = new Vector3(
-                Random.Range(-100f, 100f) + trajectory.x, 
-                Random.Range(-100f, 300f) + trajectory.y, 
-                0f);
-            coin.GetComponent<Rigidbody2D>().AddForce(forceVector);
-        }
-    }
-    private void DropItem()
-    {
-        Vector3 trajectory = Random.insideUnitCircle * 100.0f;
-        var item = Lean.Pool.LeanPool.Spawn(itemPrefab, transform.position, Quaternion.identity);
-        var itemTypeIndex = Random.Range(0, maxItem);
-        item.GetComponent<BaseItem>().SetupItem(dropableItemList[itemTypeIndex]);
-        var force_vector = new Vector3(
-            Random.Range(-100f, 100f) + trajectory.x, 
-            Random.Range(-100f, 300f) + trajectory.y, 
-            0f);
-        item.GetComponent<Rigidbody2D>().AddForce(force_vector); 
-    }
-    private int  CoinValueBasedOnLevelSpeed()
-    {
-        return Mathf.RoundToInt(baseCoinValue 
-            * Mathf.RoundToInt(GameManager.Instance.endlessModeData.coinIncreasePerWave
-            * GameManager.Instance.GetCurrentLevelSpeed()));
-    }
+    //private void DropCoin()
+    //{ 
+    //    Vector3 trajectory = Random.insideUnitCircle * 100.0f;
+    //    for (int i =0; i< baseNumberCoin; i++)
+    //    {
+    //        var coin = Lean.Pool.LeanPool.Spawn(coinPrefab, this.transform.position, Quaternion.identity);
+    //        coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
+    //        var forceVector = new Vector3(
+    //            Random.Range(-100f, 100f) + trajectory.x, 
+    //            Random.Range(-100f, 300f) + trajectory.y, 
+    //            0f);
+    //        coin.GetComponent<Rigidbody2D>().AddForce(forceVector);
+    //    }
+    //}
+
+    //private int  CoinValueBasedOnLevelSpeed()
+    //{
+    //    return Mathf.RoundToInt(baseCoinValue 
+    //        * Mathf.RoundToInt(GameManager.Instance.endlessModeData.coinIncreasePerWave
+    //        * GameManager.Instance.GetCurrentLevelSpeed()));
+    //}
 }

@@ -5,6 +5,7 @@ using SWS;
 
 public class Monster01Controller : MonsterWithCustomPath
 {
+
     public override void Setup()
     {
         base.Setup();

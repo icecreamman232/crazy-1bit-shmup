@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinController : MonoBehaviour
+public class BaseCoin : MonoBehaviour
 {
-    
-    public int coin_value;
+    public GameObject coinPrefab;
+    public int coinValue;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,18 +17,15 @@ public class CoinController : MonoBehaviour
     {
         
     }
-    public void Init(int new_coin_value)
+    public void Init(int newCoinValue)
     {
         StopAllCoroutines();
         StartCoroutine(CheckCoinAlive());
-        coin_value = new_coin_value;
+        coinValue = newCoinValue;
     }
-    /// <summary>
-    /// Check if coin is out of screen or collected by ship
-    /// </summary>
-    /// <returns></returns>
     IEnumerator CheckCoinAlive()
     {
+        //Check if coin is out of screen
         yield return new WaitUntil(() => transform.position.y <= -GameHelper.GetCurrentScreenBounds().y - 2.0f);
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }

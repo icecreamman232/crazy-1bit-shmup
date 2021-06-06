@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 5166777713280954638}
   - component: {fileID: 5166777713280954637}
   - component: {fileID: 5166777713280954632}
+  - component: {fileID: 5166777713280954633}
   - component: {fileID: 5166777713280954639}
   - component: {fileID: 5166777713280954634}
-  - component: {fileID: 5166777713280954633}
   - component: {fileID: 367357453471507698}
+  - component: {fileID: 3948237101983439521}
+  - component: {fileID: -2542214592113989570}
   m_Layer: 8
   m_Name: monster_01
   m_TagString: Enemy
@@ -114,6 +116,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &5166777713280954633
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166777713280954636}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!95 &5166777713280954639
 Animator:
   serializedVersion: 3
@@ -155,36 +178,16 @@ MonoBehaviour:
   baseScore: 10
   uiHPBar: {fileID: 5984741312599184319}
   coinPrefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
-  itemPrefab: {fileID: 649832116354899698, guid: 9e6ccc94b5ac2a044979338aa0cb9edb, type: 3}
-  dropableItemList: 0000000001000000
+  coinController: {fileID: 8786966059311505440, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
   itemDropRate: 700
+  itemSpawner: {fileID: 3948237101983439521}
+  coinSpawner: {fileID: -2542214592113989570}
   currentMovementState: 0
   introPath: {fileID: 0}
   patrolPath: {fileID: 0}
   retreatPath: {fileID: 0}
   patrolDuration: 0
   moveController: {fileID: 0}
---- !u!50 &5166777713280954633
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166777713280954636}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &367357453471507698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +236,34 @@ MonoBehaviour:
   movementEnd:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3948237101983439521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166777713280954636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5e4d8c6adab114fb4128b783f54232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropableItemList: 0000000001000000
+  itemDropRate: 700
+  itemPrefab: {fileID: 649832116354899698, guid: 9e6ccc94b5ac2a044979338aa0cb9edb, type: 3}
+--- !u!114 &-2542214592113989570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166777713280954636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe8fb0184877c841a73e9e9455f6c9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
 --- !u!1001 &4251847142622945007
 PrefabInstance:
   m_ObjectHideFlags: 0
