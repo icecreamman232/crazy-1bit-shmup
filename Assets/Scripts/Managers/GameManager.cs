@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     public RankManager rankManager;
 
     public WaveSpawner waveSpawner;
+    public EnvironmentCreator environmentCreator;
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
                     starBackLayer.Stop();
                     starFrontLayer.Stop();
 
+                    environmentCreator.Reset();
                     waveSpawner.Reset();
                     DataManager.Instance.SaveDataToLocalStorage();
                     SetState(GameManagerState.LOSE);
@@ -140,11 +142,12 @@ public class GameManager : MonoBehaviour
         spaceShip.GetComponent<SpaceShipController>().StartShip();
         rankManager.Setup();
         waveSpawner.Setup();
-
+        environmentCreator.Setup();
         currentGameState = GameManagerState.STANDBY;
     }
     private void StartGame()
     {
+        environmentCreator.Run();
         waveSpawner.Run();
         StartCoroutine(OnLifeTimeCounter());
         spaceShip.GetComponent<SpaceShipController>().BeginShoot();

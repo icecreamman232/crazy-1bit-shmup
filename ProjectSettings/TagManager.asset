@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - Item
   - EnemyBullet
+  - Environment
   layers:
   - Default
   - TransparentFX

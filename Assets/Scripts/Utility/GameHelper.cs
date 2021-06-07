@@ -9,7 +9,7 @@ public static class GameHelper
     public const int MAX_RANK = 9;
     #endregion
 
-
+    public const string dataObjectMenuName = "Data Objects/";
 
     public static Vector2 sizeOfCamera = Vector2.zero;
     public static Vector2 SizeOfCamera()

@@ -102,26 +102,4 @@ public class BaseMonster:  MonoBehaviour
             collision.gameObject.GetComponent<BaseBullet>().Reset();
         }
     }
-
-    //private void DropCoin()
-    //{ 
-    //    Vector3 trajectory = Random.insideUnitCircle * 100.0f;
-    //    for (int i =0; i< baseNumberCoin; i++)
-    //    {
-    //        var coin = Lean.Pool.LeanPool.Spawn(coinPrefab, this.transform.position, Quaternion.identity);
-    //        coin.GetComponent<CoinController>().Init(CoinValueBasedOnLevelSpeed());
-    //        var forceVector = new Vector3(
-    //            Random.Range(-100f, 100f) + trajectory.x, 
-    //            Random.Range(-100f, 300f) + trajectory.y, 
-    //            0f);
-    //        coin.GetComponent<Rigidbody2D>().AddForce(forceVector);
-    //    }
-    //}
-
-    //private int  CoinValueBasedOnLevelSpeed()
-    //{
-    //    return Mathf.RoundToInt(baseCoinValue 
-    //        * Mathf.RoundToInt(GameManager.Instance.endlessModeData.coinIncreasePerWave
-    //        * GameManager.Instance.GetCurrentLevelSpeed()));
-    //}
 }
