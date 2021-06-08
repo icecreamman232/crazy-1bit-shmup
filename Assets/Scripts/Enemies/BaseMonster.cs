@@ -79,7 +79,7 @@ public class BaseMonster:  MonoBehaviour
         GameManager.Instance.UpdateScore(baseScore);
         GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
-        GameManager.Instance.cameraShakeFX.Shake();
+        //GameManager.Instance.cameraShakeFX.Shake();
         currentMoveSpeed = baseMoveSpeed;
         var dropRate = ItemManager.Instance.GetRandomDropRate();
         if(dropRate <= itemSpawner.itemDropRate)

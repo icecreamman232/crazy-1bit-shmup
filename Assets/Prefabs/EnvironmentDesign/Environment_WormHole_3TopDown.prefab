@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   environmentEntityList:
   - environmentEntity: {fileID: 254}
-    delay: 1
+    delay: 2
   - environmentEntity: {fileID: 1546216660870553875}
     delay: 1
   numberEntityList: 0
@@ -298,6 +298,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3345033138650669692}
     - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: endPoint.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: endPoint.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
       propertyPath: isShowGizmo
       value: 1
       objectReference: {fileID: 0}
@@ -352,6 +360,22 @@ PrefabInstance:
     - target: {fileID: 4407723951160855797, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
       propertyPath: m_Name
       value: worm_hole (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079011859231805521, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079011859231805521, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: m_FlipY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831063222694806033, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831063222694806033, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}

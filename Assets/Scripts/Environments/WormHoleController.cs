@@ -17,6 +17,9 @@ public class WormHoleController : EnvironmentWithCustomPath
     public WormHoleType wormholeType;
     public Transform gateOutTransform;
 
+    private Coroutine launchOutCoroutine;
+    private Coroutine doVacumnCoroutine;
+
     public override void Setup()
     {
         base.Setup();
@@ -41,10 +44,17 @@ public class WormHoleController : EnvironmentWithCustomPath
     private void DoVancumn(GameObject ship)
     {
         ship.GetComponent<Animator>().Play("ship_rotate");
-        StartCoroutine(OnVancumning(ship));
+        if(launchOutCoroutine!=null)
+        {
+            StopCoroutine(launchOutCoroutine);
+        }       
+        //Reset everything for safety
+        ship.transform.rotation = Quaternion.identity;
+        doVacumnCoroutine = StartCoroutine(OnVancumning(ship));
     }
     private IEnumerator OnVancumning(GameObject ship)
     {
+        float moveSpeed = 4.0f;
         float scaleSpeed = 2.5f;
         while(true)
         {
@@ -56,21 +66,23 @@ public class WormHoleController : EnvironmentWithCustomPath
                 LaunchOut(ship);
                 yield break;
             }
-            ship.transform.position = transform.position;
-            ship.transform.localScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+            ship.transform.position = Vector3.MoveTowards(ship.transform.position, transform.position, moveSpeed * Time.deltaTime);
+            ship.transform.localScale -= scaleSpeed * Time.deltaTime * Vector3.one;
             yield return null;
         }
     }
     private void LaunchOut(GameObject ship)
     {
-        StartCoroutine(ScaleUp(ship));
+        StopCoroutine(doVacumnCoroutine);
+        ship.GetComponent<Animator>().Play("ship_rotate");
+        launchOutCoroutine = StartCoroutine(ScaleUp(ship));
     }
     private IEnumerator ScaleUp(GameObject ship)
     {
         var normalizeVector = gateOutTransform.position.normalized;
         var directionVector = Random.insideUnitSphere - normalizeVector;
         var targetPos = Vector3.ClampMagnitude(directionVector, 1.5f);
-        float moveSpeed = 8.0f;
+        float moveSpeed = 4.0f;
         float scaleSpeed = 2.5f;
         while (true)
         {
@@ -79,18 +91,20 @@ public class WormHoleController : EnvironmentWithCustomPath
                 ship.transform.localScale = Vector3.one;
 
                 //Return ship to its normal state
+                ship.GetComponent<Animator>().Play("ship_idle");
                 ship.GetComponent<SpaceShipController>().currentStatus = ShipStatus.NORMAL;
                 ship.GetComponent<SpaceShipMovement>().currentStatus = ShipStatus.NORMAL;
                 ship.GetComponent<SpaceShipController>().BeginShoot();
                 yield break;
             }
-            ship.transform.position = Vector3.MoveTowards(ship.transform.position, targetPos, moveSpeed * Time.deltaTime);
-            ship.transform.localScale += Vector3.one * scaleSpeed * Time.deltaTime;
+            ship.transform.position = Vector3.MoveTowards(
+                ship.transform.position, 
+                gateOutTransform.GetChild(0).position, 
+                moveSpeed * Time.deltaTime);
+            ship.transform.localScale += scaleSpeed * Time.deltaTime * Vector3.one;
             yield return null;
         }
     }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
@@ -120,6 +134,13 @@ public class WormHoleController : EnvironmentWithCustomPath
                 Gizmos.color = new Color(1.0f, 0, 0, 1.0f);
                 Gizmos.DrawSphere(transform.position, 0.2f);
             }
+            if(wormholeType== WormHoleType.GateOut)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawCube(transform.GetChild(0).position, 0.3f * Vector3.one);
+                Gizmos.DrawLine(transform.position, transform.GetChild(0).position);
+            }
+
         }
     }
 #endif
