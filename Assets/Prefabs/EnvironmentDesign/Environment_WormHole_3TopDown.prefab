@@ -297,6 +297,14 @@ PrefabInstance:
       propertyPath: introPath
       value: 
       objectReference: {fileID: 3345033138650669692}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: isShowGizmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: wormholeType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1764721280117654797, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -374,6 +382,18 @@ PrefabInstance:
       propertyPath: introPath
       value: 
       objectReference: {fileID: 4268297943348938935}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: isShowGizmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: wormholeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: gateOutTransform
+      value: 
+      objectReference: {fileID: 2256047962460369482}
     - target: {fileID: 1764721280117654797, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
       propertyPath: m_RootOrder
       value: 0

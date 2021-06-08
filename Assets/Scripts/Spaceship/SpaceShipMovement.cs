@@ -18,6 +18,8 @@ public class SpaceShipMovement : MonoBehaviour
     public bool firstTouch;
     private Camera mainCamera;
 
+    public ShipStatus currentStatus;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +29,20 @@ public class SpaceShipMovement : MonoBehaviour
         isTouching = false;
         firstTouch = false;
         mainCamera = Camera.main;
+
+        currentStatus = this.gameObject.GetComponent<SpaceShipController>().currentStatus;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isTouching) return;
-        var screenDelta = LeanGesture.GetScreenDelta();
-        if (screenDelta == Vector2.zero) return;
-        TranslateShip(screenDelta);
+        if(currentStatus==ShipStatus.NORMAL)
+        {
+            if (!isTouching) return;
+            var screenDelta = LeanGesture.GetScreenDelta();
+            if (screenDelta == Vector2.zero) return;
+            TranslateShip(screenDelta);
+        }       
     }
     private void OnDestroy()
     {

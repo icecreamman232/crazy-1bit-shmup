@@ -12283,6 +12283,7 @@ MonoBehaviour:
   currentHP: 0
   firerate: 0.1
   damage: 20
+  currentStatus: 0
   bulletPool: {fileID: 861135899}
   firePoint: {fileID: 825416728}
   fireJetParticle: {fileID: 1939733787}
@@ -12311,6 +12312,7 @@ MonoBehaviour:
   shipSprite: {fileID: 1824837311}
   holdToPlayAnimator: {fileID: 1398079979}
   firstTouch: 0
+  currentStatus: 0
 --- !u!61 &1598937694
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13505,7 +13507,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3

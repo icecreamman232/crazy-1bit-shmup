@@ -2,6 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ShipStatus
+{
+    NORMAL              = 0,            //Normal State
+
+    /*
+     * - Không mất máu khi bị bắn/va chạm
+     * - Vẫn có thể bắn đạn
+     * - Vẫn có thể di chuyển
+     */
+    INVINCIBLE = 1,
+
+
+    /*
+     * - Không mất máu khi bị bắn/va chạm
+     * - Không thể bắn đạn
+     * - Không thể di chuyển
+     */
+    DISABLE = 2, 
+}
+
 public class SpaceShipController : MonoBehaviour
 {
     [Header("Basic Information")]
@@ -9,6 +30,9 @@ public class SpaceShipController : MonoBehaviour
     public int currentHP;
     public float firerate;
     public int damage;
+
+    public ShipStatus currentStatus;
+
 
     public Lean.Pool.LeanGameObjectPool bulletPool;
     public Transform firePoint;
@@ -30,6 +54,9 @@ public class SpaceShipController : MonoBehaviour
     public float invincibleDuration;
     public bool isDied;
     public RankManager rankManager;
+
+    private Coroutine shootingCoroutine;
+
     void Start()
     {
         
@@ -50,6 +77,8 @@ public class SpaceShipController : MonoBehaviour
         currentHP = baseHP;
         isDied = false;
         shipSprite.enabled = true;
+        currentStatus = ShipStatus.NORMAL;
+
 
         //Reset alpha for some case that ship get died so fast cause alpha controlled by shader disrupted
         Color c = shipSprite.color;
@@ -68,7 +97,11 @@ public class SpaceShipController : MonoBehaviour
     }
     public void BeginShoot()
     {
-       StartCoroutine(Shoot());
+        shootingCoroutine = StartCoroutine(Shoot());
+    }
+    public void StopShoot()
+    {
+        StopCoroutine(shootingCoroutine);
     }
     private IEnumerator Shoot()
     {
@@ -99,11 +132,15 @@ public class SpaceShipController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Ship is invincible state after hit the enemies
-        if (timer > 0) return;
+        if (currentStatus == ShipStatus.INVINCIBLE)
+        {
+            return;
+        }
 
         if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))
         {
             GameManager.Instance.cameraShakeFX.Shake();
+            currentStatus = ShipStatus.INVINCIBLE;
             StartCoroutine(OnInvincible());
             UpdateHP(1);
             uiShipHPBar.UpdateHealthBarUI();
@@ -134,6 +171,7 @@ public class SpaceShipController : MonoBehaviour
             {
                 timer = 0;
                 shipSprite.color = new Color(1, 1, 1, 1);
+                currentStatus = ShipStatus.NORMAL;
                 yield break;
             }
             yield return delay;

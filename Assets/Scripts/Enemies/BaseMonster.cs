@@ -84,8 +84,8 @@ public class BaseMonster:  MonoBehaviour
         var dropRate = ItemManager.Instance.GetRandomDropRate();
         if(dropRate <= itemSpawner.itemDropRate)
         {
-            coinSpawner.DropCoin(transform.position,baseCoinValue,baseNumberCoin);
-            itemSpawner.DropItem(transform.position);
+            //coinSpawner.DropCoin(transform.position,baseCoinValue,baseNumberCoin);
+            //itemSpawner.DropItem(transform.position);
         }
         OnDie?.Invoke();
         gameObject.SetActive(false);
