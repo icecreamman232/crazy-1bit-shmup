@@ -62,6 +62,10 @@ public class EnvironmentWithCustomPath : BaseEnvironment, IMovementWithCustomPat
     {
         
     }
+    public virtual void Stop()
+    {
+
+    }
     public virtual void OnMoveEnd()
     {
         //Entity finished its run and ready to be removed

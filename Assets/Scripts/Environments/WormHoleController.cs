@@ -5,9 +5,9 @@ using SWS;
 
  public enum WormHoleType
 {
-    None       = 0,
+    None        = 0,
     GateIn      = 1,
-    GateOut   = 2,
+    GateOut     = 2,
 }
 
 public class WormHoleController : EnvironmentWithCustomPath
@@ -16,6 +16,7 @@ public class WormHoleController : EnvironmentWithCustomPath
     public float moveSpeed;
     public WormHoleType wormholeType;
     public Transform gateOutTransform;
+
 
     private Coroutine launchOutCoroutine;
     private Coroutine doVacumnCoroutine;
@@ -40,8 +41,55 @@ public class WormHoleController : EnvironmentWithCustomPath
         moveController.moveToPath = false;
         moveController.StartMove();
     }
-
-    private void DoVancumn(GameObject ship)
+    private void DoVancumnMonster(GameObject monster)
+    {
+        StartCoroutine(OnVancumningMonster(monster));
+    }
+    private IEnumerator OnVancumningMonster(GameObject monster)
+    {
+        float moveSpeed = 4.0f;
+        float scaleSpeed = 2.5f;
+        while (true)
+        {
+            if (monster.transform.localScale.x <= 0)
+            {
+                monster.transform.localScale = Vector3.zero;
+                monster.transform.position = gateOutTransform.position;
+                LaunchOutMonster(monster);
+                yield break;
+            }
+            monster.transform.position = Vector3.MoveTowards(monster.transform.position, transform.position, moveSpeed * Time.deltaTime);
+            monster.transform.localScale -= scaleSpeed * Time.deltaTime * Vector3.one;
+            yield return null;
+        }
+    }
+    private void LaunchOutMonster(GameObject monster)
+    {
+        LeanTween.scale(monster, Vector3.one, 0.5f);
+        StartCoroutine(ScaleUpMonster(monster));
+    }
+    private IEnumerator ScaleUpMonster(GameObject monster)
+    {
+        float moveSpeed = 3.0f;
+        Vector3 targetPos = GameManager.Instance.spaceShip.transform.position;
+        float timer = 0;
+        while (true)
+        {
+            if (timer >= 2.0f)
+            {
+                monster.GetComponent<BaseMonster>().currentHP = 0;
+                yield break;
+            }
+           
+            monster.transform.position = Vector3.MoveTowards(
+                monster.transform.position,
+                 Vector3.Lerp(monster.transform.position,targetPos,0.1f),
+                moveSpeed * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+    private void DoVancumnShip(GameObject ship)
     {
         ship.GetComponent<Animator>().Play("ship_rotate");
         if(launchOutCoroutine!=null)
@@ -105,18 +153,27 @@ public class WormHoleController : EnvironmentWithCustomPath
             yield return null;
         }
     }
+
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (wormholeType == WormHoleType.GateIn)
         {
-            if(wormholeType == WormHoleType.GateIn)
+            if (collision.CompareTag("Player"))
             {
                 collision.GetComponent<SpaceShipController>().currentStatus = ShipStatus.DISABLE;
                 collision.GetComponent<SpaceShipMovement>().currentStatus = ShipStatus.DISABLE;
                 collision.GetComponent<SpaceShipController>().StopShoot();
-                DoVancumn(collision.gameObject);
-            }               
-        }
+                DoVancumnShip(collision.gameObject);
+            }
+            if (collision.CompareTag("Enemy"))
+            {
+                collision.GetComponent<MonsterWithCustomPath>().Stop();
+
+                DoVancumnMonster(collision.gameObject);
+            }
+        }      
     }
 
 #if UNITY_EDITOR

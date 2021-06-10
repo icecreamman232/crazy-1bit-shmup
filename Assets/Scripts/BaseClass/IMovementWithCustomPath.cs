@@ -13,4 +13,6 @@ public interface IMovementWithCustomPath
     void Patrol();
     void Retreat();
 
+    void Stop();
+
 }

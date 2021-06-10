@@ -313,6 +313,10 @@ PrefabInstance:
       propertyPath: wormholeType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1317259807429170772, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
+      propertyPath: pathForMonster
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1764721280117654797, guid: 6a84754e4acad094eafe66ce08b2803d, type: 3}
       propertyPath: m_RootOrder
       value: 1

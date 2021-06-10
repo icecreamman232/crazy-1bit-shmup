@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &-7115612823278535032
 MonoBehaviour:
@@ -231,4 +231,3 @@ MonoBehaviour:
   moveSpeed: 1
   wormholeType: 0
   gateOutTransform: {fileID: 0}
-  endPoint: {fileID: 759770142640163948}

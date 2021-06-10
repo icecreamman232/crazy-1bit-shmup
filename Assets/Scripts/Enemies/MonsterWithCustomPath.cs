@@ -5,6 +5,7 @@ using SWS;
 
 public enum MovementState
 {
+    STOP    = -1,
     INTRO   = 0,
     PATROL  = 1,
     RETREAT = 2,
@@ -77,8 +78,33 @@ public class MonsterWithCustomPath : BaseMonster, IMovementWithCustomPath
     public virtual void Retreat()
     {
     }
+    public virtual void Stop()
+    {
+        moveController.Stop();
+        moveController.movementEndEvent -= OnMoveEnd;
+        moveController.pathContainer = null;
+
+        currentMovementState = MovementState.STOP;
+    }
     public virtual void OnMoveEnd()
     {
         OnFinishRun?.Invoke();
     }
+
+    public void MoveSafelyToShip()
+    {
+        //For case that Monster have no idea what it should goes then just aim to player position
+
+        introPath.waypoints[0].position = transform.position;
+        introPath.waypoints[introPath.waypoints.Length - 1].position = GameManager.Instance.spaceShip.transform.position;
+
+        moveController.movementEndEvent -= OnMoveEnd;
+        moveController.movementEndEvent += OnMoveEnd;
+        moveController.pathContainer = introPath;
+        moveController.moveToPath = false;
+        moveController.loopType = splineMove.LoopType.none;
+        moveController.StartMove();
+        currentMovementState = MovementState.INTRO;
+    }
+
 }
