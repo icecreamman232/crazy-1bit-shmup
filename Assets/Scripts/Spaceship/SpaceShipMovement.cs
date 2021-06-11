@@ -83,7 +83,6 @@ public class SpaceShipMovement : MonoBehaviour
         postion.y -= 3.0f;
         transform.position = postion;
         isTouching = false;
-
         LeanTween.moveY(gameObject, target.y, 1.2f)
             .setEase(LeanTweenType.easeOutBack)
             .setOnComplete(OnCompleteSetupShipPosition);
