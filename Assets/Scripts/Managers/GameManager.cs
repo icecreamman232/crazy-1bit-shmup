@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     public ParticleSystem starBackLayer;
     public GameObject dieExplosionFX;
     public CameraShake cameraShakeFX;
-    public GameObject leftBarrel;
-    public GameObject rightBarrel;
     public RankManager rankManager;
 
     public AudioSource BGM;
@@ -53,7 +51,6 @@ public class GameManager : MonoBehaviour
     {
         currentState.Update();
     }
-
     public void SetState(State nextState)
     {
         currentState = nextState;
@@ -72,6 +69,11 @@ public class GameManager : MonoBehaviour
         rankManager.Setup();
         waveSpawner.Setup();
         environmentCreator.Setup();
+    }
+    public void OnClickReset()
+    {
+        uiEndgameCanvas.PlayOuttro();
+        SetState(new StandbyState());
     }
     private void SetupLevel()
     {

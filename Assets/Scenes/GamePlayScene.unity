@@ -5312,6 +5312,7 @@ GameObject:
   - component: {fileID: 274210945}
   - component: {fileID: 274210947}
   - component: {fileID: 274210946}
+  - component: {fileID: 274210948}
   m_Layer: 0
   m_Name: RightBarrel
   m_TagString: Untagged
@@ -5380,6 +5381,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &274210948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274210944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6443bb3b9021b724c858220991b7d86c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &294739165
 GameObject:
   m_ObjectHideFlags: 0
@@ -10281,7 +10294,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 929344306}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: OnStandBy
+        m_MethodName: OnClickReset
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11121,9 +11134,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 929344305}
-  - component: {fileID: 929344306}
   - component: {fileID: 929344307}
   - component: {fileID: 929344308}
+  - component: {fileID: 929344306}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11161,28 +11174,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0325bb713a9f3445a090cdf1672a254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGameState: 0
-  scoreNumberText: {fileID: 2012788458}
-  currentScore: 0
-  currentCoin: 0
-  endlessModeData: {fileID: 11400000, guid: e655caa2fa79cfb4fbd31b5759a05994, type: 2}
   currentWaveIndex: 0
   currentSpeed: 0
-  BGM: {fileID: 1463149753}
-  sfx: {fileID: 2092622390}
-  monster_die_sfx: {fileID: 8300000, guid: a0943f1f899c1d742bfa27379c232a5c, type: 3}
+  currentCoin: 0
+  currentScore: 0
   spaceShip: {fileID: 1598937690}
+  waveSpawner: {fileID: 1324474169}
+  environmentCreator: {fileID: 1189593828}
   starFrontLayer: {fileID: 16668153}
   starBackLayer: {fileID: 294739167}
   dieExplosionFX: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
   cameraShakeFX: {fileID: 519420030}
-  leftBarrel: {fileID: 1903038248}
-  rightBarrel: {fileID: 274210944}
+  rankManager: {fileID: 413932889}
+  BGM: {fileID: 1463149753}
+  sfx: {fileID: 2092622390}
+  monster_die_sfx: {fileID: 8300000, guid: a0943f1f899c1d742bfa27379c232a5c, type: 3}
   uiEndgameCanvas: {fileID: 1943548763}
   uiShipHPBar: {fileID: 1511538135}
-  rankManager: {fileID: 413932889}
-  waveSpawner: {fileID: 1324474169}
-  environmentCreator: {fileID: 1189593828}
+  scoreNumberText: {fileID: 2012788458}
+  endlessModeData: {fileID: 11400000, guid: e655caa2fa79cfb4fbd31b5759a05994, type: 2}
 --- !u!114 &929344307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13191,6 +13201,7 @@ GameObject:
   - component: {fileID: 1903038249}
   - component: {fileID: 1903038251}
   - component: {fileID: 1903038250}
+  - component: {fileID: 1903038252}
   m_Layer: 0
   m_Name: LeftBarrel
   m_TagString: Untagged
@@ -13259,6 +13270,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &1903038252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903038248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6443bb3b9021b724c858220991b7d86c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1905906236
 GameObject:
   m_ObjectHideFlags: 0
