@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
         SetupCoin();
         SetupScore();
         cameraShakeFX.Setup();
-        SetupBarrels();
         uiShipHPBar.HealthBarSetup();
         SetupParticleBackground();
         BGM.Play();
@@ -115,14 +114,6 @@ public class GameManager : MonoBehaviour
 
         starBackLayer.Play();
         starFrontLayer.Play();
-    }
-    private void SetupBarrels()
-    {
-        //This barrels would prevent item, coin, monster.etc.. from going out of screen
-        leftBarrel.transform.position = new Vector3(-GameHelper.SizeOfCamera().x / 2 - 0.5f, 0, 0);
-        leftBarrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
-        rightBarrel.transform.position = new Vector3(GameHelper.SizeOfCamera().x / 2 + 0.5f, 0, 0);
-        rightBarrel.GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
     }
     public float GetCurrentLevelSpeed()
     {
