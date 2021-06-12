@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1992044434134579723}
   - component: {fileID: 1992044434134579722}
   - component: {fileID: 1992044434134579721}
-  - component: {fileID: 8786966059311505440}
+  - component: {fileID: 6312758411051799343}
   m_Layer: 10
   m_Name: CoinPrefab
   m_TagString: Coin
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8786966059311505440
+--- !u!114 &6312758411051799343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1992044434134579720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c192ecab028b4e84296f9930cb618478, type: 3}
+  m_Script: {fileID: 11500000, guid: f4c0aa1165b0f4e4598be1f3470395f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 1992044434134579720}

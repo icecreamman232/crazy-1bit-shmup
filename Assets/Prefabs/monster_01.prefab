@@ -177,9 +177,6 @@ MonoBehaviour:
   baseCoinValue: 5
   baseScore: 10
   uiHPBar: {fileID: 5984741312599184319}
-  coinPrefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
-  coinController: {fileID: 8786966059311505440, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
-  itemDropRate: 700
   itemSpawner: {fileID: 3948237101983439521}
   coinSpawner: {fileID: -2542214592113989570}
   currentMovementState: 0
