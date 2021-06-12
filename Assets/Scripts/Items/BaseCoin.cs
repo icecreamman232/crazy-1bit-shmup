@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BaseCoin : MonoBehaviour
 {
-    public GameObject coinPrefab;
     public int coinValue;
     // Start is called before the first frame update
     void Start()

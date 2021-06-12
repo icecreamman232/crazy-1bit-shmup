@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SWS;
 
-public class Monster02Controller : MonsterWithCustomPath
+public class DodgeMonsterController : MonsterWithCustomPath
 {
     [Header("Dodging Behaviour")]
     public CircleCollider2D circleCollider;

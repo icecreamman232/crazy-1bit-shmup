@@ -150,16 +150,11 @@ public class SpaceShipController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
-            GameManager.Instance.UpdateCoin(collision.gameObject.GetComponent<BaseCoin>().coinValue);
-            sfx.PlayOneShot(sfxCoinCollect);
-            Lean.Pool.LeanPool.Despawn(collision.gameObject);
+            HandleCollectCoin(collision);
         }
         if (collision.gameObject.CompareTag("Item"))
         {
-            DataManager.Instance.SaveDataToLocalStorage();
-            rankManager.UpdateRankPoints(collision.gameObject.GetComponent<BaseItem>().m_rank_point);
-            sfx.PlayOneShot(sfxCoinCollect);
-            Lean.Pool.LeanPool.Despawn(collision.gameObject);
+            HandleCollectItem(collision);
         }
     }
     private IEnumerator OnInvincible()
@@ -183,7 +178,20 @@ public class SpaceShipController : MonoBehaviour
             c.a = saveAlpha;
             shipSprite.color = c;
             timer += Time.deltaTime + 0.3f;
-        }
-        
+        }       
+    }
+
+    private void HandleCollectCoin(Collision2D coin)
+    {
+        GameManager.Instance.UpdateCoin(coin.gameObject.GetComponent<BaseCoin>().coinValue);
+        sfx.PlayOneShot(sfxCoinCollect);
+        Lean.Pool.LeanPool.Despawn(coin.gameObject);
+    }
+    private void HandleCollectItem(Collision2D item)
+    {
+        DataManager.Instance.SaveDataToLocalStorage();
+        rankManager.UpdateRankPoints(item.gameObject.GetComponent<BaseItem>().m_rank_point);
+        sfx.PlayOneShot(sfxCoinCollect);
+        Lean.Pool.LeanPool.Despawn(item.gameObject);
     }
 }
