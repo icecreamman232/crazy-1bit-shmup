@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnvironment : MonoBehaviour
+public class BaseEnvironment : BaseEntity
 {
-    public float lifeTime;
-
-    public virtual void Setup()
+    public override void Setup()
     {
-
+        currentHP = baseHP;
     }
-    public virtual void Spawn()
+    public override void Spawn()
     {
-
+        
     }
+
     //Callback after environment entity is destroyed
     public System.Action OnDestroy;
 }

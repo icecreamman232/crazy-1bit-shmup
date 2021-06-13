@@ -134,16 +134,13 @@ public class SpaceShipController : MonoBehaviour
         //Ship is invincible state after hit the enemies
         if (currentStatus == ShipStatus.INVINCIBLE)
         {
+            Debug.Log("Here ignore");
             return;
         }
 
         if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))
         {
-            GameManager.Instance.cameraShakeFX.Shake();
-            currentStatus = ShipStatus.INVINCIBLE;
-            StartCoroutine(OnInvincible());
-            UpdateHP(1);
-            uiShipHPBar.UpdateHealthBarUI();
+            HandleGetHitByEntity(1);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -179,6 +176,15 @@ public class SpaceShipController : MonoBehaviour
             shipSprite.color = c;
             timer += Time.deltaTime + 0.3f;
         }       
+    }
+
+    public void HandleGetHitByEntity(int damage)
+    {
+        GameManager.Instance.cameraShakeFX.Shake();
+        currentStatus = ShipStatus.INVINCIBLE;
+        StartCoroutine(OnInvincible());
+        UpdateHP(damage);
+        uiShipHPBar.UpdateHealthBarUI();
     }
 
     private void HandleCollectCoin(Collision2D coin)

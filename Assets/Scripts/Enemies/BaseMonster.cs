@@ -4,14 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class BaseMonster:  MonoBehaviour
+public class BaseMonster:  BaseEntity
 {
-    [Header("Monster Information")]
-    public int baseHP;
-    public int maxHP;
-    public int currentHP;
-    public float baseMoveSpeed;
-    public float currentMoveSpeed;
+    [Header("Monster Stats")]
     public int baseNumberCoin;
     public int baseCoinValue;
     public int baseScore;
@@ -55,13 +50,6 @@ public class BaseMonster:  MonoBehaviour
         currentMoveSpeed = baseMoveSpeed + GameManager.Instance.GetCurrentLevelSpeed()
                     * GameManager.Instance.endlessModeData.speedIncreasePerWave;
     }
-
-    public virtual void Setup() 
-    {
-        InitMonster();
-        StartCoroutine(CheckDie());
-    }
-
     public void UpdateHP(int damage)
     {
         currentHP -= damage;
@@ -101,5 +89,21 @@ public class BaseMonster:  MonoBehaviour
             }
             collision.gameObject.GetComponent<BaseBullet>().Reset();
         }
+ 
+    }
+    private void HandleCollisionFromEnvironment(Collider2D collision)
+    {
+       
+    }
+
+    public override void Setup()
+    {
+        InitMonster();
+        StartCoroutine(CheckDie());
+    }
+
+    public override void Spawn()
+    {
+      
     }
 }
