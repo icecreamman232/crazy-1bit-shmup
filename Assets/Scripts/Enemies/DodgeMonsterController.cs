@@ -15,16 +15,14 @@ public class DodgeMonsterController : MonsterWithCustomPath
     {
         currentShipTransform = GameManager.Instance.spaceShip.transform;
     }
-
-
-    void Update()
-    {
-
-    }
     public override void Setup()
     {
         counter = dodgeCount;
-        base.Setup();
+        base.Setup();      
+    }
+    public override void Spawn()
+    {
+        base.Spawn();
         Move();
     }
     public override void Move()

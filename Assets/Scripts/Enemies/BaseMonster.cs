@@ -21,23 +21,33 @@ public class BaseMonster:  BaseEntity
     [Header("Components")]
     public ItemSpawner itemSpawner;
     public CoinSpawner coinSpawner;
-    private void Start()
+    #region Setup Methods
+    public override void Setup()
     {
-
+        InitMonster();
+        StartCoroutine(CheckDie());
     }
-    public virtual void InitMonster()
+    public void InitMonster()
     {
         gameObject.SetActive(true);
+
+        //Data
         SetupHP();
-        SetupUIHealthBar();
         SetupMoveSpeed();
+        //View
+        SetupUIHealthBar();
         StopAllCoroutines();
     }
-    public virtual void SetupHP()
+    private void SetupHP()
     {
         maxHP = baseHP + baseHP * Mathf.RoundToInt(GameManager.Instance.endlessModeData.HPIncreasePerWave
             * GameManager.Instance.GetCurrentLevelSpeed());
         currentHP = maxHP;
+    }
+    private void SetupMoveSpeed()
+    {
+        currentMoveSpeed = baseMoveSpeed + GameManager.Instance.GetCurrentLevelSpeed()
+                    * GameManager.Instance.endlessModeData.speedIncreasePerWave;
     }
     private void SetupUIHealthBar()
     {
@@ -45,11 +55,16 @@ public class BaseMonster:  BaseEntity
         var hp_gameobject = uiHPBar.transform.parent;
         hp_gameobject.gameObject.SetActive(false);
     }
-    public virtual void SetupMoveSpeed()
+    #endregion
+
+    #region Spawn Methods
+    public override void Spawn()
     {
-        currentMoveSpeed = baseMoveSpeed + GameManager.Instance.GetCurrentLevelSpeed()
-                    * GameManager.Instance.endlessModeData.speedIncreasePerWave;
+
     }
+    #endregion
+
+    #region Update Methods
     public void UpdateHP(int damage)
     {
         currentHP -= damage;
@@ -60,6 +75,28 @@ public class BaseMonster:  BaseEntity
         lastScale.x = HPPercent;
         uiHPBar.transform.localScale = lastScale;
     }
+    #endregion
+
+    #region Collision Handling
+    public virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            HandleCollisionWithBullet(collision);
+        }
+
+    }
+    public void HandleCollisionWithBullet(Collider2D collision)
+    {
+        UpdateHP(collision.gameObject.GetComponent<BaseBullet>().Damage);
+        if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        collision.gameObject.GetComponent<BaseBullet>().Reset();
+    }
+    #endregion
+
     public virtual  IEnumerator CheckDie()
     {       
         yield return new WaitUntil(() => currentHP <= 0);
@@ -78,32 +115,6 @@ public class BaseMonster:  BaseEntity
         OnDie?.Invoke();
         gameObject.SetActive(false);
     }
-    public virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            UpdateHP(collision.gameObject.GetComponent<BaseBullet>().Damage);
-            if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
-            {
-                gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            }
-            collision.gameObject.GetComponent<BaseBullet>().Reset();
-        }
- 
-    }
-    private void HandleCollisionFromEnvironment(Collider2D collision)
-    {
-       
-    }
-
-    public override void Setup()
-    {
-        InitMonster();
-        StartCoroutine(CheckDie());
-    }
-
-    public override void Spawn()
-    {
-      
-    }
+  
+    
 }

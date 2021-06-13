@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnvironmentWithCustomPath : BaseEnvironment, IMovementWithCustomPath
+public class EnvironmentWithCustomPath : BaseEnvironment
 {
     [SerializeField]
     protected PathManager introPath;
@@ -13,40 +13,6 @@ public class EnvironmentWithCustomPath : BaseEnvironment, IMovementWithCustomPat
     protected PathManager retreatPath;
 
     public splineMove moveController;
-
-    public PathManager IntroPath
-    {
-        get
-        {
-            return introPath;
-        }
-        set
-        {
-            introPath = value;
-        }
-    }
-    public PathManager PatrolPath
-    {
-        get
-        {
-            return patrolPath;
-        }
-        set
-        {
-            patrolPath = value;
-        }
-    }
-    public PathManager RetreatPath
-    {
-        get
-        {
-            return retreatPath;
-        }
-        set
-        {
-            retreatPath = value;
-        }
-    }
 
     public virtual void Move()
     {

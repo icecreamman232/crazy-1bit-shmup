@@ -5,10 +5,13 @@ using SWS;
 
 public class Monster01Controller : MonsterWithCustomPath
 {
-
     public override void Setup()
     {
-        base.Setup();
+        base.Setup();      
+    }
+    public override void Spawn()
+    {
+        base.Spawn();
         Move();
     }
     public override void Move()
