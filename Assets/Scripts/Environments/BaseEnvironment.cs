@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BaseEnvironment : BaseEntity
 {
+    public int id;
+    public int impactDamage;
     public override void Setup()
     {
         currentHP = baseHP;

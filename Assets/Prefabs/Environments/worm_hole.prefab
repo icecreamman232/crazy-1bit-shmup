@@ -222,7 +222,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8930082b1c51c148a1ddf0cb809d0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 3
+  baseHP: 0
+  maxHP: 0
+  currentHP: 0
+  baseMoveSpeed: 0
+  currentMoveSpeed: 0
+  id: 1
   introPath: {fileID: 0}
   patrolPath: {fileID: 0}
   retreatPath: {fileID: 0}

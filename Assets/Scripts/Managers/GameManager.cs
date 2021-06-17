@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour
     public EnvironmentCreator environmentCreator;
     public ParticleSystem starFrontLayer;
     public ParticleSystem starBackLayer;
-    public GameObject dieExplosionFX;
-    public CameraShake cameraShakeFX;
+    
     public RankManager rankManager;
 
     public AudioSource BGM;
@@ -39,6 +38,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreNumberText;
     public EndlessModeDO endlessModeData;
     #endregion
+
+
+    #region FX
+    [Header("FX")]
+    public GameObject dieExplosionFX;
+    public CameraShake cameraShakeFX;
+    public GameObject explosionTransformFX;
+    #endregion
+
 
     private const float speedFactor = 0.08f;
 

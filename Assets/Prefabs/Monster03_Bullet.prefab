@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff7311b7558097943b072ed0d825d311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  bullet_movespeed: 10
-  rigidbody2D: {fileID: 6607014637547512002}
+  damage: 10
+  bulletMoveSpeed: 10
 --- !u!212 &5706701086029802895
 SpriteRenderer:
   m_ObjectHideFlags: 0

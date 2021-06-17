@@ -6,6 +6,10 @@ using SWS;
 public class MeteorController : EnvironmentWithCustomPath
 {
     public System.Action<int> OnHit;
+    public override void Setup()
+    {
+        base.Setup();
+    }
     public override void Spawn()
     {
         base.Spawn();
@@ -18,6 +22,8 @@ public class MeteorController : EnvironmentWithCustomPath
     public override void Move()
     {
         base.Move();
+        GetComponent<Animator>().Play("meteor_idle");
+        GetComponent<Animator>().SetFloat("RotationSpeedModifier", 2.0f);
         moveController.movementEndEvent -= OnMoveEnd;
         moveController.movementEndEvent += OnMoveEnd;
         moveController.pathContainer = introPath;
@@ -30,7 +36,14 @@ public class MeteorController : EnvironmentWithCustomPath
     {
         if (collision.CompareTag("Bullet"))
         {
-            currentHP--;
+            currentHP-=collision.GetComponent<BaseBullet>().Damage;
+            if(currentHP <=0)
+            {
+                //moveController.Stop();
+                FXManager.Instance.CreateFX(1, transform.position);
+                OnMoveEnd();
+            }
+            collision.GetComponent<BaseBullet>().Reset();
         }
         if (collision.CompareTag("Player"))
         {
@@ -38,7 +51,7 @@ public class MeteorController : EnvironmentWithCustomPath
             //could switch to the bigger number easily
             OnHit?.Invoke(1);
             moveController.Stop();
-            GameManager.Instance.CreateDieFx(transform.position);
+            FXManager.Instance.CreateFX(1, transform.position);
             OnMoveEnd();
         }
         if (collision.CompareTag("Enemy"))

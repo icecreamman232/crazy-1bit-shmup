@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 3106289037493288850}
   - component: {fileID: 2872660015043658360}
   - component: {fileID: -1677587016430536870}
-  - component: {fileID: 2987677625670281403}
   m_Layer: 0
   m_Name: meteor
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,24 +191,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f833c40c317a114e91c65f4a42fdae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0
-  introPath: {fileID: 0}
-  patrolPath: {fileID: 0}
-  retreatPath: {fileID: 0}
-  moveController: {fileID: 0}
---- !u!114 &2987677625670281403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4491449840029425100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f833c40c317a114e91c65f4a42fdae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 0
+  baseHP: 100
+  maxHP: 0
+  currentHP: 0
+  baseMoveSpeed: 3
+  currentMoveSpeed: 0
+  id: 2
+  impactDamage: 50
   introPath: {fileID: 0}
   patrolPath: {fileID: 0}
   retreatPath: {fileID: 0}

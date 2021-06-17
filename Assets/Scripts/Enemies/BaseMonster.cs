@@ -60,7 +60,7 @@ public class BaseMonster:  BaseEntity
     #region Spawn Methods
     public override void Spawn()
     {
-
+ 
     }
     #endregion
 
@@ -102,7 +102,8 @@ public class BaseMonster:  BaseEntity
         yield return new WaitUntil(() => currentHP <= 0);
         
         GameManager.Instance.UpdateScore(baseScore);
-        GameManager.Instance.CreateDieFx(transform.position);
+        FXManager.Instance.CreateFX(1,transform.position);
+        //GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         //GameManager.Instance.cameraShakeFX.Shake();
         currentMoveSpeed = baseMoveSpeed;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SWS;
 
-public class Monster01Controller : MonsterWithCustomPath
+public class FlyingSlimeController : MonsterWithCustomPath
 {
     public override void Setup()
     {

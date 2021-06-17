@@ -134,7 +134,6 @@ public class SpaceShipController : MonoBehaviour
         //Ship is invincible state after hit the enemies
         if (currentStatus == ShipStatus.INVINCIBLE)
         {
-            Debug.Log("Here ignore");
             return;
         }
 

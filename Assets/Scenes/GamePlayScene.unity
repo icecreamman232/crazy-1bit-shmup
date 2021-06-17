@@ -10342,6 +10342,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304643897}
   m_CullTransparentMesh: 0
+--- !u!1 &375423739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 375423741}
+  - component: {fileID: 375423740}
+  m_Layer: 0
+  m_Name: FXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &375423740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375423739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357ea7289252f9343b256e5a11a10523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemArr:
+  - id: 1
+    fxItem: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
+  - id: 2
+    fxItem: {fileID: 9062908510313452247, guid: 237ce79cf0e53d347bf24e211531fc8a, type: 3}
+--- !u!4 &375423741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375423739}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &413932887
 GameObject:
   m_ObjectHideFlags: 0
@@ -10813,7 +10861,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.13913947, g: 0.090468146, b: 0.1792453, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -11183,8 +11231,6 @@ MonoBehaviour:
   environmentCreator: {fileID: 1189593828}
   starFrontLayer: {fileID: 16668153}
   starBackLayer: {fileID: 294739167}
-  dieExplosionFX: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
-  cameraShakeFX: {fileID: 519420030}
   rankManager: {fileID: 413932889}
   BGM: {fileID: 1463149753}
   sfx: {fileID: 2092622390}
@@ -11193,6 +11239,9 @@ MonoBehaviour:
   uiShipHPBar: {fileID: 1511538135}
   scoreNumberText: {fileID: 2012788458}
   endlessModeData: {fileID: 11400000, guid: e655caa2fa79cfb4fbd31b5759a05994, type: 2}
+  dieExplosionFX: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
+  cameraShakeFX: {fileID: 519420030}
+  explosionTransformFX: {fileID: 9062908510313452247, guid: 237ce79cf0e53d347bf24e211531fc8a, type: 3}
 --- !u!114 &929344307
 MonoBehaviour:
   m_ObjectHideFlags: 0
