@@ -433,7 +433,6 @@ GameObject:
   - component: {fileID: 2051250366}
   - component: {fileID: 2051250367}
   - component: {fileID: 2051250368}
-  - component: {fileID: 2051250369}
   m_Layer: 0
   m_Name: MonsterTemplate
   m_TagString: Enemy
@@ -630,32 +629,60 @@ MonoBehaviour:
   movementEnd:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2051250369
-MonoBehaviour:
+--- !u!1001 &751143168927641276
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051250361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c20d6366f4ada4885e499c5f30dc50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHP: 0
-  maxHP: 0
-  currentHP: 0
-  baseMoveSpeed: 0
-  currentMoveSpeed: 0
-  baseNumberCoin: 0
-  baseCoinValue: 0
-  baseScore: 0
-  uiHPBar: {fileID: 0}
-  itemSpawner: {fileID: 0}
-  coinSpawner: {fileID: 0}
-  currentMovementState: 0
-  introPath: {fileID: 0}
-  patrolDuration: 0
-  patrolPath: {fileID: 0}
-  retreatPath: {fileID: 0}
-  moveController: {fileID: 0}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487770130904161673, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
+      propertyPath: m_Name
+      value: MeteorMonster
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}

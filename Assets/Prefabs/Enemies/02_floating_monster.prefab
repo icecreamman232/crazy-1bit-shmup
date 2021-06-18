@@ -239,7 +239,7 @@ SpriteRenderer:
   m_Size: {x: 0.16666667, y: 0.16666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7730885452331766636
@@ -345,17 +345,15 @@ MonoBehaviour:
   baseNumberCoin: 3
   baseCoinValue: 8
   baseScore: 15
+  uiHealthBarController: {fileID: 1437759685878296454}
   uiHPBar: {fileID: 235899854288359287}
-  coinPrefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
-  coinController: {fileID: 0}
-  itemDropRate: 300
   itemSpawner: {fileID: -1586189584046415224}
   coinSpawner: {fileID: -3033852252409390352}
   currentMovementState: 0
   introPath: {fileID: 0}
+  patrolDuration: 0
   patrolPath: {fileID: 0}
   retreatPath: {fileID: 0}
-  patrolDuration: 0
   moveController: {fileID: 7642898754985102861}
   circleCollider: {fileID: 7730885451012456410}
   dodgeCount: 5
@@ -564,6 +562,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 711550513213863082, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
   m_PrefabInstance: {fileID: 7730885452511838759}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1437759685878296454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8699386073871232417, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
+  m_PrefabInstance: {fileID: 7730885452511838759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85f57e463250114f9bfd871ec2c5aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &235899854288359287 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7498364672376606032, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}

@@ -16,7 +16,7 @@ public class BaseMonster:  BaseEntity
     public System.Action OnDie;
 
     [Header("Reference Holders")]
-    public GameObject uiHPBar;
+    public UIMonsterHPBarController uiHealthBarController;
 
     [Header("Components")]
     public ItemSpawner itemSpawner;
@@ -35,7 +35,7 @@ public class BaseMonster:  BaseEntity
         SetupHP();
         SetupMoveSpeed();
         //View
-        SetupUIHealthBar();
+        uiHealthBarController.Setup();
         StopAllCoroutines();
     }
     private void SetupHP()
@@ -48,12 +48,6 @@ public class BaseMonster:  BaseEntity
     {
         currentMoveSpeed = baseMoveSpeed + GameManager.Instance.GetCurrentLevelSpeed()
                     * GameManager.Instance.endlessModeData.speedIncreasePerWave;
-    }
-    private void SetupUIHealthBar()
-    {
-        uiHPBar.transform.localScale = new Vector3(1, 0.5f, 1);
-        var hp_gameobject = uiHPBar.transform.parent;
-        hp_gameobject.gameObject.SetActive(false);
     }
     #endregion
 
@@ -71,9 +65,8 @@ public class BaseMonster:  BaseEntity
 
         //Update Health Bar UI
         var HPPercent = (float)currentHP / maxHP;
-        var lastScale = uiHPBar.transform.localScale;
-        lastScale.x = HPPercent;
-        uiHPBar.transform.localScale = lastScale;
+        uiHealthBarController.UpdateHPBar(HPPercent);
+
     }
     #endregion
 
