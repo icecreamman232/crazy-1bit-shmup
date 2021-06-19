@@ -10,18 +10,16 @@ public class PrefabInstantEditor : EditorWindow
     private readonly float horizontal_padding   = 20;
     private readonly float vertical_padding     = 20;
 
-    GameObject prefabParentGameObject;
 
 
     //Just put the default name so it would not cause error if user forget to put the name
-    string prefabName = "NewPrefabInstant";
+    string prefabName = "New Monster Prefab";
     ItemType itemType;
 
 
    
     private void OnEnable()
     {
-        prefabParentGameObject = new GameObject();
     }
 
 
@@ -79,42 +77,48 @@ public class PrefabInstantEditor : EditorWindow
     }
    
     private void CreateNewPrefabInAsset()
-    {   
-        var fullPath = assetPath + prefabName + ".prefab"; 
-        SetupPrefabInformation();
-        
-        PrefabUtility.SaveAsPrefabAsset(prefabParentGameObject, fullPath);
-        prefabParentGameObject = null;
-        prefabParentGameObject = new GameObject();
+    {
+        GameObject prefabInstant = new GameObject();
+        var fullPath = assetPath + prefabName + ".prefab";      
+        SetupPrefabInformation(prefabInstant);  
+        PrefabUtility.SaveAsPrefabAssetAndConnect(prefabInstant, fullPath,InteractionMode.UserAction);
     }
     #region Setup Prefab
-    private void SetupPrefabInformation()
+    private void SetupPrefabInformation(GameObject prefab)
     {
-        prefabParentGameObject.name = prefabName;
-        prefabParentGameObject.tag = "Enemy";
-        SetupSplineMoveComponenet();
-        SetupItemSpawnerComponent();
-        SetupCoinSpawnerComponenet();
+        prefab.name = prefabName;
+        prefab.tag = "Enemy";
+        AddHealthBar(prefab);
+        SetupSplineMoveComponenet(prefab);
+        SetupItemSpawnerComponent(prefab);
+        SetupCoinSpawnerComponenet(prefab);
     }
-    private void SetupSplineMoveComponenet()
+    private void AddHealthBar(GameObject prefab)
     {
-        prefabParentGameObject.AddComponent<splineMove>();
+        GameObject hp = PrefabUtility.LoadPrefabContents(assetPath + "HealthBar.prefab");
+        hp.transform.parent = prefab.transform;
+        hp.gameObject.SetActive(false);
+    }
+    private void SetupSplineMoveComponenet(GameObject prefab)
+    {
+        prefab.AddComponent<splineMove>();
 
         //For totally 2D movement
-        prefabParentGameObject.GetComponent<splineMove>().pathMode = DG.Tweening.PathMode.Ignore;
+        prefab.GetComponent<splineMove>().pathMode = DG.Tweening.PathMode.Ignore;
     }
-    private void SetupItemSpawnerComponent()
+    private void SetupItemSpawnerComponent(GameObject prefab)
     {
-        prefabParentGameObject.AddComponent<ItemSpawner>();
+        prefab.AddComponent<ItemSpawner>();
+
         GameObject itemPrefab = Resources.Load("ItemPrefabTemplate") as GameObject;
-        prefabParentGameObject.GetComponent<ItemSpawner>().itemPrefab = itemPrefab;
-        prefabParentGameObject.GetComponent<ItemSpawner>().itemDropRate = 700;
+        prefab.GetComponent<ItemSpawner>().itemPrefab = itemPrefab;
+        prefab.GetComponent<ItemSpawner>().itemDropRate = 700;
     }
-    private void SetupCoinSpawnerComponenet()
+    private void SetupCoinSpawnerComponenet(GameObject prefab)
     {
-        prefabParentGameObject.AddComponent<CoinSpawner>();
+        prefab.AddComponent<CoinSpawner>();
         GameObject coinPrefab = Resources.Load("CoinPrefabTemplate") as GameObject;
-        prefabParentGameObject.GetComponent<CoinSpawner>().coinPrefab = coinPrefab;
+        prefab.GetComponent<CoinSpawner>().coinPrefab = coinPrefab;
 
     }
     #endregion

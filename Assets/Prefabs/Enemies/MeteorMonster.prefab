@@ -132,13 +132,12 @@ MonoBehaviour:
   baseHP: 100
   maxHP: 0
   currentHP: 0
-  baseMoveSpeed: 3
+  baseMoveSpeed: 2
   currentMoveSpeed: 0
   baseNumberCoin: 2
   baseCoinValue: 5
   baseScore: 10
   uiHealthBarController: {fileID: 6502133852979547350}
-  uiHPBar: {fileID: 5371069435931585575}
   itemSpawner: {fileID: 2487770130904161665}
   coinSpawner: {fileID: 2487770130904161666}
   currentMovementState: 0
@@ -418,8 +417,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f57e463250114f9bfd871ec2c5aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5371069435931585575 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7498364672376606032, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
-  m_PrefabInstance: {fileID: 2487770131148595575}
-  m_PrefabAsset: {fileID: 0}

@@ -7,8 +7,9 @@ public class MeteorMonsterController : MonsterWithCustomPath
 {
     public EnemyGunController gun;
 
+
+    private int curForm;
     private Animator animator;
-    private bool isTransform;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -16,7 +17,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
     public override void Setup()
     {
         base.Setup();
-        isTransform = false;
+        curForm = 1;
         gun.SetupGun();
     }
     public override void Spawn()
@@ -36,11 +37,17 @@ public class MeteorMonsterController : MonsterWithCustomPath
         moveController.StartMove();
         currentMovementState = MovementState.INTRO;
     }
-    private void TransformIntoAngryForm()
+    private void TransformIntoAngryForm(int form)
     {
         FXManager.Instance.CreateFX(2, transform.position);
-        animator.Play("meteor_monster_angry_form");
-        isTransform = true;
+        if (form == 2)
+        {
+            animator.Play("meteor_monster_form2_idle");
+        }
+        else if(form == 3)
+        {
+            animator.Play("meteor_monster_form2_idle");
+        }
         gun.Shoot();
     }
     public override void OnTriggerEnter2D(Collider2D collision)
@@ -50,10 +57,12 @@ public class MeteorMonsterController : MonsterWithCustomPath
         {
             if (collision.GetComponent<BaseEnvironment>().id == 2)
             {
-                if(!isTransform)
+                if(curForm < 4)
                 {
+                    curForm++;
                     //if meteor hit this monster, it would turn into angry one
-                    TransformIntoAngryForm();
+                    TransformIntoAngryForm(curForm);
+                    
                 }
                 else
                 {
