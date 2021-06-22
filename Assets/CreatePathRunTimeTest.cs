@@ -5,40 +5,33 @@ using SWS;
 
 public class CreatePathRunTimeTest : MonoBehaviour
 {
-    public splineMove moveController;
-    public List<Vector3> positions;
-    private PathManager path;
-
-
+    public BezierMoveController bezierMove;
     private void Start()
     {
-        moveController = GetComponent<splineMove>();
-        path = GetComponent<PathManager>();
-        //CreatePathRuntime();
-
+        bezierMove.OnMoveEnd += End;
+    }
+    private void End()
+    {
+        Debug.Log("End");
     }
     private void Update()
     {
-        
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            CreatePathRuntime();
-            moveController.StartMove();
+            bezierMove.StartMove(LoopType.Loop);
         }
-    }
-    public void CreatePathRuntime()
-    {
-        Transform[] waypoints = new Transform[5];
-        for (int i = 0;i <5;i++)
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            positions[i] = new Vector3(Random.Range(-2.3f, 2.3f), Random.Range(-2.3f, 2.3f));
-            GameObject newPts = new GameObject("waypoint+ "+i);
-            waypoints[i] = newPts.transform;
-            waypoints[i].position = positions[i];
+            bezierMove.Stop();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            bezierMove.Pause();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bezierMove.Resume();
         }
 
-        path.Create(waypoints, false);
-
-        moveController.pathContainer = path;
     }
 }

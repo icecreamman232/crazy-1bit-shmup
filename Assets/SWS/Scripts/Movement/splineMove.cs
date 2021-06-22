@@ -116,6 +116,7 @@ namespace SWS
         [HideInInspector]
         public Vector3[] waypoints;
 
+
         /// <summary>
         /// Animation path type, linear or curved.
         /// <summary>
@@ -297,7 +298,6 @@ namespace SWS
                     RandomizeWaypoints();
                 else if (loopType == LoopType.yoyo)
                     parms.OnStepComplete(ReachedEnd);
-               
 
                 Vector3 startPos = wpPos[0];
                 if (localType == LocalType.toPath) 
@@ -538,7 +538,7 @@ namespace SWS
 
                 //indicate backwards direction
                 case LoopType.yoyo:
-                    //reverse = !reverse;
+                    reverse = !reverse;
                     break;
 
                 //randomize waypoints to new order

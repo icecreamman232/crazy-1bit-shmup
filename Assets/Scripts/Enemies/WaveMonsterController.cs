@@ -53,7 +53,7 @@ public class WaveMonsterController : MonoBehaviour
             {
                 waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
-            waveMonsterList[i].monster.moveController.ResetToStart();
+            waveMonsterList[i].monster.moveController.Stop();
         }
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
@@ -78,7 +78,7 @@ public class WaveMonsterController : MonoBehaviour
             {
                 waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
-            waveMonsterList[i].monster.moveController.ResetToStart();
+            waveMonsterList[i].monster.moveController.Stop();
         }
         
         Lean.Pool.LeanPool.Despawn(this.gameObject);

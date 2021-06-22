@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+      
     }
     #endregion
     #region Fields
