@@ -5,6 +5,7 @@ using SWS;
 
 public class CreatePathRunTimeTest : MonoBehaviour
 {
+    public PathSegment patrolPath;
     public BezierMoveController bezierMove;
     private void Start()
     {
@@ -12,13 +13,16 @@ public class CreatePathRunTimeTest : MonoBehaviour
     }
     private void End()
     {
-        Debug.Log("End");
+        bezierMove.SetPath(patrolPath);
+        bezierMove.Stop();
+        bezierMove.OnMoveEnd -= End;
+        bezierMove.StartMove(LoopType.PingPong);
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            bezierMove.StartMove(LoopType.Loop);
+            bezierMove.StartMove(LoopType.None);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

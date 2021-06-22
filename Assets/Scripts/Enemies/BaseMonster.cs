@@ -96,7 +96,6 @@ public class BaseMonster:  BaseEntity
         
         GameManager.Instance.UpdateScore(baseScore);
         FXManager.Instance.CreateFX(1,transform.position);
-        //GameManager.Instance.CreateDieFx(transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         //GameManager.Instance.cameraShakeFX.Shake();
         currentMoveSpeed = baseMoveSpeed;

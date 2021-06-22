@@ -24,14 +24,23 @@ public class PathSegment : MonoBehaviour
             newSegment.GetComponent<PathSegment>().controlPts[i] = controlPts.transform;
         }
         //Setup default position for each control point for better visual
-        newSegment.GetComponent<PathSegment>().controlPts[0].transform.position = new Vector3(0f,2f,0f);
-        newSegment.GetComponent<PathSegment>().controlPts[1].transform.position = new Vector3(-2f,0f,0f);
-        newSegment.GetComponent<PathSegment>().controlPts[2].transform.position = new Vector3(2f,-2f,0f);
-        newSegment.GetComponent<PathSegment>().controlPts[3].transform.position = new Vector3(0f,-4f,0f);
+        newSegment.GetComponent<PathSegment>().controlPts[0].transform.position = new Vector3(0f, 2f, 0f);
+        newSegment.GetComponent<PathSegment>().controlPts[1].transform.position = new Vector3(-2f, 0f, 0f);
+        newSegment.GetComponent<PathSegment>().controlPts[2].transform.position = new Vector3(2f, -2f, 0f);
+        newSegment.GetComponent<PathSegment>().controlPts[3].transform.position = new Vector3(0f, -4f, 0f);
 
         newSegment.GetComponent<PathSegment>().isDrawGizmo = true;
     }
     public Vector3 GetPos(int i) => controlPts[i].position;
+    public Transform GetTransform(int i) => controlPts[i];
+    
+    public void CopyPath(PathSegment newPath)
+    {
+        for(int i = 0; i< 4; i++)
+        {
+            controlPts[i] = newPath.GetTransform(i);
+        }
+    }
 
     public void ReversePath()
     {

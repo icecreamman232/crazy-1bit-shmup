@@ -23,9 +23,7 @@ public class BezierMoveController : MonoBehaviour
     public PathSegment path;
 
     //Call after finish a path
-    //In loop mode, it will be call at the end of each loop
     public System.Action OnMoveEnd;
-
 
 
     private float interpolateAmount;
@@ -36,6 +34,7 @@ public class BezierMoveController : MonoBehaviour
     {
         isMoving = false;
         isGoingBackward = false;
+       
     }
 
     // Start is called before the first frame update
@@ -48,7 +47,11 @@ public class BezierMoveController : MonoBehaviour
     {
         
     }
-
+    public void SetPath(PathSegment newPath)
+    {
+        path = newPath;
+        //path.CopyPath(newPath);
+    }
     public void StartMove(LoopType type)
     {
         if(movingCoroutine!=null) { return; }
@@ -76,6 +79,7 @@ public class BezierMoveController : MonoBehaviour
         interpolateAmount = 0;
         isMoving = false;
         isGoingBackward = false;
+        movingCoroutine = null;
     }
     public void Pause()
     {
@@ -113,7 +117,6 @@ public class BezierMoveController : MonoBehaviour
         {
             if((1f - interpolateAmount) < 0.01f)
             {
-                OnMoveEnd?.Invoke();
                 if (loopType == LoopType.None)
                 {
                     
@@ -127,7 +130,8 @@ public class BezierMoveController : MonoBehaviour
                 {
                     isGoingBackward = !isGoingBackward;
                     interpolateAmount = 0;
-                }               
+                }
+                OnMoveEnd?.Invoke();
             }
             interpolateAmount = (interpolateAmount + moveSpeed * Time.deltaTime) % 1f;
             if(loopType == LoopType.PingPong && isGoingBackward)
