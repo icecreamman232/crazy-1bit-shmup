@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7150852560312265827}
   m_Layer: 0
-  m_Name: GameObject 3
+  m_Name: Control Pts 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9182614724709732140}
   m_Layer: 0
-  m_Name: GameObject 4
+  m_Name: Control Pts 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlPts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  isDrawGizmo: 0
+  - {fileID: 5772314867217411178}
+  - {fileID: 5525971273090357179}
+  - {fileID: 7150852560312265827}
+  - {fileID: 9182614724709732140}
+  isDrawGizmo: 1

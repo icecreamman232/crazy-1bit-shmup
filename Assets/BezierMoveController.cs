@@ -139,6 +139,7 @@ public class BezierMoveController : MonoBehaviour
     {
         while(isMoving)
         {
+            //If object move to next chunk of segment then calculate next chunk based on lerp function
             if(transform.position == LerpMoving(isGoingBackward,interpolateAmount))
             {
                 interpolateAmount = interpolateAmount + 0.1f;
@@ -147,12 +148,13 @@ public class BezierMoveController : MonoBehaviour
             if (interpolateAmount >= 1.2f)
             {
                 if (loopType == LoopType.None)
-                {
-                    
+                {                   
                     Pause();
                 }
                 else if(loopType == LoopType.Loop)
                 {
+                    transform.position = path.GetPos(0);
+                    interpolateAmount = 0;
 
                 }
                 else if(loopType == LoopType.PingPong)
@@ -165,7 +167,7 @@ public class BezierMoveController : MonoBehaviour
             
             if(loopType == LoopType.PingPong && isGoingBackward)
             {
-
+                //Moving from current postion to next chunk of segment
                 transform.position = Vector3.MoveTowards(
                     transform.position,
                     LerpMoving(isGoingBackward, interpolateAmount),
@@ -198,6 +200,7 @@ public class BezierMoveController : MonoBehaviour
     }
     private Vector3 LerpMoving(bool isBackward, float t)
     {
+        //Just helper function to make the core logic easy to look at
         if(isBackward)
         {
            return CubicLerp(

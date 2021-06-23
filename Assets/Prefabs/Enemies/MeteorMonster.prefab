@@ -87,13 +87,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2487770130904161672}
   - component: {fileID: 2487770130904161677}
+  - component: {fileID: 5104103397624160236}
   - component: {fileID: 2487770130904161679}
   - component: {fileID: 2487770130904161678}
   - component: {fileID: 2487770130904161676}
-  - component: {fileID: 2487770130904161667}
   - component: {fileID: 2487770130904161665}
   - component: {fileID: 2487770130904161666}
   - component: {fileID: 402700323}
+  - component: {fileID: 9081915827954347102}
   m_Layer: 0
   m_Name: MeteorMonster
   m_TagString: Enemy
@@ -141,12 +142,28 @@ MonoBehaviour:
   itemSpawner: {fileID: 2487770130904161665}
   coinSpawner: {fileID: 2487770130904161666}
   currentMovementState: 0
-  introPath: {fileID: 0}
+  intro: {fileID: 0}
+  patrol: {fileID: 0}
+  retreat: {fileID: 0}
+  bezierMoveController: {fileID: 0}
   patrolDuration: 0
-  patrolPath: {fileID: 0}
-  retreatPath: {fileID: 0}
-  moveController: {fileID: 2487770130904161667}
   gun: {fileID: 4849815917056294756}
+--- !u!114 &5104103397624160236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2487770130904161673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ddde367776fb48ab9c78fc4ea726a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveToPath: 0
+  moveSpeed: 0
+  loopType: 0
+  path: {fileID: 0}
 --- !u!212 &2487770130904161679
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -245,54 +262,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2487770130904161667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2487770130904161673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2d9078dbe17bc4f966c9d2310be047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathContainer: {fileID: 0}
-  onStart: 0
-  moveToPath: 0
-  reverse: 0
-  startPoint: 0
-  currentPoint: 0
-  closeLoop: 0
-  localType: 0
-  lookAhead: 0
-  sizeToAdd: 0
-  timeValue: 1
-  speed: 3
-  animEaseType:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 0
-  waypoints: []
-  pathType: 1
-  pathMode: 0
-  easeType: 1
-  lockPosition: 0
-  lockRotation: 0
-  waypointRotation: 0
-  rotationTarget: {fileID: 0}
-  movementStart:
-    m_PersistentCalls:
-      m_Calls: []
-  movementChange:
-    m_PersistentCalls:
-      m_Calls: []
-  movementEnd:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2487770130904161665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +309,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9081915827954347102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2487770130904161673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ddde367776fb48ab9c78fc4ea726a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveToPath: 0
+  moveSpeed: 0
+  loopType: 0
+  path: {fileID: 0}
 --- !u!1001 &2487770131148595575
 PrefabInstance:
   m_ObjectHideFlags: 0
