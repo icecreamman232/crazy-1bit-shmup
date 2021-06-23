@@ -29,15 +29,13 @@ public class DodgeMonsterController : MonsterWithCustomPath
     {
         base.Move();
         //Remember to unsubribe event before destroy something
-        moveController.movementEndEvent -= OnMoveEnd;
-        moveController.movementEndEvent -= ChasingAfterShip;
+        bezierMoveController.OnMoveEnd -= OnMoveEnd;
+        bezierMoveController.OnMoveEnd -= ChasingAfterShip;
+        bezierMoveController.path = intro;
+        bezierMoveController.OnMoveEnd += ChasingAfterShip;
+        bezierMoveController.Stop();
+        bezierMoveController.StartMove(LoopType.None);
 
-
-        moveController.pathContainer = introPath;
-        moveController.moveToPath = false;
-        moveController.loopType = splineMove.LoopType.none;
-        moveController.movementEndEvent += ChasingAfterShip;
-        moveController.StartMove();
         currentMovementState = MovementState.INTRO;
     }
     private void ChasingAfterShip()
@@ -74,7 +72,7 @@ public class DodgeMonsterController : MonsterWithCustomPath
     }
     private void OnFinishDodge()
     {
-        //moveController.Resume();      
+   
     }
     public override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -86,7 +84,6 @@ public class DodgeMonsterController : MonsterWithCustomPath
                 {
                     //Stop current path moving and resume later after dodging.
                     //This could cause weird teleport back to path!
-                    //moveController.Pause();
                     DoDodgeIncomingBullet(collision);
                     counter--;
                 }

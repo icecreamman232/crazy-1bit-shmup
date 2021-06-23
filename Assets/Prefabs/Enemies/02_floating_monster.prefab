@@ -346,15 +346,14 @@ MonoBehaviour:
   baseCoinValue: 8
   baseScore: 15
   uiHealthBarController: {fileID: 1437759685878296454}
-  uiHPBar: {fileID: 235899854288359287}
   itemSpawner: {fileID: -1586189584046415224}
   coinSpawner: {fileID: -3033852252409390352}
   currentMovementState: 0
-  introPath: {fileID: 0}
+  intro: {fileID: 0}
+  patrol: {fileID: 0}
+  retreat: {fileID: 0}
+  bezierMoveController: {fileID: 0}
   patrolDuration: 0
-  patrolPath: {fileID: 0}
-  retreatPath: {fileID: 0}
-  moveController: {fileID: 7642898754985102861}
   circleCollider: {fileID: 7730885451012456410}
   dodgeCount: 5
 --- !u!50 &67743736285988727
@@ -573,8 +572,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f57e463250114f9bfd871ec2c5aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &235899854288359287 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7498364672376606032, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
-  m_PrefabInstance: {fileID: 7730885452511838759}
-  m_PrefabAsset: {fileID: 0}

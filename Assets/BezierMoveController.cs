@@ -13,12 +13,35 @@ public enum LoopType
     PingPong = 2,
 }
 
-[AddComponentMenu("SelfComponent/BezierMoveController",0)]
+[AddComponentMenu("SelfComponent/BezierMoveController", 0)]
 public class BezierMoveController : MonoBehaviour
 {
     //If it's true, object will move step by step to the first point
     public bool moveToPath;
-    public float moveSpeed;  
+
+    [SerializeField]
+    private float moveSpeed;
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            if(value <= 0)
+            {
+                Debug.Log("Zero movespeed");
+                //Just for safety
+                moveSpeed = 1;
+            }
+            else
+            {
+                moveSpeed = value;
+            }
+        }
+    }
+
     public LoopType loopType;
     public PathSegment path;
 
@@ -76,10 +99,11 @@ public class BezierMoveController : MonoBehaviour
     {
         //reset position
         transform.position = path.GetPos(0);
-        interpolateAmount = 0;
         isMoving = false;
-        isGoingBackward = false;
         movingCoroutine = null;
+        interpolateAmount = 0;       
+        isGoingBackward = false;
+        
     }
     public void Pause()
     {
@@ -115,7 +139,12 @@ public class BezierMoveController : MonoBehaviour
     {
         while(isMoving)
         {
-            if((1f - interpolateAmount) < 0.01f)
+            if(transform.position == LerpMoving(isGoingBackward,interpolateAmount))
+            {
+                interpolateAmount = interpolateAmount + 0.1f;
+            }
+            
+            if (interpolateAmount >= 1.2f)
             {
                 if (loopType == LoopType.None)
                 {
@@ -133,24 +162,22 @@ public class BezierMoveController : MonoBehaviour
                 }
                 OnMoveEnd?.Invoke();
             }
-            interpolateAmount = (interpolateAmount + moveSpeed * Time.deltaTime) % 1f;
+            
             if(loopType == LoopType.PingPong && isGoingBackward)
             {
-                transform.position = CubicLerp(
-                path.GetPos(3),
-                path.GetPos(2),
-                path.GetPos(1),
-                path.GetPos(0),
-                interpolateAmount);
+
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    LerpMoving(isGoingBackward, interpolateAmount),
+                    Time.deltaTime * moveSpeed);
+
             }
             else
             {
-                transform.position = CubicLerp(
-                path.GetPos(0),
-                path.GetPos(1),
-                path.GetPos(2),
-                path.GetPos(3),
-                interpolateAmount);
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    LerpMoving(isGoingBackward, interpolateAmount),
+                    Time.deltaTime * moveSpeed);
             }      
             yield return null;
         }
@@ -168,5 +195,27 @@ public class BezierMoveController : MonoBehaviour
         Vector3 bc_cd = QuadratirLerp(b, c, d, t);
 
         return Vector3.Lerp(ab_bc, bc_cd, t);
+    }
+    private Vector3 LerpMoving(bool isBackward, float t)
+    {
+        if(isBackward)
+        {
+           return CubicLerp(
+                path.GetPos(3),
+                path.GetPos(2),
+                path.GetPos(1),
+                path.GetPos(0),
+                interpolateAmount);
+        }
+        else
+        {
+           return CubicLerp(
+                path.GetPos(0),
+                path.GetPos(1),
+                path.GetPos(2),
+                path.GetPos(3),
+                interpolateAmount);
+        }
+        
     }
 }

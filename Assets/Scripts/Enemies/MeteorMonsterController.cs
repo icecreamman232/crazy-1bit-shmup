@@ -29,7 +29,8 @@ public class MeteorMonsterController : MonsterWithCustomPath
     }
     public override void OnMoveEnd()
     {
-        moveController.Stop();
+        bezierMoveController.Stop();
+        //moveController.Stop();
         base.OnMoveEnd();
 
     }
@@ -37,21 +38,33 @@ public class MeteorMonsterController : MonsterWithCustomPath
     {
         base.Move();
         //Remember to unsubribe event before destroy something
-        moveController.movementEndEvent += Patrol;
-        moveController.pathContainer = introPath;
-        moveController.moveToPath = false;
-        moveController.loopType = splineMove.LoopType.none;
-        moveController.StartMove();
+        bezierMoveController.OnMoveEnd += Patrol;
+        bezierMoveController.SetPath(intro);
+        bezierMoveController.StartMove(LoopType.None);
+
+        //moveController.movementEndEvent += Patrol;
+        //moveController.pathContainer = introPath;
+        //moveController.moveToPath = false;
+        //moveController.loopType = splineMove.LoopType.none;
+        //moveController.StartMove();
+
+
         currentMovementState = MovementState.INTRO;
     }
     public override void Patrol()
     {       
         base.Patrol();
-        moveController.movementEndEvent -= Patrol;
-        moveController.pathContainer = patrolPath;
-        moveController.moveToPath = false;
-        moveController.loopType = splineMove.LoopType.loop;
-        moveController.StartMove();
+        bezierMoveController.OnMoveEnd -= Patrol;
+        bezierMoveController.SetPath(patrol);
+        bezierMoveController.StartMove(LoopType.Loop);
+        
+
+        //moveController.movementEndEvent -= Patrol;
+        //moveController.pathContainer = patrolPath;
+        //moveController.moveToPath = false;
+        //moveController.loopType = splineMove.LoopType.loop;
+        //moveController.StartMove();
+
         currentMovementState = MovementState.PATROL;
     }
 

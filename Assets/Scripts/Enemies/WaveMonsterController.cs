@@ -53,7 +53,7 @@ public class WaveMonsterController : MonoBehaviour
             {
                 waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
-            waveMonsterList[i].monster.moveController.Stop();
+            waveMonsterList[i].monster.bezierMoveController.Stop();
         }
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
@@ -78,7 +78,7 @@ public class WaveMonsterController : MonoBehaviour
             {
                 waveMonsterList[i].monster.OnFinishRun -= OnFinishRun;
             }
-            waveMonsterList[i].monster.moveController.Stop();
+            waveMonsterList[i].monster.bezierMoveController.Stop();
         }
         
         Lean.Pool.LeanPool.Despawn(this.gameObject);
@@ -110,8 +110,6 @@ public class WaveMonsterController : MonoBehaviour
         //9:18
         Gizmos.DrawWireCube(transform.position, new Vector3(2.9f * 2, 5.8f*2));
     }
-
-
 #endif
     #endregion
 }

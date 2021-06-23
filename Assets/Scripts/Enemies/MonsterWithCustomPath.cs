@@ -16,24 +16,24 @@ public class MonsterWithCustomPath : BaseMonster
     public MovementState currentMovementState;
 
     [SerializeField]
-    protected PathManager introPath;
-
-    public float patrolDuration;
-    [SerializeField]
-    protected PathManager patrolPath;
+    protected PathSegment intro;
 
     [SerializeField]
-    protected PathManager retreatPath;
+    protected PathSegment patrol;
+
+    [SerializeField]
+    protected PathSegment retreat;
+
+    public BezierMoveController bezierMoveController;
+
     public System.Action OnFinishRun;
-
-    public splineMove moveController;
-
+    public float patrolDuration;
     public override void Setup()
     {
         base.Setup();
 
         //Could change to currentMoveSpeed which grow faster by time
-        moveController.speed = baseMoveSpeed;
+        bezierMoveController.MoveSpeed = baseMoveSpeed;
     }
     public virtual void Move()
     {
@@ -46,9 +46,9 @@ public class MonsterWithCustomPath : BaseMonster
     }
     public virtual void Stop()
     {
-        moveController.Stop();
-        moveController.movementEndEvent -= OnMoveEnd;
-        moveController.pathContainer = null;
+        bezierMoveController.Stop();
+        bezierMoveController.OnMoveEnd -= OnMoveEnd;
+
         currentMovementState = MovementState.STOP;
     }
     public virtual void OnMoveEnd()

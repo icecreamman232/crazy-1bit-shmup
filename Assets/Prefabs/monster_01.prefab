@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 5166777713280954633}
   - component: {fileID: 5166777713280954639}
   - component: {fileID: 5166777713280954634}
-  - component: {fileID: 367357453471507698}
   - component: {fileID: 3948237101983439521}
   - component: {fileID: -2542214592113989570}
+  - component: {fileID: 8261333469329476643}
   m_Layer: 8
   m_Name: monster_01
   m_TagString: Enemy
@@ -177,63 +177,14 @@ MonoBehaviour:
   baseCoinValue: 5
   baseScore: 10
   uiHealthBarController: {fileID: 4880765067062145870}
-  uiHPBar: {fileID: 5984741312599184319}
   itemSpawner: {fileID: 3948237101983439521}
   coinSpawner: {fileID: -2542214592113989570}
   currentMovementState: 0
-  introPath: {fileID: 0}
+  intro: {fileID: 0}
+  patrol: {fileID: 0}
+  retreat: {fileID: 0}
+  bezierMoveController: {fileID: 8261333469329476643}
   patrolDuration: 0
-  patrolPath: {fileID: 0}
-  retreatPath: {fileID: 0}
-  moveController: {fileID: 0}
---- !u!114 &367357453471507698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166777713280954636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2d9078dbe17bc4f966c9d2310be047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathContainer: {fileID: 0}
-  onStart: 0
-  moveToPath: 0
-  reverse: 0
-  startPoint: 0
-  currentPoint: 0
-  closeLoop: 0
-  localType: 0
-  lookAhead: 0
-  sizeToAdd: 0
-  timeValue: 1
-  speed: 2
-  animEaseType:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 0
-  waypoints: []
-  pathType: 1
-  pathMode: 0
-  easeType: 1
-  lockPosition: 0
-  lockRotation: 0
-  waypointRotation: 0
-  rotationTarget: {fileID: 0}
-  movementStart:
-    m_PersistentCalls:
-      m_Calls: []
-  movementChange:
-    m_PersistentCalls:
-      m_Calls: []
-  movementEnd:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3948237101983439521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +213,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 1992044434134579720, guid: b1fb0d4cf6716894ea631844ec6244c1, type: 3}
+--- !u!114 &8261333469329476643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166777713280954636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ddde367776fb48ab9c78fc4ea726a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveToPath: 0
+  moveSpeed: 0
+  loopType: 0
+  path: {fileID: 0}
 --- !u!1001 &4251847142622945007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -339,8 +306,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f57e463250114f9bfd871ec2c5aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5984741312599184319 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7498364672376606032, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
-  m_PrefabInstance: {fileID: 4251847142622945007}
-  m_PrefabAsset: {fileID: 0}
