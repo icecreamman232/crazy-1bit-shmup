@@ -34,12 +34,13 @@ public class WormHoleController : EnvironmentWithCustomPath
     public override void Move()
     {
         base.Move();
-        moveController.movementEndEvent -= OnMoveEnd;
-        moveController.movementEndEvent += OnMoveEnd;
-        moveController.pathContainer = introPath;
-        moveController.loopType = splineMove.LoopType.none;
-        moveController.moveToPath = false;
-        moveController.StartMove();
+        bezierMoveController.OnMoveEnd -= OnMoveEnd;
+        bezierMoveController.OnMoveEnd += OnMoveEnd;             
+        bezierMoveController.SetPath(intro);
+        bezierMoveController.Stop();
+        bezierMoveController.StartMove(LoopType.None);
+
+       
     }
     private void DoVancumnMonster(GameObject monster)
     {

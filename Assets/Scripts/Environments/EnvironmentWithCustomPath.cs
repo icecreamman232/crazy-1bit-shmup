@@ -5,14 +5,23 @@ using UnityEngine;
 
 public class EnvironmentWithCustomPath : BaseEnvironment
 {
+   
     [SerializeField]
-    protected PathManager introPath;
-    [SerializeField]
-    protected PathManager patrolPath;
-    [SerializeField]
-    protected PathManager retreatPath;
+    protected PathSegment intro;
 
-    public splineMove moveController;
+    [SerializeField]
+    protected PathSegment patrol;
+
+    [SerializeField]
+    protected PathSegment retreat;
+
+    public BezierMoveController bezierMoveController;
+
+    public override void Setup()
+    {
+        base.Setup();
+        bezierMoveController.MoveSpeed = baseMoveSpeed;
+    }
 
     public virtual void Move()
     {

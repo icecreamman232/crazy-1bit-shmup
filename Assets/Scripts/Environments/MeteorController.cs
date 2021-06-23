@@ -24,12 +24,19 @@ public class MeteorController : EnvironmentWithCustomPath
         base.Move();
         GetComponent<Animator>().Play("meteor_idle");
         GetComponent<Animator>().SetFloat("RotationSpeedModifier", 2.0f);
-        moveController.movementEndEvent -= OnMoveEnd;
-        moveController.movementEndEvent += OnMoveEnd;
-        moveController.pathContainer = introPath;
-        moveController.loopType = splineMove.LoopType.none;
-        moveController.moveToPath = false;
-        moveController.StartMove();
+
+        bezierMoveController.OnMoveEnd -= OnMoveEnd;
+        bezierMoveController.OnMoveEnd += OnMoveEnd;
+        bezierMoveController.SetPath(intro);
+        bezierMoveController.Stop();
+        bezierMoveController.StartMove(LoopType.None);
+
+        //moveController.movementEndEvent -= OnMoveEnd;
+        //moveController.movementEndEvent += OnMoveEnd;
+        //moveController.pathContainer = introPath;
+        //moveController.loopType = splineMove.LoopType.none;
+        //moveController.moveToPath = false;
+        //moveController.StartMove();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,7 +57,9 @@ public class MeteorController : EnvironmentWithCustomPath
             //Current ship have no HP so set it to 1. If changed the system to HP number based,
             //could switch to the bigger number easily
             OnHit?.Invoke(1);
-            moveController.Stop();
+            bezierMoveController.Stop();
+
+            //moveController.Stop();
             FXManager.Instance.CreateFX(1, transform.position);
             OnMoveEnd();
         }

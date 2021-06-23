@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 7079011859231805521}
   - component: {fileID: 7648994031029210095}
   - component: {fileID: 8871360257940514380}
-  - component: {fileID: -7115612823278535032}
   - component: {fileID: 1317259807429170772}
+  - component: {fileID: 7962067350879694309}
   m_Layer: 0
   m_Name: worm_hole
   m_TagString: Environment
@@ -162,54 +162,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &-7115612823278535032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4407723951160855797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2d9078dbe17bc4f966c9d2310be047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathContainer: {fileID: 0}
-  onStart: 0
-  moveToPath: 0
-  reverse: 0
-  startPoint: 0
-  currentPoint: 0
-  closeLoop: 0
-  localType: 0
-  lookAhead: 0
-  sizeToAdd: 0
-  timeValue: 1
-  speed: 1
-  animEaseType:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 0
-  waypoints: []
-  pathType: 1
-  pathMode: 0
-  easeType: 1
-  lockPosition: 0
-  lockRotation: 0
-  waypointRotation: 0
-  rotationTarget: {fileID: 0}
-  movementStart:
-    m_PersistentCalls:
-      m_Calls: []
-  movementChange:
-    m_PersistentCalls:
-      m_Calls: []
-  movementEnd:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1317259807429170772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,11 +180,28 @@ MonoBehaviour:
   baseMoveSpeed: 0
   currentMoveSpeed: 0
   id: 1
-  introPath: {fileID: 0}
-  patrolPath: {fileID: 0}
-  retreatPath: {fileID: 0}
-  moveController: {fileID: -7115612823278535032}
+  impactDamage: 0
+  intro: {fileID: 0}
+  patrol: {fileID: 0}
+  retreat: {fileID: 0}
+  bezierMoveController: {fileID: 7962067350879694309}
   isShowGizmo: 1
   moveSpeed: 1
   wormholeType: 0
   gateOutTransform: {fileID: 0}
+--- !u!114 &7962067350879694309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407723951160855797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ddde367776fb48ab9c78fc4ea726a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveToPath: 0
+  moveSpeed: 0
+  loopType: 0
+  path: {fileID: 0}
