@@ -13,8 +13,9 @@ public class EnvironmentCreator : MonoBehaviour
     {
         currentIndex = 0;
         maxWave = environmentDesign.listEnvironment.Count;
+        currentEnvironmentEntity = null;
         isRunning = false;
-        currentEnvironmentEntity = null;       
+             
     }
     public void Run()
     {        

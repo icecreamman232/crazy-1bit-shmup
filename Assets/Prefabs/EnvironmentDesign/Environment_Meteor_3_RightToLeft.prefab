@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   environmentEntityList:
   - environmentEntity: {fileID: 457947643927064996}
-    delay: 0
+    delay: 1
   - environmentEntity: {fileID: 4500625281861178389}
     delay: 0
   numberEntityList: 0

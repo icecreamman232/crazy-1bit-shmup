@@ -150,6 +150,7 @@ MonoBehaviour:
   currentMoveSpeed: 0
   id: 2
   impactDamage: 50
+  environmentType: 1
   intro: {fileID: 0}
   patrol: {fileID: 0}
   retreat: {fileID: 0}

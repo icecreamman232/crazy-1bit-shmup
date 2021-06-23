@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class WaveMonsterHolder
 {
-    public MonsterWithCustomPath/*MonsterWithSplineMove*/ monster;
+    public MonsterWithCustomPath monster;
     /// <summary>
     /// Delay Time to Next Monster
     /// </summary>
@@ -30,10 +30,6 @@ public class WaveMonsterController : MonoBehaviour
         //Add event if monster go to end point on the path
         waveMonsterList[waveMonsterList.Count - 1].monster.OnFinishRun += OnFinishRun;
 
-    }
-    private void OnDisable()
-    {
- 
     }
     public void Run()
     {

@@ -15,7 +15,7 @@ public class EnvironmentWithCustomPath : BaseEnvironment
     protected PathSegment retreat;
 
     public BezierMoveController bezierMoveController;
-
+    public System.Action OnFinishRun;
     public override void Setup()
     {
         base.Setup();

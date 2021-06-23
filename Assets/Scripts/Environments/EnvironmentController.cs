@@ -19,43 +19,69 @@ public class EnvironmentController : MonoBehaviour
 
     private void OnEnable()
     {
-        environmentEntityList[environmentEntityList.Count - 1].environmentEntity.OnDestroy += OnFinishRun;
-    }
-    private void OnFinishRun()
-    {
-        isWaveFinished = true;
-        environmentEntityList[environmentEntityList.Count - 1].environmentEntity.OnDestroy -= OnFinishRun;
-        Lean.Pool.LeanPool.Despawn(this.gameObject);
-    }
-    private void Setup()
-    {
-        numberEntityList = environmentEntityList.Count;
-        isWaveFinished = false;
+        for (int i = 0; i < environmentEntityList.Count; i++)
+        {
+            environmentEntityList[i].environmentEntity.OnDestroy += OnDestroyEnvironmentEntity;
+        }
+        environmentEntityList[environmentEntityList.Count - 1].environmentEntity.OnFinishRun += OnFinishRun;
     }
     public void Run()
     {
-        Setup();
-
+        numberEntityList = environmentEntityList.Count;
+        isWaveFinished = false;
+        StartCoroutine(OnCheckDestroy());
         StartCoroutine(OnCreatingEntity());
     }
     public void Reset()
     {
-        for(int i = 0; i < environmentEntityList.Count; i++)
+        for (int i = 0; i < environmentEntityList.Count; i++)
         {
-            //Reset code
+            //Unsubscribe events to prevent memory leak
+            environmentEntityList[i].environmentEntity.OnDestroy -= OnDestroyEnvironmentEntity;
+            if (i == environmentEntityList.Count - 1)
+            {
+                environmentEntityList[i].environmentEntity.OnFinishRun -= OnFinishRun;
+            }
+            environmentEntityList[i].environmentEntity.bezierMoveController.Stop();
         }
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
-    //Create each environment entity in a designed wave
     private IEnumerator OnCreatingEntity()
     {
-        for(int i = 0; i < environmentEntityList.Count; i++)
+        for (int i = 0; i < environmentEntityList.Count; i++)
         {
             environmentEntityList[i].environmentEntity.Setup();
             environmentEntityList[i].environmentEntity.Spawn();
             yield return new WaitForSeconds(environmentEntityList[i].delay);
         }
     }
+    private void OnFinishRun()
+    {
+        isWaveFinished = true;
+        for (int i = 0; i < environmentEntityList.Count; i++)
+        {
+            environmentEntityList[i].environmentEntity.OnDestroy -= OnDestroyEnvironmentEntity;
+            if (i == environmentEntityList.Count - 1)
+            {
+                environmentEntityList[environmentEntityList.Count - 1].environmentEntity.OnFinishRun -= OnFinishRun;
+            }
+            environmentEntityList[i].environmentEntity.bezierMoveController.Stop();
+        }
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
+    }
+    private void OnDestroyEnvironmentEntity()
+    {
+        numberEntityList--;
+    }
+
+    private IEnumerator OnCheckDestroy()
+    {
+        yield return new WaitUntil(()=> numberEntityList <=0);
+        isWaveFinished = true;
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
+    }
+    //Create each environment entity in a designed wave
+    
     #region Editor
 #if UNITY_EDITOR
     private void OnDrawGizmos()
