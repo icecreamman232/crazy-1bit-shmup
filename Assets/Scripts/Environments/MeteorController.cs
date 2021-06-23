@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SWS;
+
 
 public class MeteorController : EnvironmentWithCustomPath
 {
@@ -31,12 +31,6 @@ public class MeteorController : EnvironmentWithCustomPath
         bezierMoveController.Stop();
         bezierMoveController.StartMove(LoopType.None);
 
-        //moveController.movementEndEvent -= OnMoveEnd;
-        //moveController.movementEndEvent += OnMoveEnd;
-        //moveController.pathContainer = introPath;
-        //moveController.loopType = splineMove.LoopType.none;
-        //moveController.moveToPath = false;
-        //moveController.StartMove();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
