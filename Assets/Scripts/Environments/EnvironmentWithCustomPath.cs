@@ -43,6 +43,6 @@ public class EnvironmentWithCustomPath : BaseEnvironment
     public virtual void OnMoveEnd()
     {
         //Entity finished its run and ready to be removed
-        OnDestroy?.Invoke();
+        OnFinishRun?.Invoke();
     }
 }

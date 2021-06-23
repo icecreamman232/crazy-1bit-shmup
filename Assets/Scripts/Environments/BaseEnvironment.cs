@@ -18,7 +18,9 @@ public class BaseEnvironment : BaseEntity
     public System.Action OnDestroy;
     public override void Setup()
     {
+        gameObject.SetActive(true);
         currentHP = baseHP;
+        StopAllCoroutines();
         if(environmentType == EnvironmentType.CAN_TAKE_DMG)
         {
             StartCoroutine(CheckDie());
