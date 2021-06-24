@@ -48,13 +48,13 @@ public class MeteorController : EnvironmentWithCustomPath
             OnHit?.Invoke(1);
             bezierMoveController.Stop();
 
-            //moveController.Stop();
             FXManager.Instance.CreateFX(1, transform.position);
             OnMoveEnd();
         }
         if (collision.CompareTag("Enemy"))
         {
-
+            currentHP -= collision.GetComponent<BaseMonster>().baseImpactDamage;
+            collision.GetComponent<BaseMonster>().UpdateHP(impactDamage);
         }
         
     }

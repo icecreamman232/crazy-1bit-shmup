@@ -10,6 +10,10 @@ public class BaseMonster:  BaseEntity
     public int baseNumberCoin;
     public int baseCoinValue;
     public int baseScore;
+    //Damage cause if monster use its body to hit the other entities;
+    public int baseImpactDamage;
+
+
 
     readonly protected float tLerp = 0.1f;
 
@@ -61,8 +65,12 @@ public class BaseMonster:  BaseEntity
     #region Update Methods
     public void UpdateHP(int damage)
     {
+        //Show the HP Bar
+        if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
         currentHP -= damage;
-
         //Update Health Bar UI
         var HPPercent = (float)currentHP / maxHP;
         uiHealthBarController.UpdateHPBar(HPPercent);
@@ -82,10 +90,7 @@ public class BaseMonster:  BaseEntity
     public void HandleCollisionWithBullet(Collider2D collision)
     {
         UpdateHP(collision.gameObject.GetComponent<BaseBullet>().Damage);
-        if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
-        {
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        }
+
         collision.gameObject.GetComponent<BaseBullet>().Reset();
     }
     #endregion

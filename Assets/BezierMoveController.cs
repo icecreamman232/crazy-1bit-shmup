@@ -129,7 +129,8 @@ public class BezierMoveController : MonoBehaviour
                 if(movingCoroutine == null)
                 {
                     movingCoroutine = StartCoroutine(OnMoving());
-                }               
+                }
+                transform.position = path.GetPos(0);
                 yield break;
             }
             transform.position = Vector3.MoveTowards(transform.position,path.GetPos(0),moveSpeed * Time.deltaTime);
@@ -154,8 +155,9 @@ public class BezierMoveController : MonoBehaviour
                 }
                 else if(loopType == LoopType.Loop)
                 {
-                    StartCoroutine(OnMovingToPath());
+                    //StartCoroutine(OnMovingToPath());
                     interpolateAmount = 0;
+                    //transform.position = path.GetPos(0); 
 
                 }
                 else if(loopType == LoopType.PingPong)

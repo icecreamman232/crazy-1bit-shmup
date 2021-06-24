@@ -138,6 +138,7 @@ MonoBehaviour:
   baseNumberCoin: 2
   baseCoinValue: 5
   baseScore: 10
+  baseImpactDamage: 10
   uiHealthBarController: {fileID: 6502133852979547350}
   itemSpawner: {fileID: 2487770130904161665}
   coinSpawner: {fileID: 2487770130904161666}

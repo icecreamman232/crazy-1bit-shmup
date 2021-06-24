@@ -129,7 +129,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
 --- !u!114 &-1677587016430536870
 MonoBehaviour:
@@ -149,7 +149,7 @@ MonoBehaviour:
   baseMoveSpeed: 3
   currentMoveSpeed: 0
   id: 2
-  impactDamage: 50
+  impactDamage: 20
   environmentType: 1
   intro: {fileID: 0}
   patrol: {fileID: 0}

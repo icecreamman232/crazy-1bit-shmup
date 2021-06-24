@@ -54,6 +54,7 @@ MonoBehaviour:
     delay: 0
   numberEntityList: 0
   isWaveFinished: 0
+  numberEntityCompleteDuty: 0
 --- !u!1001 &1684247869771698548
 PrefabInstance:
   m_ObjectHideFlags: 0

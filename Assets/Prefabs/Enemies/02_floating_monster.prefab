@@ -239,7 +239,7 @@ SpriteRenderer:
   m_Size: {x: 0.16666667, y: 0.16666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7730885452331766636
@@ -345,6 +345,7 @@ MonoBehaviour:
   baseNumberCoin: 3
   baseCoinValue: 8
   baseScore: 15
+  baseImpactDamage: 20
   uiHealthBarController: {fileID: 1437759685878296454}
   itemSpawner: {fileID: -1586189584046415224}
   coinSpawner: {fileID: -3033852252409390352}

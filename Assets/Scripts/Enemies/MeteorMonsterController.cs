@@ -62,11 +62,13 @@ public class MeteorMonsterController : MonsterWithCustomPath
         FXManager.Instance.CreateFX(2, transform.position);
         if (form == 2)
         {
+            baseImpactDamage += baseImpactDamage;
             transform.localScale = Vector3.one * 1f;
             animator.Play("meteor_monster_form2_idle");
         }
         else if(form == 3)
         {
+            baseImpactDamage += baseImpactDamage;
             transform.localScale = Vector3.one * 1.3f;
             animator.Play("meteor_monster_form3_idle");
         }
@@ -90,10 +92,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
                 {
                     //if transformed then get hit and lose HP
                     UpdateHP(collision.GetComponent<BaseEnvironment>().impactDamage);
-                    if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
-                    {
-                        gameObject.transform.GetChild(0).gameObject.SetActive(true);
-                    }
+                    
                 }
             }          
         }
