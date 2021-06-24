@@ -38,7 +38,6 @@ public class BaseEnvironment : BaseEntity
         FXManager.Instance.CreateFX(1, transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx, 0.3f);
         //GameManager.Instance.cameraShakeFX.Shake();
-        currentMoveSpeed = baseMoveSpeed;
         OnDestroy?.Invoke();
         gameObject.SetActive(false);
     }

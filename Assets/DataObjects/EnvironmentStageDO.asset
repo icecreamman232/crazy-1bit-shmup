@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listEnvironment:
   - environment: {fileID: 5233447816749612522, guid: 22ba4848d33eb184f8acfc3ffb948e3a, type: 3}
-    delayTime: 3
+    delayTime: 2
   - environment: {fileID: 5233447816749612522, guid: 22ba4848d33eb184f8acfc3ffb948e3a, type: 3}
     delayTime: 0

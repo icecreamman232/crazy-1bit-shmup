@@ -38,12 +38,7 @@ public class MeteorController : EnvironmentWithCustomPath
         if (collision.CompareTag("Bullet"))
         {
             currentHP-=collision.GetComponent<BaseBullet>().Damage;
-            //if(currentHP <=0)
-            //{
-                
-            //    FXManager.Instance.CreateFX(1, transform.position);
-            //    OnMoveEnd();
-            //}
+
             collision.GetComponent<BaseBullet>().Reset();
         }
         if (collision.CompareTag("Player"))

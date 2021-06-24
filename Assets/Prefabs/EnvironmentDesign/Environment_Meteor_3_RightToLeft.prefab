@@ -280,6 +280,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: -1677587016430536870, guid: df7659f49184eed46929869c8fab26c1, type: 3}
+      propertyPath: baseMoveSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -1677587016430536870, guid: df7659f49184eed46929869c8fab26c1, type: 3}
       propertyPath: moveController
       value: 
       objectReference: {fileID: 0}

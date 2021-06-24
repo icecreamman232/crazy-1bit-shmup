@@ -74,18 +74,51 @@ public class WormHoleController : EnvironmentWithCustomPath
         float moveSpeed = 3.0f;
         Vector3 targetPos = GameManager.Instance.spaceShip.transform.position;
         float timer = 0;
+        float xSigned = 0;
+        float ySigned = 0;
+        if (targetPos.x < 0)
+        {
+            xSigned = -1;
+        }
+        else
+        {
+            xSigned = 1;
+        }
+        if (targetPos.y < 0)
+        {
+            ySigned = -1;
+        }
+        else
+        {
+            ySigned = 1;
+        }
+
         while (true)
         {
-            if (timer >= 2.0f)
+            //if (timer >= 2.0f)
+            //{
+            //    monster.GetComponent<BaseMonster>().currentHP = 0;
+            //    yield break;
+            //}
+            if( monster.transform.position.x <= -GameHelper.HalfSizeOfCamera().x - 1f ||
+                monster.transform.position.x >= GameHelper.HalfSizeOfCamera().x + 1f ||
+                monster.transform.position.y <= -GameHelper.HalfSizeOfCamera().y - 1f ||
+                monster.transform.position.y >= GameHelper.HalfSizeOfCamera().y + 1f
+                )
             {
-                monster.GetComponent<BaseMonster>().currentHP = 0;
-                yield break;
+                    monster.GetComponent<BaseMonster>().currentHP = 0;
+                    yield break;   
             }
-           
+
             monster.transform.position = Vector3.MoveTowards(
                 monster.transform.position,
                  Vector3.Lerp(monster.transform.position,targetPos,0.1f),
                 moveSpeed * Time.deltaTime);
+
+            targetPos.x += xSigned * 1.0f;
+            targetPos.y += ySigned * 1.0f;
+
+
             timer += Time.deltaTime;
             yield return null;
         }
