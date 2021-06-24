@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class MeteorMonsterController : MonsterWithCustomPath
 {
-    public EnemyGunController gun;
+    public EnemyGunController leftGun;
+    public EnemyGunController rightGun;
 
 
     private int curForm;
@@ -20,7 +21,8 @@ public class MeteorMonsterController : MonsterWithCustomPath
         transform.localScale = Vector3.one * 0.8f;
         animator.Play("meteor_monster_idle");
         curForm = 1;
-        gun.SetupGun();
+        rightGun.SetupGun();
+        leftGun.SetupGun();
     }
     public override void Spawn()
     {
@@ -72,7 +74,12 @@ public class MeteorMonsterController : MonsterWithCustomPath
             transform.localScale = Vector3.one * 1.3f;
             animator.Play("meteor_monster_form3_idle");
         }
-        gun.Shoot();
+        if(form==2)
+        {
+            //Start to shoot after transformed into 2nd form
+            rightGun.Shoot();
+            leftGun.Shoot();
+        }
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)

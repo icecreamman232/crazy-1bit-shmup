@@ -27,9 +27,11 @@ public class BaseBullet : MonoBehaviour
     public float bulletMoveSpeed;
     private Vector3 originPos;
     private Rigidbody2D rigidBody;
+    private Animator animator;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
     }
     // Start is called before the first frame update
@@ -67,6 +69,7 @@ public class BaseBullet : MonoBehaviour
     public void Shoot(Vector3 direction)
     {
         //Hàm này dùng cho monster nên sẽ bắn thẳng từ trên xuống
+        animator.Play("DodgeMonster_bullet_idle");
         var vec = new Vector2(0f, -bulletMoveSpeed);       
         rigidBody.velocity = Quaternion.Euler(direction) * vec;
     }
