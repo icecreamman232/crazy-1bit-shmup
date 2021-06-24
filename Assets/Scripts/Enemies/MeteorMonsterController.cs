@@ -59,7 +59,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
 
     private void TransformIntoAngryForm(int form)
     {
-        FXManager.Instance.CreateFX(2, transform.position);
+        FXManager.Instance.CreateFX(fxID.EXPLOSION_FOR_TRANSFORM, transform.position);
         if (form == 2)
         {
             baseImpactDamage += baseImpactDamage;
@@ -82,7 +82,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
         {
             if (collision.GetComponent<BaseEnvironment>().id == 2)
             {
-                if(curForm < 4)
+                if(curForm < 3)
                 {
                     curForm++;
                     //if meteor hit this monster, it would turn into angry one

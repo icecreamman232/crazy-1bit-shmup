@@ -48,7 +48,7 @@ public class MeteorController : EnvironmentWithCustomPath
             OnHit?.Invoke(1);
             bezierMoveController.Stop();
 
-            FXManager.Instance.CreateFX(1, transform.position);
+            FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
             OnMoveEnd();
         }
         if (collision.CompareTag("Enemy"))

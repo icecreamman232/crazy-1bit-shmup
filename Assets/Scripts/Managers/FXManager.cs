@@ -8,9 +8,16 @@ using UnityEngine;
  */
 
 [System.Serializable]
+public enum fxID
+{
+    DIE_MONSTER_EXPLOSION           = 1,
+    EXPLOSION_FOR_TRANSFORM         = 2,
+}
+
+[System.Serializable]
 public struct FXItem
 {
-    public int id;
+    public fxID fxID;
     public GameObject fxItem;
 }
 
@@ -26,20 +33,22 @@ public class FXManager : MonoBehaviour
     private void Start()
     {
         fxDictionary = new Dictionary<int, GameObject>();
+        fxDictionary.Clear();
         if(itemArr.Length > 0)
         {
             for (int i = 0; i < itemArr.Length; i++)
             {
-                fxDictionary.Add(itemArr[i].id, itemArr[i].fxItem);
+                fxDictionary.Add((int)itemArr[i].fxID, itemArr[i].fxItem);
             }
         }
     }
 
-    public void CreateFX(int id,Vector3 pos)
+    public void CreateFX(fxID id,Vector3 pos)
     {
-        if(fxDictionary.ContainsKey(id))
+        int integerID = (int)id;
+        if(fxDictionary.ContainsKey(integerID))
         {
-            GameObject fxItem = fxDictionary[id];
+            GameObject fxItem = fxDictionary[integerID];
 
             var obj = Lean.Pool.LeanPool.Spawn(fxItem, pos, Quaternion.identity);
             obj.GetComponent<ParticleSystem>().Play();

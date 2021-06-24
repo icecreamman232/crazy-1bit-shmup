@@ -100,7 +100,7 @@ public class BaseMonster:  BaseEntity
         yield return new WaitUntil(() => currentHP <= 0);
         
         GameManager.Instance.UpdateScore(baseScore);
-        FXManager.Instance.CreateFX(1,transform.position);
+        FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION,transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx,0.3f);
         //GameManager.Instance.cameraShakeFX.Shake();
         currentMoveSpeed = baseMoveSpeed;

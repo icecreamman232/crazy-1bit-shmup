@@ -10372,9 +10372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemArr:
-  - id: 1
+  - fxID: 1
     fxItem: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
-  - id: 2
+  - fxID: 2
     fxItem: {fileID: 9062908510313452247, guid: 237ce79cf0e53d347bf24e211531fc8a, type: 3}
 --- !u!4 &375423741
 Transform:
