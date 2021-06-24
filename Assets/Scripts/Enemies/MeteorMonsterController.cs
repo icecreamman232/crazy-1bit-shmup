@@ -49,6 +49,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
     {       
         base.Patrol();
         bezierMoveController.OnMoveEnd -= Patrol;
+        bezierMoveController.moveToPath = true;
         bezierMoveController.SetPath(patrol);
         bezierMoveController.StartMove(LoopType.Loop);
 
