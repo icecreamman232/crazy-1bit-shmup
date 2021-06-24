@@ -59,7 +59,6 @@ public class EnvironmentController : MonoBehaviour
     {
         //Entity finish their run without getting hurt (died)
         numberEntityCompleteDuty++;
-        Debug.Log("One Entity Completed");
         //All entity complete their cycle
         if (numberEntityCompleteDuty >= environmentEntityList.Count)
         {
