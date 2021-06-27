@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
 public class PixelGrid : EditorWindow
 {
     [MenuItem("Window/Pixel Grid")]
@@ -129,3 +129,4 @@ public class PixelGrid : EditorWindow
         return newValue;
     }
 }
+#endif

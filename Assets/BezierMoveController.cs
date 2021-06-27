@@ -6,10 +6,10 @@ public enum LoopType
 {
     None = 0,
 
-    //Run from A->B and back from B->A
+    //Run: A->B->A->B
     Loop = 1,
 
-    //Run from A->B and back from B->A
+    //Run A->B->B->A
     PingPong = 2,
 }
 
@@ -155,10 +155,7 @@ public class BezierMoveController : MonoBehaviour
                 }
                 else if(loopType == LoopType.Loop)
                 {
-                    //StartCoroutine(OnMovingToPath());
                     interpolateAmount = 0;
-                    //transform.position = path.GetPos(0); 
-
                 }
                 else if(loopType == LoopType.PingPong)
                 {

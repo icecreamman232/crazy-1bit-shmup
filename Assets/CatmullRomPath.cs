@@ -59,7 +59,7 @@ public class CatmullRomPath : MonoBehaviour
 
 		return (b + t);
 	}
-
+	#if UNITY_EDITOR
 	// Visualize the points
 	void OnDrawGizmos()
 	{
@@ -86,5 +86,6 @@ public class CatmullRomPath : MonoBehaviour
 		UnityEditor.Handles.DrawDottedLine(points[0].position, points[1].position, 3f);
 		UnityEditor.Handles.DrawDottedLine(points[points.Length-1].position, points[points.Length-2].position, 3f);
 	}
+#endif
 
 }

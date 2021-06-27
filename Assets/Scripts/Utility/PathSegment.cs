@@ -9,7 +9,7 @@ public class PathSegment : MonoBehaviour
     private Transform[] controlPts = new Transform[4];
 
     public bool isDrawGizmo;
-
+#if UNITY_EDITOR
     [MenuItem("GameObject/Bezier Path/New path", false, 0)]
     static void AddNewPathSegment()
     {
@@ -31,6 +31,7 @@ public class PathSegment : MonoBehaviour
 
         newSegment.GetComponent<PathSegment>().isDrawGizmo = true;
     }
+#endif
     public Vector3 GetPos(int i) => controlPts[i].position;
     public Transform GetTransform(int i) => controlPts[i];
     
@@ -54,6 +55,7 @@ public class PathSegment : MonoBehaviour
             controlPts[n] = reverseControlPts[n];
         }
     }
+#if UNITY_EDITOR
     #region Gizmo
     private void OnDrawGizmos()
     {
@@ -78,5 +80,5 @@ public class PathSegment : MonoBehaviour
         
     }
     #endregion
-
+#endif
 }
