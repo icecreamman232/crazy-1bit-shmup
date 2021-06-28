@@ -52,11 +52,11 @@ public class BaseBullet : MonoBehaviour
         {
             Reset();
         }
-        else if(transform.position.x >= GameHelper.GetCurrentScreenBounds().x)
+        else if(transform.position.x >= GameHelper.GetCurrentScreenBounds().x+1.0f)
         {
             Reset();
         }
-        else if(transform.position.x <= -GameHelper.GetCurrentScreenBounds().x)
+        else if(transform.position.x <= -GameHelper.GetCurrentScreenBounds().x-1.0f)
         {
             Reset();
         }

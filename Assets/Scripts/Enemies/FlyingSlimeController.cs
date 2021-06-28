@@ -29,4 +29,21 @@ public class FlyingSlimeController : MonsterWithCustomPath
 
         currentMovementState = MovementState.INTRO;
     }
+    public override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+        if(GameHelper.IsInsideScreenBounds(transform.position))
+        {
+            if (collision.CompareTag("Environment"))
+            {
+                if (collision.GetComponent<BaseEnvironment>().id == 2)
+                {
+                    //if transformed then get hit and lose HP
+                    UpdateHP(collision.GetComponent<BaseEnvironment>().impactDamage);
+                    collision.GetComponent<BaseEnvironment>().currentHP -= baseImpactDamage;
+                }
+            }
+        }
+        
+    }
 }

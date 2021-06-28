@@ -149,6 +149,8 @@ MonoBehaviour:
   retreat: {fileID: 0}
   bezierMoveController: {fileID: 0}
   patrolDuration: 0
+  gunData_Form2: {fileID: 11400000, guid: c139a8cef7d45a845939a42c623a9633, type: 2}
+  gunData_Form3: {fileID: 11400000, guid: 49935182d23e63041bed8f6a0f9c0ccb, type: 2}
   leftGun: {fileID: 6097999334904075614}
   rightGun: {fileID: 4849815917056294756}
 --- !u!114 &5104103397624160236

@@ -65,6 +65,7 @@ public class BaseMonster:  BaseEntity
     #region Update Methods
     public void UpdateHP(int damage)
     {
+        Debug.Log("UpdateHP");
         //Show the HP Bar
         if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
         {
@@ -72,19 +73,27 @@ public class BaseMonster:  BaseEntity
         }
         currentHP -= damage;
         //Update Health Bar UI
+        UpdateHPInterface();
+
+    }
+    public void UpdateHPInterface()
+    {
         var HPPercent = (float)currentHP / maxHP;
         uiHealthBarController.UpdateHPBar(HPPercent);
-
     }
     #endregion
 
     #region Collision Handling
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (GameHelper.IsInsideScreenBounds(transform.position))
         {
-            HandleCollisionWithBullet(collision);
+            if (collision.gameObject.CompareTag("Bullet"))
+            {
+                HandleCollisionWithBullet(collision);
+            }
         }
+        
 
     }
     public void HandleCollisionWithBullet(Collider2D collision)
@@ -113,6 +122,6 @@ public class BaseMonster:  BaseEntity
         OnDie?.Invoke();
         gameObject.SetActive(false);
     }
-  
+    
     
 }

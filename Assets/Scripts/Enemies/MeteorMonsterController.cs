@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class MeteorMonsterController : MonsterWithCustomPath
 {
+    public GunDO gunData_Form2;
+    public GunDO gunData_Form3;
+
     public EnemyGunController leftGun;
     public EnemyGunController rightGun;
 
@@ -73,21 +76,39 @@ public class MeteorMonsterController : MonsterWithCustomPath
         FXManager.Instance.CreateFX(fxID.EXPLOSION_FOR_TRANSFORM, transform.position);
         if (form == 2)
         {
+
+            baseHP = Mathf.RoundToInt(baseHP * 1.2f);
+            maxHP = baseHP;
+            currentHP = maxHP;
+            UpdateHPInterface();
             baseImpactDamage += baseImpactDamage;
             transform.localScale = Vector3.one * 1f;
             animator.Play("meteor_monster_form2_idle");
             amountMovingRecoil = 0.4f;
             timeRecoilBack = 0.15f;
             timeToBackPreviousPosition = 0.25f;
+            Debug.Log("Reset HP");
         }
         else if(form == 3)
         {
+            //Switch the gun
+            leftGun.gunData = gunData_Form3;
+            rightGun.gunData = gunData_Form3;
+            //Reset HP
+            baseHP = Mathf.RoundToInt(baseHP * 1.2f);
+            maxHP = baseHP;
+            currentHP = maxHP;
+            UpdateHPInterface();
+            //Increase dmg
             baseImpactDamage += baseImpactDamage;
+            //Increase size
             transform.localScale = Vector3.one * 1.3f;
+
             animator.Play("meteor_monster_form3_idle");
             amountMovingRecoil = 0.3f;
             timeRecoilBack = 0.2f;
             timeToBackPreviousPosition = 0.3f;
+            Debug.Log("Reset HP");
         }
         if(form==2)
         {
@@ -104,7 +125,8 @@ public class MeteorMonsterController : MonsterWithCustomPath
     }
     private void PlayRecoilAnimation()
     {
-        LeanTween.moveLocalY(this.gameObject, transform.position.y + amountMovingRecoil, timeRecoilBack).setEase(LeanTweenType.easeOutExpo)
+        LeanTween.moveLocalY(this.gameObject, transform.position.y + amountMovingRecoil, timeRecoilBack).
+            setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(
             () =>
             {
@@ -119,7 +141,6 @@ public class MeteorMonsterController : MonsterWithCustomPath
    
     private void ResetAnimation()
     {
-        Debug.Log("reset anim");
         if (curForm == 2)
         {
             animator.Play("meteor_monster_form2_idle");
@@ -146,18 +167,15 @@ public class MeteorMonsterController : MonsterWithCustomPath
         if (collision.CompareTag("Environment"))
         {
             if (collision.GetComponent<BaseEnvironment>().id == 2)
-            {
-                if(curForm < 3)
+            {              
+                //if transformed then get hit and lose HP
+                UpdateHP(collision.GetComponent<BaseEnvironment>().impactDamage);
+                collision.GetComponent<BaseEnvironment>().currentHP -= baseImpactDamage;
+                if (curForm < 3)
                 {
                     curForm++;
                     //if meteor hit this monster, it would turn into angry one
                     TransformIntoAngryForm(curForm);
-                }
-                else
-                {
-                    //if transformed then get hit and lose HP
-                    UpdateHP(collision.GetComponent<BaseEnvironment>().impactDamage);
-                    
                 }
             }          
         }

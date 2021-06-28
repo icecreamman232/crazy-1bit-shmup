@@ -71,6 +71,7 @@ public class EnemyGunController : MonoBehaviour
             StopMoveToShoot?.Invoke();
             for (int i = 0; i < gunData.numWavePerShot; i++)
             {
+                PlayRecoilAnimation?.Invoke();
                 for (int j = 0; j < gunData.waveShot.Count; j++)
                 {
                     var quaternion = Quaternion.Euler(gunData.waveShot[j].m_Rotation);
@@ -78,7 +79,7 @@ public class EnemyGunController : MonoBehaviour
                         m_bullet,
                         gunData.waveShot[j].m_Position + m_firePoint.position,
                         quaternion);
-                    PlayRecoilAnimation?.Invoke();
+                    
                     bullet.Shoot(gunData.waveShot[j].m_Rotation);
                     yield return new WaitForSeconds(gunData.waveShot[j].m_delay);
                 }
