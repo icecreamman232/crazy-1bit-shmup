@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DodgeMonsterGun_DataObject
   m_EditorClassIdentifier: 
   fireRate: 1.5
-  bulletMoveSpeed: 5
+  bulletMoveSpeed: 7
   numWavePerShot: 1
-  delayperWaveShot: 0.03
+  delayperWaveShot: 0
   waveShot:
   - m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}

@@ -9,6 +9,12 @@ public class MeteorMonsterController : MonsterWithCustomPath
     public EnemyGunController rightGun;
 
 
+    private float amountMovingRecoil;
+
+    //Amount of moving back because of recoiling
+    private float timeRecoilBack;
+    //Amount of moving forward to back the previous position
+    private float timeToBackPreviousPosition;
     private int curForm;
     private Animator animator;
     private void OnEnable()
@@ -58,7 +64,10 @@ public class MeteorMonsterController : MonsterWithCustomPath
 
         currentMovementState = MovementState.PATROL;
     }
-
+    private void Update()
+    {
+        
+    }
     private void TransformIntoAngryForm(int form)
     {
         FXManager.Instance.CreateFX(fxID.EXPLOSION_FOR_TRANSFORM, transform.position);
@@ -67,21 +76,70 @@ public class MeteorMonsterController : MonsterWithCustomPath
             baseImpactDamage += baseImpactDamage;
             transform.localScale = Vector3.one * 1f;
             animator.Play("meteor_monster_form2_idle");
+            amountMovingRecoil = 0.4f;
+            timeRecoilBack = 0.15f;
+            timeToBackPreviousPosition = 0.25f;
         }
         else if(form == 3)
         {
             baseImpactDamage += baseImpactDamage;
             transform.localScale = Vector3.one * 1.3f;
             animator.Play("meteor_monster_form3_idle");
+            amountMovingRecoil = 0.3f;
+            timeRecoilBack = 0.2f;
+            timeToBackPreviousPosition = 0.3f;
         }
         if(form==2)
         {
             //Start to shoot after transformed into 2nd form
             rightGun.Shoot();
             leftGun.Shoot();
+            rightGun.StopMoveToShoot    += bezierMoveController.Pause;
+            rightGun.Done1Shot          += ResumeMoving;
+            rightGun.PlayRecoilAnimation += PlayRecoilAnimation;
+            leftGun.StopMoveToShoot     += bezierMoveController.Pause;
+            leftGun.Done1Shot           += ResumeMoving;
+            leftGun.PlayRecoilAnimation += PlayRecoilAnimation;
         }
     }
+    private void PlayRecoilAnimation()
+    {
+        LeanTween.moveLocalY(this.gameObject, transform.position.y + amountMovingRecoil, timeRecoilBack).setEase(LeanTweenType.easeOutExpo)
+            .setOnComplete(
+            () =>
+            {
+                LeanTween.moveLocalY(this.gameObject, transform.position.y - amountMovingRecoil, timeToBackPreviousPosition)
+                .setOnComplete(
+                    ()=>
+                    {
+                        ResetAnimation();
+                    });
+            });
+    }
+   
+    private void ResetAnimation()
+    {
+        Debug.Log("reset anim");
+        if (curForm == 2)
+        {
+            animator.Play("meteor_monster_form2_idle");
 
+        }
+        else if(curForm == 3)
+        {
+            animator.Play("meteor_monster_form3_idle");
+        }
+    }
+    private void ResumeMoving()
+    {
+        StartCoroutine(WaitForShotWentOut());
+    }
+    private IEnumerator WaitForShotWentOut()
+    {
+        float time = timeRecoilBack + timeToBackPreviousPosition + 0.25f;
+        yield return new WaitForSeconds(time/*0.35f*/);
+        bezierMoveController.Resume();
+    }
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);

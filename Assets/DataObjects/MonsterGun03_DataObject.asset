@@ -18,8 +18,11 @@ MonoBehaviour:
   delayperWaveShot: 0.03
   waveShot:
   - m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 20}
-    m_delay: 0
+    m_Rotation: {x: 0, y: 0, z: 0}
+    m_delay: 0.1
   - m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: -20}
-    m_delay: 0
+    m_Rotation: {x: 0, y: 0, z: 0}
+    m_delay: 0.1
+  - m_Position: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 0}
+    m_delay: 0.1

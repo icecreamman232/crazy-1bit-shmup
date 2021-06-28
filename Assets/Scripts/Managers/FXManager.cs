@@ -61,5 +61,4 @@ public class FXManager : MonoBehaviour
         Lean.Pool.LeanPool.Despawn(fxItem);
     }
 
-
 }
