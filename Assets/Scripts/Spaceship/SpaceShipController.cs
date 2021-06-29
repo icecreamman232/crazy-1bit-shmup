@@ -25,6 +25,8 @@ public enum ShipStatus
 
 public class SpaceShipController : MonoBehaviour
 {
+    public Gun gun;
+
     [Header("Basic Information")]
     public int baseHP;
     public int currentHP;
@@ -97,11 +99,13 @@ public class SpaceShipController : MonoBehaviour
     }
     public void BeginShoot()
     {
-        shootingCoroutine = StartCoroutine(Shoot());
+        gun.Shoot();
+        //shootingCoroutine = StartCoroutine(Shoot());
     }
     public void StopShoot()
     {
-        StopCoroutine(shootingCoroutine);
+        //StopCoroutine(shootingCoroutine);
+        gun.Stop();
     }
     private IEnumerator Shoot()
     {
