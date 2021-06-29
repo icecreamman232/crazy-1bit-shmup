@@ -65,7 +65,6 @@ public class BaseMonster:  BaseEntity
     #region Update Methods
     public void UpdateHP(int damage)
     {
-        Debug.Log("UpdateHP");
         //Show the HP Bar
         if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
         {

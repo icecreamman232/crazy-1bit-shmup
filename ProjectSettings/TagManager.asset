@@ -10,6 +10,8 @@ TagManager:
   - Item
   - EnemyBullet
   - Environment
+  - MeteorMonsterCircle
+  - Meteor
   layers:
   - Default
   - TransparentFX

@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5706701086029802894}
-  - component: {fileID: 5801789587364993345}
+  - component: {fileID: -4030251727323458176}
   - component: {fileID: 5706701086029802895}
   - component: {fileID: 6087443764931473103}
   - component: {fileID: 6607014637547512002}
   - component: {fileID: 4699934539711909345}
-  m_Layer: 0
-  m_Name: Monster03_Bullet
+  m_Layer: 12
+  m_Name: MeteorMonsterRocketBullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5801789587364993345
+--- !u!114 &-4030251727323458176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,10 +44,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5706701086029802892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff7311b7558097943b072ed0d825d311, type: 3}
+  m_Script: {fileID: 11500000, guid: 92b21e94e4910444f91f76b41006b707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  type: 1
+  damage: 20
   bulletMoveSpeed: 6
 --- !u!212 &5706701086029802895
 SpriteRenderer:

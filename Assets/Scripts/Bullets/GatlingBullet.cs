@@ -23,24 +23,27 @@ public class GatlingBullet : Bullet
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-
-        //Layer 11 = Environment
-        if (collision.gameObject.layer == 11)
+        if(GameHelper.IsInsideScreenBounds(collision.transform.position))
         {
-            if(collision.gameObject.CompareTag("Meteor"))
+            //Layer 11 = Environment
+            if (collision.gameObject.layer == 11)
             {
-                collision.GetComponent<MeteorController>().currentHP -= Damage;
-                ResetBullet();
+                if (collision.gameObject.CompareTag("Meteor"))
+                {
+                    collision.GetComponent<MeteorController>().currentHP -= Damage;
+                    ResetBullet();
+                }
+            }
+            //Layer 8 = Enemy
+            if (collision.gameObject.layer == 8)
+            {
+                if (collision.gameObject.CompareTag("Enemy"))
+                {
+                    collision.GetComponent<BaseMonster>().UpdateHP(Damage);
+                    ResetBullet();
+                }
             }
         }
-        //Layer 8 = Enemy
-        if (collision.gameObject.layer == 8)
-        {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                collision.GetComponent<BaseMonster>().UpdateHP(Damage);
-                ResetBullet();
-            }
-        }
+        
     }
 }

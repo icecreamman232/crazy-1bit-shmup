@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1d41b1950d0c0441952eb40d698a20a, type: 3}
-  m_Name: DodgeMonsterGun_Form2_DO
+  m_Name: MeteorMonsterGun_Form2_DO
   m_EditorClassIdentifier: 
   fireRate: 1.5
   bulletMoveSpeed: 7

@@ -8,8 +8,11 @@ public class MeteorMonsterController : MonsterWithCustomPath
     public GunDO gunData_Form2;
     public GunDO gunData_Form3;
 
-    public EnemyGunController leftGun;
-    public EnemyGunController rightGun;
+    public MeteorMonsterRocketGun LGun;
+    public MeteorMonsterRocketGun RGun;
+
+    //public EnemyGunController leftGun;
+    //public EnemyGunController rightGun;
 
     public RotateArmorController armorController;
 
@@ -31,8 +34,8 @@ public class MeteorMonsterController : MonsterWithCustomPath
         transform.localScale = Vector3.one * 0.8f;
         animator.Play("meteor_monster_idle");
         curForm = 1;
-        rightGun.SetupGun();
-        leftGun.SetupGun();
+        LGun.SetupGun();
+        RGun.SetupGun();
     }
     public override void Spawn()
     {
@@ -94,8 +97,8 @@ public class MeteorMonsterController : MonsterWithCustomPath
         else if(form == 3)
         {
             //Switch the gun
-            leftGun.gunData = gunData_Form3;
-            rightGun.gunData = gunData_Form3;
+            LGun.gunData = gunData_Form3;
+            RGun.gunData = gunData_Form3;
             //Reset HP
             baseHP = Mathf.RoundToInt(baseHP * 1.2f);
             maxHP = baseHP;
@@ -117,14 +120,15 @@ public class MeteorMonsterController : MonsterWithCustomPath
         if(form==2)
         {
             //Start to shoot after transformed into 2nd form
-            rightGun.Shoot();
-            leftGun.Shoot();
-            rightGun.StopMoveToShoot    += bezierMoveController.Pause;
-            rightGun.Done1Shot          += ResumeMoving;
-            rightGun.PlayRecoilAnimation += PlayRecoilAnimation;
-            leftGun.StopMoveToShoot     += bezierMoveController.Pause;
-            leftGun.Done1Shot           += ResumeMoving;
-            leftGun.PlayRecoilAnimation += PlayRecoilAnimation;
+            RGun.Shoot();
+            RGun.StopMoveToShoot += bezierMoveController.Pause;
+            RGun.Done1Shot += ResumeMoving;
+            RGun.PlayRecoilAnimation += PlayRecoilAnimation;
+
+            LGun.Shoot();
+            LGun.StopMoveToShoot     += bezierMoveController.Pause;
+            LGun.Done1Shot           += ResumeMoving;
+            LGun.PlayRecoilAnimation += PlayRecoilAnimation;
         }
     }
     private void PlayRecoilAnimation()
