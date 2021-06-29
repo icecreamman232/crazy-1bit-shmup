@@ -11,6 +11,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
     public EnemyGunController leftGun;
     public EnemyGunController rightGun;
 
+    public RotateArmorController armorController;
 
     private float amountMovingRecoil;
 
@@ -37,6 +38,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
     {
         base.Spawn();
         Move();
+        
     }
     public override void OnMoveEnd()
     {
@@ -87,7 +89,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
             amountMovingRecoil = 0.4f;
             timeRecoilBack = 0.15f;
             timeToBackPreviousPosition = 0.25f;
-            Debug.Log("Reset HP");
+
         }
         else if(form == 3)
         {
@@ -108,7 +110,9 @@ public class MeteorMonsterController : MonsterWithCustomPath
             amountMovingRecoil = 0.3f;
             timeRecoilBack = 0.2f;
             timeToBackPreviousPosition = 0.3f;
-            Debug.Log("Reset HP");
+
+            armorController.Active();
+
         }
         if(form==2)
         {

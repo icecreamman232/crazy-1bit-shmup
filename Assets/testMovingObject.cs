@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivePoint : MonoBehaviour
+public class testMovingObject : MonoBehaviour
 {
-    public GameObject target;
+    public BezierMoveController moveController;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,12 +14,9 @@ public class ActivePoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.M))
         {
-            if(target.activeSelf==false)
-            {
-                target.SetActive(true);
-            } 
+            moveController.StartMove(LoopType.PingPong);
         }
     }
 }
