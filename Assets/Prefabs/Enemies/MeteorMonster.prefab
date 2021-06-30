@@ -62,14 +62,14 @@ GameObject:
   - component: {fileID: 1790875996222676469}
   - component: {fileID: 6083090070098238877}
   - component: {fileID: 5822437911539524634}
-  - component: {fileID: 7831801424943108487}
+  - component: {fileID: 887307565812764779}
   m_Layer: 8
   m_Name: Circle 2
   m_TagString: MeteorMonsterCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1790875996222676469
 Transform:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018653330566941975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 8712480787150318123}
@@ -147,9 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a2d5a5850399642836c682f8caa681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 6083090070098238877}
   pivot: {fileID: 8712480787150318123}
---- !u!58 &7831801424943108487
-CircleCollider2D:
+--- !u!61 &887307565812764779
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,8 +163,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 0.5, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Size: {x: 0.5, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &2487770130904161673
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +333,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0028207302, y: 0.18334651}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -333,7 +344,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.7}
+  m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
 --- !u!50 &2487770130904161676
 Rigidbody2D:
@@ -430,14 +441,14 @@ GameObject:
   - component: {fileID: 4668782297301314700}
   - component: {fileID: 3073217840946805365}
   - component: {fileID: 5885872648444031147}
-  - component: {fileID: 7700587245732097122}
+  - component: {fileID: 5304254200469714407}
   m_Layer: 8
   m_Name: Circle 1
   m_TagString: MeteorMonsterCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4668782297301314700
 Transform:
   m_ObjectHideFlags: 0
@@ -446,7 +457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3308154314371679807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 8712480787150318123}
@@ -515,9 +526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a2d5a5850399642836c682f8caa681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 3073217840946805365}
   pivot: {fileID: 8712480787150318123}
---- !u!58 &7700587245732097122
-CircleCollider2D:
+--- !u!61 &5304254200469714407
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -530,8 +542,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 0.5, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Size: {x: 0.5, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &7952768006232457092
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,14 +565,14 @@ GameObject:
   - component: {fileID: 6918807460958200642}
   - component: {fileID: 4404942104738377765}
   - component: {fileID: 2825384699806649270}
-  - component: {fileID: 6817752831694842827}
+  - component: {fileID: 7015649399762636736}
   m_Layer: 8
   m_Name: Circle 3
   m_TagString: MeteorMonsterCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6918807460958200642
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7952768006232457092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 8712480787150318123}
@@ -628,9 +650,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a2d5a5850399642836c682f8caa681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 4404942104738377765}
   pivot: {fileID: 8712480787150318123}
---- !u!58 &6817752831694842827
-CircleCollider2D:
+--- !u!61 &7015649399762636736
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -643,8 +666,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 0.5, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Size: {x: 0.5, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1001 &354124233558255530
 PrefabInstance:
   m_ObjectHideFlags: 0

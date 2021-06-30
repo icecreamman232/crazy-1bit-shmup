@@ -25,16 +25,14 @@ public enum ShipStatus
 
 public class SpaceShipController : MonoBehaviour
 {
+    [Header("Gun")]
     public Gun gun;
 
     [Header("Basic Information")]
     public int baseHP;
     public int currentHP;
-    public float firerate;
-    public int damage;
 
     public ShipStatus currentStatus;
-
 
     public Lean.Pool.LeanGameObjectPool bulletPool;
     public ParticleSystem fireJetParticle;
@@ -93,16 +91,15 @@ public class SpaceShipController : MonoBehaviour
     }
     private void UpdateHP(int damage)
     {
-        currentHP -= damage;
+        //currentHP -= damage;
     }
     public void BeginShoot()
     {
         gun.Shoot();
-        //shootingCoroutine = StartCoroutine(Shoot());
+  
     }
     public void StopShoot()
     {
-        //StopCoroutine(shootingCoroutine);
         gun.Stop();
     }
     
@@ -129,6 +126,14 @@ public class SpaceShipController : MonoBehaviour
         {
             HandleGetHitByEntity(1);
         }
+        if(collision.gameObject.layer == 11)
+        {
+            if (collision.gameObject.CompareTag("Meteor"))
+            {
+                HandleGetHitByEntity(1);
+            }
+        }
+        
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

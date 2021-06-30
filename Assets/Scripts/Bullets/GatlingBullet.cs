@@ -51,16 +51,15 @@ public class GatlingBullet : Bullet
                 }
                 if (collision.gameObject.CompareTag("MeteorMonsterCircle"))
                 {
-                    Debug.Log("colliding w cirlce");
                     rigidBody.velocity = Vector3.zero;
                     rigidBody.bodyType = RigidbodyType2D.Dynamic;
                     Vector3 trajectory = Random.insideUnitCircle;
                     var forceVector = new Vector3(
-                             Random.Range(-5f, 5f) * trajectory.x,
-                             Random.Range(-3.5f, -10f) * Mathf.Abs(trajectory.y),
-                             0f);
+                                Random.Range(-5f, 5f) * trajectory.x,
+                                Random.Range(-3.5f, -10f) * Mathf.Abs(trajectory.y),
+                                0f);
                     rigidBody.AddForce(forceVector, ForceMode2D.Impulse);
-                    fadeAway = StartCoroutine(FadeAway());
+                    fadeAway = StartCoroutine(FadeAway());        
                 }
             }
         }

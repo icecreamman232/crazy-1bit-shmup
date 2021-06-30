@@ -11,9 +11,6 @@ public class MeteorMonsterController : MonsterWithCustomPath
     public MeteorMonsterRocketGun LGun;
     public MeteorMonsterRocketGun RGun;
 
-    //public EnemyGunController leftGun;
-    //public EnemyGunController rightGun;
-
     public RotateArmorController armorController;
 
     private float amountMovingRecoil;
@@ -23,6 +20,13 @@ public class MeteorMonsterController : MonsterWithCustomPath
     //Amount of moving forward to back the previous position
     private float timeToBackPreviousPosition;
     private int curForm;
+    public int CurForm
+    {
+        get
+        {
+            return curForm;
+        }
+    }
     private Animator animator;
     private void OnEnable()
     {
@@ -36,6 +40,15 @@ public class MeteorMonsterController : MonsterWithCustomPath
         curForm = 1;
         LGun.SetupGun();
         RGun.SetupGun();
+
+        //Setup shield
+        for (int i = 0; i < armorController.armorList.Count; i++)
+        {
+            armorController.armorList[i].transform.localPosition = Vector3.zero;
+            Color color = armorController.armorList[i].sprite.color;
+            color.a = 0f;
+            armorController.armorList[i].sprite.color = color;
+        }
     }
     public override void Spawn()
     {
@@ -96,6 +109,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
         }
         else if(form == 3)
         {
+            animator.Play("meteor_monster_form3_idle");
             //Switch the gun
             LGun.gunData = gunData_Form3;
             RGun.gunData = gunData_Form3;
@@ -109,13 +123,12 @@ public class MeteorMonsterController : MonsterWithCustomPath
             //Increase size
             transform.localScale = Vector3.one * 1.3f;
 
-            animator.Play("meteor_monster_form3_idle");
+            
             amountMovingRecoil = 0.3f;
             timeRecoilBack = 0.2f;
             timeToBackPreviousPosition = 0.3f;
 
-            armorController.Active();
-
+            ActiveShield();
         }
         if(form==2)
         {
@@ -131,6 +144,41 @@ public class MeteorMonsterController : MonsterWithCustomPath
             LGun.PlayRecoilAnimation += PlayRecoilAnimation;
         }
     }
+    public void ActiveShield()
+    {
+        for(int i = 0; i < armorController.armorList.Count; i++)
+        {
+            armorController.armorList[i].gameObject.SetActive(true);
+        }
+
+        Vector3 right = new Vector3(1.3f, 0.8f, 0f);
+        Vector3 bot = new Vector3(0f, -1.5f, 0f);
+        Vector3 left = new Vector3(-1.3f, 0.8f, 0f);
+
+        Color rightColor = armorController.armorList[0].sprite.color;
+        rightColor.a = 1f;
+        Color botColor = armorController.armorList[1].sprite.color;
+        botColor.a = 1f;
+        Color leftColor = armorController.armorList[2].sprite.color;
+        leftColor.a = 1f;
+
+
+        LeanTween.moveLocal(armorController.armorList[0].gameObject, right, 1f)
+            .setEase(LeanTweenType.easeOutCirc);
+        LeanTween.moveLocal(armorController.armorList[1].gameObject, bot, 1f)
+            .setEase(LeanTweenType.easeOutCirc)
+            .setOnComplete(armorController.Active);
+        LeanTween.moveLocal(armorController.armorList[2].gameObject, left, 1f)
+            .setEase(LeanTweenType.easeOutCirc);
+
+        LeanTween.color(armorController.armorList[0].gameObject, rightColor, 1f)
+            .setEase(LeanTweenType.easeOutCirc);
+        LeanTween.color(armorController.armorList[1].gameObject, botColor, 1f)
+            .setEase(LeanTweenType.easeOutCirc);
+        LeanTween.color(armorController.armorList[2].gameObject, leftColor, 1f)
+            .setEase(LeanTweenType.easeOutCirc);
+    }
+    
     private void PlayRecoilAnimation()
     {
         LeanTween.moveLocalY(this.gameObject, transform.position.y + amountMovingRecoil, timeRecoilBack).

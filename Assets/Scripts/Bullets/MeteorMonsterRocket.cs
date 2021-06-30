@@ -42,6 +42,7 @@ public class MeteorMonsterRocket : Bullet
             {
                 if (collision.gameObject.CompareTag("Enemy"))
                 {
+                    Debug.Log("Hit by enemy");
                     collision.gameObject.GetComponent<BaseMonster>().UpdateHP(Damage);
                     ResetBullet();
                 }

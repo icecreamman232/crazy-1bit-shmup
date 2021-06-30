@@ -12311,11 +12311,8 @@ MonoBehaviour:
   gun: {fileID: 1929570003}
   baseHP: 3
   currentHP: 0
-  firerate: 0.1
-  damage: 20
   currentStatus: 0
   bulletPool: {fileID: 861135899}
-  firePoint: {fileID: 0}
   fireJetParticle: {fileID: 1939733787}
   shipExplosionFX: {fileID: 1785376699}
   uiShipHPBar: {fileID: 1511538135}
@@ -12353,7 +12350,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
