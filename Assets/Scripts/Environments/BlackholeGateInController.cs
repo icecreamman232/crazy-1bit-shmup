@@ -37,6 +37,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
         if (gateOut.pushCoroutine != null)
         {
             StopCoroutine(gateOut.pushCoroutine);
+            gateOut.pushCoroutine = null;
         }
         //Reset everything for safety
         ship.transform.rotation = Quaternion.identity;
@@ -63,6 +64,11 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     }
     private void PullingMonster(GameObject monster)
     {
+        if (gateOut.pushCoroutine != null)
+        {
+            StopCoroutine(gateOut.pushCoroutine);
+            gateOut.pushCoroutine = null;
+        }
         pullingCoroutine = StartCoroutine(OnPullingMonster(monster));
     }
     private IEnumerator OnPullingMonster(GameObject monster)

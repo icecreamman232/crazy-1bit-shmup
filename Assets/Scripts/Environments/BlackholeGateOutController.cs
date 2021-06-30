@@ -30,6 +30,8 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
    
     public void PushingOutMonster(GameObject monster)
     {
+        StopCoroutine(gateIn.pullingCoroutine);
+        gateIn.pullingCoroutine = null;
         LeanTween.scale(monster, Vector3.one, 0.5f);
         pushCoroutine  = StartCoroutine(ScaleUpMonster(monster));
     }
@@ -86,6 +88,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     public void PushingOutShip(GameObject ship)
     {
         StopCoroutine(gateIn.pullingCoroutine);
+        gateIn.pullingCoroutine = null;
         ship.GetComponent<Animator>().Play("ship_rotate");
         pushCoroutine = StartCoroutine(ScaleUp(ship));
     }
