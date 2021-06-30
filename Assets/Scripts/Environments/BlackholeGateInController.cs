@@ -9,9 +9,20 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     public float moveSpeed;
     public Coroutine pullingCoroutine;
 
+    public System.Action StopCurrentFunction;
+    public void CurrentCoroutine()
+    {
+        if(pullingCoroutine!=null)
+        {
+            StopCoroutine(pullingCoroutine);
+            pullingCoroutine = null;
+        }
+        
+    }
     public override void Setup()
     {
         base.Setup();
+        StopCurrentFunction += gateOut.CurrentCoroutine;
     }
     public override void Spawn()
     {
@@ -34,12 +45,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     private void PullingShip(GameObject ship)
     {
         ship.GetComponent<Animator>().Play("ship_rotate");
-        if (gateOut.pushCoroutine != null)
-        {
-            StopCoroutine(gateOut.pushCoroutine);
-            gateOut.pushCoroutine = null;
-        }
-        //Reset everything for safety
+        StopCurrentFunction?.Invoke();
         ship.transform.rotation = Quaternion.identity;
         pullingCoroutine = StartCoroutine(OnPullingShip(ship));
     }
@@ -64,11 +70,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     }
     private void PullingMonster(GameObject monster)
     {
-        if (gateOut.pushCoroutine != null)
-        {
-            StopCoroutine(gateOut.pushCoroutine);
-            gateOut.pushCoroutine = null;
-        }
+        StopCurrentFunction?.Invoke();
         pullingCoroutine = StartCoroutine(OnPullingMonster(monster));
     }
     private IEnumerator OnPullingMonster(GameObject monster)

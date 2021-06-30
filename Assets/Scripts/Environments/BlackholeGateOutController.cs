@@ -8,10 +8,20 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     public bool isShowGizmo = true;
     public BlackholeGateInController gateIn;
     public Coroutine pushCoroutine;
+    public System.Action StopCurrentFunction;
 
+    public void CurrentCoroutine()
+    {
+        if(pushCoroutine!=null)
+        {
+            StopCoroutine(pushCoroutine);
+            pushCoroutine = null;
+        }
+    }
     public override void Setup()
     {
         base.Setup();
+        StopCurrentFunction += gateIn.CurrentCoroutine;
     }
     public override void Spawn()
     {
@@ -30,9 +40,8 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
    
     public void PushingOutMonster(GameObject monster,Vector3 originScale)
     {
-        StopCoroutine(gateIn.pullingCoroutine);
-        gateIn.pullingCoroutine = null;
-        LeanTween.scale(monster, originScale, 0.5f);
+        StopCurrentFunction?.Invoke();
+        LeanTween.scale(monster, originScale, 0.8f);
         pushCoroutine  = StartCoroutine(ScaleUpMonster(monster));
     }
     private IEnumerator ScaleUpMonster(GameObject monster)
@@ -40,8 +49,8 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
         float moveSpeed = 3.0f;
         Vector3 targetPos = GameManager.Instance.spaceShip.transform.position;
         float timer = 0;
-        float xSigned = 0;
-        float ySigned = 0;
+        float xSigned;
+        float ySigned;
         if (targetPos.x < 0)
         {
             xSigned = -1;
@@ -87,8 +96,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     }
     public void PushingOutShip(GameObject ship)
     {
-        StopCoroutine(gateIn.pullingCoroutine);
-        gateIn.pullingCoroutine = null;
+        StopCurrentFunction?.Invoke();
         ship.GetComponent<Animator>().Play("ship_rotate");
         pushCoroutine = StartCoroutine(ScaleUp(ship));
     }

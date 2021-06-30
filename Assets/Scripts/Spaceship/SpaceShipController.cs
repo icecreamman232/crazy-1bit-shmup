@@ -91,7 +91,7 @@ public class SpaceShipController : MonoBehaviour
     }
     private void UpdateHP(int damage)
     {
-        //currentHP -= damage;
+        currentHP -= damage;
     }
     public void BeginShoot()
     {

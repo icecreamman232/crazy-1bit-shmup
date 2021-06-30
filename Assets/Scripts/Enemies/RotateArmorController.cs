@@ -8,20 +8,7 @@ public class RotateArmorController : MonoBehaviour
     public float speed;
     public List<CircleArmor> armorList;
     // Start is called before the first frame update
-    private void OnEnable()
-    {
-       
-        //if(armorList!=null)
-        //{
-        //    Debug.Log("enable");
-        //    for (int i = 0; i < armorList.Count; i++)
-        //    {
-        //        Vector3 dir = transform.position - armorList[i].transform.position;
-        //        dir = Quaternion.Euler(new Vector3(0, 0, (i + 1) * 60)) * dir;
-        //        armorList[i].transform.position = dir + transform.position;
-        //    }
-        //}
-    }
+
     void Start()
     {
         

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bcf8baa8199264fae3f4dac420ebf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 200
   armorList:
   - {fileID: 5885872648444031147}
   - {fileID: 5822437911539524634}
