@@ -39,13 +39,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1764721280117654797}
+  - component: {fileID: 1229568626262913244}
   - component: {fileID: 7079011859231805521}
   - component: {fileID: 7648994031029210095}
   - component: {fileID: 8871360257940514380}
-  - component: {fileID: 1317259807429170772}
   - component: {fileID: 7962067350879694309}
   m_Layer: 11
-  m_Name: worm_hole
+  m_Name: blackhole_out
   m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,6 +66,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1229568626262913244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407723951160855797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58eb503454e64764f960619b1472320f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseHP: 0
+  maxHP: 0
+  currentHP: 0
+  baseMoveSpeed: 1
+  currentMoveSpeed: 0
+  id: 0
+  impactDamage: 0
+  environmentType: 0
+  intro: {fileID: 0}
+  patrol: {fileID: 0}
+  retreat: {fileID: 0}
+  bezierMoveController: {fileID: 7962067350879694309}
+  isShowGizmo: 1
+  gateIn: {fileID: 0}
 --- !u!212 &7079011859231805521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -162,34 +188,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &1317259807429170772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4407723951160855797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8930082b1c51c148a1ddf0cb809d0b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHP: 0
-  maxHP: 0
-  currentHP: 0
-  baseMoveSpeed: 0
-  currentMoveSpeed: 0
-  id: 1
-  impactDamage: 0
-  environmentType: 0
-  intro: {fileID: 0}
-  patrol: {fileID: 0}
-  retreat: {fileID: 0}
-  bezierMoveController: {fileID: 7962067350879694309}
-  isShowGizmo: 1
-  moveSpeed: 1
-  wormholeType: 0
-  gateOutTransform: {fileID: 0}
 --- !u!114 &7962067350879694309
 MonoBehaviour:
   m_ObjectHideFlags: 0

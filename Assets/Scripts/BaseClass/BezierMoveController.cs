@@ -31,7 +31,7 @@ public class BezierMoveController : MonoBehaviour
         {
             if(value <= 0)
             {
-                Debug.Log("Zero movespeed");
+                Debug.LogError("Zero movespeed");
                 //Just for safety
                 moveSpeed = 1;
             }
