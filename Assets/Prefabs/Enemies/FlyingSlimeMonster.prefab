@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -2542214592113989570}
   - component: {fileID: 8261333469329476643}
   m_Layer: 8
-  m_Name: monster_01
+  m_Name: FlyingSlimeMonster
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

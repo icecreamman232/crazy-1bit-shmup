@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GatlingBullet : Bullet
 {
+    private Coroutine fadeAway;
     public override void Shoot(Vector3 rotation)
     {
         base.Shoot(rotation);
@@ -15,7 +16,13 @@ public class GatlingBullet : Bullet
     public override void ResetBullet()
     {
         base.ResetBullet();
-
+        if(fadeAway!=null)
+        {
+            StopCoroutine(fadeAway);
+            fadeAway = null;
+        }
+        transform.localScale = Vector3.one;
+        rigidBody.bodyType = RigidbodyType2D.Kinematic;
         rigidBody.velocity = Vector3.zero;
         this.transform.position = originPos;
         Lean.Pool.LeanPool.Despawn(this.gameObject);
@@ -42,8 +49,34 @@ public class GatlingBullet : Bullet
                     collision.GetComponent<BaseMonster>().UpdateHP(Damage);
                     ResetBullet();
                 }
+                if (collision.gameObject.CompareTag("MeteorMonsterCircle"))
+                {
+                    Debug.Log("colliding w cirlce");
+                    rigidBody.velocity = Vector3.zero;
+                    rigidBody.bodyType = RigidbodyType2D.Dynamic;
+                    Vector3 trajectory = Random.insideUnitCircle;
+                    var forceVector = new Vector3(
+                             Random.Range(-5f, 5f) * trajectory.x,
+                             Random.Range(-3.5f, -10f) * Mathf.Abs(trajectory.y),
+                             0f);
+                    rigidBody.AddForce(forceVector, ForceMode2D.Impulse);
+                    fadeAway = StartCoroutine(FadeAway());
+                }
             }
         }
         
+    }
+    private IEnumerator FadeAway()
+    {
+        while (true)
+        {
+            if (transform.localScale == Vector3.one * 0.5f)
+            {
+                ResetBullet();
+                yield break;
+            }
+            transform.localScale -= Vector3.one * (1f * Time.deltaTime);
+            yield return null;
+        }
     }
 }

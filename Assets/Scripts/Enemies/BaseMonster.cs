@@ -87,10 +87,10 @@ public class BaseMonster:  BaseEntity
     {
         if (GameHelper.IsInsideScreenBounds(transform.position))
         {
-            if (collision.gameObject.CompareTag("Bullet"))
-            {
-                HandleCollisionWithBullet(collision);
-            }
+            //if (collision.gameObject.CompareTag("Bullet"))
+            //{
+            //    HandleCollisionWithBullet(collision);
+            //}
         }
         
 

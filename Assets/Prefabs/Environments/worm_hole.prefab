@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8831063222694806033}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: endPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8871360257940514380}
   - component: {fileID: 1317259807429170772}
   - component: {fileID: 7962067350879694309}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: worm_hole
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -181,6 +181,7 @@ MonoBehaviour:
   currentMoveSpeed: 0
   id: 1
   impactDamage: 0
+  environmentType: 0
   intro: {fileID: 0}
   patrol: {fileID: 0}
   retreat: {fileID: 0}

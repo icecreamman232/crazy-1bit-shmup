@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: -1586189584046415224}
   - component: {fileID: -3033852252409390352}
   m_Layer: 8
-  m_Name: 02_floating_monster
+  m_Name: FloatingMonster
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

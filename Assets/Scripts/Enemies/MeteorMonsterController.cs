@@ -172,20 +172,24 @@ public class MeteorMonsterController : MonsterWithCustomPath
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if (collision.CompareTag("Environment"))
+        if(GameHelper.IsInsideScreenBounds(transform.position))
         {
-            if (collision.GetComponent<BaseEnvironment>().id == 2)
-            {              
-                //if transformed then get hit and lose HP
-                UpdateHP(collision.GetComponent<BaseEnvironment>().impactDamage);
-                collision.GetComponent<BaseEnvironment>().currentHP -= baseImpactDamage;
-                if (curForm < 3)
+            //Layer 11 = Environment
+            if (collision.gameObject.layer == 11)
+            {
+                if (collision.gameObject.CompareTag("Meteor"))
                 {
-                    curForm++;
-                    //if meteor hit this monster, it would turn into angry one
-                    TransformIntoAngryForm(curForm);
+                    //if transformed then get hit and lose HP
+                    UpdateHP(collision.GetComponent<BaseEnvironment>().impactDamage);
+                    collision.GetComponent<BaseEnvironment>().currentHP -= baseImpactDamage;
+                    if (curForm < 3)
+                    {
+                        curForm++;
+                        //if meteor hit this monster, it would turn into angry one
+                        TransformIntoAngryForm(curForm);
+                    }
                 }
-            }          
+            }
         }
     }
 }

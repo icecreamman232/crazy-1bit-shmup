@@ -37,7 +37,6 @@ public class SpaceShipController : MonoBehaviour
 
 
     public Lean.Pool.LeanGameObjectPool bulletPool;
-    public Transform firePoint;
     public ParticleSystem fireJetParticle;
     public ParticleSystem shipExplosionFX;
 
@@ -57,7 +56,6 @@ public class SpaceShipController : MonoBehaviour
     public bool isDied;
     public RankManager rankManager;
 
-    private Coroutine shootingCoroutine;
 
     void Start()
     {
@@ -107,21 +105,7 @@ public class SpaceShipController : MonoBehaviour
         //StopCoroutine(shootingCoroutine);
         gun.Stop();
     }
-    private IEnumerator Shoot()
-    {
-        WaitForSeconds firerateDelay = new WaitForSeconds(firerate);
-        while(currentHP > 0)
-        {
-            if(currentHP <=0)
-            {
-                yield break;
-            }
-            var bullet = bulletPool.Spawn(firePoint.position, Quaternion.identity);
-            bullet.GetComponent<BaseBullet>().Damage = damage;
-            bullet.GetComponent<BaseBullet>().Shoot();
-            yield return firerateDelay;
-        }
-    }
+    
     private IEnumerator CheckDie()
     {
         yield return new WaitUntil(() => currentHP <= 0);

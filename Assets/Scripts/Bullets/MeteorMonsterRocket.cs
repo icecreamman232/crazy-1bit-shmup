@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeteorMonsterRocket : Bullet
 {
-    private Coroutine fadeAway;
+    
     public override void Shoot(Vector3 rotation)
     {
         base.Shoot(rotation);
@@ -47,15 +47,7 @@ public class MeteorMonsterRocket : Bullet
                 }
                 if (collision.gameObject.CompareTag("MeteorMonsterCircle"))
                 {
-                    rigidBody.velocity = Vector3.zero;
-                    rigidBody.bodyType = RigidbodyType2D.Dynamic;
-                    Vector3 trajectory = Random.insideUnitCircle;
-                    var forceVector = new Vector3(
-                             Random.Range(-5f, 5f) * trajectory.x,
-                             Random.Range(-2.5f, -10f) * Mathf.Abs(trajectory.y),
-                             0f);
-                    rigidBody.AddForce(forceVector, ForceMode2D.Impulse);
-                    fadeAway = StartCoroutine(FadeAway());
+                    //Do nothing because this is the bullet belong to meteor monster
                 }
             }
             //Layer 11 = Environment
@@ -69,18 +61,5 @@ public class MeteorMonsterRocket : Bullet
             }
         }
     }
-    private IEnumerator FadeAway()
-    {
-        while (true)
-        {
-            if (transform.localScale == Vector3.one * 0.5f)
-            {
-                transform.localScale = Vector3.one;
-                ResetBullet();
-                yield break;
-            }
-            transform.localScale -= Vector3.one * (1f * Time.deltaTime);
-            yield return null;
-        }
-    }
+    
 }

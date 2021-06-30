@@ -37,12 +37,6 @@ public class MeteorController : EnvironmentWithCustomPath
     {
         if(GameHelper.IsInsideScreenBounds(transform.position))
         {
-            if (collision.CompareTag("Bullet"))
-            {
-                currentHP -= collision.GetComponent<BaseBullet>().Damage;
-
-                collision.GetComponent<BaseBullet>().Reset();
-            }
             if (collision.CompareTag("Player"))
             {
                 //Current ship have no HP so set it to 1. If changed the system to HP number based,

@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 1790875996222676469}
   - component: {fileID: 6083090070098238877}
   - component: {fileID: 5822437911539524634}
+  - component: {fileID: 7831801424943108487}
   m_Layer: 8
   m_Name: Circle 2
   m_TagString: MeteorMonsterCircle
@@ -124,7 +125,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 03cf2293e73f9f84fbcb272ec4deda15, type: 3}
-  m_Color: {r: 0, g: 0.7735849, b: 0.004974451, a: 1}
+  m_Color: {r: 0, g: 0.41719317, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -147,6 +148,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 8712480787150318123}
+--- !u!58 &7831801424943108487
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018653330566941975}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &2487770130904161673
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +430,7 @@ GameObject:
   - component: {fileID: 4668782297301314700}
   - component: {fileID: 3073217840946805365}
   - component: {fileID: 5885872648444031147}
+  - component: {fileID: 7700587245732097122}
   m_Layer: 8
   m_Name: Circle 1
   m_TagString: MeteorMonsterCircle
@@ -498,6 +516,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 8712480787150318123}
+--- !u!58 &7700587245732097122
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308154314371679807}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &7952768006232457092
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +543,7 @@ GameObject:
   - component: {fileID: 6918807460958200642}
   - component: {fileID: 4404942104738377765}
   - component: {fileID: 2825384699806649270}
+  - component: {fileID: 6817752831694842827}
   m_Layer: 8
   m_Name: Circle 3
   m_TagString: MeteorMonsterCircle
@@ -594,6 +629,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 8712480787150318123}
+--- !u!58 &6817752831694842827
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952768006232457092}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1001 &354124233558255530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -821,6 +872,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
+--- !u!4 &3123733060666496477 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 711550513213863082, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
+  m_PrefabInstance: {fileID: 2487770131148595575}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6502133852979547350 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8699386073871232417, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
@@ -832,8 +888,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f57e463250114f9bfd871ec2c5aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3123733060666496477 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 711550513213863082, guid: e356276b3b3d4bc48b3e3f9bb3a802bf, type: 3}
-  m_PrefabInstance: {fileID: 2487770131148595575}
-  m_PrefabAsset: {fileID: 0}
