@@ -75,13 +75,14 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     {
         float moveSpeed = 4.0f;
         float scaleSpeed = 2.5f;
+        Vector3 originScale = monster.transform.localScale;
         while (true)
         {
             if (monster.transform.localScale.x <= 0)
             {
                 monster.transform.localScale = Vector3.zero;
                 monster.transform.position = gateOut.gameObject.transform.position;
-                gateOut.PushingOutMonster(monster);
+                gateOut.PushingOutMonster(monster,originScale);
                 yield break;
             }
             monster.transform.position = Vector3.MoveTowards(monster.transform.position, transform.position, moveSpeed * Time.deltaTime);

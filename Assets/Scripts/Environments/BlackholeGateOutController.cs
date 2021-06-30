@@ -28,11 +28,11 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
         bezierMoveController.StartMove(LoopType.None);
     }
    
-    public void PushingOutMonster(GameObject monster)
+    public void PushingOutMonster(GameObject monster,Vector3 originScale)
     {
         StopCoroutine(gateIn.pullingCoroutine);
         gateIn.pullingCoroutine = null;
-        LeanTween.scale(monster, Vector3.one, 0.5f);
+        LeanTween.scale(monster, originScale, 0.5f);
         pushCoroutine  = StartCoroutine(ScaleUpMonster(monster));
     }
     private IEnumerator ScaleUpMonster(GameObject monster)
