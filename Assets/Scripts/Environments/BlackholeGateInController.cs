@@ -10,6 +10,20 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     public Coroutine pullingCoroutine;
 
     public System.Action StopCurrentFunction;
+
+
+    #region Reference
+    SpaceShipController shipController;
+    SpaceShipMovement shipMovement;
+    Animator shipAnimator;
+    #endregion
+
+    private void Start()
+    {
+        shipController = GameManager.Instance.spaceShip.GetComponent<SpaceShipController>();
+        shipMovement = GameManager.Instance.spaceShip.GetComponent<SpaceShipMovement>();
+        shipAnimator = GameManager.Instance.spaceShip.GetComponent<Animator>();
+    }
     public void CurrentCoroutine()
     {
         if(pullingCoroutine!=null)
@@ -44,7 +58,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     #region Handling pulling behaviour
     private void PullingShip(GameObject ship)
     {
-        ship.GetComponent<Animator>().Play("ship_rotate");
+        shipAnimator.Play("ship_rotate");
         StopCurrentFunction?.Invoke();
         ship.transform.rotation = Quaternion.identity;
         pullingCoroutine = StartCoroutine(OnPullingShip(ship));
@@ -56,8 +70,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
         while (true)
         {
             if (ship.transform.localScale.x <= 0)
-            {
-                ship.GetComponent<Animator>().Play("ship_idle");
+            {               
                 ship.transform.localScale = Vector3.zero;
                 ship.transform.position = gateOut.gameObject.transform.position;
                 gateOut.PushingOutShip(ship);
@@ -100,9 +113,10 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
         {
             if (collision.CompareTag("Player"))
             {
-                collision.GetComponent<SpaceShipController>().currentStatus = ShipStatus.DISABLE;
-                collision.GetComponent<SpaceShipMovement>().currentStatus = ShipStatus.DISABLE;
-                collision.GetComponent<SpaceShipController>().StopShoot();
+
+                shipController.currentStatus = ShipStatus.DISABLE;
+                shipMovement.currentStatus = ShipStatus.DISABLE;
+                shipController.StopShoot();
                 PullingShip(collision.gameObject);
             }
             if (collision.CompareTag("Enemy"))

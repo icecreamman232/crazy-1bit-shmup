@@ -71,8 +71,12 @@ public class SpaceShipMovement : MonoBehaviour
     }
     public void OnTouchUp(LeanFinger fingers)
     {
-        isTouching = false; 
-        shipAnimator.Play("ship_idle");
+        isTouching = false;
+        if(currentStatus == ShipStatus.NORMAL)
+        {
+            shipAnimator.Play("ship_idle");
+        }
+        
     }
     public void SetShipPosition()
     {

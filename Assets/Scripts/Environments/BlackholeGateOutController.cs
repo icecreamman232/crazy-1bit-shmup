@@ -10,6 +10,15 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     public Coroutine pushCoroutine;
     public System.Action StopCurrentFunction;
 
+    SpaceShipController shipController;
+    SpaceShipMovement shipMovement;
+    Animator shipAnimator;
+    private void Start()
+    {
+        shipController = GameManager.Instance.spaceShip.GetComponent<SpaceShipController>();
+        shipMovement = GameManager.Instance.spaceShip.GetComponent<SpaceShipMovement>();
+        shipAnimator = GameManager.Instance.spaceShip.GetComponent<Animator>();
+    }
     public void CurrentCoroutine()
     {
         if(pushCoroutine!=null)
@@ -40,7 +49,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
    
     public void PushingOutMonster(GameObject monster,Vector3 originScale)
     {
-        StopCurrentFunction?.Invoke();
+        
         LeanTween.scale(monster, originScale, 0.8f);
         pushCoroutine  = StartCoroutine(ScaleUpMonster(monster));
     }
@@ -78,6 +87,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 )
             {
                 monster.GetComponent<BaseMonster>().currentHP = 0;
+                StopCurrentFunction?.Invoke();
                 yield break;
             }
 
@@ -96,15 +106,12 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     }
     public void PushingOutShip(GameObject ship)
     {
-        StopCurrentFunction?.Invoke();
-        ship.GetComponent<Animator>().Play("ship_rotate");
+        //StopCurrentFunction?.Invoke();
+        //shipAnimator.Play("ship_rotate");
         pushCoroutine = StartCoroutine(ScaleUp(ship));
     }
     private IEnumerator ScaleUp(GameObject ship)
     {
-        var normalizeVector = transform.position.normalized;
-        var directionVector = Random.insideUnitSphere - normalizeVector;
-        var targetPos = Vector3.ClampMagnitude(directionVector, 1.5f);
         float moveSpeed = 4.0f;
         float scaleSpeed = 2.5f;
         while (true)
@@ -114,10 +121,11 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 ship.transform.localScale = Vector3.one;
 
                 //Return ship to its normal state
-                ship.GetComponent<Animator>().Play("ship_idle");
-                ship.GetComponent<SpaceShipController>().currentStatus = ShipStatus.NORMAL;
-                ship.GetComponent<SpaceShipMovement>().currentStatus = ShipStatus.NORMAL;
-                ship.GetComponent<SpaceShipController>().BeginShoot();
+                shipAnimator.Play("ship_idle");
+                shipController.currentStatus = ShipStatus.NORMAL;
+                shipMovement.currentStatus = ShipStatus.NORMAL;
+                shipController.BeginShoot();
+                StopCurrentFunction?.Invoke();
                 yield break;
             }
             ship.transform.position = Vector3.MoveTowards(
