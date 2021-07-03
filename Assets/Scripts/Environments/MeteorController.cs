@@ -35,27 +35,44 @@ public class MeteorController : EnvironmentWithCustomPath
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet"))
+        if(GameHelper.IsInsideScreenBounds(transform.position))
         {
-            currentHP-=collision.GetComponent<BaseBullet>().Damage;
+            //if (collision.CompareTag("Player"))
+            //{
+            //    //Current ship have no HP so set it to 1. If changed the system to HP number based,
+            //    //could switch to the bigger number easily
+            //    OnHit?.Invoke(1);
+            //    bezierMoveController.Stop();
 
-            collision.GetComponent<BaseBullet>().Reset();
-        }
-        if (collision.CompareTag("Player"))
-        {
-            //Current ship have no HP so set it to 1. If changed the system to HP number based,
-            //could switch to the bigger number easily
-            OnHit?.Invoke(1);
-            bezierMoveController.Stop();
+            //    FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
+            //    OnMoveEnd();
+            //}
+            //if (collision.CompareTag("Enemy"))
+            //{
 
-            FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
-            OnMoveEnd();
+            //}
+
         }
-        if (collision.CompareTag("Enemy"))
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (GameHelper.IsInsideScreenBounds(transform.position))
         {
-            currentHP -= collision.GetComponent<BaseMonster>().baseImpactDamage;
-            collision.GetComponent<BaseMonster>().UpdateHP(impactDamage);
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                //Current ship have no HP so set it to 1. If changed the system to HP number based,
+                //could switch to the bigger number easily
+                OnHit?.Invoke(1);
+                bezierMoveController.Stop();
+
+                FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
+                OnMoveEnd();
+            }
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+
+            }
+
         }
-        
     }
 }

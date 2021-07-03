@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnvironmentStageDO
   m_EditorClassIdentifier: 
   listEnvironment:
-  - environment: {fileID: 5233447816749612522, guid: 22ba4848d33eb184f8acfc3ffb948e3a, type: 3}
+  - environment: {fileID: 5233447816749612522, guid: fd4884d0c3dcdfd4da2bcbbf1d467ef3, type: 3}
     delayTime: 1
   - environment: {fileID: 5233447816749612522, guid: 22ba4848d33eb184f8acfc3ffb948e3a, type: 3}
     delayTime: 0

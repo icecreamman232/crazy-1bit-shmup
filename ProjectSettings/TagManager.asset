@@ -10,6 +10,8 @@ TagManager:
   - Item
   - EnemyBullet
   - Environment
+  - MeteorMonsterCircle
+  - Meteor
   layers:
   - Default
   - TransparentFX
@@ -22,9 +24,9 @@ TagManager:
   - Enemy
   - Player
   - Item
-  - 
-  - 
-  - 
+  - Environment
+  - MonsterBullet
+  - ShipBullet
   - 
   - 
   - 
@@ -46,6 +48,24 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Non-Interactable Environment
+    uniqueID: 1151452243
+    locked: 0
+  - name: Enemy
+    uniqueID: 673618359
+    locked: 0
+  - name: Player
+    uniqueID: 1878058937
+    locked: 0
+  - name: Interactable Environment
+    uniqueID: 2889458027
+    locked: 0
+  - name: Bullet
+    uniqueID: 1826168509
+    locked: 0
+  - name: FX
+    uniqueID: 2010274407
     locked: 0
   - name: UI
     uniqueID: 1974789411

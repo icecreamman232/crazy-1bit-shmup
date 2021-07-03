@@ -38,5 +38,16 @@ public static class GameHelper
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
-
+    public static bool IsInsideScreenBounds(Vector3 positon)
+    {
+        bool result = false;
+        if(positon.x > -GameHelper.GetCurrentScreenBounds().x && positon.x < GameHelper.GetCurrentScreenBounds().x)
+        {
+            if(positon.y > -GameHelper.GetCurrentScreenBounds().y && positon.y < GameHelper.GetCurrentScreenBounds().y)
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
 }

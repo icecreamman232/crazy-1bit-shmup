@@ -7,6 +7,8 @@ using UnityEngine.Events;
 public class BaseMonster:  BaseEntity
 {
     [Header("Monster Stats")]
+    //Is interacting with an environment entity
+    public bool isInteracting;
     public int baseNumberCoin;
     public int baseCoinValue;
     public int baseScore;
@@ -34,7 +36,7 @@ public class BaseMonster:  BaseEntity
     public void InitMonster()
     {
         gameObject.SetActive(true);
-
+        isInteracting = false;
         //Data
         SetupHP();
         SetupMoveSpeed();
@@ -72,19 +74,27 @@ public class BaseMonster:  BaseEntity
         }
         currentHP -= damage;
         //Update Health Bar UI
+        UpdateHPInterface();
+
+    }
+    public void UpdateHPInterface()
+    {
         var HPPercent = (float)currentHP / maxHP;
         uiHealthBarController.UpdateHPBar(HPPercent);
-
     }
     #endregion
 
     #region Collision Handling
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (GameHelper.IsInsideScreenBounds(transform.position))
         {
-            HandleCollisionWithBullet(collision);
+            //if (collision.gameObject.CompareTag("Bullet"))
+            //{
+            //    HandleCollisionWithBullet(collision);
+            //}
         }
+        
 
     }
     public void HandleCollisionWithBullet(Collider2D collision)
@@ -113,6 +123,6 @@ public class BaseMonster:  BaseEntity
         OnDie?.Invoke();
         gameObject.SetActive(false);
     }
-  
+    
     
 }
