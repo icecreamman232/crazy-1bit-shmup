@@ -58,6 +58,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     #region Handling pulling behaviour
     private void PullingShip(GameObject ship)
     {
+        gateOut.isProcessing = true;
         shipAnimator.Play("ship_rotate");
         StopCurrentFunction?.Invoke();
         ship.transform.rotation = Quaternion.identity;
@@ -88,6 +89,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     }
     private IEnumerator OnPullingMonster(GameObject monster)
     {
+        
         float moveSpeed = 4.0f;
         float scaleSpeed = 2.5f;
         Vector3 originScale = monster.transform.localScale;
@@ -95,12 +97,14 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
         {
             if (monster.transform.localScale.x <= 0)
             {
+                
                 monster.transform.localScale = Vector3.zero;
                 monster.transform.position = gateOut.gameObject.transform.position;
                 gateOut.PushingOutMonster(monster,originScale);
                 yield break;
             }
             monster.transform.position = Vector3.MoveTowards(monster.transform.position, transform.position, moveSpeed * Time.deltaTime);
+            
             monster.transform.localScale -= scaleSpeed * Time.deltaTime * Vector3.one;
             yield return null;
         }
@@ -111,19 +115,25 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     {
         if(GameHelper.IsInsideScreenBounds(gateOut.gameObject.transform.position))
         {
-            if (collision.CompareTag("Player"))
+            if(GameHelper.IsInsideScreenBounds(transform.position))
             {
+                if (collision.CompareTag("Player"))
+                {
 
-                shipController.currentStatus = ShipStatus.DISABLE;
-                shipMovement.currentStatus = ShipStatus.DISABLE;
-                shipController.StopShoot();
-                PullingShip(collision.gameObject);
-            }
-            if (collision.CompareTag("Enemy"))
-            {
-                collision.GetComponent<MonsterWithCustomPath>().Stop();
-                PullingMonster(collision.gameObject);
-            }
+                    shipController.currentStatus = ShipStatus.DISABLE;
+                    shipMovement.currentStatus = ShipStatus.DISABLE;
+                    shipController.StopShoot();
+                    gateOut.isProcessing = true;
+                    PullingShip(collision.gameObject);
+                }
+                if (collision.CompareTag("Enemy"))
+                {
+                    collision.GetComponent<BaseMonster>().isInteracting = true;
+                    collision.GetComponent<BezierMoveController>().Pause();
+                    gateOut.isProcessingMonster = true;
+                    PullingMonster(collision.gameObject);
+                }
+            }         
         }
     }
 

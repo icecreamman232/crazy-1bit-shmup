@@ -7,6 +7,8 @@ using UnityEngine.Events;
 public class BaseMonster:  BaseEntity
 {
     [Header("Monster Stats")]
+    //Is interacting with an environment entity
+    public bool isInteracting;
     public int baseNumberCoin;
     public int baseCoinValue;
     public int baseScore;
@@ -34,7 +36,7 @@ public class BaseMonster:  BaseEntity
     public void InitMonster()
     {
         gameObject.SetActive(true);
-
+        isInteracting = false;
         //Data
         SetupHP();
         SetupMoveSpeed();

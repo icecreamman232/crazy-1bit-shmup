@@ -92,6 +92,8 @@ MonoBehaviour:
   bezierMoveController: {fileID: 7962067350879694309}
   isShowGizmo: 1
   gateIn: {fileID: 0}
+  pointOut: {fileID: 759770142640163948}
+  isProcessing: 0
 --- !u!212 &7079011859231805521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -130,7 +132,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1151452243
-  m_SortingLayer: 3
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -5298761639805663854, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,7 +174,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -186,7 +188,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &7962067350879694309
 MonoBehaviour:

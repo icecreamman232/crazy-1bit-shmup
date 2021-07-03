@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326576647560172408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.68, y: -1.92, z: 0}
+  m_LocalPosition: {x: -0.68, y: -1.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3435803140722259873}
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4193720910995505937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.16, y: 2.27, z: 0}
+  m_LocalPosition: {x: -4.16, y: 2.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3435803140722259873}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 5746181274814401757}
   - component: {fileID: 8770411602387256099}
   m_Layer: 0
-  m_Name: WaveMonster01_3TopDown
+  m_Name: WaveMonster01_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,6 +163,7 @@ MonoBehaviour:
     delayTime: 0
   numberMonsterList: 0
   isWaveFinished: 0
+  numberMonsterCompleteDuty: 0
 --- !u!1 &4641694568942367020
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4641694568942367020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: 3.09, z: 0}
+  m_LocalPosition: {x: -1.2, y: 3.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3435803140722259873}
@@ -217,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8445994568427845212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.56, y: -5.86, z: 0}
+  m_LocalPosition: {x: -1.56, y: -5.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3435803140722259873}
@@ -296,11 +297,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.31
+      value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.66
+      value: 2.76
       objectReference: {fileID: 0}
     - target: {fileID: 5166777713280954638, guid: 73c19faacc4bc5348b27df825d8a57c9, type: 3}
       propertyPath: m_LocalPosition.z
