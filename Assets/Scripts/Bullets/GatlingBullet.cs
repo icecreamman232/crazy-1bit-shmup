@@ -1,22 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GatlingBullet : Bullet
 {
     private Coroutine fadeAway;
+
     public override void Shoot(Vector3 rotation)
     {
         base.Shoot(rotation);
 
         var vec = new Vector2(0f, MoveSpeed);
         rigidBody.velocity = Quaternion.Euler(rotation) * vec;
-
     }
+
     public override void ResetBullet()
     {
         base.ResetBullet();
-        if(fadeAway!=null)
+        if (fadeAway != null)
         {
             StopCoroutine(fadeAway);
             fadeAway = null;
@@ -27,10 +27,11 @@ public class GatlingBullet : Bullet
         this.transform.position = originPos;
         Lean.Pool.LeanPool.Despawn(this.gameObject);
     }
+
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if(GameHelper.IsInsideScreenBounds(collision.transform.position))
+        if (GameHelper.IsInsideScreenBounds(collision.transform.position))
         {
             //Layer 11 = Environment
             if (collision.gameObject.layer == 11)
@@ -59,12 +60,12 @@ public class GatlingBullet : Bullet
                                 Random.Range(-3.5f, -10f) * Mathf.Abs(trajectory.y),
                                 0f);
                     rigidBody.AddForce(forceVector, ForceMode2D.Impulse);
-                    fadeAway = StartCoroutine(FadeAway());        
+                    fadeAway = StartCoroutine(FadeAway());
                 }
             }
         }
-        
     }
+
     private IEnumerator FadeAway()
     {
         while (true)

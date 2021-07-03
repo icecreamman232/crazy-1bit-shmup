@@ -1,29 +1,32 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DodgeMonsterController : MonsterWithCustomPath
 {
     [Header("Dodging Behaviour")]
     public CircleCollider2D circleCollider;
+
     public int dodgeCount;
     private int counter;
     private Transform currentShipTransform;
 
-    void Start()
+    private void Start()
     {
         currentShipTransform = GameManager.Instance.spaceShip.transform;
     }
+
     public override void Setup()
     {
         counter = dodgeCount;
-        base.Setup();      
+        base.Setup();
     }
+
     public override void Spawn()
     {
         base.Spawn();
         Move();
     }
+
     public override void Move()
     {
         base.Move();
@@ -37,24 +40,27 @@ public class DodgeMonsterController : MonsterWithCustomPath
 
         currentMovementState = MovementState.INTRO;
     }
+
     private void ChasingAfterShip()
     {
         StartCoroutine(OnChasing());
     }
+
     private IEnumerator OnChasing()
     {
-        while(true)
+        while (true)
         {
             transform.position = Vector3.MoveTowards(transform.position, currentShipTransform.position, baseMoveSpeed * Time.deltaTime);
             yield return null;
         }
     }
+
     private void DoDodgeIncomingBullet(Collider2D bullet_collider)
     {
         Vector3 nextPos = transform.position;
 
         //Check the side of bullet, if it's on the left side, monster will dodge to the right side and vice versa
-        if(bullet_collider.transform.position.x > transform.position.x)
+        if (bullet_collider.transform.position.x > transform.position.x)
         {
             nextPos.x -= Random.Range(0.8f, 1.5f);
         }
@@ -69,10 +75,11 @@ public class DodgeMonsterController : MonsterWithCustomPath
             .setOnComplete(OnFinishDodge)
             .setEase(LeanTweenType.easeOutQuart);
     }
+
     private void OnFinishDodge()
     {
-   
     }
+
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -90,7 +97,7 @@ public class DodgeMonsterController : MonsterWithCustomPath
             else
             {
                 base.OnTriggerEnter2D(collision);
-            }          
-        }       
+            }
+        }
     }
 }

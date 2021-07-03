@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class MeteorMonsterController : MonsterWithCustomPath
 {
@@ -17,9 +15,12 @@ public class MeteorMonsterController : MonsterWithCustomPath
 
     //Amount of moving back because of recoiling
     private float timeRecoilBack;
+
     //Amount of moving forward to back the previous position
     private float timeToBackPreviousPosition;
+
     private int curForm;
+
     public int CurForm
     {
         get
@@ -27,11 +28,14 @@ public class MeteorMonsterController : MonsterWithCustomPath
             return curForm;
         }
     }
+
     private Animator animator;
+
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
     }
+
     public override void Setup()
     {
         base.Setup();
@@ -50,19 +54,20 @@ public class MeteorMonsterController : MonsterWithCustomPath
             armorController.armorList[i].sprite.color = color;
         }
     }
+
     public override void Spawn()
     {
         base.Spawn();
         Move();
-        
     }
+
     public override void OnMoveEnd()
     {
         bezierMoveController.Stop();
 
         base.OnMoveEnd();
-
     }
+
     public override void Move()
     {
         base.Move();
@@ -74,27 +79,27 @@ public class MeteorMonsterController : MonsterWithCustomPath
 
         currentMovementState = MovementState.INTRO;
     }
+
     public override void Patrol()
-    {       
+    {
         base.Patrol();
         bezierMoveController.OnMoveEnd -= Patrol;
         bezierMoveController.moveToPath = true;
         bezierMoveController.SetPath(patrol);
         bezierMoveController.StartMove(LoopType.Loop);
 
-
         currentMovementState = MovementState.PATROL;
     }
+
     private void Update()
     {
-        
     }
+
     private void TransformIntoAngryForm(int form)
     {
         FXManager.Instance.CreateFX(fxID.EXPLOSION_FOR_TRANSFORM, transform.position);
         if (form == 2)
         {
-
             baseHP = Mathf.RoundToInt(baseHP * 1.2f);
             maxHP = baseHP;
             currentHP = maxHP;
@@ -105,9 +110,8 @@ public class MeteorMonsterController : MonsterWithCustomPath
             amountMovingRecoil = 0.4f;
             timeRecoilBack = 0.15f;
             timeToBackPreviousPosition = 0.25f;
-
         }
-        else if(form == 3)
+        else if (form == 3)
         {
             animator.Play("meteor_monster_form3_idle");
             //Switch the gun
@@ -123,14 +127,13 @@ public class MeteorMonsterController : MonsterWithCustomPath
             //Increase size
             transform.localScale = Vector3.one * 1.3f;
 
-            
             amountMovingRecoil = 0.3f;
             timeRecoilBack = 0.2f;
             timeToBackPreviousPosition = 0.3f;
 
             ActiveShield();
         }
-        if(form==2)
+        if (form == 2)
         {
             //Start to shoot after transformed into 2nd form
             RGun.Shoot();
@@ -139,14 +142,15 @@ public class MeteorMonsterController : MonsterWithCustomPath
             RGun.PlayRecoilAnimation += PlayRecoilAnimation;
 
             LGun.Shoot();
-            LGun.StopMoveToShoot     += bezierMoveController.Pause;
-            LGun.Done1Shot           += ResumeMoving;
+            LGun.StopMoveToShoot += bezierMoveController.Pause;
+            LGun.Done1Shot += ResumeMoving;
             LGun.PlayRecoilAnimation += PlayRecoilAnimation;
         }
     }
+
     public void ActiveShield()
     {
-        for(int i = 0; i < armorController.armorList.Count; i++)
+        for (int i = 0; i < armorController.armorList.Count; i++)
         {
             armorController.armorList[i].gameObject.SetActive(true);
         }
@@ -161,7 +165,6 @@ public class MeteorMonsterController : MonsterWithCustomPath
         botColor.a = 1f;
         Color leftColor = armorController.armorList[2].sprite.color;
         leftColor.a = 1f;
-
 
         LeanTween.moveLocal(armorController.armorList[0].gameObject, right, 1f)
             .setEase(LeanTweenType.easeOutCirc);
@@ -178,7 +181,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
         LeanTween.color(armorController.armorList[2].gameObject, leftColor, 1f)
             .setEase(LeanTweenType.easeOutCirc);
     }
-    
+
     private void PlayRecoilAnimation()
     {
         LeanTween.moveLocalY(this.gameObject, transform.position.y + amountMovingRecoil, timeRecoilBack).
@@ -188,39 +191,41 @@ public class MeteorMonsterController : MonsterWithCustomPath
             {
                 LeanTween.moveLocalY(this.gameObject, transform.position.y - amountMovingRecoil, timeToBackPreviousPosition)
                 .setOnComplete(
-                    ()=>
+                    () =>
                     {
                         ResetAnimation();
                     });
             });
     }
-   
+
     private void ResetAnimation()
     {
         if (curForm == 2)
         {
             animator.Play("meteor_monster_form2_idle");
-
         }
-        else if(curForm == 3)
+        else if (curForm == 3)
         {
             animator.Play("meteor_monster_form3_idle");
         }
     }
+
     private void ResumeMoving()
     {
         StartCoroutine(WaitForShotWentOut());
     }
+
     private IEnumerator WaitForShotWentOut()
     {
         float time = timeRecoilBack + timeToBackPreviousPosition + 0.25f;
         yield return new WaitForSeconds(time/*0.35f*/);
         bezierMoveController.Resume();
     }
+
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if(GameHelper.IsInsideScreenBounds(transform.position))
+        if (GameHelper.IsInsideScreenBounds(transform.position))
         {
             //Layer 11 = Environment
             if (collision.gameObject.layer == 11)

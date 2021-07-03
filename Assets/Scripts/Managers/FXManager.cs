@@ -10,9 +10,9 @@ using UnityEngine;
 [System.Serializable]
 public enum fxID
 {
-    DIE_MONSTER_EXPLOSION           = 1,
-    EXPLOSION_FOR_TRANSFORM         = 2,
-    DIE_SHIP_EXPLOSION              = 3,
+    DIE_MONSTER_EXPLOSION = 1,
+    EXPLOSION_FOR_TRANSFORM = 2,
+    DIE_SHIP_EXPLOSION = 3,
 }
 
 [System.Serializable]
@@ -27,15 +27,17 @@ public class FXManager : MonoBehaviour
     public FXItem[] itemArr;
     public Dictionary<int, GameObject> fxDictionary;
     public static FXManager Instance;
+
     private void Awake()
     {
         Instance = this;
     }
+
     private void Start()
     {
         fxDictionary = new Dictionary<int, GameObject>();
         fxDictionary.Clear();
-        if(itemArr.Length > 0)
+        if (itemArr.Length > 0)
         {
             for (int i = 0; i < itemArr.Length; i++)
             {
@@ -44,10 +46,10 @@ public class FXManager : MonoBehaviour
         }
     }
 
-    public void CreateFX(fxID id,Vector3 pos)
+    public void CreateFX(fxID id, Vector3 pos)
     {
         int integerID = (int)id;
-        if(fxDictionary.ContainsKey(integerID))
+        if (fxDictionary.ContainsKey(integerID))
         {
             GameObject fxItem = fxDictionary[integerID];
 
@@ -56,10 +58,10 @@ public class FXManager : MonoBehaviour
             StartCoroutine(DespawnFX(obj));
         }
     }
+
     private IEnumerator DespawnFX(GameObject fxItem)
     {
         yield return new WaitUntil(() => fxItem.GetComponent<ParticleSystem>().isEmitting == false);
         Lean.Pool.LeanPool.Despawn(fxItem);
     }
-
 }

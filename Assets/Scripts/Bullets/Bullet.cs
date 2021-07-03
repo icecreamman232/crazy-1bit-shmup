@@ -1,22 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public enum BulletType
 {
-    SHIP_BULLET     = 0,
-    MONSTER_BULLET  = 1,
+    SHIP_BULLET = 0,
+    MONSTER_BULLET = 1,
 }
+
 public class Bullet : MonoBehaviour
 {
     public BulletType type;
+
     [SerializeField]
     private int damage;
+
     [SerializeField]
     private float bulletMoveSpeed;
 
     #region Getter Setter
+
     public int Damage
     {
         get
@@ -35,6 +37,7 @@ public class Bullet : MonoBehaviour
             }
         }
     }
+
     public float MoveSpeed
     {
         get
@@ -53,7 +56,8 @@ public class Bullet : MonoBehaviour
             }
         }
     }
-    #endregion
+
+    #endregion Getter Setter
 
     protected Vector3 originPos;
     protected Rigidbody2D rigidBody;
@@ -61,10 +65,11 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        originPos   = transform.position;
-        rigidBody   = GetComponent<Rigidbody2D>();
-        animator    = GetComponent<Animator>();
+        originPos = transform.position;
+        rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
+
     public void Update()
     {
         if (transform.position.y >= GameHelper.GetCurrentScreenBounds().y)
@@ -84,7 +89,16 @@ public class Bullet : MonoBehaviour
             ResetBullet();
         }
     }
-    public virtual void Shoot(Vector3 rotation) { }
-    public virtual void ResetBullet() { }
-    public virtual void OnTriggerEnter2D(Collider2D collision) { }
+
+    public virtual void Shoot(Vector3 rotation)
+    {
+    }
+
+    public virtual void ResetBullet()
+    {
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+    }
 }

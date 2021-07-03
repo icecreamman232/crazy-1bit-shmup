@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BaseBullet : MonoBehaviour
 {
     [SerializeField]
-    private int damage;  
+    private int damage;
+
     public int Damage
     {
         set
         {
             damage = value;
-            if(damage < 0)
+            if (damage < 0)
             {
                 damage = 0;
-            #if UNITY_EDITOR
-                Debug.Log("Damage is negative");    
-            #endif
+#if UNITY_EDITOR
+                Debug.Log("Damage is negative");
+#endif
             }
         }
         get
@@ -24,6 +23,7 @@ public class BaseBullet : MonoBehaviour
             return damage;
         }
     }
+
     public float bulletMoveSpeed;
     private Vector3 originPos;
     private Rigidbody2D rigidBody;
@@ -34,6 +34,7 @@ public class BaseBullet : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
     }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -41,40 +42,43 @@ public class BaseBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //Culling bullet
-        if(transform.position.y >= GameHelper.GetCurrentScreenBounds().y)
+        if (transform.position.y >= GameHelper.GetCurrentScreenBounds().y)
         {
             Reset();
         }
-        else if(transform.position.y <= -GameHelper.GetCurrentScreenBounds().y)
+        else if (transform.position.y <= -GameHelper.GetCurrentScreenBounds().y)
         {
             Reset();
         }
-        else if(transform.position.x >= GameHelper.GetCurrentScreenBounds().x+1.0f)
+        else if (transform.position.x >= GameHelper.GetCurrentScreenBounds().x + 1.0f)
         {
             Reset();
         }
-        else if(transform.position.x <= -GameHelper.GetCurrentScreenBounds().x-1.0f)
+        else if (transform.position.x <= -GameHelper.GetCurrentScreenBounds().x - 1.0f)
         {
             Reset();
         }
     }
+
     public void Shoot()
     {
         //Hàm này dùng cho ship
         rigidBody.velocity = new Vector2(0f, bulletMoveSpeed);
     }
+
     public void Shoot(Vector3 direction)
     {
         //Hàm này dùng cho monster nên sẽ bắn thẳng từ trên xuống
         animator.Play("DodgeMonster_bullet_idle");
-        var vec = new Vector2(0f, -bulletMoveSpeed);       
+        var vec = new Vector2(0f, -bulletMoveSpeed);
         rigidBody.velocity = Quaternion.Euler(direction) * vec;
     }
+
     public void Reset()
-    {       
+    {
         rigidBody.velocity = Vector3.zero;
         this.transform.position = originPos;
         Lean.Pool.LeanPool.Despawn(this.gameObject);

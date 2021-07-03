@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,8 +8,9 @@ public class PathSegment : MonoBehaviour
 
     public bool isDrawGizmo;
 #if UNITY_EDITOR
+
     [MenuItem("GameObject/Bezier Path/New path", false, 0)]
-    static void AddNewPathSegment()
+    private static void AddNewPathSegment()
     {
         GameObject newSegment = new GameObject();
         newSegment.name = "NewWayPoint";
@@ -31,13 +30,16 @@ public class PathSegment : MonoBehaviour
 
         newSegment.GetComponent<PathSegment>().isDrawGizmo = true;
     }
+
 #endif
+
     public Vector3 GetPos(int i) => controlPts[i].position;
+
     public Transform GetTransform(int i) => controlPts[i];
-    
+
     public void CopyPath(PathSegment newPath)
     {
-        for(int i = 0; i< 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             controlPts[i] = newPath.GetTransform(i);
         }
@@ -46,7 +48,7 @@ public class PathSegment : MonoBehaviour
     public void ReversePath()
     {
         Transform[] reverseControlPts = new Transform[4];
-        for (int i =3,j=0; i >= 0;j++,i--)
+        for (int i = 3, j = 0; i >= 0; j++, i--)
         {
             reverseControlPts[j] = controlPts[i];
         }
@@ -55,11 +57,14 @@ public class PathSegment : MonoBehaviour
             controlPts[n] = reverseControlPts[n];
         }
     }
+
 #if UNITY_EDITOR
+
     #region Gizmo
+
     private void OnDrawGizmos()
     {
-        if(isDrawGizmo)
+        if (isDrawGizmo)
         {
             for (int i = 0; i < controlPts.Length; i++)
             {
@@ -77,8 +82,9 @@ public class PathSegment : MonoBehaviour
             UnityEditor.Handles.DrawDottedLine(GetPos(3), GetPos(2), 3f);
             UnityEditor.Handles.DrawBezier(GetPos(0), GetPos(3), GetPos(1), GetPos(2), Color.yellow, null, 2.0f);
         }
-        
     }
-    #endregion
+
+    #endregion Gizmo
+
 #endif
 }
