@@ -7,38 +7,48 @@ public enum ShipStatus
 {
     NORMAL              = 0,            //Normal State
 
-    /*
-     * - Không mất máu khi bị bắn/va chạm
-     * - Vẫn có thể bắn đạn
-     * - Vẫn có thể di chuyển
-     */
+    /// <summary>
+    /// - Không mất máu khi bị bắn/va chạm <br></br>
+    /// - Vẫn có thể bắn đạn <br></br>
+    /// - Vẫn có thể di chuyển <br></br>
+    /// </summary>
     INVINCIBLE = 1,
 
 
-    /*
-     * - Không mất máu khi bị bắn/va chạm
-     * - Không thể bắn đạn
-     * - Không thể di chuyển
-     */
-    DISABLE = 2, 
+    /// <summary>
+    /// - Không mất máu khi bị bắn/va chạm <br></br>
+    /// - Không thể bắn đạn <br></br>
+    /// - Không thể di chuyển <br></br>
+    /// </summary>
+    DISABLE = 2,
+    
+
+    DEATH = 3,
 }
 
 public class SpaceShipController : MonoBehaviour
 {
+    #region Public field
     [Header("Gun")]
     public Gun gun;
 
     [Header("Basic Information")]
     public int baseHP;
     public int currentHP;
+    public float invincibleDuration;
 
     public ShipStatus currentStatus;
 
+    [Header("Reference")]
     public Lean.Pool.LeanGameObjectPool bulletPool;
     public ParticleSystem fireJetParticle;
     public ParticleSystem shipExplosionFX;
+    public SpriteRenderer shipSprite;
+    public RankManager rankManager;
+    #endregion
 
     #region UI
+    [Header("UI")]
     public UIHealthBarController uiShipHPBar;
     #endregion
 
@@ -48,23 +58,10 @@ public class SpaceShipController : MonoBehaviour
     public AudioClip sfxCoinCollect;
     #endregion
 
-    public SpriteRenderer shipSprite;
+    
     private float timer;
-    public float invincibleDuration;
-    public bool isDied;
-    public RankManager rankManager;
-
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
+    
 
     /// <summary>
     /// Init all parameters and start ship
@@ -73,7 +70,6 @@ public class SpaceShipController : MonoBehaviour
     {
         timer = 0;
         currentHP = baseHP;
-        isDied = false;
         shipSprite.enabled = true;
         currentStatus = ShipStatus.NORMAL;
 
@@ -111,7 +107,7 @@ public class SpaceShipController : MonoBehaviour
         shipSprite.enabled = false;
         fireJetParticle.Stop();
         yield return new WaitForSeconds(1.5f);
-        isDied = true;
+        currentStatus = ShipStatus.DEATH;
         StopAllCoroutines();
     }
     private void OnTriggerEnter2D(Collider2D collision)

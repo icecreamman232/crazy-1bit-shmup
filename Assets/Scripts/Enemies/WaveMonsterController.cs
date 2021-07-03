@@ -18,9 +18,15 @@ public class WaveMonsterHolder
 public class WaveMonsterController : MonoBehaviour
 {
     public List<WaveMonsterHolder> waveMonsterList;
+    /// <summary>
+    /// The number of monster in the list.
+    /// </summary>
     public int numberMonsterList;
     public bool isWaveFinished;
 
+    /// <summary>
+    /// The number of monster finished their jobs, either died or finished their path.
+    /// </summary>
     public int numberMonsterCompleteDuty;
 
     private void OnEnable()
@@ -79,6 +85,8 @@ public class WaveMonsterController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        //Draw wireframe of screen ratio for better wave designing
+
         Gizmos.color = Color.yellow;
         //9:16
         Gizmos.DrawWireCube(transform.position, new Vector3(2.9f*2, 5.1f*2));

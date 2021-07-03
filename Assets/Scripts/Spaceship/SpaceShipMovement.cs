@@ -6,19 +6,23 @@ using Lean.Touch;
 
 public class SpaceShipMovement : MonoBehaviour
 {
+    [Header("Touch Configuration")]
+    [Range(0,3)]
     public float sensitivity;
     public bool isTouching;
+    public bool firstTouch;
+    
+    [Header("Reference")]
+    public ShipStatus currentStatus;
     public SpriteRenderer shipSprite;
+    public Animator holdToPlayAnimator;
+
+    
+    private Camera mainCamera;
     private float shipSpriteWidth;
     private float shipSpriteHeight;
     private float lastPosX;
     private Animator shipAnimator;
-    public Animator holdToPlayAnimator;
-
-    public bool firstTouch;
-    private Camera mainCamera;
-
-    public ShipStatus currentStatus;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +40,7 @@ public class SpaceShipMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentStatus==ShipStatus.NORMAL)
+        if(currentStatus == ShipStatus.NORMAL)
         {
             if (!isTouching) return;
             var screenDelta = LeanGesture.GetScreenDelta();

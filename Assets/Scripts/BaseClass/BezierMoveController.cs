@@ -13,7 +13,6 @@ public enum LoopType
     PingPong = 2,
 }
 
-[AddComponentMenu("SelfComponent/BezierMoveController", 0)]
 public class BezierMoveController : MonoBehaviour
 {
     //If it's true, object will move step by step to the first point

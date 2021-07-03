@@ -26,7 +26,7 @@ public class PlayingState: State
             ship.currentHP = 0;
         }
 #endif
-        if(ship.isDied)
+        if(ship.currentStatus == ShipStatus.DEATH)
         {
             gameManager.uiEndgameCanvas.gameObject.SetActive(true);
             gameManager.uiEndgameCanvas.PlayIntro(gameManager.currentScore.ToString());
