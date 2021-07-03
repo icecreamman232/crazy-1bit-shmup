@@ -42,7 +42,6 @@ public class SpaceShipController : MonoBehaviour
     [Header("Reference")]
     public Lean.Pool.LeanGameObjectPool bulletPool;
     public ParticleSystem fireJetParticle;
-    public ParticleSystem shipExplosionFX;
     public SpriteRenderer shipSprite;
     public RankManager rankManager;
     #endregion
@@ -92,7 +91,6 @@ public class SpaceShipController : MonoBehaviour
     public void BeginShoot()
     {
         gun.Shoot();
-  
     }
     public void StopShoot()
     {
@@ -103,7 +101,7 @@ public class SpaceShipController : MonoBehaviour
     {
         yield return new WaitUntil(() => currentHP <= 0);
         GetComponent<SpaceShipMovement>().OnDisableTouch();
-        shipExplosionFX.Play();
+        FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
         shipSprite.enabled = false;
         fireJetParticle.Stop();
         yield return new WaitForSeconds(1.5f);

@@ -12,6 +12,7 @@ public enum fxID
 {
     DIE_MONSTER_EXPLOSION           = 1,
     EXPLOSION_FOR_TRANSFORM         = 2,
+    DIE_SHIP_EXPLOSION              = 3,
 }
 
 [System.Serializable]
