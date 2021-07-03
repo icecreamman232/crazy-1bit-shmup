@@ -104,6 +104,7 @@ public class SpaceShipController : MonoBehaviour
         FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
         shipSprite.enabled = false;
         fireJetParticle.Stop();
+        gun.Stop();
         yield return new WaitForSeconds(1.5f);
         currentStatus = ShipStatus.DEATH;
         StopAllCoroutines();
