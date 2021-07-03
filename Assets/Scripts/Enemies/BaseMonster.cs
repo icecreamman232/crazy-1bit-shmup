@@ -89,20 +89,12 @@ public class BaseMonster:  BaseEntity
     {
         if (GameHelper.IsInsideScreenBounds(transform.position))
         {
-            //if (collision.gameObject.CompareTag("Bullet"))
-            //{
-            //    HandleCollisionWithBullet(collision);
-            //}
+           
         }
         
 
     }
-    public void HandleCollisionWithBullet(Collider2D collision)
-    {
-        UpdateHP(collision.gameObject.GetComponent<BaseBullet>().Damage);
 
-        collision.gameObject.GetComponent<BaseBullet>().Reset();
-    }
     #endregion
 
     public virtual  IEnumerator CheckDie()
