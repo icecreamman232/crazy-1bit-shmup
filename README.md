@@ -1,3 +1,4 @@
-Hello guys
-This project is a fun sci-fi retro shoot'em up game made by Unity 2D
-In this project I am trying to learn new thing and build it into this game as a hobby.
+# (WIP) Crazy Black and White - Shoot'em up Game
+This is shoot'em up game with retro theme made by Unity. 
+## Stories
+## Features
