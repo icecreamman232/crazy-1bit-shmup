@@ -20,4 +20,10 @@ List below is about systems I wrote (updating...)
 - Bezier curves way point system
 - ...
 
+## About myself
+At the time I am making this game. I just lost my full time job. I am looking for new job in both full time and remote to sustain through the pandemic. I appreciate this alot, if there's something in this project help you, provide some fun moments, it would be nice if you could help me continue developing this project.
+Or..at least if you are recruiter, hope that we could work together so I can pay back my bills and keep working on this project.
+If you are not some part of lists above, it's totally okay because this is Internet I think.
+Thanks again.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F159VOO)
