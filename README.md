@@ -5,4 +5,19 @@
 ![giphy](https://user-images.githubusercontent.com/61927620/125171282-9ba16600-e1dd-11eb-8f21-6aa5d1ae33c4.gif)
 ![blackhole](https://user-images.githubusercontent.com/61927620/125171552-0dc67a80-e1df-11eb-8731-9a04f2e7f2f3.gif)
 ## Stories
-## Features
+>Year 3333, on the strange Earth, humankind's technology has been advanced. Traveling to space, meeting new kind around the universe is common. Human becames the strongest race in the galaxy.
+Despite of advance technology, the human here keep old traditions - hunting! Now it's not just animals, people start to hunt space monsters.
+But the universe is just like that, a limited void space from the human's point of view or else?
+## Game Features
+- Funny and weird 1 bit pixel art and handmade pixel art animation
+- Various monsters and races
+- Monster Hunting System: user can kill monster and collect medal to exchange for goods
+- Space Station: user can visit Space Station to exchange Killing Medal for weapons, items, goods and quest
+- [WIP]
+## Tech Feature
+I am trying my best to use less libary, dependencies, frameworks. Most of system here I tried to research and write it by myself to learn more on the way.
+List below is about systems I wrote (updating...)
+- Bezier curves way point system
+- ...
+
+
