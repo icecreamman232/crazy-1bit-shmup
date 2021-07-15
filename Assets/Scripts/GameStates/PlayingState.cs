@@ -41,7 +41,7 @@ public class PlayingState: State
 #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            ship.currentHP = 0;
+            ship.CurrentHP = 0;
         }
 #endif
     }

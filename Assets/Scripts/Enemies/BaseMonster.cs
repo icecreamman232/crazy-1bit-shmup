@@ -31,7 +31,6 @@ public class BaseMonster : BaseEntity
     public override void Setup()
     {
         InitMonster();
-        StartCoroutine(CheckDie());
     }
 
     public void InitMonster()
@@ -79,6 +78,24 @@ public class BaseMonster : BaseEntity
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
         currentHP -= damage;
+
+        if(currentHP <=0 )
+        {
+            GameManager.Instance.UpdateScore(baseScore);
+            FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
+            GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx, 0.3f);
+            //GameManager.Instance.cameraShakeFX.Shake();
+            currentMoveSpeed = baseMoveSpeed;
+            var dropRate = ItemManager.Instance.GetRandomDropRate();
+            if (dropRate <= itemSpawner.itemDropRate)
+            {
+                //coinSpawner.DropCoin(transform.position,baseCoinValue,baseNumberCoin);
+                //itemSpawner.DropItem(transform.position);
+            }
+            OnDie?.Invoke();
+            gameObject.SetActive(false);
+        }
+
         //Update Health Bar UI
         UpdateHPInterface();
     }
@@ -101,23 +118,4 @@ public class BaseMonster : BaseEntity
     }
 
     #endregion Collision Handling
-
-    public virtual IEnumerator CheckDie()
-    {
-        yield return new WaitUntil(() => currentHP <= 0);
-
-        GameManager.Instance.UpdateScore(baseScore);
-        FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
-        GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx, 0.3f);
-        //GameManager.Instance.cameraShakeFX.Shake();
-        currentMoveSpeed = baseMoveSpeed;
-        var dropRate = ItemManager.Instance.GetRandomDropRate();
-        if (dropRate <= itemSpawner.itemDropRate)
-        {
-            //coinSpawner.DropCoin(transform.position,baseCoinValue,baseNumberCoin);
-            //itemSpawner.DropItem(transform.position);
-        }
-        OnDie?.Invoke();
-        gameObject.SetActive(false);
-    }
 }

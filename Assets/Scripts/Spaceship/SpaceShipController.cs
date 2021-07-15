@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System;
+using Lean.Pool;
 
 public enum ShipStatus
 {
@@ -31,16 +32,34 @@ public class SpaceShipController : MonoBehaviour
     public Gun gun;
 
     [Header("Basic Information")]
-    public int baseHP;
-
-    public int currentHP;
-    public float invincibleDuration;
-
     public ShipStatus currentStatus;
+    [SerializeField]
+    private int baseHP;
+    [SerializeField]
+    private int currentHP;
+    public int CurrentHP
+    {
+        get 
+        { 
+            return currentHP; 
+        }
+        set 
+        { 
+            if(value < 0)
+            {
+                currentHP = 0;
+            }
+            else
+            {
+                currentHP = value;
+            }
+        }
+    }
+    [SerializeField]
+    private float invincibleDuration;
 
     [Header("Reference")]
-    public Lean.Pool.LeanGameObjectPool bulletPool;
-
+    public LeanGameObjectPool bulletPool;
     public ParticleSystem fireJetParticle;
     public SpriteRenderer shipSprite;
     public RankManager rankManager;
@@ -125,6 +144,8 @@ public class SpaceShipController : MonoBehaviour
     {
         gun.Stop();
     }
+
+    #region Collison Detection
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Ship is invincible state after hit the enemies
@@ -205,4 +226,5 @@ public class SpaceShipController : MonoBehaviour
         sfx.PlayOneShot(sfxCoinCollect);
         Lean.Pool.LeanPool.Despawn(item.gameObject);
     }
+    #endregion Collison Detection
 }
