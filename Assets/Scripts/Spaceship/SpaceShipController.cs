@@ -45,6 +45,8 @@ public class SpaceShipController : MonoBehaviour
     public SpriteRenderer shipSprite;
     public RankManager rankManager;
 
+    private SpaceShipMovement movementController;
+    private GameManager gameManager;
     #endregion Public field
 
     #region UI
@@ -67,6 +69,12 @@ public class SpaceShipController : MonoBehaviour
 
     public event Action<ShipStatus> OnDeath;
 
+    private void Start()
+    {
+        movementController = GetComponent<SpaceShipMovement>();
+        gameManager = GameManager.Instance;
+    }
+
     /// <summary>
     /// Init all parameters and start ship
     /// </summary>
@@ -83,7 +91,7 @@ public class SpaceShipController : MonoBehaviour
         shipSprite.color = c;
 
         fireJetParticle.Play();
-        GetComponent<SpaceShipMovement>().SetShipPosition();
+        movementController.SetShipPosition();
         GetComponent<Animator>().Play("ship_idle");
 
         
@@ -94,7 +102,7 @@ public class SpaceShipController : MonoBehaviour
         currentHP -= damage;
         if(currentHP <= 0)
         {
-            GetComponent<SpaceShipMovement>().OnDisableTouch();
+            movementController.OnDisableTouch();
             FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
             shipSprite.enabled = false;
             fireJetParticle.Stop();
@@ -106,8 +114,7 @@ public class SpaceShipController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         OnDeath?.Invoke(currentStatus);
-        currentStatus = ShipStatus.DEATH;
-        
+        currentStatus = ShipStatus.DEATH;   
     }
     public void BeginShoot()
     {
@@ -177,7 +184,7 @@ public class SpaceShipController : MonoBehaviour
 
     public void HandleGetHitByEntity(int damage)
     {
-        GameManager.Instance.cameraShakeFX.Shake();
+        gameManager.cameraShakeFX.Shake();
         currentStatus = ShipStatus.INVINCIBLE;
         StartCoroutine(OnInvincible());
         UpdateHP(damage);
@@ -186,7 +193,7 @@ public class SpaceShipController : MonoBehaviour
 
     private void HandleCollectCoin(Collision2D coin)
     {
-        GameManager.Instance.UpdateCoin(coin.gameObject.GetComponent<BaseCoin>().coinValue);
+        gameManager.UpdateCoin(coin.gameObject.GetComponent<BaseCoin>().coinValue);
         sfx.PlayOneShot(sfxCoinCollect);
         Lean.Pool.LeanPool.Despawn(coin.gameObject);
     }
