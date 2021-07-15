@@ -147,6 +147,10 @@ PrefabInstance:
       value: 40.3469353
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 7b796b489cc4c447c91c00d4136b0e54, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1.62920685e-07
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 7b796b489cc4c447c91c00d4136b0e54, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -157,10 +161,6 @@ PrefabInstance:
     - target: {fileID: 400004, guid: 7b796b489cc4c447c91c00d4136b0e54, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 7b796b489cc4c447c91c00d4136b0e54, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -1.62920685e-07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b796b489cc4c447c91c00d4136b0e54, type: 3}
@@ -184,6 +184,10 @@ PrefabInstance:
       value: 5.19843578
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9256e250ab62647109679d3cbbaf6f04, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: .0433035493
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9256e250ab62647109679d3cbbaf6f04, type: 3}
       propertyPath: m_LocalRotation.x
       value: .00599936303
       objectReference: {fileID: 0}
@@ -194,10 +198,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 9256e250ab62647109679d3cbbaf6f04, type: 3}
       propertyPath: m_LocalRotation.z
       value: .00042852413
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 9256e250ab62647109679d3cbbaf6f04, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: .0433035493
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 9256e250ab62647109679d3cbbaf6f04, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -226,6 +226,10 @@ PrefabInstance:
       value: 135.241714
       objectReference: {fileID: 0}
     - target: {fileID: 400040, guid: 6a9d822b319924ae7a120c7f2ba0b067, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: .471835643
+      objectReference: {fileID: 0}
+    - target: {fileID: 400040, guid: 6a9d822b319924ae7a120c7f2ba0b067, type: 3}
       propertyPath: m_LocalRotation.x
       value: -1.58214348e-07
       objectReference: {fileID: 0}
@@ -236,10 +240,6 @@ PrefabInstance:
     - target: {fileID: 400040, guid: 6a9d822b319924ae7a120c7f2ba0b067, type: 3}
       propertyPath: m_LocalRotation.z
       value: 1.44746309e-07
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: 6a9d822b319924ae7a120c7f2ba0b067, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: .471835643
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a9d822b319924ae7a120c7f2ba0b067, type: 3}
@@ -495,6 +495,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1127654931
@@ -668,6 +669,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1487996144
@@ -760,6 +762,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1521079974
@@ -937,6 +940,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1681816811
@@ -1029,6 +1033,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1713412972
@@ -1491,6 +1496,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &2079683210

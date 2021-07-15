@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System;
 
 public enum ShipStatus
 {
@@ -64,6 +65,8 @@ public class SpaceShipController : MonoBehaviour
 
     private float timer;
 
+    public event Action<ShipStatus> OnDeath;
+
     /// <summary>
     /// Init all parameters and start ship
     /// </summary>
@@ -83,14 +86,29 @@ public class SpaceShipController : MonoBehaviour
         GetComponent<SpaceShipMovement>().SetShipPosition();
         GetComponent<Animator>().Play("ship_idle");
 
-        StartCoroutine(CheckDie());
+        
     }
 
     private void UpdateHP(int damage)
     {
         currentHP -= damage;
+        if(currentHP <= 0)
+        {
+            GetComponent<SpaceShipMovement>().OnDisableTouch();
+            FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
+            shipSprite.enabled = false;
+            fireJetParticle.Stop();
+            StopShoot();                  
+            StartCoroutine(ShortDelayBeforeNotifyDeath());
+        }
     }
-
+    private IEnumerator ShortDelayBeforeNotifyDeath()
+    {
+        yield return new WaitForSeconds(1.0f);
+        OnDeath?.Invoke(currentStatus);
+        currentStatus = ShipStatus.DEATH;
+        
+    }
     public void BeginShoot()
     {
         gun.Shoot();
@@ -100,20 +118,6 @@ public class SpaceShipController : MonoBehaviour
     {
         gun.Stop();
     }
-
-    private IEnumerator CheckDie()
-    {
-        yield return new WaitUntil(() => currentHP <= 0);
-        GetComponent<SpaceShipMovement>().OnDisableTouch();
-        FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
-        shipSprite.enabled = false;
-        fireJetParticle.Stop();
-        StopShoot();
-        yield return new WaitForSeconds(1.5f);
-        currentStatus = ShipStatus.DEATH;
-        StopAllCoroutines();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Ship is invincible state after hit the enemies

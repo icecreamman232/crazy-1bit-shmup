@@ -212,12 +212,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
-      propertyPath: m_Layer
-      value: 0
+    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
       propertyPath: m_LocalPosition.x
@@ -232,6 +244,10 @@ PrefabInstance:
       value: -591.039429
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: .290547311
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -243,34 +259,18 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: .290547311
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
-      propertyPath: m_LocalScale.x
+    - target: {fileID: 2300000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
+      propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
-      propertyPath: m_LocalScale.z
+    - target: {fileID: 2300000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
+      propertyPath: m_ReceiveShadows
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9a06e258e3bf640e885048b32fdf51b7, type: 2}
-    - target: {fileID: 2300000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
-      propertyPath: m_ReceiveShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
-      propertyPath: m_CastShadows
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf8dd6c08e9ac4507bbbd1468b530d48, type: 3}
 --- !u!1 &653881009
@@ -363,6 +363,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &715329745
@@ -632,6 +633,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1141404695
@@ -726,6 +728,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1182749509
