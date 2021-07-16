@@ -27,6 +27,16 @@ public class MeteorMonsterRocket : Bullet
 
         if (GameHelper.IsInsideScreenBounds(collision.transform.position))
         {
+            if(collision.gameObject.CompareTag("Enemy"))
+            {
+                IDamageable dmgable =  collision.gameObject.GetComponent<IDamageable>();
+                if(dmgable!=null)
+                {
+                    dmgable.TakeDamage(Damage);
+                    ResetBullet();
+                }
+            }
+
             // Layer 9 = Player
             if (collision.gameObject.layer == 9)
             {
@@ -40,12 +50,12 @@ public class MeteorMonsterRocket : Bullet
             // Layer 8 = Enemy
             if (collision.gameObject.layer == 9)
             {
-                if (collision.gameObject.CompareTag("Enemy"))
-                {
-                    Debug.Log("Hit by enemy");
-                    collision.gameObject.GetComponent<BaseMonster>().UpdateHP(Damage);
-                    ResetBullet();
-                }
+                //if (collision.gameObject.CompareTag("Enemy"))
+                //{
+                //    Debug.Log("Hit by enemy");
+                //    collision.gameObject.GetComponent<BaseMonster>().UpdateHP(Damage);
+                //    ResetBullet();
+                //}
                 if (collision.gameObject.CompareTag("MeteorMonsterCircle"))
                 {
                     //Do nothing because this is the bullet belong to meteor monster

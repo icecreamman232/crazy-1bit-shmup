@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BaseMonster : BaseEntity
+public class BaseMonster : BaseEntity, IDamageable
 {
     [Header("Monster Stats")]
     //Is interacting with an environment entity
@@ -25,6 +25,7 @@ public class BaseMonster : BaseEntity
     public ItemSpawner itemSpawner;
 
     public CoinSpawner coinSpawner;
+
 
     #region Setup Methods
 
@@ -69,9 +70,10 @@ public class BaseMonster : BaseEntity
     #endregion Spawn Methods
 
     #region Update Methods
-
-    public void UpdateHP(int damage)
+    public void TakeDamage(int damage)
     {
+
+        Debug.Log(this.gameObject.name + "took " + damage + "dmg");
         //Show the HP Bar
         if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
         {
@@ -79,7 +81,7 @@ public class BaseMonster : BaseEntity
         }
         currentHP -= damage;
 
-        if(currentHP <=0 )
+        if (currentHP <= 0)
         {
             GameManager.Instance.UpdateScore(baseScore);
             FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
@@ -99,7 +101,6 @@ public class BaseMonster : BaseEntity
         //Update Health Bar UI
         UpdateHPInterface();
     }
-
     public void UpdateHPInterface()
     {
         var HPPercent = (float)currentHP / maxHP;
@@ -116,6 +117,8 @@ public class BaseMonster : BaseEntity
         {
         }
     }
+
+    
 
     #endregion Collision Handling
 }

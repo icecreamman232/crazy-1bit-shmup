@@ -34,8 +34,16 @@ public class MeteorMonsterController : MonsterWithCustomPath
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
+        
     }
-
+    private void OnDisable()
+    {
+  
+    }
+    private void Start()
+    {
+        
+    }
     public override void Setup()
     {
         base.Setup();
@@ -53,6 +61,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
             color.a = 0f;
             armorController.armorList[i].sprite.color = color;
         }
+
     }
 
     public override void Spawn()
@@ -227,20 +236,13 @@ public class MeteorMonsterController : MonsterWithCustomPath
         base.OnTriggerEnter2D(collision);
         if (GameHelper.IsInsideScreenBounds(transform.position))
         {
-            //Layer 11 = Environment
-            if (collision.gameObject.layer == 11)
+            if (collision.gameObject.CompareTag("Meteor"))
             {
-                if (collision.gameObject.CompareTag("Meteor"))
+                collision.GetComponent<BaseEnvironment>().currentHP -= baseImpactDamage;
+                if (curForm < 3)
                 {
-                    //if transformed then get hit and lose HP
-                    UpdateHP(collision.GetComponent<BaseEnvironment>().impactDamage);
-                    collision.GetComponent<BaseEnvironment>().currentHP -= baseImpactDamage;
-                    if (curForm < 3)
-                    {
-                        curForm++;
-                        //if meteor hit this monster, it would turn into angry one
-                        TransformIntoAngryForm(curForm);
-                    }
+                    curForm++;
+                    TransformIntoAngryForm(curForm);
                 }
             }
         }

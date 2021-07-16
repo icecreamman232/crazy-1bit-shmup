@@ -17,8 +17,6 @@ public enum ItemRank
     LEGENDARY   = 3,
 }
 
-
-
 public class BaseItem : MonoBehaviour
 {
     public Sprite[] item_sprites;

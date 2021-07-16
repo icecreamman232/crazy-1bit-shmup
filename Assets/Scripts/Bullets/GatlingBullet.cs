@@ -33,6 +33,17 @@ public class GatlingBullet : Bullet
         base.OnTriggerEnter2D(collision);
         if (GameHelper.IsInsideScreenBounds(collision.transform.position))
         {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                IDamageable dmgable = collision.GetComponent<IDamageable>();
+                if (dmgable != null)
+                {
+                    dmgable.TakeDamage(Damage);
+                    ResetBullet();
+                }
+            }
+            
+
             //Layer 11 = Environment
             if (collision.gameObject.layer == 11)
             {
@@ -45,11 +56,11 @@ public class GatlingBullet : Bullet
             //Layer 8 = Enemy
             if (collision.gameObject.layer == 8)
             {
-                if (collision.gameObject.CompareTag("Enemy"))
-                {
-                    collision.GetComponent<BaseMonster>().UpdateHP(Damage);
-                    ResetBullet();
-                }
+                //if (collision.gameObject.CompareTag("Enemy"))
+                //{
+                //    collision.GetComponent<BaseMonster>().UpdateHP(Damage);
+                //    ResetBullet();
+                //}
                 if (collision.gameObject.CompareTag("MeteorMonsterCircle"))
                 {
                     rigidBody.velocity = Vector3.zero;

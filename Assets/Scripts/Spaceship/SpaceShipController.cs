@@ -24,7 +24,7 @@ public enum ShipStatus
     DEATH = 3,
 }
 
-public class SpaceShipController : MonoBehaviour
+public class SpaceShipController : MonoBehaviour, IDamageable
 {
     #region Public field
 
@@ -55,11 +55,11 @@ public class SpaceShipController : MonoBehaviour
             }
         }
     }
+
     [SerializeField]
     private float invincibleDuration;
 
     [Header("Reference")]
-    public LeanGameObjectPool bulletPool;
     public ParticleSystem fireJetParticle;
     public SpriteRenderer shipSprite;
     public RankManager rankManager;
@@ -115,7 +115,10 @@ public class SpaceShipController : MonoBehaviour
 
         
     }
-
+    public void TakeDamage(int damage)
+    {
+        //Debug.Log("Ship took " + damage + " dmg");
+    }
     private void UpdateHP(int damage)
     {
         currentHP -= damage;
@@ -154,16 +157,9 @@ public class SpaceShipController : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))
+        if(!collision.gameObject.CompareTag("Bullet"))
         {
             HandleGetHitByEntity(1);
-        }
-        if (collision.gameObject.layer == 11)
-        {
-            if (collision.gameObject.CompareTag("Meteor"))
-            {
-                HandleGetHitByEntity(1);
-            }
         }
     }
 
@@ -208,6 +204,7 @@ public class SpaceShipController : MonoBehaviour
         gameManager.cameraShakeFX.Shake();
         currentStatus = ShipStatus.INVINCIBLE;
         StartCoroutine(OnInvincible());
+        TakeDamage(damage);
         UpdateHP(damage);
         uiShipHPBar.UpdateHealthBarUI();
     }
@@ -226,5 +223,7 @@ public class SpaceShipController : MonoBehaviour
         sfx.PlayOneShot(sfxCoinCollect);
         Lean.Pool.LeanPool.Despawn(item.gameObject);
     }
+
+    
     #endregion Collison Detection
 }

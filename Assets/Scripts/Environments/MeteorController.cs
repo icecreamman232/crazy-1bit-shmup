@@ -37,20 +37,14 @@ public class MeteorController : EnvironmentWithCustomPath
     {
         if(GameHelper.IsInsideScreenBounds(transform.position))
         {
-            //if (collision.CompareTag("Player"))
-            //{
-            //    //Current ship have no HP so set it to 1. If changed the system to HP number based,
-            //    //could switch to the bigger number easily
-            //    OnHit?.Invoke(1);
-            //    bezierMoveController.Stop();
-
-            //    FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
-            //    OnMoveEnd();
-            //}
-            //if (collision.CompareTag("Enemy"))
-            //{
-
-            //}
+            if(collision.gameObject.CompareTag("Enemy"))
+            {
+                IDamageable dmgable = collision.gameObject.GetComponent<IDamageable>();
+                if(dmgable!=null)
+                {
+                    dmgable.TakeDamage(impactDamage);
+                }
+            }
 
         }
     }
