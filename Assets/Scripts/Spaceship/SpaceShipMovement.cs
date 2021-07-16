@@ -24,6 +24,8 @@ public class SpaceShipMovement : MonoBehaviour
     private float lastPosX;
     private Animator shipAnimator;
 
+    private Vector2 screenBounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,8 @@ public class SpaceShipMovement : MonoBehaviour
         isTouching = false;
         firstTouch = false;
         mainCamera = Camera.main;
+
+        screenBounds = GameHelper.GetCurrentScreenBounds();
 
         currentStatus = this.gameObject.GetComponent<SpaceShipController>().currentStatus;
     }
@@ -85,7 +89,7 @@ public class SpaceShipMovement : MonoBehaviour
     public void SetShipPosition()
     {
         mainCamera = Camera.main;
-        var postion = new Vector3(0, -GameHelper.GetCurrentScreenBounds().y + shipSpriteHeight * 1.5f, 0);
+        var postion = new Vector3(0, -screenBounds.y + shipSpriteHeight * 1.5f, 0);
         var target = postion;
         lastPosX = postion.x;
         postion.y -= 3.0f;
@@ -108,7 +112,7 @@ public class SpaceShipMovement : MonoBehaviour
             var screenPts = mainCamera.WorldToScreenPoint(transform.position);
             screenPts += (Vector3)delta * sensitivity;
             var worldPts = mainCamera.ScreenToWorldPoint(screenPts);
-            var screenBounds = GameHelper.GetCurrentScreenBounds();
+
             
             if (worldPts.x <= -screenBounds.x + shipSpriteWidth*0.5f) worldPts.x = -screenBounds.x+ shipSpriteWidth * 0.5f;
             if (worldPts.x >= screenBounds.x - shipSpriteWidth *0.5f) worldPts.x = screenBounds.x - shipSpriteWidth * 0.5f;

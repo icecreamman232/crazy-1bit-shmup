@@ -29,6 +29,9 @@ public class BaseBullet : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Animator animator;
 
+    private Vector2 screenBounds;
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -39,25 +42,26 @@ public class BaseBullet : MonoBehaviour
     private void Start()
     {
         originPos = transform.position;
+        screenBounds = GameHelper.GetCurrentScreenBounds();
     }
 
     // Update is called once per frame
     private void Update()
     {
         //Culling bullet
-        if (transform.position.y >= GameHelper.GetCurrentScreenBounds().y)
+        if (transform.position.y >= screenBounds.y)
         {
             Reset();
         }
-        else if (transform.position.y <= -GameHelper.GetCurrentScreenBounds().y)
+        else if (transform.position.y <= -screenBounds.y)
         {
             Reset();
         }
-        else if (transform.position.x >= GameHelper.GetCurrentScreenBounds().x + 1.0f)
+        else if (transform.position.x >= screenBounds.x + 1.0f)
         {
             Reset();
         }
-        else if (transform.position.x <= -GameHelper.GetCurrentScreenBounds().x - 1.0f)
+        else if (transform.position.x <= -screenBounds.x - 1.0f)
         {
             Reset();
         }
