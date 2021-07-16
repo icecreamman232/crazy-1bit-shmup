@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BulletAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 61803fe7af60acc46b5c15fe6c7160e1, type: 3}
+    - {fileID: 2800000, guid: dd9c5b8dfe1a845418c92789d71ec5e1, type: 3}
+    - {fileID: 2800000, guid: f882d6e08dbd4364fbeaa83aa413d5aa, type: 3}
+    - {fileID: 2800000, guid: 03cf2293e73f9f84fbcb272ec4deda15, type: 3}
+    totalSpriteSurfaceArea: 2065
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: f882d6e08dbd4364fbeaa83aa413d5aa, type: 3}
+  - {fileID: 21300000, guid: 03cf2293e73f9f84fbcb272ec4deda15, type: 3}
+  - {fileID: 21300000, guid: 61803fe7af60acc46b5c15fe6c7160e1, type: 3}
+  - {fileID: 4837026861865856229, guid: dd9c5b8dfe1a845418c92789d71ec5e1, type: 3}
+  - {fileID: 7794366535027410144, guid: dd9c5b8dfe1a845418c92789d71ec5e1, type: 3}
+  - {fileID: 4914934732737101059, guid: dd9c5b8dfe1a845418c92789d71ec5e1, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - meteor_monster_bullet
+  - meteor_monster_circle_armor
+  - bullet_ship_01
+  - dodge_monster_bullet_2
+  - dodge_monster_bullet_1
+  - dodge_monster_bullet_0
+  m_RenderDataMap: {}
+  m_Tag: BulletAtlas
+  m_IsVariant: 0

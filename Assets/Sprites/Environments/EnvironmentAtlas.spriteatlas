@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EnvironmentAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: e619605746e0c014b9360f9445d98813, type: 3}
+    - {fileID: 2800000, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+    totalSpriteSurfaceArea: 32768
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 3819109353079433559, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: -8764958966965393079, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: -3935663051491591281, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: -2584232524798514908, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: -925345978958199149, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: -3505501383785957596, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: 3763241861544380991, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: 2730154211371489068, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: 7070532605823987533, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: 3622997999838669432, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: 4015464155465825695, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: -195188126136328250, guid: e619605746e0c014b9360f9445d98813, type: 3}
+  - {fileID: -4891923633583013665, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 6408381323374285104, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 7565980280263271130, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 2230254248641353910, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: -3267046617091468725, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: -5298761639805663854, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 2029918482453938759, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: -3953161836808803914, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 425250188889294235, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 182884849725746620, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: -4293734815905823883, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 7001057130097111798, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: -8711644004776441142, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 2914590336776944107, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 4707962280967063410, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 5936808635609119116, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: -8221737880315791370, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 8294557882674399908, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: -8298496702817282899, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  - {fileID: 4132413771166784131, guid: 782dd1da2e226334f8a5bfe9d8c67db8, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - meteor_11
+  - meteor_10
+  - meteor_2
+  - meteor_3
+  - meteor_0
+  - meteor_1
+  - meteor_6
+  - meteor_7
+  - meteor_4
+  - meteor_5
+  - meteor_8
+  - meteor_9
+  - wormhole_5
+  - wormhole_4
+  - wormhole_7
+  - wormhole_6
+  - wormhole_1
+  - wormhole_0
+  - wormhole_3
+  - wormhole_2
+  - wormhole_9
+  - wormhole_8
+  - wormhole_18
+  - wormhole_19
+  - wormhole_14
+  - wormhole_15
+  - wormhole_16
+  - wormhole_17
+  - wormhole_10
+  - wormhole_11
+  - wormhole_12
+  - wormhole_13
+  m_RenderDataMap: {}
+  m_Tag: EnvironmentAtlas
+  m_IsVariant: 0
