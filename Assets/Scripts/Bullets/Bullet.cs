@@ -63,30 +63,42 @@ public class Bullet : MonoBehaviour
     protected Rigidbody2D rigidBody;
     protected Animator animator;
 
+    private float screenBoundX;
+    private float screenBoundY;
+
     private void Awake()
     {
         originPos = transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+    private void Start()
+    {
+        screenBoundX = GameHelper.GetCurrentScreenBounds().x;
+        screenBoundY = GameHelper.GetCurrentScreenBounds().y;
+    }
 
     public void Update()
     {
-        if (transform.position.y >= GameHelper.GetCurrentScreenBounds().y)
+        if (transform.position.y >= screenBoundY)
         {
             ResetBullet();
+            return;
         }
-        else if (transform.position.y <= -GameHelper.GetCurrentScreenBounds().y)
+        else if (transform.position.y <= -screenBoundY)
         {
             ResetBullet();
+            return;
         }
-        else if (transform.position.x >= GameHelper.GetCurrentScreenBounds().x + 1.0f)
+        else if (transform.position.x >= screenBoundX + 1.0f)
         {
             ResetBullet();
+            return;
         }
-        else if (transform.position.x <= -GameHelper.GetCurrentScreenBounds().x - 1.0f)
+        else if (transform.position.x <= -screenBoundX - 1.0f)
         {
             ResetBullet();
+            return;
         }
     }
 
