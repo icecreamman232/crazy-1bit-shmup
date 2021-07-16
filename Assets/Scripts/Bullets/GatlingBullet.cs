@@ -56,11 +56,6 @@ public class GatlingBullet : Bullet
             //Layer 8 = Enemy
             if (collision.gameObject.layer == 8)
             {
-                //if (collision.gameObject.CompareTag("Enemy"))
-                //{
-                //    collision.GetComponent<BaseMonster>().UpdateHP(Damage);
-                //    ResetBullet();
-                //}
                 if (collision.gameObject.CompareTag("MeteorMonsterCircle"))
                 {
                     rigidBody.velocity = Vector3.zero;

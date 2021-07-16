@@ -36,31 +36,6 @@ public class MeteorMonsterRocket : Bullet
                     ResetBullet();
                 }
             }
-
-            // Layer 9 = Player
-            if (collision.gameObject.layer == 9)
-            {
-                if(collision.gameObject.CompareTag("Player"))
-                {
-                    //Just 1 dmg because of ship only have 3 lives
-                    collision.GetComponent<SpaceShipController>().HandleGetHitByEntity(1);
-                    ResetBullet();
-                }   
-            }
-            // Layer 8 = Enemy
-            if (collision.gameObject.layer == 9)
-            {
-                //if (collision.gameObject.CompareTag("Enemy"))
-                //{
-                //    Debug.Log("Hit by enemy");
-                //    collision.gameObject.GetComponent<BaseMonster>().UpdateHP(Damage);
-                //    ResetBullet();
-                //}
-                if (collision.gameObject.CompareTag("MeteorMonsterCircle"))
-                {
-                    //Do nothing because this is the bullet belong to meteor monster
-                }
-            }
             //Layer 11 = Environment
             if (collision.gameObject.layer == 11)
             {

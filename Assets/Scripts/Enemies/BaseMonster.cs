@@ -72,8 +72,6 @@ public class BaseMonster : BaseEntity, IDamageable
     #region Update Methods
     public void TakeDamage(int damage)
     {
-
-        Debug.Log(this.gameObject.name + "took " + damage + "dmg");
         //Show the HP Bar
         if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
         {

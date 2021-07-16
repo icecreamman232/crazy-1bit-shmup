@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MeteorController : EnvironmentWithCustomPath
 {
-    public System.Action<int> OnHit;
     public override void Setup()
     {
         base.Setup();
@@ -13,10 +12,6 @@ public class MeteorController : EnvironmentWithCustomPath
     public override void Spawn()
     {
         base.Spawn();
-        if(OnHit==null)
-        {
-            OnHit+= GameManager.Instance.spaceShip.GetComponent<SpaceShipController>().HandleGetHitByEntity;
-        }
         Move();
     }
     public override void Move()
@@ -45,28 +40,12 @@ public class MeteorController : EnvironmentWithCustomPath
                     dmgable.TakeDamage(impactDamage);
                 }
             }
-
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (GameHelper.IsInsideScreenBounds(transform.position))
-        {
             if (collision.gameObject.CompareTag("Player"))
             {
-                //Current ship have no HP so set it to 1. If changed the system to HP number based,
-                //could switch to the bigger number easily
-                OnHit?.Invoke(1);
                 bezierMoveController.Stop();
-
                 FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
                 OnMoveEnd();
             }
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-
-            }
-
         }
     }
 }

@@ -117,18 +117,14 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage)
     {
-        //Debug.Log("Ship took " + damage + " dmg");
-    }
-    private void UpdateHP(int damage)
-    {
         currentHP -= damage;
-        if(currentHP <= 0)
+        if (currentHP <= 0)
         {
             movementController.OnDisableTouch();
             FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
             shipSprite.enabled = false;
             fireJetParticle.Stop();
-            StopShoot();                  
+            StopShoot();
             StartCoroutine(ShortDelayBeforeNotifyDeath());
         }
     }
@@ -205,7 +201,6 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         currentStatus = ShipStatus.INVINCIBLE;
         StartCoroutine(OnInvincible());
         TakeDamage(damage);
-        UpdateHP(damage);
         uiShipHPBar.UpdateHealthBarUI();
     }
 

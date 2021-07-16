@@ -35,14 +35,6 @@ public class CircleArmor : MonoBehaviour
     {
         if (GameHelper.IsInsideScreenBounds(collision.gameObject.transform.position))
         {
-            //Layer 9 = Player
-            if (collision.gameObject.layer == 9)
-            {
-                if (collision.gameObject.CompareTag("Player"))
-                {
-                    collision.gameObject.GetComponent<SpaceShipController>().HandleGetHitByEntity(1);
-                }
-            }
         }
     }
 }
