@@ -45,6 +45,8 @@ public class BaseMonster : BaseEntity, IDamageable
         //View
         uiHealthBarController.Setup();
         StopAllCoroutines();
+
+       
     }
 
     private void SetupHP()
@@ -84,7 +86,7 @@ public class BaseMonster : BaseEntity, IDamageable
         {
             GameManager.Instance.UpdateScore(data.baseScore);
             FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
-            GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx, 0.3f);
+            AudioManager.Instance.PlaySFX(AudioTagName.EXPLOSION,0.3f);
             //GameManager.Instance.cameraShakeFX.Shake();
             currentMoveSpeed = data.baseMoveSpd;
             var dropRate = ItemManager.Instance.GetRandomDropRate();

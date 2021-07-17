@@ -41,7 +41,7 @@ public class BaseEnvironment : BaseEntity
         yield return new WaitUntil(() => curHP <= 0);
         
         FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
-        GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx, 0.3f);
+        AudioManager.Instance.PlaySFX(AudioTagName.EXPLOSION, 0.3f);
         //GameManager.Instance.cameraShakeFX.Shake();
         OnDestroy?.Invoke();
         gameObject.SetActive(false);

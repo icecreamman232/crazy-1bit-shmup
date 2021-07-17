@@ -30,10 +30,6 @@ public class GameManager : MonoBehaviour
     
     public RankManager rankManager;
 
-    public AudioSource BGM;
-    public AudioSource sfx;
-    public AudioClip monster_die_sfx;
-
     public UIEndGameCanvasController uiEndgameCanvas;
     public UIHealthBarController uiShipHPBar;
     public TextMeshProUGUI scoreNumberText;
@@ -73,7 +69,7 @@ public class GameManager : MonoBehaviour
         cameraShakeFX.Setup();
         uiShipHPBar.HealthBarSetup();
         SetupParticleBackground();
-        BGM.Play();
+        AudioManager.Instance.PlayMusic(AudioTagName.MAIN_MUSIC,0.8f);
         spaceShip.GetComponent<SpaceShipController>().StartShip();
         rankManager.Setup();
         waveSpawner.Setup();
