@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Reference
-    public GameObject spaceShip;
+    public SpaceShipController spaceShip;
     public WaveSpawner waveSpawner;
     public EnvironmentCreator environmentCreator;
     public ParticleSystem starFrontLayer;
@@ -39,11 +39,8 @@ public class GameManager : MonoBehaviour
 
     #region FX
     [Header("FX")]
-    public GameObject dieExplosionFX;
     public CameraShake cameraShakeFX;
-    public GameObject explosionTransformFX;
     #endregion
-
 
     private const float speedFactor = 0.08f;
 
@@ -70,7 +67,7 @@ public class GameManager : MonoBehaviour
         uiShipHPBar.HealthBarSetup();
         SetupParticleBackground();
         AudioManager.Instance.PlayMusic(AudioTagName.MAIN_MUSIC,0.8f);
-        spaceShip.GetComponent<SpaceShipController>().StartShip();
+        spaceShip.StartShip();
         rankManager.Setup();
         waveSpawner.Setup();
         environmentCreator.Setup();
@@ -145,16 +142,5 @@ public class GameManager : MonoBehaviour
             front.simulationSpeed = currentSpeed;
             back.simulationSpeed = currentSpeed;
         }
-    }
-    public void CreateDieFx(Vector3 position)
-    {
-        var obj = Lean.Pool.LeanPool.Spawn(dieExplosionFX, position, Quaternion.identity);
-        obj.GetComponent<ParticleSystem>().Play();
-        StartCoroutine(DespawnDieFX(obj));
-    }
-    private IEnumerator DespawnDieFX(GameObject dieFX)
-    {
-        yield return new WaitUntil(() => dieFX.GetComponent<ParticleSystem>().isEmitting == false);
-        Lean.Pool.LeanPool.Despawn(dieFX);
     }
 }
