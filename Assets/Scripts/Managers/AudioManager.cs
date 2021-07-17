@@ -34,14 +34,14 @@ public class AudioManager : MonoBehaviour
             musicDictionary.Add(audioData.musicList[i].name, audioData.musicList[i].audio);
         }
     }
-    public void PlaySFX(AudioTagName name,float volume)
+    public void PlaySFX(AudioTagName name,float volume = 1f)
     {
         if(sfxDictionary.ContainsKey(name))
         {
             sfxPlayer.PlayOneShot(sfxDictionary[name], volume);
         }
     }
-    public void PlayMusic(AudioTagName name,float volume)
+    public void PlayMusic(AudioTagName name,float volume = 1f)
     {
         if (musicDictionary.ContainsKey(name))
         {

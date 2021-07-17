@@ -106,18 +106,29 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
     public event Action<ShipStatus> OnDeath;
 
+
+    private int idleAnimHash;
+    private int turnLeftHash;
+    private int turnRightHash;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
+        mainCamera = Camera.main;
+        shipAnimator = GetComponent<Animator>();
+        screenBounds = GameHelper.GetCurrentScreenBounds();
 
         shipSpriteWidth = shipSprite.bounds.size.x;
         shipSpriteHeight = shipSprite.bounds.size.y;
-        shipAnimator = GetComponent<Animator>();
+        
         isTouching = false;
         firstTouch = false;
-        mainCamera = Camera.main;
+        
 
-        screenBounds = GameHelper.GetCurrentScreenBounds();
+        idleAnimHash = Animator.StringToHash("ship_idle");
+        turnLeftHash = Animator.StringToHash("ship_turn_left_anim");
+        turnRightHash = Animator.StringToHash("ship_turn_right_anim"); 
+
     }
     void Update()
     {
@@ -150,7 +161,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
         fireJetParticle.Play();
         SetShipPosition();
-        GetComponent<Animator>().Play("ship_idle");
+        shipAnimator.Play(idleAnimHash);
 
         
     }
@@ -246,16 +257,16 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     private void HandleCollectCoin(Collision2D coin)
     {
         gameManager.UpdateCoin(coin.gameObject.GetComponent<BaseCoin>().coinValue);
-        sfx.PlayOneShot(sfxCoinCollect);
-        Lean.Pool.LeanPool.Despawn(coin.gameObject);
+        AudioManager.Instance.PlaySFX(AudioTagName.COLLECT_COIN);
+        LeanPool.Despawn(coin.gameObject);
     }
 
     private void HandleCollectItem(Collision2D item)
     {
         DataManager.Instance.SaveDataToLocalStorage();
         rankManager.UpdateRankPoints(item.gameObject.GetComponent<BaseItem>().m_rank_point);
-        sfx.PlayOneShot(sfxCoinCollect);
-        Lean.Pool.LeanPool.Despawn(item.gameObject);
+        AudioManager.Instance.PlaySFX(AudioTagName.COLLECT_COIN);
+        LeanPool.Despawn(item.gameObject);
     }
 
 
@@ -322,20 +333,21 @@ public class SpaceShipController : MonoBehaviour, IDamageable
             if (worldPts.x <= -screenBounds.x + shipSpriteWidth * 0.5f) worldPts.x = -screenBounds.x + shipSpriteWidth * 0.5f;
             if (worldPts.x >= screenBounds.x - shipSpriteWidth * 0.5f) worldPts.x = screenBounds.x - shipSpriteWidth * 0.5f;
             if (worldPts.y <= -screenBounds.y) worldPts.y = -screenBounds.y;
+            if (worldPts.y >= screenBounds.y) worldPts.y = screenBounds.y;
 
             //Ship keep turning left
             if (worldPts.x < lastPosX)
             {
-                shipAnimator.Play("ship_turn_left_anim");
+                shipAnimator.Play(turnLeftHash);
             }
             //Ship keep turning right
             else if (worldPts.x > lastPosX)
             {
-                shipAnimator.Play("ship_turn_right_anim");
+                shipAnimator.Play(turnRightHash);
             }
             else
             {
-                shipAnimator.Play("ship_idle");
+                shipAnimator.Play(idleAnimHash);
             }
 
             lastPosX = worldPts.x;
