@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2525838194238478249}
   - component: {fileID: 2525838194238478254}
-  - component: {fileID: 2525838194238478255}
   - component: {fileID: 2525838194238478252}
   - component: {fileID: 2525838194238478253}
   - component: {fileID: 2525838194238478226}
@@ -52,38 +51,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678f0e1ce8850084d9a70411432dd9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 8393701694151206845}
+  currentStatus: 0
   baseHP: 3
   currentHP: 0
-  currentStatus: 0
-  bulletPool: {fileID: 0}
+  invincibleDuration: 3
+  gun: {fileID: 8393701694151206845}
+  sensitivity: 1
+  isTouching: 0
+  firstTouch: 0
   fireJetParticle: {fileID: 2525838194837221609}
-  shipExplosionFX: {fileID: 92571431657387249}
+  shipSprite: {fileID: 2525838194985648973}
+  rankManager: {fileID: 0}
+  holdToPlayAnimator: {fileID: 0}
   uiShipHPBar: {fileID: 0}
   sfx: {fileID: 2525838195239374463}
   sfxCoinCollect: {fileID: 8300000, guid: cdf40b5abded2774092788556cd1455e, type: 3}
-  shipSprite: {fileID: 2525838194985648973}
-  invincibleDuration: 3
-  isDied: 0
-  rankManager: {fileID: 0}
---- !u!114 &2525838194238478255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2525838194238478248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 975cb49708b5562448632969414a169d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivity: 1
-  isTouching: 0
-  shipSprite: {fileID: 2525838194985648973}
-  holdToPlayAnimator: {fileID: 0}
-  firstTouch: 0
-  currentStatus: 0
 --- !u!61 &2525838194238478252
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4948,7 +4930,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1878058937
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -5044,7 +5026,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1878058937
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 9069317106639567337, guid: bf56336795eb112469baf8ebabc0938b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5244,11 +5226,6 @@ PrefabInstance:
 --- !u!4 &92571431657387248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2469508951618361019, guid: 43e98b81230f1f8438c98996ac2aff19, type: 3}
-  m_PrefabInstance: {fileID: 2525838194957984331}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &92571431657387249 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2469508951618361018, guid: 43e98b81230f1f8438c98996ac2aff19, type: 3}
   m_PrefabInstance: {fileID: 2525838194957984331}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5925103914930898065

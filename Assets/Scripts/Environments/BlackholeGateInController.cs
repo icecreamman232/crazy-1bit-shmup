@@ -13,7 +13,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     #region Reference
 
     private SpaceShipController shipController;
-    private SpaceShipMovement shipMovement;
+    
     private Animator shipAnimator;
 
     #endregion Reference
@@ -21,7 +21,6 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     private void Start()
     {
         shipController = GameManager.Instance.spaceShip.GetComponent<SpaceShipController>();
-        shipMovement = GameManager.Instance.spaceShip.GetComponent<SpaceShipMovement>();
         shipAnimator = GameManager.Instance.spaceShip.GetComponent<Animator>();
     }
 
@@ -124,7 +123,6 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
                 if (collision.CompareTag("Player"))
                 {
                     shipController.currentStatus = ShipStatus.DISABLE;
-                    shipMovement.currentStatus = ShipStatus.DISABLE;
                     shipController.StopShoot();
                     gateOut.isProcessing = true;
                     PullingShip(collision.gameObject);

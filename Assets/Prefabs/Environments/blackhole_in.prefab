@@ -78,11 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86cfcd0467ca78409409f9419771945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHP: 0
-  maxHP: 0
-  currentHP: 0
-  baseMoveSpeed: 1
   currentMoveSpeed: 0
+  data: {fileID: 11400000, guid: 5f8f5aaeaedc5cd4e8d7b70a7973195b, type: 2}
+  curHP: 0
   id: 0
   impactDamage: 0
   environmentType: 0

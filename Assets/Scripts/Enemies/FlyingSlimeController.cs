@@ -10,14 +10,12 @@ public class FlyingSlimeController : MonsterWithCustomPath
     public override void Spawn()
     {
         base.Spawn();
-
         Move();
     }
 
     public override void Move()
     {
         base.Move();
-
         //Remember to unsubribe event before destroy something
         bezierMoveController.OnMoveEnd -= OnMoveEnd;
         bezierMoveController.OnMoveEnd += OnMoveEnd;
@@ -31,9 +29,5 @@ public class FlyingSlimeController : MonsterWithCustomPath
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if (GameHelper.IsInsideScreenBounds(transform.position))
-        {
-
-        }
     }
 }

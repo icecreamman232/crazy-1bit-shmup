@@ -19,7 +19,7 @@ public class EnvironmentWithCustomPath : BaseEnvironment
     public override void Setup()
     {
         base.Setup();
-        bezierMoveController.MoveSpeed = baseMoveSpeed;
+        bezierMoveController.MoveSpeed = data.baseMoveSpd;
     }
 
     public virtual void Move()

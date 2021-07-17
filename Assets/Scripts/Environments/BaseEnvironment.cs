@@ -11,6 +11,11 @@ public enum EnvironmentType
 
 public class BaseEnvironment : BaseEntity
 {
+    public EnvironmentDO data;
+
+    public int curHP;
+
+
     public int id;
     public int impactDamage;
     public EnvironmentType environmentType;
@@ -19,7 +24,7 @@ public class BaseEnvironment : BaseEntity
     public override void Setup()
     {
         gameObject.SetActive(true);
-        currentHP = baseHP;
+        curHP = data.baseHP;
         StopAllCoroutines();
         if(environmentType == EnvironmentType.CAN_TAKE_DMG)
         {
@@ -33,7 +38,7 @@ public class BaseEnvironment : BaseEntity
     }
     public virtual IEnumerator CheckDie()
     {
-        yield return new WaitUntil(() => currentHP <= 0);
+        yield return new WaitUntil(() => curHP <= 0);
         
         FXManager.Instance.CreateFX(fxID.DIE_MONSTER_EXPLOSION, transform.position);
         GameManager.Instance.sfx.PlayOneShot(GameManager.Instance.monster_die_sfx, 0.3f);

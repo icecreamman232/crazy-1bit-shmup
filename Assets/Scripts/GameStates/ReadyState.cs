@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class ReadyState : State
 {
-    private SpaceShipMovement shipMovementController; 
+    SpaceShipController shipController;
     public override void Init(GameManager _gameManager)
     {
         gameManager = _gameManager;
-        shipMovementController = gameManager.spaceShip.GetComponent<SpaceShipMovement>();
+        shipController = gameManager.spaceShip.GetComponent<SpaceShipController>();
     }
 
     public override void Update()
     {
-        if (shipMovementController.firstTouch)
+        if (shipController.firstTouch)
         {
             gameManager.environmentCreator.Run();
             gameManager.waveSpawner.Run();
             gameManager.LifeTimeCounting();
-            gameManager.spaceShip.GetComponent<SpaceShipController>().BeginShoot();
+            shipController.BeginShoot();
 
             gameManager.SetState(new PlayingState());
 

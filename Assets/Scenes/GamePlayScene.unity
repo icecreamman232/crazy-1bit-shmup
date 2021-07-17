@@ -13552,10 +13552,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2525838194238478254, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
-      propertyPath: bulletPool
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2525838194238478254, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
       propertyPath: rankManager
       value: 
       objectReference: {fileID: 413932889}
@@ -13563,17 +13559,9 @@ PrefabInstance:
       propertyPath: uiShipHPBar
       value: 
       objectReference: {fileID: 1511538135}
-    - target: {fileID: 2525838194238478255, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
+    - target: {fileID: 2525838194238478254, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
       propertyPath: holdToPlayAnimator
       value: 
       objectReference: {fileID: 1398079979}
-    - target: {fileID: 2525838194837221608, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2525838194985648973, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}

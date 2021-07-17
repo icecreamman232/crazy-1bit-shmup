@@ -50,7 +50,7 @@ public class DodgeMonsterController : MonsterWithCustomPath
     {
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentShipTransform.position, baseMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, currentShipTransform.position, data.baseMoveSpd * Time.deltaTime);
             yield return null;
         }
     }

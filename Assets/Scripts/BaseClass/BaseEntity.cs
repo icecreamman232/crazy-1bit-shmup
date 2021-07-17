@@ -6,12 +6,7 @@ using UnityEngine;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    [Header("Basic Stats")]
-    public int baseHP;
-    public int maxHP;
-    public int currentHP;
-
-    public float baseMoveSpeed;
+    [Header("Current Stats")]
     public float currentMoveSpeed;
 
     public abstract void Setup();

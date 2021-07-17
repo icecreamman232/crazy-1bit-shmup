@@ -13,7 +13,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
 
 
     SpaceShipController shipController;
-    SpaceShipMovement shipMovement;
+
     Animator shipAnimator;
 
     private Coroutine pullingShipAtGateCoroutine;
@@ -27,7 +27,6 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     private void Start()
     {
         shipController = GameManager.Instance.spaceShip.GetComponent<SpaceShipController>();
-        shipMovement = GameManager.Instance.spaceShip.GetComponent<SpaceShipMovement>();
         shipAnimator = GameManager.Instance.spaceShip.GetComponent<Animator>();
         isProcessing = false;
     }
@@ -97,7 +96,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 monster.transform.position.y >= GameHelper.HalfSizeOfCamera().y + 1f
                 )
             {              
-                monster.GetComponent<BaseMonster>().currentHP = 0;
+                monster.GetComponent<BaseMonster>().curHP = 0;
                 isProcessingMonster = false;
                 StopCurrentFunction?.Invoke();
                 yield break;
@@ -134,7 +133,6 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 //Return ship to its normal state
                 shipAnimator.Play("ship_idle");
                 shipController.currentStatus = ShipStatus.NORMAL;
-                shipMovement.currentStatus = ShipStatus.NORMAL;
                 shipController.BeginShoot();
                 isProcessing = false;
                 StopCurrentFunction?.Invoke();
@@ -182,8 +180,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 ship.transform.localScale = Vector3.one;
                 //Return ship to its normal state
                 shipAnimator.Play("ship_idle");
-                shipController.currentStatus = ShipStatus.NORMAL;
-                shipMovement.currentStatus = ShipStatus.NORMAL;              
+                shipController.currentStatus = ShipStatus.NORMAL;           
                 shipController.BeginShoot();
                 yield break;
             }
@@ -235,7 +232,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 monster.transform.position.y >= GameHelper.HalfSizeOfCamera().y + 1f
                 )
             {
-                monster.GetComponent<BaseMonster>().currentHP = 0;
+                monster.GetComponent<BaseMonster>().curHP = 0;
                 yield break;
             }
             if (monster.transform.localScale.x >= 1f)
@@ -272,7 +269,6 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                         //ResetCoroutine();
                         shipAnimator.Play("ship_rotate");
                         shipController.currentStatus = ShipStatus.DISABLE;
-                        shipMovement.currentStatus = ShipStatus.DISABLE;
                         shipController.StopShoot();
                         pullingShipAtGateCoroutine = StartCoroutine(PullingShipAtGate(collision.gameObject));
                     }

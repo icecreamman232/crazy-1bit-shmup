@@ -41,7 +41,7 @@ public class MeteorMonsterRocket : Bullet
             {
                 if (collision.gameObject.CompareTag("Meteor"))
                 {
-                    collision.GetComponent<MeteorController>().currentHP -= Damage;
+                    collision.GetComponent<MeteorController>().curHP -= Damage;
                     ResetBullet();
                 }
             }

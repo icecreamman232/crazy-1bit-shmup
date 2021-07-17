@@ -230,14 +230,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e676ca4123ed1d945bae64691b0e1297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHP: 300
-  maxHP: 0
-  currentHP: 0
   baseMoveSpeed: 2
   currentMoveSpeed: 0
-  baseNumberCoin: 2
-  baseCoinValue: 5
-  baseScore: 10
+  data: {fileID: 11400000, guid: 4f175c4f2e9aeab44ba0dfb448660979, type: 2}
+  maxHP: 0
+  curHP: 0
+  isInteracting: 0
   baseImpactDamage: 10
   uiHealthBarController: {fileID: 6502133852979547350}
   itemSpawner: {fileID: 2487770130904161665}

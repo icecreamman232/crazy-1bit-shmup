@@ -78,11 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58eb503454e64764f960619b1472320f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHP: 0
-  maxHP: 0
-  currentHP: 0
-  baseMoveSpeed: 1
   currentMoveSpeed: 0
+  data: {fileID: 11400000, guid: 5f8f5aaeaedc5cd4e8d7b70a7973195b, type: 2}
+  curHP: 0
   id: 0
   impactDamage: 0
   environmentType: 0
@@ -94,6 +92,7 @@ MonoBehaviour:
   gateIn: {fileID: 0}
   pointOut: {fileID: 759770142640163948}
   isProcessing: 0
+  isProcessingMonster: 0
 --- !u!212 &7079011859231805521
 SpriteRenderer:
   m_ObjectHideFlags: 0

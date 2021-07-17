@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using Lean.Pool;
+using Lean.Touch;
 
 public enum ShipStatus
 {
@@ -26,12 +27,8 @@ public enum ShipStatus
 
 public class SpaceShipController : MonoBehaviour, IDamageable
 {
-    #region Public field
-
-    [Header("Gun")]
-    public Gun gun;
-
-    [Header("Basic Information")]
+    #region Basic Stat
+    [Header("Basic Stats")]
     public ShipStatus currentStatus;
     [SerializeField]
     private int baseHP;
@@ -39,13 +36,13 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     private int currentHP;
     public int CurrentHP
     {
-        get 
-        { 
-            return currentHP; 
+        get
+        {
+            return currentHP;
         }
-        set 
-        { 
-            if(value < 0)
+        set
+        {
+            if (value < 0)
             {
                 currentHP = 0;
             }
@@ -58,16 +55,30 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
     [SerializeField]
     private float invincibleDuration;
+    #endregion
+
+    #region Weapons
+    [Header("Weapons")]
+    public Gun gun;
+    #endregion
+
+    #region Touch Configs
+    [Header("Touch Configuration")]
+    [Range(0, 3)]
+    public float sensitivity;
+    public bool isTouching;
+    public bool firstTouch;
+    #endregion Touch Configs
+
+
 
     [Header("Reference")]
     public ParticleSystem fireJetParticle;
     public SpriteRenderer shipSprite;
     public RankManager rankManager;
 
-    private SpaceShipMovement movementController;
     private GameManager gameManager;
-    #endregion Public field
-
+    public Animator holdToPlayAnimator;
     #region UI
 
     [Header("UI")]
@@ -83,6 +94,13 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     public AudioClip sfxCoinCollect;
 
     #endregion SFX
+    private Camera mainCamera;
+    private float shipSpriteWidth;
+    private float shipSpriteHeight;
+    private float lastPosX;
+    private Animator shipAnimator;
+
+    private Vector2 screenBounds;
 
     private float timer;
 
@@ -90,10 +108,31 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        movementController = GetComponent<SpaceShipMovement>();
         gameManager = GameManager.Instance;
-    }
 
+        shipSpriteWidth = shipSprite.bounds.size.x;
+        shipSpriteHeight = shipSprite.bounds.size.y;
+        shipAnimator = GetComponent<Animator>();
+        isTouching = false;
+        firstTouch = false;
+        mainCamera = Camera.main;
+
+        screenBounds = GameHelper.GetCurrentScreenBounds();
+    }
+    void Update()
+    {
+        if (currentStatus == ShipStatus.NORMAL || currentStatus == ShipStatus.INVINCIBLE)
+        {
+            if (!isTouching) return;
+            var screenDelta = LeanGesture.GetScreenDelta();
+            if (screenDelta == Vector2.zero) return;
+            TranslateShip(screenDelta);
+        }
+    }
+    private void OnDestroy()
+    {
+        OnDisableTouch();
+    }
     /// <summary>
     /// Init all parameters and start ship
     /// </summary>
@@ -110,7 +149,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         shipSprite.color = c;
 
         fireJetParticle.Play();
-        movementController.SetShipPosition();
+        SetShipPosition();
         GetComponent<Animator>().Play("ship_idle");
 
         
@@ -120,7 +159,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         currentHP -= damage;
         if (currentHP <= 0)
         {
-            movementController.OnDisableTouch();
+            OnDisableTouch();
             FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
             shipSprite.enabled = false;
             fireJetParticle.Stop();
@@ -219,6 +258,93 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         Lean.Pool.LeanPool.Despawn(item.gameObject);
     }
 
-    
+
     #endregion Collison Detection
+
+    #region Control ship methods
+    public void OnEnableTouch()
+    {
+        LeanTouch.OnFingerDown += OnTouchDown;
+        LeanTouch.OnFingerUp += OnTouchUp;
+    }
+    public void OnDisableTouch()
+    {
+        LeanTouch.OnFingerDown -= OnTouchDown;
+        LeanTouch.OnFingerUp -= OnTouchUp;
+        isTouching = false;
+        firstTouch = false;
+    }
+    public void OnTouchDown(LeanFinger fingers)
+    {
+        if (!firstTouch)
+        {
+            firstTouch = true;
+            holdToPlayAnimator.Play("holdtoplay_outtro_anim");
+        }
+        isTouching = true;
+    }
+    public void OnTouchUp(LeanFinger fingers)
+    {
+        isTouching = false;
+        if (currentStatus == ShipStatus.NORMAL)
+        {
+            shipAnimator.Play("ship_idle");
+        }
+
+    }
+    public void SetShipPosition()
+    {
+        var postion = new Vector3(0, -screenBounds.y + shipSpriteHeight * 1.5f, 0);
+        var target = postion;
+        lastPosX = postion.x;
+        postion.y -= 3.0f;
+        transform.position = postion;
+        isTouching = false;
+        LeanTween.moveY(gameObject, target.y, 1.2f)
+            .setEase(LeanTweenType.easeOutBack)
+            .setOnComplete(OnCompleteSetupShipPosition);
+    }
+    void OnCompleteSetupShipPosition()
+    {
+        OnEnableTouch();
+        holdToPlayAnimator.gameObject.SetActive(true);
+        holdToPlayAnimator.Play("holdtoplay_intro_anim");
+    }
+    void TranslateShip(Vector2 delta)
+    {
+        if (mainCamera != null)
+        {
+            var screenPts = mainCamera.WorldToScreenPoint(transform.position);
+            screenPts += (Vector3)delta * sensitivity;
+            var worldPts = mainCamera.ScreenToWorldPoint(screenPts);
+
+
+            if (worldPts.x <= -screenBounds.x + shipSpriteWidth * 0.5f) worldPts.x = -screenBounds.x + shipSpriteWidth * 0.5f;
+            if (worldPts.x >= screenBounds.x - shipSpriteWidth * 0.5f) worldPts.x = screenBounds.x - shipSpriteWidth * 0.5f;
+            if (worldPts.y <= -screenBounds.y) worldPts.y = -screenBounds.y;
+
+            //Ship keep turning left
+            if (worldPts.x < lastPosX)
+            {
+                shipAnimator.Play("ship_turn_left_anim");
+            }
+            //Ship keep turning right
+            else if (worldPts.x > lastPosX)
+            {
+                shipAnimator.Play("ship_turn_right_anim");
+            }
+            else
+            {
+                shipAnimator.Play("ship_idle");
+            }
+
+            lastPosX = worldPts.x;
+            transform.position = worldPts;
+        }
+        else
+        {
+            Debug.LogError("Camera is null");
+        }
+    }
+    #endregion Control ship methods
 }

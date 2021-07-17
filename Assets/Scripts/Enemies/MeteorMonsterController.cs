@@ -109,9 +109,9 @@ public class MeteorMonsterController : MonsterWithCustomPath
         FXManager.Instance.CreateFX(fxID.EXPLOSION_FOR_TRANSFORM, transform.position);
         if (form == 2)
         {
-            baseHP = Mathf.RoundToInt(baseHP * 1.2f);
-            maxHP = baseHP;
-            currentHP = maxHP;
+            data.baseHP = Mathf.RoundToInt(data.baseHP * 1.2f);
+            maxHP = data.baseHP;
+            curHP = maxHP;
             UpdateHPInterface();
             baseImpactDamage += baseImpactDamage;
             transform.localScale = Vector3.one * 1f;
@@ -127,9 +127,9 @@ public class MeteorMonsterController : MonsterWithCustomPath
             LGun.gunData = gunData_Form3;
             RGun.gunData = gunData_Form3;
             //Reset HP
-            baseHP = Mathf.RoundToInt(baseHP * 1.2f);
-            maxHP = baseHP;
-            currentHP = maxHP;
+            data.baseHP = Mathf.RoundToInt(data.baseHP * 1.2f);
+            maxHP = data.baseHP;
+            curHP = maxHP;
             UpdateHPInterface();
             //Increase dmg
             baseImpactDamage += baseImpactDamage;
@@ -238,7 +238,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
         {
             if (collision.gameObject.CompareTag("Meteor"))
             {
-                collision.GetComponent<BaseEnvironment>().currentHP -= baseImpactDamage;
+                collision.GetComponent<BaseEnvironment>().curHP -= baseImpactDamage;
                 if (curForm < 3)
                 {
                     curForm++;

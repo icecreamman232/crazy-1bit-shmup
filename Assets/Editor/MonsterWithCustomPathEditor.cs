@@ -25,6 +25,6 @@ public class MonsterWithCustomPathEditor : Editor
     }
     private void UpdateInformation()
     {
-        currentHP = monster.currentHP;
+        currentHP = monster.curHP;
     }
 }

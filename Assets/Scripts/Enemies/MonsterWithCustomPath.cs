@@ -13,6 +13,7 @@ public enum MovementState
 
 public class MonsterWithCustomPath : BaseMonster
 {
+    [Header("Paths")]
     public MovementState currentMovementState;
 
     [SerializeField]
@@ -33,7 +34,7 @@ public class MonsterWithCustomPath : BaseMonster
         base.Setup();
 
         //Could change to currentMoveSpeed which grow faster by time
-        bezierMoveController.MoveSpeed = baseMoveSpeed;
+        bezierMoveController.MoveSpeed = data.baseMoveSpd;
     }
     public virtual void Move()
     {

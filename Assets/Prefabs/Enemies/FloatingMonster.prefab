@@ -277,7 +277,6 @@ GameObject:
   - component: {fileID: 7730885452382965741}
   - component: {fileID: 67743736285988727}
   - component: {fileID: 3866354363821416840}
-  - component: {fileID: 7642898754985102861}
   - component: {fileID: -1586189584046415224}
   - component: {fileID: -3033852252409390352}
   m_Layer: 8
@@ -337,14 +336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44769cd4ec2f624f925f2a4f7239aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHP: 50
-  maxHP: 0
-  currentHP: 0
   baseMoveSpeed: 3
   currentMoveSpeed: 0
-  baseNumberCoin: 3
-  baseCoinValue: 8
-  baseScore: 15
+  data: {fileID: 11400000, guid: e7391ba384cacc74d8fb56bcb13b1acd, type: 2}
+  maxHP: 0
+  curHP: 0
+  isInteracting: 0
   baseImpactDamage: 20
   uiHealthBarController: {fileID: 1437759685878296454}
   itemSpawner: {fileID: -1586189584046415224}
@@ -404,54 +401,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7642898754985102861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7730885452382965728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2d9078dbe17bc4f966c9d2310be047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathContainer: {fileID: 0}
-  onStart: 0
-  moveToPath: 0
-  reverse: 0
-  startPoint: 0
-  currentPoint: 0
-  closeLoop: 0
-  localType: 0
-  lookAhead: 0
-  sizeToAdd: 0
-  timeValue: 1
-  speed: 3
-  animEaseType:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 0
-  waypoints: []
-  pathType: 1
-  pathMode: 0
-  easeType: 1
-  lockPosition: 0
-  lockRotation: 0
-  waypointRotation: 0
-  rotationTarget: {fileID: 0}
-  movementStart:
-    m_PersistentCalls:
-      m_Calls: []
-  movementChange:
-    m_PersistentCalls:
-      m_Calls: []
-  movementEnd:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &-1586189584046415224
 MonoBehaviour:
   m_ObjectHideFlags: 0
