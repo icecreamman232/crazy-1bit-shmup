@@ -27,13 +27,9 @@ align="left" height="48" width="48" ></a>
 Hi there,
 My name is Khoa, you could call me Stephen.
 I am a game developer. I've been working in game industry for over 4 years, I used to work as game programmer, game designer, game producer.
-
-At the time I am making this game. I just lost my full time job. I am looking for new job in both full time and remote to sustain through the pandemic. 
-I appreciate this alot...
-- If there's something in this project help you, provide some fun moments, it would be nice if you could help me continue developing this project.
-- Or...at least if you are recruiter, hope that we could work together so I can pay back my bills and keep working on this project.
-- If you are not some part of lists above, it's totally okay! Hope you enjoy this.
-Thanks again.
+This is my hobby project I use to learn Unity and about game programming.
+If this brough you some interests, you can help me to stay balance while making this project.
+Thank you
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F159VOO)
 
