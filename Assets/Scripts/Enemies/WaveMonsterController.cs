@@ -29,6 +29,12 @@ public class WaveMonsterController : MonoBehaviour
     /// </summary>
     public int numberMonsterCompleteDuty;
 
+    public int numMonsterRan;
+    public float delayNextMonster;
+    public float timer;
+    public bool isRunning;
+    public bool isSpawned;
+
     private void OnEnable()
     {
         for (int i = 0; i < waveMonsterList.Count; i++)
@@ -44,9 +50,15 @@ public class WaveMonsterController : MonoBehaviour
         numberMonsterCompleteDuty = 0;
         numberMonsterList = waveMonsterList.Count;
         isWaveFinished = false;
+        for (int i = 0; i < waveMonsterList.Count; i++)
+        {
+            waveMonsterList[i].monster.Setup();
+        }
 
+        isRunning = true;
+        isSpawned = false;
 
-        StartCoroutine(OnSpawningMonster());
+        //StartCoroutine(OnSpawningMonster());
     }
     public void Reset()
     {
@@ -70,16 +82,42 @@ public class WaveMonsterController : MonoBehaviour
         }
     }
 
-    private IEnumerator OnSpawningMonster()
+    #region old code using coroutine
+    //private IEnumerator OnSpawningMonster()
+    //{
+
+    //    for (int i = 0; i < waveMonsterList.Count; i++)
+    //    {
+    //        waveMonsterList[i].monster.Spawn();
+    //        yield return new WaitForSeconds(waveMonsterList[i].delayTime);
+    //    }
+    //}
+    #endregion
+
+    private void Update()
     {
-        for (int i = 0; i < waveMonsterList.Count; i++)
+        while(isRunning)
         {
-            waveMonsterList[i].monster.Setup();
-            waveMonsterList[i].monster.Spawn();
-            yield return new WaitForSeconds(waveMonsterList[i].delayTime);
+            if (!isSpawned)
+            {
+                waveMonsterList[numMonsterRan].monster.Spawn();
+
+                isSpawned = true;
+            }
+            timer += Time.deltaTime;
+            if (timer >= waveMonsterList[numMonsterRan].delayTime)
+            {
+                timer = 0;
+                numMonsterRan++;
+                isSpawned = false;
+                if (numMonsterRan >= numberMonsterList)
+                {
+                    numMonsterRan = 0;
+                    isRunning = false;
+                }
+            }
         }
     }
-
 
     #region Editor
 #if UNITY_EDITOR

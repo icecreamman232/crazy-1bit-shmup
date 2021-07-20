@@ -11023,9 +11023,7 @@ MonoBehaviour:
   uiShipHPBar: {fileID: 1511538135}
   scoreNumberText: {fileID: 2012788458}
   endlessModeData: {fileID: 11400000, guid: e655caa2fa79cfb4fbd31b5759a05994, type: 2}
-  dieExplosionFX: {fileID: 2469508951618361012, guid: b1113a9bad9b6cc49830b77730b8381e, type: 3}
   cameraShakeFX: {fileID: 519420030}
-  explosionTransformFX: {fileID: 9062908510313452247, guid: 237ce79cf0e53d347bf24e211531fc8a, type: 3}
 --- !u!114 &929344307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13601,6 +13599,10 @@ PrefabInstance:
       propertyPath: holdToPlayAnimator
       value: 
       objectReference: {fileID: 1398079979}
+    - target: {fileID: 7512767365015891760, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
 --- !u!114 &2525838195602427379 stripped
