@@ -58,7 +58,6 @@ public class WaveMonsterController : MonoBehaviour
         isRunning = true;
         isSpawned = false;
 
-        //StartCoroutine(OnSpawningMonster());
     }
     public void Reset()
     {
@@ -81,18 +80,6 @@ public class WaveMonsterController : MonoBehaviour
             Reset();
         }
     }
-
-    #region old code using coroutine
-    //private IEnumerator OnSpawningMonster()
-    //{
-
-    //    for (int i = 0; i < waveMonsterList.Count; i++)
-    //    {
-    //        waveMonsterList[i].monster.Spawn();
-    //        yield return new WaitForSeconds(waveMonsterList[i].delayTime);
-    //    }
-    //}
-    #endregion
 
     private void Update()
     {
