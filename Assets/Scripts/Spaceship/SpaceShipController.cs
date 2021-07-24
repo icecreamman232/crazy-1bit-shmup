@@ -86,14 +86,6 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
     #endregion UI
 
-    #region SFX
-
-    [Header("SFX")]
-    public AudioSource sfx;
-
-    public AudioClip sfxCoinCollect;
-
-    #endregion SFX
     private Camera mainCamera;
     private float shipSpriteWidth;
     private float shipSpriteHeight;
@@ -203,10 +195,11 @@ public class SpaceShipController : MonoBehaviour, IDamageable
             return;
         }
 
-        if(!collision.gameObject.CompareTag("Bullet"))
+        if(collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Bullet"))
         {
-            HandleGetHitByEntity(1);
+            return;
         }
+        HandleGetHitByEntity(1);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
