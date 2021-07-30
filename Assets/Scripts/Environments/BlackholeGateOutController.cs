@@ -76,15 +76,15 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 isProcessing = false;
             });
     }
-    public void PushingForMonster(GameObject monster)
+    public void PushingForMonster(GameObject monster, Vector3 scale)
     {
         monster.transform.position = transform.position;
         LeanTween.rotateAroundLocal(monster, Vector3.forward, 360f, 0.4f);
-        LeanTween.scale(monster, Vector3.one, 0.4f);
+        LeanTween.scale(monster, scale, 0.4f);
         LeanTween.move(monster, destMonster.position, 1.5f)
             .setOnComplete(() => {
                 monster.transform.rotation = Quaternion.identity;
-                monster.transform.localScale = Vector3.one;
+                monster.transform.localScale = scale;
                 BaseMonster baseMons = monster.GetComponent<BaseMonster>();
                 baseMons.isInteracting = false;
                 baseMons.TakeDamage(baseMons.maxHP);              
@@ -94,7 +94,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     #endregion
 
     #region Push / Pull with Gate Out itself
-    public void PullingForShip(GameObject ship)
+    private void PullingForShip(GameObject ship)
     {
         LeanTween.rotateAroundLocal(ship, Vector3.forward, 360f, 0.2f);
         LeanTween.scale(ship, Vector3.zero, 0.2f);
@@ -105,7 +105,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 PushingForShip(ship);
             });
     }
-    public void PullingForMonster(GameObject monster)
+    private void PullingForMonster(GameObject monster, Vector3 scale)
     {
         LeanTween.rotateAroundLocal(monster, Vector3.forward, 360f, 0.2f);
         LeanTween.scale(monster, Vector3.zero, 0.2f);
@@ -113,7 +113,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
             .setOnComplete(() => {
                 monster.transform.rotation = Quaternion.identity;
                 monster.transform.localScale = Vector3.zero;
-                PushingForMonster(monster);
+                PushingForMonster(monster, scale);
             });
     }
     #endregion
@@ -135,7 +135,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                     {
                         collision.GetComponent<BaseMonster>().isInteracting = true;
                         collision.GetComponent<BezierMoveController>().Pause();
-                        PullingForMonster(collision.gameObject);
+                        PullingForMonster(collision.gameObject, collision.gameObject.transform.localScale);
                     }
                 }
             }                    

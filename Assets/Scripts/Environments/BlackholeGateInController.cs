@@ -77,7 +77,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
             });
 
     }
-    private void PullingForMonster(GameObject monster)
+    private void PullingForMonster(GameObject monster, Vector3 originScale)
     {
         gateOut.isProcessing = true;
         LeanTween.rotateAroundLocal(monster, Vector3.forward, 360f, 0.2f);
@@ -87,7 +87,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
                 monster.transform.rotation = Quaternion.identity;
                 monster.transform.localScale = Vector3.zero;
                 monster.transform.position = gateOut.gameObject.transform.position;
-                gateOut.PushingForMonster(monster);
+                gateOut.PushingForMonster(monster, originScale);
             });
     }
 
@@ -99,6 +99,7 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
         {
             if (GameHelper.IsInsideScreenBounds(transform.position))
             {
+
                 if (collision.CompareTag("Player"))
                 {
                     shipController.currentStatus = ShipStatus.DISABLE;
@@ -106,12 +107,15 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
                     gateOut.isProcessing = true;
                     PullingForShip(collision.gameObject);
                 }
-                if (collision.CompareTag("Enemy"))
+                if(!gateOut.isProcessingMonster)
                 {
-                    collision.GetComponent<BaseMonster>().isInteracting = true;
-                    collision.GetComponent<BezierMoveController>().Pause();
-                    gateOut.isProcessingMonster = true;
-                    PullingForMonster(collision.gameObject);
+                    if (collision.CompareTag("Enemy"))
+                    {
+                        collision.GetComponent<BaseMonster>().isInteracting = true;
+                        collision.GetComponent<BezierMoveController>().Pause();
+                        gateOut.isProcessingMonster = true;
+                        PullingForMonster(collision.gameObject, collision.gameObject.transform.localScale);
+                    }
                 }
             }
         }
