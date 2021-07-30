@@ -353,6 +353,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1286215840656885644}
     m_Modifications:
+    - target: {fileID: 703388136750737910, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 703388136750737910, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 759770142640163948, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1229568626262913244, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
       propertyPath: intro
       value: 
@@ -361,10 +373,6 @@ PrefabInstance:
       propertyPath: gateIn
       value: 
       objectReference: {fileID: 5690615209093385990}
-    - target: {fileID: 1229568626262913244, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
-      propertyPath: isShowGizmo
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1764721280117654797, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -413,14 +421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: blackhole_out
       objectReference: {fileID: 0}
-    - target: {fileID: 8831063222694806033, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 8831063222694806033, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.4
-      objectReference: {fileID: 0}
+    - target: {fileID: 6566547281672514512, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
 --- !u!4 &4746700591251659366 stripped

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class BlackholeGateInController : EnvironmentWithCustomPath
 {
@@ -15,6 +16,12 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     private SpaceShipController shipController;
     
     private Animator shipAnimator;
+
+
+    //New fields here
+    public Action OnFinishedPulling;
+
+
 
     #endregion Reference
 
@@ -56,60 +63,32 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
     }
 
     #region Handling pulling behaviour
-
-    private void PullingShip(GameObject ship)
+    private void PullingForShip(GameObject ship)
     {
         gateOut.isProcessing = true;
-        shipAnimator.Play("ship_rotate");
-        StopCurrentFunction?.Invoke();
-        ship.transform.rotation = Quaternion.identity;
-        pullingCoroutine = StartCoroutine(OnPullingShip(ship));
-    }
-
-    private IEnumerator OnPullingShip(GameObject ship)
-    {
-        float moveSpeed = 4.0f;
-        float scaleSpeed = 2.5f;
-        while (true)
-        {
-            if (ship.transform.localScale.x <= 0)
-            {
+        LeanTween.rotateAroundLocal(ship, Vector3.forward, 360f, 0.3f);
+        LeanTween.scale(ship, Vector3.zero, 0.3f);
+        LeanTween.move(ship, transform.position, 0.4f)
+            .setOnComplete(()=> {
+                ship.transform.rotation = Quaternion.identity;
                 ship.transform.localScale = Vector3.zero;
                 ship.transform.position = gateOut.gameObject.transform.position;
-                gateOut.PushingOutShip(ship);
-                yield break;
-            }
-            ship.transform.position = Vector3.MoveTowards(ship.transform.position, transform.position, moveSpeed * Time.deltaTime);
-            ship.transform.localScale -= scaleSpeed * Time.deltaTime * Vector3.one;
-            yield return null;
-        }
-    }
+                gateOut.PushingForShip(ship);
+            });
 
-    private void PullingMonster(GameObject monster)
-    {
-        StopCurrentFunction?.Invoke();
-        pullingCoroutine = StartCoroutine(OnPullingMonster(monster));
     }
-
-    private IEnumerator OnPullingMonster(GameObject monster)
+    private void PullingForMonster(GameObject monster)
     {
-        float moveSpeed = 4.0f;
-        float scaleSpeed = 2.5f;
-        Vector3 originScale = monster.transform.localScale;
-        while (true)
-        {
-            if (monster.transform.localScale.x <= 0)
-            {
+        gateOut.isProcessing = true;
+        LeanTween.rotateAroundLocal(monster, Vector3.forward, 360f, 0.2f);
+        LeanTween.scale(monster, Vector3.zero, 0.2f);
+        LeanTween.move(monster, transform.position, 0.3f)
+            .setOnComplete(() => {
+                monster.transform.rotation = Quaternion.identity;
                 monster.transform.localScale = Vector3.zero;
                 monster.transform.position = gateOut.gameObject.transform.position;
-                gateOut.PushingOutMonster(monster, originScale);
-                yield break;
-            }
-            monster.transform.position = Vector3.MoveTowards(monster.transform.position, transform.position, moveSpeed * Time.deltaTime);
-
-            monster.transform.localScale -= scaleSpeed * Time.deltaTime * Vector3.one;
-            yield return null;
-        }
+                gateOut.PushingForMonster(monster);
+            });
     }
 
     #endregion Handling pulling behaviour
@@ -125,14 +104,14 @@ public class BlackholeGateInController : EnvironmentWithCustomPath
                     shipController.currentStatus = ShipStatus.DISABLE;
                     shipController.StopShoot();
                     gateOut.isProcessing = true;
-                    PullingShip(collision.gameObject);
+                    PullingForShip(collision.gameObject);
                 }
                 if (collision.CompareTag("Enemy"))
                 {
                     collision.GetComponent<BaseMonster>().isInteracting = true;
                     collision.GetComponent<BezierMoveController>().Pause();
                     gateOut.isProcessingMonster = true;
-                    PullingMonster(collision.gameObject);
+                    PullingForMonster(collision.gameObject);
                 }
             }
         }
