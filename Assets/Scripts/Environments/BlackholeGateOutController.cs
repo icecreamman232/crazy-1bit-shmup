@@ -96,9 +96,9 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
     #region Push / Pull with Gate Out itself
     public void PullingForShip(GameObject ship)
     {
-        LeanTween.rotateAroundLocal(ship, Vector3.forward, 360f, 0.3f);
-        LeanTween.scale(ship, Vector3.zero, 0.3f);
-        LeanTween.move(ship, transform.position, 0.4f)
+        LeanTween.rotateAroundLocal(ship, Vector3.forward, 360f, 0.2f);
+        LeanTween.scale(ship, Vector3.zero, 0.2f);
+        LeanTween.move(ship, transform.position, 0.3f)
             .setOnComplete(() => {
                 ship.transform.rotation = Quaternion.identity;
                 ship.transform.localScale = Vector3.zero;

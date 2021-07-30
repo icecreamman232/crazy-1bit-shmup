@@ -55,19 +55,11 @@ public class BezierMoveController : MonoBehaviour
     private void OnEnable()
     {
         isMoving = false;
-        isGoingBackward = false;
-       
+        isGoingBackward = false;   
     }
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnDisable()
     {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Stop();
     }
     public void SetPath(PathSegment newPath)
     {

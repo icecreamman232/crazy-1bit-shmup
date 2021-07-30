@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2eb3290eeaaf514ba9333469b0118b9, type: 3}
   m_Name: MeteorMonsterData
   m_EditorClassIdentifier: 
-  baseHP: 200
+  baseHP: 100
   baseMoveSpd: 2
   baseScore: 10
   itemData:

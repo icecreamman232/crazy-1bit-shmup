@@ -38,11 +38,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
     }
     private void OnDisable()
     {
-  
-    }
-    private void Start()
-    {
-        
+        bezierMoveController.SetPath(intro);
     }
     public override void Setup()
     {
@@ -99,11 +95,6 @@ public class MeteorMonsterController : MonsterWithCustomPath
 
         currentMovementState = MovementState.PATROL;
     }
-
-    private void Update()
-    {
-    }
-
     private void TransformIntoAngryForm(int form)
     {
         FXManager.Instance.CreateFX(fxID.EXPLOSION_FOR_TRANSFORM, transform.position);
