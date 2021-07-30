@@ -129,21 +129,16 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                     shipController.StopShoot();
                     PullingForShip(collision.gameObject);
                 }
-            }
-            //Layer 8 = Enemy
-            if (collision.gameObject.layer == 8)
-            {
                 if (collision.gameObject.CompareTag("Enemy"))
                 {
-                    if(!collision.GetComponent<BaseMonster>().isInteracting)
+                    if (!collision.GetComponent<BaseMonster>().isInteracting)
                     {
                         collision.GetComponent<BaseMonster>().isInteracting = true;
                         collision.GetComponent<BezierMoveController>().Pause();
                         PullingForMonster(collision.gameObject);
-                    }                  
+                    }
                 }
-            }
-          
+            }                    
         } 
     }
 
