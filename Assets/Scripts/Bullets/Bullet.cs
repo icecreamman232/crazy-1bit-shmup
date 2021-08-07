@@ -74,8 +74,8 @@ public class Bullet : MonoBehaviour
     }
     private void Start()
     {
-        screenBoundX = GameHelper.GetCurrentScreenBounds().x;
-        screenBoundY = GameHelper.GetCurrentScreenBounds().y;
+        screenBoundX = GameHelper.GetCurrentScreenBounds().x/2;
+        screenBoundY = GameHelper.GetCurrentScreenBounds().y/2;
     }
 
     public void Update()
@@ -90,12 +90,12 @@ public class Bullet : MonoBehaviour
             ResetBullet();
             return;
         }
-        else if (transform.position.x >= screenBoundX + 1.0f)
+        else if (transform.position.x >= screenBoundX)
         {
             ResetBullet();
             return;
         }
-        else if (transform.position.x <= -screenBoundX - 1.0f)
+        else if (transform.position.x <= -screenBoundX)
         {
             ResetBullet();
             return;

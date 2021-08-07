@@ -12,7 +12,7 @@ public static class GameHelper
     public const string dataObjectMenuName = "Data Objects/";
 
     public static Vector2 sizeOfCamera = Vector2.zero;
-    public static Vector2 SizeOfCamera()
+    public static Vector2 GetCurrentScreenBounds()
     {
         if(sizeOfCamera == Vector2.zero)
         {
@@ -22,7 +22,7 @@ public static class GameHelper
     }
     public static Vector2 HalfSizeOfCamera()
     {
-        return SizeOfCamera() * 0.5f;
+        return GetCurrentScreenBounds() * 0.5f;
     }
 
 
@@ -34,16 +34,17 @@ public static class GameHelper
         sizeOfCamera = A;
     }
 
-    public static Vector2 GetCurrentScreenBounds()
-    {
-        return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-    }
+    //public static Vector2 GetCurrentScreenBounds()
+    //{
+    //    return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+    //}
+
     public static bool IsInsideScreenBounds(Vector3 positon)
     {
         bool result = false;
-        if(positon.x > -GameHelper.GetCurrentScreenBounds().x && positon.x < GameHelper.GetCurrentScreenBounds().x)
+        if(positon.x > -GameHelper.GetCurrentScreenBounds().x/2 && positon.x < GameHelper.GetCurrentScreenBounds().x/2)
         {
-            if(positon.y > -GameHelper.GetCurrentScreenBounds().y && positon.y < GameHelper.GetCurrentScreenBounds().y)
+            if(positon.y > -GameHelper.GetCurrentScreenBounds().y/2 && positon.y < GameHelper.GetCurrentScreenBounds().y/2)
             {
                 result = true;
             }

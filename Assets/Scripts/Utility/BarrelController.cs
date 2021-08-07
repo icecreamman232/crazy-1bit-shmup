@@ -10,13 +10,13 @@ public class BarrelController : MonoBehaviour
     {
         if(transform.position.x < 0)
         {
-            transform.position = new Vector3(-GameHelper.SizeOfCamera().x / 2 - 0.5f, 0, 0);
-            GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
+            transform.position = new Vector3(-GameHelper.GetCurrentScreenBounds().x / 2 - 0.5f, 0, 0);
+            GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.GetCurrentScreenBounds().y);
         }
         else
         {
-            transform.position = new Vector3(GameHelper.SizeOfCamera().x / 2 + 0.5f, 0, 0);
-            GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.SizeOfCamera().y);
+            transform.position = new Vector3(GameHelper.GetCurrentScreenBounds().x / 2 + 0.5f, 0, 0);
+            GetComponent<BoxCollider2D>().size = new Vector2(1, GameHelper.GetCurrentScreenBounds().y);
         }
         
     }

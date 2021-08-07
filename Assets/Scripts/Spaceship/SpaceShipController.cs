@@ -108,7 +108,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         gameManager = GameManager.Instance;
         mainCamera = Camera.main;
         shipAnimator = GetComponent<Animator>();
-        screenBounds = GameHelper.GetCurrentScreenBounds();
+        screenBounds = GameHelper.HalfSizeOfCamera();
 
         shipSpriteWidth = shipSprite.bounds.size.x;
         shipSpriteHeight = shipSprite.bounds.size.y;
