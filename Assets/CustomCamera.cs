@@ -7,15 +7,16 @@ public class CustomCamera : MonoBehaviour
     public Vector2 DesignAspect;
     public Vector2 CurrentAspect;
     public Vector2 ScreenBounds;
-
+    public bool ShowGizmo;
 
     private Camera mainCamera;
     private void Awake()
     {
+        ShowGizmo = true;
         mainCamera = Camera.main;
         GetCurrentAspect();
         CropViewport();
-        GetScreenBounds();
+        GetCameraSize();
     }
     private void Start()
     {
@@ -25,7 +26,6 @@ public class CustomCamera : MonoBehaviour
     {
         //For the PC, the width is always bigger than the height
         var ratio = (float)Screen.width / (float)Screen.height;
-        Debug.Log("Ratio=" + ratio);
         if(ratio >= 1.77f)
         {
             CurrentAspect = new Vector2(16, 9);
@@ -73,7 +73,7 @@ public class CustomCamera : MonoBehaviour
         var zoomValue = currentRatio / defaultRatio;
         mainCamera.orthographicSize = mainCamera.orthographicSize * zoomValue;
     }
-    private void GetScreenBounds()
+    private void GetCameraSize()
     {
         //Follow Unity Document https://docs.unity3d.com/ScriptReference/Camera-orthographicSize.html
         ScreenBounds.y = mainCamera.orthographicSize * 2;
