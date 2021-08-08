@@ -10974,6 +10974,7 @@ GameObject:
   - component: {fileID: 929344307}
   - component: {fileID: 929344308}
   - component: {fileID: 929344306}
+  - component: {fileID: 929344309}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11053,6 +11054,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e099a59ea6083643b7b0acdf75f4aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &929344309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929344304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7a89a8c53fc5c4abffaafd4a00ebe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveLeft: 276
+  moveRight: 275
+  moveUp: 273
+  moveDown: 274
 --- !u!1 &988338321
 GameObject:
   m_ObjectHideFlags: 0
@@ -13588,6 +13605,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2525838194238478254, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
+      propertyPath: moveSpd
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2525838194238478254, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
       propertyPath: rankManager
       value: 
       objectReference: {fileID: 413932889}
@@ -13599,10 +13620,6 @@ PrefabInstance:
       propertyPath: holdToPlayAnimator
       value: 
       objectReference: {fileID: 1398079979}
-    - target: {fileID: 7512767365015891760, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
 --- !u!114 &2525838195602427379 stripped

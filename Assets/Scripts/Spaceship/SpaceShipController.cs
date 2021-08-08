@@ -103,6 +103,15 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     private int turnLeftHash;
     private int turnRightHash;
 
+
+    #region PC Controller
+    private Vector3 moveDir;
+    public float moveSpd;
+    private Rigidbody2D rgBody;
+    #endregion
+
+
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -119,17 +128,64 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
         idleAnimHash = Animator.StringToHash("ship_idle");
         turnLeftHash = Animator.StringToHash("ship_turn_left_anim");
-        turnRightHash = Animator.StringToHash("ship_turn_right_anim"); 
+        turnRightHash = Animator.StringToHash("ship_turn_right_anim");
 
+        rgBody = GetComponent<Rigidbody2D>();
+        moveDir = Vector3.zero;
     }
-    void Update()
+    private void Update()
     {
         if (currentStatus == ShipStatus.NORMAL || currentStatus == ShipStatus.INVINCIBLE)
         {
-            if (!isTouching) return;
-            var screenDelta = LeanGesture.GetScreenDelta();
-            if (screenDelta == Vector2.zero) return;
-            TranslateShip(screenDelta);
+            if(Input.anyKey)
+            {
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    moveDir.x = -1;
+                }
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    moveDir.x = 1;
+                }
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    moveDir.y = -1;
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    moveDir.y = 1;
+                }
+            }
+            else
+            {
+                moveDir = Vector3.zero;
+            }
+
+
+            //transform.position += moveDir * moveSpd * Time.deltaTime;
+            transform.Translate(moveDir * moveSpd * Time.deltaTime);
+
+            //Ship keep turning left
+            if (transform.position.x < lastPosX)
+            {
+                shipAnimator.Play(turnLeftHash);
+            }
+            //Ship keep turning right
+            else if (transform.position.x > lastPosX)
+            {
+                shipAnimator.Play(turnRightHash);
+            }
+            else
+            {
+                shipAnimator.Play(idleAnimHash);
+            }
+
+            lastPosX = transform.position.x;
+
+            //if (!isTouching) return;
+            //var screenDelta = LeanGesture.GetScreenDelta();
+            //if (screenDelta == Vector2.zero) return;
+            //TranslateShip(screenDelta);
         }
     }
     private void OnDestroy()
