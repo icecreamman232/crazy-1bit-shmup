@@ -4,20 +4,55 @@ using UnityEngine;
 
 public class ExampleGO : MonoBehaviour
 {
-    public Vector2 ScreenBounds;
-    public Vector2 ConvertedSBounds;
-    // Start is called before the first frame update
-    void Start()
-    {
-        ScreenBounds.y = Camera.main.orthographicSize * 2;
-        ScreenBounds.x = Camera.main.aspect * Camera.main.orthographicSize * 2;
-        ConvertedSBounds = Camera.main.ScreenToWorldPoint(new Vector3(ScreenBounds.x, ScreenBounds.y, Camera.main.transform.position.z));
-        transform.position = new Vector2(ConvertedSBounds.x/2, ConvertedSBounds.y/2);
-    }
+    public Vector3 moveDir;
+    public float moveSpd;
+    public Vector3 lastPos;
 
-    // Update is called once per frame
-    void Update()
+    private Rigidbody2D rgBody;
+    private void Start()
     {
-        
+        rgBody = GetComponent<Rigidbody2D>();
+    }
+    private void Update()
+    {
+        if (Input.anyKey)
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                moveDir.x = -1;
+                //transform.position += new Vector3(-1, 0, 0);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                moveDir.x = 1;
+                //transform.position += new Vector3(1, 0, 0);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                moveDir.y = -1;
+                //transform.position += new Vector3(0, -1, 0);
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                moveDir.y = 1;
+                //transform.position += new Vector3(0, 1, 0);
+            }
+        }
+        else
+        {
+            moveDir = Vector3.zero;
+        }
+
+        transform.position += moveDir * moveSpd * Time.deltaTime;
+
+
+        //moveDir.x = Input.GetAxisRaw("Horizontal");
+        //moveDir.y = Input.GetAxisRaw("Vertical");
+
+        //transform.position += moveDir * moveSpd * Time.deltaTime;
+    }
+    private void FixedUpdate()
+    {
+        //rgBody.velocity = moveDir * moveSpd;
     }
 }

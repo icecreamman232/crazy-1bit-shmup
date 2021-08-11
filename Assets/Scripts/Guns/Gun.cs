@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GunState
+{
+    STANDBY                 = 0,
+    SHOOTING                = 1,
+    COOLDOWN                = 2,
+}
+
 public class Gun : MonoBehaviour
 {
     public GunDO gunData;
+
+    protected GunState gunState;
 
     [SerializeField]
     private Bullet bullet;

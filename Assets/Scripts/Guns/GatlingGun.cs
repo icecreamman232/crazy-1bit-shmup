@@ -2,28 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class GatlingGun : Gun
 {
-    private void Start()
-    {
-
+    float firerateTimer;
+    private void Update()
+    {  
+        if(gunState == GunState.COOLDOWN)
+        {
+            firerateTimer += Time.deltaTime;
+            if(firerateTimer >= gunData.fireRate)
+            {
+                firerateTimer = 0;
+                gunState = GunState.STANDBY;
+            }
+        }
     }
     public override void SetupGun()
     {
         base.SetupGun();
         Bullet.MoveSpeed = gunData.bulletMoveSpeed;
+        gunState = GunState.STANDBY;
         coroutineShooting = null;
+        firerateTimer = 0;
+        
         //Damage need to be setup in Bullet Prefab
     }
     public override void Shoot()
     {
-        base.Shoot();
-        if(coroutineShooting!=null)
+        if(gunState == GunState.STANDBY)
         {
-            StopCoroutine(coroutineShooting);
-            coroutineShooting = null;
+            gunState = GunState.SHOOTING;
+
+            base.Shoot();
+            if (coroutineShooting != null)
+            {
+                StopCoroutine(coroutineShooting);
+                coroutineShooting = null;
+            }
+            coroutineShooting = StartCoroutine(Shooting());
         }
-        coroutineShooting = StartCoroutine(Shooting());
+        
     }
     public override void Stop()
     {
@@ -38,23 +58,20 @@ public class GatlingGun : Gun
     {
         WaitForSeconds waveDelay = new WaitForSeconds(gunData.delayperWaveShot);
         WaitForSeconds fireRate = new WaitForSeconds(gunData.fireRate);
-        while (true)
+        for (int i = 0; i < gunData.numWavePerShot; i++)
         {
-            for (int i = 0; i < gunData.numWavePerShot; i++)
+            for (int j = 0; j < gunData.waveShot.Count; j++)
             {
-                for (int j = 0; j < gunData.waveShot.Count; j++)
-                {
-                    var quaternion = Quaternion.Euler(gunData.waveShot[j].m_Rotation);
-                    var bullet = Lean.Pool.LeanPool.Spawn(
-                        Bullet,
-                        gunData.waveShot[j].m_Position + FirePoint.position,
-                        quaternion);
-                    bullet.Shoot(gunData.waveShot[j].m_Rotation);
-                    yield return new WaitForSeconds(gunData.waveShot[j].m_delay);
-                }
-                yield return waveDelay;
+                var quaternion = Quaternion.Euler(gunData.waveShot[j].m_Rotation);
+                var bullet = Lean.Pool.LeanPool.Spawn(
+                    Bullet,
+                    gunData.waveShot[j].m_Position + FirePoint.position,
+                    quaternion);
+                bullet.Shoot(gunData.waveShot[j].m_Rotation);
+                yield return new WaitForSeconds(gunData.waveShot[j].m_delay);
             }
-            yield return fireRate;
+            yield return waveDelay;
         }
+        gunState = GunState.COOLDOWN;
     }
 }

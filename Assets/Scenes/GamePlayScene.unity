@@ -13620,6 +13620,10 @@ PrefabInstance:
       propertyPath: holdToPlayAnimator
       value: 
       objectReference: {fileID: 1398079979}
+    - target: {fileID: 8393701694151206845, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a59a2fbbdeb0854eaf14751f3799412, type: 3}
 --- !u!114 &2525838195602427379 stripped

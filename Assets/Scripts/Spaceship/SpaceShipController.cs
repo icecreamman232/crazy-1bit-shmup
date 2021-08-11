@@ -132,11 +132,17 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
         rgBody = GetComponent<Rigidbody2D>();
         moveDir = Vector3.zero;
+
+      
     }
     private void Update()
     {
         if (currentStatus == ShipStatus.NORMAL || currentStatus == ShipStatus.INVINCIBLE)
         {
+            if(Input.GetKey(KeyCode.G))
+            {
+                gun.Shoot();
+            }
             if(Input.anyKey)
             {
                 if (Input.GetKey(KeyCode.LeftArrow))
@@ -211,7 +217,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         SetShipPosition();
         shipAnimator.Play(idleAnimHash);
 
-        
+        gun.SetupGun();
     }
     public void TakeDamage(int damage)
     {
@@ -234,7 +240,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     }
     public void BeginShoot()
     {
-        gun.Shoot();
+        //gun.Shoot();
     }
 
     public void StopShoot()
