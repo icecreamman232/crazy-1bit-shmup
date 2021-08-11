@@ -143,29 +143,28 @@ public class SpaceShipController : MonoBehaviour, IDamageable
             {
                 gun.Shoot();
             }
-            if(Input.anyKey)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    moveDir.x = -1;
-                }
-                if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    moveDir.x = 1;
-                }
-                if (Input.GetKey(KeyCode.DownArrow))
-                {
-                    moveDir.y = -1;
-                }
-                if (Input.GetKey(KeyCode.UpArrow))
-                {
-                    moveDir.y = 1;
-                }
+                moveDir.x = -1;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                moveDir.x = 1;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                moveDir.y = -1;
+            }
+            else if (Input.GetKey(KeyCode.UpArrow))
+            {
+                moveDir.y = 1;
             }
             else
             {
                 moveDir = Vector3.zero;
             }
+
+
 
 
             //transform.position += moveDir * moveSpd * Time.deltaTime;
