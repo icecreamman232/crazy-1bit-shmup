@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [Serializable]
 public class PreDefinedInput
 {
-    public string hashCode;
+    public KeyBindingAction action;
     public KeyCode keyCode;
     
 }
@@ -18,8 +18,16 @@ public class InputData : ScriptableObject
 {
     public List<PreDefinedInput> preDefinedInputList;
 
-    public Dictionary<string, KeyCode> inputDict;
+    public Dictionary<KeyBindingAction, KeyCode> inputDict;
 
-    
+    private void OnEnable()
+    {
+        inputDict = new Dictionary<KeyBindingAction, KeyCode>();
+
+        for(int i = 0; i < preDefinedInputList.Count; i++)
+        {
+            inputDict.Add(preDefinedInputList[i].action, preDefinedInputList[i].keyCode);
+        }
+    }
 
 }

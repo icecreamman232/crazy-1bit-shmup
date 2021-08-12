@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: InputDO
   m_EditorClassIdentifier: 
   preDefinedInputList:
-  - hashCode: MoveLeft
+  - action: 0
+    keyCode: 0
+  - action: 1
     keyCode: 276
-  - hashCode: MoveRight
+  - action: 2
     keyCode: 275
-  - hashCode: MoveUp
+  - action: 3
     keyCode: 273
-  - hashCode: MoveDown
+  - action: 4
     keyCode: 274
+  - action: 5
+    keyCode: 103

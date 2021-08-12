@@ -11082,6 +11082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f4e7a0125a01a4c933e9b1ee0e07ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputData: {fileID: 11400000, guid: d9308d947297afc47a756610245cb75d, type: 2}
   ship: {fileID: 2525838195602427379}
 --- !u!4 &985609630
 Transform:
