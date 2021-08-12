@@ -70,7 +70,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     public bool firstTouch;
     #endregion Touch Configs
 
-
+    
 
     [Header("Reference")]
     public ParticleSystem fireJetParticle;
@@ -135,38 +135,37 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
       
     }
+    #region Ship Controls
+    public void ShipMoveLeft()
+    {
+        moveDir.x = -1;
+    }
+    public void ShipMoveRight()
+    {
+        moveDir.x = 1;
+    }
+    public void ShipMoveUp()
+    {
+        moveDir.y = 1;
+    }
+    public void ShipMoveDown()
+    {
+        moveDir.y = -1;
+    }
+    public void ShipStay()
+    {
+        moveDir = Vector3.zero;
+    }
+    public void Shoot()
+    {
+        gun.Shoot();
+    }
+    #endregion
     private void Update()
     {
         if (currentStatus == ShipStatus.NORMAL || currentStatus == ShipStatus.INVINCIBLE)
         {
-            if(Input.GetKey(KeyCode.G))
-            {
-                gun.Shoot();
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                moveDir.x = -1;
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                moveDir.x = 1;
-            }
-            else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                moveDir.y = -1;
-            }
-            else if (Input.GetKey(KeyCode.UpArrow))
-            {
-                moveDir.y = 1;
-            }
-            else
-            {
-                moveDir = Vector3.zero;
-            }
-
-
-
-
+            
             //transform.position += moveDir * moveSpd * Time.deltaTime;
             transform.Translate(moveDir * moveSpd * Time.deltaTime);
 
