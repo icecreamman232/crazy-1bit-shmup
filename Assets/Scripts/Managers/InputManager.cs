@@ -6,6 +6,7 @@ using System;
 
 public enum KeyBindingAction
 {
+    ANYKEY          = -1,
     IDLE            = 0,
     MOVE_LEFT       = 1,
     MOVE_RIGHT      = 2,
@@ -16,9 +17,13 @@ public enum KeyBindingAction
 
 public class InputManager : MonoBehaviour
 {
+
+    public static InputManager Instance;
+
     public InputData inputData;
     public SpaceShipController ship;
 
+    public bool firstKeyPressed;
 
     private ICommand moveLeftCommand;
     private ICommand moveRightCommand;
@@ -29,6 +34,8 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+        firstKeyPressed = false;
         moveLeftCommand = new MoveLeftCommand();
         moveRightCommand = new MoveRightCommand();
         moveUpCommand = new MoveUpCommand();
@@ -41,12 +48,19 @@ public class InputManager : MonoBehaviour
         KeyCode key = inputData.inputDict[action];
         return Input.GetKey(key);
     }
-
     private void Update()
     {
         //Main Control Input
         if (ship.currentStatus == ShipStatus.NORMAL || ship.currentStatus == ShipStatus.INVINCIBLE)
-        {
+        {   
+            if(!firstKeyPressed)
+            {
+                if(Input.anyKey)
+                {
+                    firstKeyPressed = true;
+                }
+            }
+
             if (GetKey(KeyBindingAction.SHOOT))
             {
                 shootCommand.Execute(ship);

@@ -67,7 +67,6 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     [Range(0, 3)]
     public float sensitivity;
     public bool isTouching;
-    public bool firstTouch;
     #endregion Touch Configs
 
     
@@ -122,9 +121,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         shipSpriteWidth = shipSprite.bounds.size.x;
         shipSpriteHeight = shipSprite.bounds.size.y;
         
-        isTouching = false;
-        firstTouch = false;
-        
+        isTouching = false;    
 
         idleAnimHash = Animator.StringToHash("ship_idle");
         turnLeftHash = Animator.StringToHash("ship_turn_left_anim");
@@ -193,16 +190,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
             }
 
             lastPosX = transform.position.x;
-
-            //if (!isTouching) return;
-            //var screenDelta = LeanGesture.GetScreenDelta();
-            //if (screenDelta == Vector2.zero) return;
-            //TranslateShip(screenDelta);
         }
-    }
-    private void OnDestroy()
-    {
-        OnDisableTouch();
     }
     /// <summary>
     /// Init all parameters and start ship
@@ -344,13 +332,12 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         LeanTouch.OnFingerDown -= OnTouchDown;
         LeanTouch.OnFingerUp -= OnTouchUp;
         isTouching = false;
-        firstTouch = false;
     }
     public void OnTouchDown(LeanFinger fingers)
     {
-        if (!firstTouch)
+        //if (!firstKeyPressed)
         {
-            firstTouch = true;
+            //firstKeyPressed = true;
             holdToPlayAnimator.Play("holdtoplay_outtro_anim");
         }
         isTouching = true;
@@ -381,43 +368,6 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         OnEnableTouch();
         holdToPlayAnimator.gameObject.SetActive(true);
         holdToPlayAnimator.Play("holdtoplay_intro_anim");
-    }
-    void TranslateShip(Vector2 delta)
-    {
-        if (mainCamera != null)
-        {
-            var screenPts = mainCamera.WorldToScreenPoint(transform.position);
-            screenPts += (Vector3)delta * sensitivity;
-            var worldPts = mainCamera.ScreenToWorldPoint(screenPts);
-
-
-            if (worldPts.x <= -screenBounds.x + shipSpriteWidth * 0.5f) worldPts.x = -screenBounds.x + shipSpriteWidth * 0.5f;
-            if (worldPts.x >= screenBounds.x - shipSpriteWidth * 0.5f) worldPts.x = screenBounds.x - shipSpriteWidth * 0.5f;
-            if (worldPts.y <= -screenBounds.y) worldPts.y = -screenBounds.y;
-            if (worldPts.y >= screenBounds.y) worldPts.y = screenBounds.y;
-
-            //Ship keep turning left
-            if (worldPts.x < lastPosX)
-            {
-                shipAnimator.Play(turnLeftHash);
-            }
-            //Ship keep turning right
-            else if (worldPts.x > lastPosX)
-            {
-                shipAnimator.Play(turnRightHash);
-            }
-            else
-            {
-                shipAnimator.Play(idleAnimHash);
-            }
-
-            lastPosX = worldPts.x;
-            transform.position = worldPts;
-        }
-        else
-        {
-            Debug.LogError("Camera is null");
-        }
     }
     #endregion Control ship methods
 }
