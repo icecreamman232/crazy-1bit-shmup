@@ -166,8 +166,16 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         if (currentStatus == ShipStatus.NORMAL || currentStatus == ShipStatus.INVINCIBLE)
         {
             
-            //transform.position += moveDir * moveSpd * Time.deltaTime;
             transform.Translate(moveDir * moveSpd * Time.deltaTime);
+
+            var curPos = transform.position;
+
+            if (curPos.x <= -screenBounds.x + shipSpriteWidth * 0.5f) curPos.x = -screenBounds.x + shipSpriteWidth * 0.5f;
+            if (curPos.x >= screenBounds.x - shipSpriteWidth * 0.5f) curPos.x = screenBounds.x - shipSpriteWidth * 0.5f;
+            if (curPos.y <= -screenBounds.y) curPos.y = -screenBounds.y;
+            if (curPos.y >= screenBounds.y) curPos.y = screenBounds.y;
+
+            transform.position = curPos;
 
             //Ship keep turning left
             if (transform.position.x < lastPosX)
