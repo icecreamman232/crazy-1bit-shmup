@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         SetupCoin();
         SetupScore();
         cameraShakeFX.Setup();
-        uiShipHPBar.HealthBarSetup();
+        UIManager.Instance.shipHealthBarUI.Show();
         SetupParticleBackground();
         AudioManager.Instance.PlayMusic(AudioTagName.MAIN_MUSIC,0.8f);
         spaceShip.StartShip();

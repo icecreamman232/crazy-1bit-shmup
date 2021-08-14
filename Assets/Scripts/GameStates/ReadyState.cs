@@ -9,13 +9,18 @@ public class ReadyState : State
     {
         gameManager = _gameManager;
         inputManager = InputManager.Instance;
+        inputManager.EnableInput();
         shipController = gameManager.spaceShip.GetComponent<SpaceShipController>();
     }
 
     public override void Update()
     {
-        if(inputManager.firstKeyPressed)
+        
+        if (inputManager.firstKeyPressed)
         {
+
+            UIManager.Instance.holdToPlayUI.Hide();
+
             gameManager.environmentCreator.Run();
             gameManager.waveSpawner.Run();
             gameManager.LifeTimeCounting();

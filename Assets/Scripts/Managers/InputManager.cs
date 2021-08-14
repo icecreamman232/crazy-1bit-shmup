@@ -23,6 +23,7 @@ public class InputManager : MonoBehaviour
     public InputData inputData;
     public SpaceShipController ship;
 
+    private bool isAvailable;
     public bool firstKeyPressed;
 
     private ICommand moveLeftCommand;
@@ -45,8 +46,17 @@ public class InputManager : MonoBehaviour
     }
     private bool GetKey(KeyBindingAction action)
     {
+        if (!isAvailable) return false;
         KeyCode key = inputData.inputDict[action];
         return Input.GetKey(key);
+    }
+    public void EnableInput()
+    {
+        isAvailable = true;
+    }
+    public void DisableInput()
+    {
+        isAvailable = false;
     }
     private void Update()
     {

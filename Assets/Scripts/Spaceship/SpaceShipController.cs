@@ -62,30 +62,13 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     public Gun gun;
     #endregion
 
-    #region Touch Configs
-    [Header("Touch Configuration")]
-    [Range(0, 3)]
-    public float sensitivity;
-    public bool isTouching;
-    #endregion Touch Configs
-
-    
-
     [Header("Reference")]
     public ParticleSystem fireJetParticle;
     public SpriteRenderer shipSprite;
     public RankManager rankManager;
 
     private GameManager gameManager;
-    public Animator holdToPlayAnimator;
-    #region UI
 
-    [Header("UI")]
-    public UIHealthBarController uiShipHPBar;
-
-    #endregion UI
-
-    private Camera mainCamera;
     private float shipSpriteWidth;
     private float shipSpriteHeight;
     private float lastPosX;
@@ -109,19 +92,16 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     private Rigidbody2D rgBody;
     #endregion
 
-
+    public Action TakeDamageAction;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
-        mainCamera = Camera.main;
         shipAnimator = GetComponent<Animator>();
         screenBounds = GameHelper.HalfSizeOfCamera();
 
         shipSpriteWidth = shipSprite.bounds.size.x;
         shipSpriteHeight = shipSprite.bounds.size.y;
-        
-        isTouching = false;    
 
         idleAnimHash = Animator.StringToHash("ship_idle");
         turnLeftHash = Animator.StringToHash("ship_turn_left_anim");
@@ -129,8 +109,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
         rgBody = GetComponent<Rigidbody2D>();
         moveDir = Vector3.zero;
-
-      
+   
     }
     #region Ship Controls
     public void ShipMoveLeft()
@@ -215,10 +194,11 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage)
     {
+        TakeDamageAction?.Invoke();
         currentHP -= damage;
         if (currentHP <= 0)
         {
-            OnDisableTouch();
+            InputManager.Instance.DisableInput();
             FXManager.Instance.CreateFX(fxID.DIE_SHIP_EXPLOSION, transform.position);
             shipSprite.enabled = false;
             fireJetParticle.Stop();
@@ -300,7 +280,6 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         currentStatus = ShipStatus.INVINCIBLE;
         StartCoroutine(OnInvincible());
         TakeDamage(damage);
-        uiShipHPBar.UpdateHealthBarUI();
     }
 
     private void HandleCollectCoin(Collision2D coin)
@@ -322,35 +301,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     #endregion Collison Detection
 
     #region Control ship methods
-    public void OnEnableTouch()
-    {
-        LeanTouch.OnFingerDown += OnTouchDown;
-        LeanTouch.OnFingerUp += OnTouchUp;
-    }
-    public void OnDisableTouch()
-    {
-        LeanTouch.OnFingerDown -= OnTouchDown;
-        LeanTouch.OnFingerUp -= OnTouchUp;
-        isTouching = false;
-    }
-    public void OnTouchDown(LeanFinger fingers)
-    {
-        //if (!firstKeyPressed)
-        {
-            //firstKeyPressed = true;
-            holdToPlayAnimator.Play("holdtoplay_outtro_anim");
-        }
-        isTouching = true;
-    }
-    public void OnTouchUp(LeanFinger fingers)
-    {
-        isTouching = false;
-        if (currentStatus == ShipStatus.NORMAL)
-        {
-            shipAnimator.Play("ship_idle");
-        }
-
-    }
+   
     public void SetShipPosition()
     {
         var postion = new Vector3(0, -screenBounds.y + shipSpriteHeight * 1.5f, 0);
@@ -358,16 +309,11 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         lastPosX = postion.x;
         postion.y -= 3.0f;
         transform.position = postion;
-        isTouching = false;
         LeanTween.moveY(gameObject, target.y, 1.2f)
             .setEase(LeanTweenType.easeOutBack)
-            .setOnComplete(OnCompleteSetupShipPosition);
-    }
-    void OnCompleteSetupShipPosition()
-    {
-        OnEnableTouch();
-        holdToPlayAnimator.gameObject.SetActive(true);
-        holdToPlayAnimator.Play("holdtoplay_intro_anim");
+            .setOnComplete(()=> {
+                UIManager.Instance.holdToPlayUI.Show();
+            });
     }
     #endregion Control ship methods
 }

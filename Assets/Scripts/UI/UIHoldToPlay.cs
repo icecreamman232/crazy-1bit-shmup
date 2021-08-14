@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIHoldToPlay : MonoBehaviour
+public class UIHoldToPlay : BaseUIController
 {
-
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
     public void Finished()
     {
         gameObject.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void Show()
     {
-        
+        gameObject.SetActive(true);
+        animator.Play("holdtoplay_intro_anim");
+        isShow = true;
+    }
+
+    public override void Hide()
+    {
+        animator.Play("holdtoplay_outtro_anim");
+        isShow = false;
     }
 }
