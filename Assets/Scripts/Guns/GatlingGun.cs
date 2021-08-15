@@ -47,17 +47,11 @@ public class GatlingGun : Gun
     }
     public override void Stop()
     {
-        base.Stop();
-        if (coroutineShooting != null)
-        {
-            StopCoroutine(coroutineShooting);
-            coroutineShooting = null;
-        }
+        gunState = GunState.STOP;
     }
     private IEnumerator Shooting()
     {
         WaitForSeconds waveDelay = new WaitForSeconds(gunData.delayperWaveShot);
-        WaitForSeconds fireRate = new WaitForSeconds(gunData.fireRate);
         for (int i = 0; i < gunData.numWavePerShot; i++)
         {
             for (int j = 0; j < gunData.waveShot.Count; j++)

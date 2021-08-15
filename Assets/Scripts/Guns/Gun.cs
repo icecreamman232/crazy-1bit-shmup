@@ -7,6 +7,7 @@ public enum GunState
     STANDBY                 = 0,
     SHOOTING                = 1,
     COOLDOWN                = 2,
+    STOP                    = 3,
 }
 
 public class Gun : MonoBehaviour

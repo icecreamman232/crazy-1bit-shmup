@@ -214,7 +214,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     }
     public void BeginShoot()
     {
-        //gun.Shoot();
+        gun.SetupGun();
     }
 
     public void StopShoot()
