@@ -127,27 +127,6 @@ public class InputManager : MonoBehaviour
                 }
                 return;
             }
-
-
-
-
-            //else if (GetKey(KeyBindingAction.MOVE_RIGHT))
-            //{
-            //    moveRightCommand.Execute(ship);
-            //}
-            //else if (GetKey(KeyBindingAction.MOVE_DOWN))
-            //{
-            //    moveDownCommand.Execute(ship);
-            //}
-            //else if (GetKey(KeyBindingAction.MOVE_UP))
-            //{
-            //    moveUpCommand.Execute(ship);
-            //}
-            //else
-            //{
-            //    //idle
-            //    stayCommand.Execute(ship);
-            //}
         }
     }
 }

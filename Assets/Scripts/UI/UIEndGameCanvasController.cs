@@ -35,6 +35,8 @@ public class UIEndGameCanvasController: BaseUIController
     {
         gameObject.SetActive(false);
     }
+
+    //Do not remove this function. It is used by animation
     void OpenEndGameButtons()
     {
         retry_btn.SetActive(true);

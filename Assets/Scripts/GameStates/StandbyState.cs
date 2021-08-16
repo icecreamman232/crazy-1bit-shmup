@@ -16,6 +16,7 @@ public class StandbyState : State
         if(isInitDone)
         {
             gameManager.Init();
+            InputManager.Instance.firstKeyPressed = false;
             gameManager.SetState(new ReadyState());
         }
     }
