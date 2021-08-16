@@ -70,7 +70,7 @@ public class InputManager : MonoBehaviour
                     firstKeyPressed = true;
                 }
             }
-
+            stayCommand.Execute(ship);
             if (GetKey(KeyBindingAction.SHOOT))
             {
                 shootCommand.Execute(ship);
@@ -78,24 +78,76 @@ public class InputManager : MonoBehaviour
             if (GetKey(KeyBindingAction.MOVE_LEFT))
             {
                 moveLeftCommand.Execute(ship);
+                if (GetKey(KeyBindingAction.MOVE_UP))
+                {
+                    moveUpCommand.Execute(ship);
+                }
+                else if(GetKey(KeyBindingAction.MOVE_DOWN))
+                {
+                    moveDownCommand.Execute(ship);
+                }
+                return;
             }
-            else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+            if (GetKey(KeyBindingAction.MOVE_RIGHT))
             {
                 moveRightCommand.Execute(ship);
+                if (GetKey(KeyBindingAction.MOVE_UP))
+                {
+                    moveUpCommand.Execute(ship);
+                }
+                else if (GetKey(KeyBindingAction.MOVE_DOWN))
+                {
+                    moveDownCommand.Execute(ship);
+                }
+                return;
             }
-            else if (GetKey(KeyBindingAction.MOVE_DOWN))
-            {
-                moveDownCommand.Execute(ship);
-            }
-            else if (GetKey(KeyBindingAction.MOVE_UP))
+            if (GetKey(KeyBindingAction.MOVE_UP))
             {
                 moveUpCommand.Execute(ship);
+                if (GetKey(KeyBindingAction.MOVE_LEFT))
+                {
+                    moveLeftCommand.Execute(ship);
+                }
+                else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+                {
+                    moveRightCommand.Execute(ship);
+                }
+                return;
             }
-            else
+            if (GetKey(KeyBindingAction.MOVE_DOWN))
             {
-                //idle
-                stayCommand.Execute(ship);
+                moveDownCommand.Execute(ship);
+                if (GetKey(KeyBindingAction.MOVE_LEFT))
+                {
+                    moveLeftCommand.Execute(ship);
+                }
+                else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+                {
+                    moveRightCommand.Execute(ship);
+                }
+                return;
             }
+
+
+
+
+            //else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+            //{
+            //    moveRightCommand.Execute(ship);
+            //}
+            //else if (GetKey(KeyBindingAction.MOVE_DOWN))
+            //{
+            //    moveDownCommand.Execute(ship);
+            //}
+            //else if (GetKey(KeyBindingAction.MOVE_UP))
+            //{
+            //    moveUpCommand.Execute(ship);
+            //}
+            //else
+            //{
+            //    //idle
+            //    stayCommand.Execute(ship);
+            //}
         }
     }
 }
