@@ -13,5 +13,6 @@ public class UIManager : MonoBehaviour
 
     public BaseUIController holdToPlayUI;
     public BaseUIController shipHealthBarUI;
+    public BaseUIController endGameUI;
 
 }

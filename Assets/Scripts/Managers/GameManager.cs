@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour
     
     public RankManager rankManager;
 
-    public UIEndGameCanvasController uiEndgameCanvas;
-    public UIHealthBarController uiShipHPBar;
     public TextMeshProUGUI scoreNumberText;
     public EndlessModeDO endlessModeData;
     #endregion
@@ -74,7 +72,7 @@ public class GameManager : MonoBehaviour
     }
     public void OnClickReset()
     {
-        uiEndgameCanvas.PlayOuttro();
+        UIManager.Instance.endGameUI.Hide();
         SetState(new StandbyState());
     }
     private void SetupLevel()

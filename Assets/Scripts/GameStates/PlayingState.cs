@@ -21,8 +21,8 @@ public class PlayingState: State
     }
     public void OnEndingGame(ShipStatus shipState)
     {
-        gameManager.uiEndgameCanvas.gameObject.SetActive(true);
-        gameManager.uiEndgameCanvas.PlayIntro(gameManager.currentScore.ToString());
+        UIManager.Instance.endGameUI.Show();
+
         gameManager.starBackLayer.Stop();
         gameManager.starFrontLayer.Stop();
 
@@ -45,9 +45,4 @@ public class PlayingState: State
         }
 #endif
     }
-    private void UpdateUI()
-    {
-
-    }
-
 }
