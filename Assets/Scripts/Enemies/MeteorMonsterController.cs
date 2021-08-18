@@ -11,14 +11,16 @@ public class MeteorMonsterController : MonsterWithCustomPath
 
     public RotateArmorController armorController;
 
+    [SerializeField] private float form1Scale;
+    [SerializeField] private float form2Scale;
+    [SerializeField] private float form3Scale;
+
     private float amountMovingRecoil;
 
     //Amount of moving back because of recoiling
     private float timeRecoilBack;
-
     //Amount of moving forward to back the previous position
     private float timeToBackPreviousPosition;
-
     private int curForm;
 
     public int CurForm
@@ -43,7 +45,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
     public override void Setup()
     {
         base.Setup();
-        transform.localScale = Vector3.one * 0.8f;
+        transform.localScale = Vector3.one * form1Scale;
         animator.Play("meteor_monster_idle");
         curForm = 1;
         LGun.SetupGun();
@@ -105,7 +107,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
             curHP = maxHP;
             UpdateHPInterface();
             baseImpactDamage += baseImpactDamage;
-            transform.localScale = Vector3.one * 1f;
+            transform.localScale = Vector3.one * form2Scale;
             animator.Play("meteor_monster_form2_idle");
             amountMovingRecoil = 0.4f;
             timeRecoilBack = 0.15f;
@@ -125,7 +127,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
             //Increase dmg
             baseImpactDamage += baseImpactDamage;
             //Increase size
-            transform.localScale = Vector3.one * 1.3f;
+            transform.localScale = Vector3.one * form3Scale;
 
             amountMovingRecoil = 0.3f;
             timeRecoilBack = 0.2f;

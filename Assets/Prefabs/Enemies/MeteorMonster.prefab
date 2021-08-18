@@ -230,11 +230,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e676ca4123ed1d945bae64691b0e1297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMoveSpeed: 2
   currentMoveSpeed: 0
-  data: {fileID: 11400000, guid: 4f175c4f2e9aeab44ba0dfb448660979, type: 2}
-  maxHP: 0
   curHP: 0
+  maxHP: 0
+  data: {fileID: 11400000, guid: 4f175c4f2e9aeab44ba0dfb448660979, type: 2}
   isInteracting: 0
   baseImpactDamage: 10
   uiHealthBarController: {fileID: 6502133852979547350}
@@ -251,6 +250,9 @@ MonoBehaviour:
   LGun: {fileID: 5834104794658813154}
   RGun: {fileID: 5861974302369504056}
   armorController: {fileID: 3046937743645016938}
+  form1Scale: 1
+  form2Scale: 1.2
+  form3Scale: 1.5
 --- !u!114 &5104103397624160236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +337,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.3333334}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1.3333334, y: 1.3333334}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
