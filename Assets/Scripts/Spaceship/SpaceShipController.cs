@@ -2,7 +2,6 @@
 using UnityEngine;
 using System;
 using Lean.Pool;
-using Lean.Touch;
 
 public enum ShipStatus
 {
@@ -89,7 +88,6 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     #region PC Controller
     private Vector3 moveDir;
     public float moveSpd;
-    private Rigidbody2D rgBody;
     #endregion
 
     public Action TakeDamageAction;
@@ -107,7 +105,6 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         turnLeftHash = Animator.StringToHash("ship_turn_left_anim");
         turnRightHash = Animator.StringToHash("ship_turn_right_anim");
 
-        rgBody = GetComponent<Rigidbody2D>();
         moveDir = Vector3.zero;
    
     }
