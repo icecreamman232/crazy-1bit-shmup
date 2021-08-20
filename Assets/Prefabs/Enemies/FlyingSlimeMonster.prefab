@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 673618359
   m_SortingLayer: 2
   m_SortingOrder: 5
-  m_Sprite: {fileID: -7550957694823547614, guid: 919d1587b15c6f949854f035894ec2ea, type: 3}
+  m_Sprite: {fileID: 368543389579951487, guid: 0c01feee009d2a247839810820b5644c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,11 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b40031c927b3545af19fc0d8115edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMoveSpeed: 3
   currentMoveSpeed: 0
-  data: {fileID: 11400000, guid: d4b6864130759a548b6c4ba17ecc4d9f, type: 2}
-  maxHP: 0
   curHP: 0
+  maxHP: 0
+  data: {fileID: 11400000, guid: d4b6864130759a548b6c4ba17ecc4d9f, type: 2}
   isInteracting: 0
   baseImpactDamage: 10
   uiHealthBarController: {fileID: 4880765067062145870}
