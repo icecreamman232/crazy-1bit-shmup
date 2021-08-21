@@ -87,7 +87,7 @@ public class BlackholeGateOutController : EnvironmentWithCustomPath
                 monster.transform.localScale = scale;
                 BaseMonster baseMons = monster.GetComponent<BaseMonster>();
                 baseMons.isInteracting = false;
-                baseMons.TakeDamage(baseMons.maxHP);              
+                baseMons.TakeDamage(baseMons.MaxHP);              
                 isProcessing = false;
             });
     }

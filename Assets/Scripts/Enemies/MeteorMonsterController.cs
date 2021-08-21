@@ -104,7 +104,7 @@ public class MeteorMonsterController : MonsterWithCustomPath
         {
             data.baseHP = Mathf.RoundToInt(data.baseHP * 1.2f);
             maxHP = data.baseHP;
-            curHP = maxHP;
+            curHP = maxHP;            
             UpdateHPInterface();
             baseImpactDamage += baseImpactDamage;
             transform.localScale = Vector3.one * form2Scale;

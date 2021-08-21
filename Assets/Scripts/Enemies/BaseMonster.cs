@@ -3,15 +3,27 @@ using UnityEngine;
 
 public class BaseMonster : BaseEntity, IDamageable
 {
-    public int curHP;
-    public int maxHP;
+    [SerializeField] protected int curHP;
+    public int CurrentHP
+    {
+        get
+        {
+            return curHP;
+        }
+    }
+    protected int maxHP;
+    public int MaxHP
+    {
+        get
+        {
+            return maxHP;
+        }
+    }
     public MonsterDO data;
     /// <summary>
     /// Is interacting with an environment entity
     /// </summary>
-    [Tooltip("Is interacting with an environment entity")]
     public bool isInteracting;
-
 
     //Damage cause if monster use its body to hit the other entities;
     public int baseImpactDamage;
@@ -20,7 +32,7 @@ public class BaseMonster : BaseEntity, IDamageable
 
     public System.Action OnDie;
 
-    [Header("Reference Holders")]
+    [Header("UI")]
     public UIMonsterHPBarController uiHealthBarController;
 
     [Header("Components")]
@@ -32,11 +44,6 @@ public class BaseMonster : BaseEntity, IDamageable
 
     public override void Setup()
     {
-        InitMonster();
-    }
-
-    public void InitMonster()
-    {
         gameObject.SetActive(true);
         isInteracting = false;
         //Data
@@ -44,11 +51,7 @@ public class BaseMonster : BaseEntity, IDamageable
         SetupMoveSpeed();
         //View
         uiHealthBarController.Setup();
-        StopAllCoroutines();
-
-       
     }
-
     private void SetupHP()
     {
         maxHP = data.baseHP + data.baseHP * Mathf.RoundToInt(GameManager.Instance.endlessModeData.HPIncreasePerWave
@@ -61,11 +64,9 @@ public class BaseMonster : BaseEntity, IDamageable
         currentMoveSpeed = data.baseMoveSpd + GameManager.Instance.GetCurrentLevelSpeed()
                     * GameManager.Instance.endlessModeData.speedIncreasePerWave;
     }
-
     #endregion Setup Methods
 
     #region Spawn Methods
-
     public override void Spawn()
     {
     }
@@ -102,7 +103,7 @@ public class BaseMonster : BaseEntity, IDamageable
         //Update Health Bar UI
         UpdateHPInterface();
     }
-    public void UpdateHPInterface()
+    protected void UpdateHPInterface()
     {
         var HPPercent = (float)curHP / maxHP;
         uiHealthBarController.UpdateHPBar(HPPercent);
