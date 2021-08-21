@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMonsterHPBarController : MonoBehaviour
+public class UIMonsterHPBarController : BaseUIController
 {
     
     public GameObject hpBar;
     public void Setup()
-    {           
+    {
         hpBar.transform.localScale = new Vector3(1, 0.5f, 1);
         //Turn of HP Bar, need to take hit before show the HP Bar
-        gameObject.SetActive(false);
+        Hide();
+
     }
     public void UpdateHPBar(float hpPercent)
     {
@@ -19,4 +20,15 @@ public class UIMonsterHPBarController : MonoBehaviour
         hpBar.transform.localScale = lastScale;
     }
 
+    public override void Show()
+    {
+        isShow = true;
+        gameObject.SetActive(true);
+    }
+
+    public override void Hide()
+    {
+        isShow = false;
+        gameObject.SetActive(false);
+    }
 }

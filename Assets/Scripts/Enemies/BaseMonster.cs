@@ -75,11 +75,11 @@ public class BaseMonster : BaseEntity, IDamageable
     #region Update Methods
     public void TakeDamage(int damage)
     {
-        //Show the HP Bar
-        if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
+        if(!uiHealthBarController.IsShow)
         {
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            uiHealthBarController.Show();
         }
+
         curHP -= damage;
 
         if (curHP <= 0)
