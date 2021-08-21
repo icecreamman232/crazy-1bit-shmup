@@ -80,6 +80,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     public event Action<ShipStatus> OnDeath;
 
 
+    private int lastAnimHash;
     private int idleAnimHash;
     private int turnLeftHash;
     private int turnRightHash;
@@ -104,7 +105,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
         idleAnimHash = Animator.StringToHash("ship_idle");
         turnLeftHash = Animator.StringToHash("ship_turn_left_anim");
         turnRightHash = Animator.StringToHash("ship_turn_right_anim");
-
+        lastAnimHash = 0;
         moveDir = Vector3.zero;
    
     }
@@ -153,16 +154,28 @@ public class SpaceShipController : MonoBehaviour, IDamageable
             //Ship keep turning left
             if (transform.position.x < lastPosX)
             {
-                shipAnimator.Play(turnLeftHash);
+                if(lastAnimHash != turnLeftHash)
+                {
+                    shipAnimator.Play(turnLeftHash);
+                    lastAnimHash = turnLeftHash;
+                }              
             }
             //Ship keep turning right
             else if (transform.position.x > lastPosX)
             {
-                shipAnimator.Play(turnRightHash);
+                if(lastAnimHash!= turnRightHash)
+                {
+                    shipAnimator.Play(turnRightHash);
+                    lastAnimHash = turnRightHash;
+                }            
             }
             else
             {
-                shipAnimator.Play(idleAnimHash);
+                if(lastAnimHash!=idleAnimHash)
+                {
+                    shipAnimator.Play(idleAnimHash);
+                    lastAnimHash = idleAnimHash;
+                }              
             }
 
             lastPosX = transform.position.x;
@@ -173,6 +186,7 @@ public class SpaceShipController : MonoBehaviour, IDamageable
     /// </summary>
     public void StartShip()
     {
+        lastAnimHash = 0;
         timer = 0;
         currentHP = baseHP;
         shipSprite.enabled = true;

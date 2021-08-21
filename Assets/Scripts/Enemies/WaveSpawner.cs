@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -11,17 +12,6 @@ public class WaveSpawner : MonoBehaviour
     public int maxWave;
 
     private bool isSpawning;
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
     public void Setup()
     {
         waveIndex = 0;
@@ -42,6 +32,10 @@ public class WaveSpawner : MonoBehaviour
         currentWaveMonster.isWaveFinished = true;
         currentWaveMonster.Reset();
     }
+    private void Update()
+    {
+        
+    }
     private IEnumerator OnWaveRunning()
     {
         while(true)
@@ -50,7 +44,7 @@ public class WaveSpawner : MonoBehaviour
             {
                 yield break;
             }
-            currentWaveMonster = Lean.Pool.LeanPool.Spawn(levelDesignDO.monsterList[waveIndex].waveMonster, this.transform);
+            currentWaveMonster = LeanPool.Spawn(levelDesignDO.monsterList[waveIndex].waveMonster, this.transform);
             currentWaveMonster.Run();         
             yield return new WaitUntil(()=> currentWaveMonster.isWaveFinished);
             yield return new WaitForSeconds(levelDesignDO.monsterList[waveIndex].delayNextWave);
