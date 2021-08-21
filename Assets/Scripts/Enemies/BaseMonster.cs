@@ -28,8 +28,6 @@ public class BaseMonster : BaseEntity, IDamageable
     //Damage cause if monster use its body to hit the other entities;
     public int baseImpactDamage;
 
-    readonly protected float tLerp = 0.1f;
-
     public System.Action OnDie;
 
     [Header("UI")]
