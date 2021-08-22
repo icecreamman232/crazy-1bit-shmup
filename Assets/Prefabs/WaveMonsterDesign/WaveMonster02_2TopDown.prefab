@@ -51,6 +51,12 @@ MonoBehaviour:
     delayTime: 0
   numberMonsterList: 0
   isWaveFinished: 0
+  numberMonsterCompleteDuty: 0
+  numMonsterRan: 0
+  delayNextMonster: 0
+  timer: 0
+  isRunning: 0
+  isSpawned: 0
 --- !u!114 &1615643312763270078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,10 +92,6 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.4375
       objectReference: {fileID: 0}
-    - target: {fileID: 7730885452331766637, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ceac9c9a3fe2ad14fafb043a396aad72, type: 3}
     - target: {fileID: 7730885452331766637, guid: d7f09980376c32e428d724abb5b59045, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
