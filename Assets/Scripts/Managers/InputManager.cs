@@ -63,70 +63,73 @@ public class InputManager : MonoBehaviour
         //Main Control Input
         if (ship.currentStatus == ShipStatus.NORMAL || ship.currentStatus == ShipStatus.INVINCIBLE)
         {   
-            if(!firstKeyPressed)
+            if(!firstKeyPressed && UIManager.Instance.holdToPlayUI.IsShow)
             {
                 if(Input.anyKey)
                 {
                     firstKeyPressed = true;
                 }
             }
-            stayCommand.Execute(ship);
-            if (GetKey(KeyBindingAction.SHOOT))
+            if(firstKeyPressed)
             {
-                shootCommand.Execute(ship);
-            }
-            if (GetKey(KeyBindingAction.MOVE_LEFT))
-            {
-                moveLeftCommand.Execute(ship);
-                if (GetKey(KeyBindingAction.MOVE_UP))
+                stayCommand.Execute(ship);
+                if (GetKey(KeyBindingAction.SHOOT))
                 {
-                    moveUpCommand.Execute(ship);
+                    shootCommand.Execute(ship);
                 }
-                else if(GetKey(KeyBindingAction.MOVE_DOWN))
-                {
-                    moveDownCommand.Execute(ship);
-                }
-                return;
-            }
-            if (GetKey(KeyBindingAction.MOVE_RIGHT))
-            {
-                moveRightCommand.Execute(ship);
-                if (GetKey(KeyBindingAction.MOVE_UP))
-                {
-                    moveUpCommand.Execute(ship);
-                }
-                else if (GetKey(KeyBindingAction.MOVE_DOWN))
-                {
-                    moveDownCommand.Execute(ship);
-                }
-                return;
-            }
-            if (GetKey(KeyBindingAction.MOVE_UP))
-            {
-                moveUpCommand.Execute(ship);
                 if (GetKey(KeyBindingAction.MOVE_LEFT))
                 {
                     moveLeftCommand.Execute(ship);
+                    if (GetKey(KeyBindingAction.MOVE_UP))
+                    {
+                        moveUpCommand.Execute(ship);
+                    }
+                    else if (GetKey(KeyBindingAction.MOVE_DOWN))
+                    {
+                        moveDownCommand.Execute(ship);
+                    }
+                    return;
                 }
-                else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+                if (GetKey(KeyBindingAction.MOVE_RIGHT))
                 {
                     moveRightCommand.Execute(ship);
+                    if (GetKey(KeyBindingAction.MOVE_UP))
+                    {
+                        moveUpCommand.Execute(ship);
+                    }
+                    else if (GetKey(KeyBindingAction.MOVE_DOWN))
+                    {
+                        moveDownCommand.Execute(ship);
+                    }
+                    return;
                 }
-                return;
-            }
-            if (GetKey(KeyBindingAction.MOVE_DOWN))
-            {
-                moveDownCommand.Execute(ship);
-                if (GetKey(KeyBindingAction.MOVE_LEFT))
+                if (GetKey(KeyBindingAction.MOVE_UP))
                 {
-                    moveLeftCommand.Execute(ship);
+                    moveUpCommand.Execute(ship);
+                    if (GetKey(KeyBindingAction.MOVE_LEFT))
+                    {
+                        moveLeftCommand.Execute(ship);
+                    }
+                    else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+                    {
+                        moveRightCommand.Execute(ship);
+                    }
+                    return;
                 }
-                else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+                if (GetKey(KeyBindingAction.MOVE_DOWN))
                 {
-                    moveRightCommand.Execute(ship);
+                    moveDownCommand.Execute(ship);
+                    if (GetKey(KeyBindingAction.MOVE_LEFT))
+                    {
+                        moveLeftCommand.Execute(ship);
+                    }
+                    else if (GetKey(KeyBindingAction.MOVE_RIGHT))
+                    {
+                        moveRightCommand.Execute(ship);
+                    }
+                    return;
                 }
-                return;
-            }
+            }           
         }
     }
 }

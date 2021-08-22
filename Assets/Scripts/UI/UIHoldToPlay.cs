@@ -19,6 +19,11 @@ public class UIHoldToPlay : BaseUIController
     {
         gameObject.SetActive(true);
         animator.Play("holdtoplay_intro_anim");
+        
+    }
+    public void OnCompleteShow()
+    {
+        Debug.Log("Show complete");
         isShow = true;
     }
 
