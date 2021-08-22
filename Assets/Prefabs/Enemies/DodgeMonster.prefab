@@ -445,7 +445,7 @@ MonoBehaviour:
   prefab: {fileID: 2951925128275091480, guid: 97c8a8490e5ccbc41a0d015187dac067, type: 3}
   spawnTime: 0.02
   despawnTime: 0.5
-  hostOrderLayer: 0
+  originSortingLayerOrder: 5
 --- !u!114 &1615643312763270078
 MonoBehaviour:
   m_ObjectHideFlags: 0
