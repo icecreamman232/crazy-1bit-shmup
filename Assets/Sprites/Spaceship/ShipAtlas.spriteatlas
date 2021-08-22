@@ -20,7 +20,19 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -31,19 +43,26 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: 1388d9583954f6a4a97e59ac40c1014c, type: 3}
+    - {fileID: 2800000, guid: 768093b3c382eef49a204641be71575c, type: 3}
     - {fileID: 2800000, guid: bf56336795eb112469baf8ebabc0938b, type: 3}
-    totalSpriteSurfaceArea: 3172
+    - {fileID: 2800000, guid: 1388d9583954f6a4a97e59ac40c1014c, type: 3}
+    totalSpriteSurfaceArea: 7012
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: -6782965563245357668, guid: 768093b3c382eef49a204641be71575c, type: 3}
+  - {fileID: 4206697976509980299, guid: 768093b3c382eef49a204641be71575c, type: 3}
+  - {fileID: -4055854320447875841, guid: 768093b3c382eef49a204641be71575c, type: 3}
   - {fileID: -5598781771391107154, guid: bf56336795eb112469baf8ebabc0938b, type: 3}
   - {fileID: 9069317106639567337, guid: bf56336795eb112469baf8ebabc0938b, type: 3}
   - {fileID: -5225196138131554150, guid: bf56336795eb112469baf8ebabc0938b, type: 3}
   - {fileID: 21300000, guid: 1388d9583954f6a4a97e59ac40c1014c, type: 3}
   m_PackedSpriteNamesToIndex:
+  - default_ship_2
+  - default_ship_0
+  - default_ship_1
   - spaceship_1bit_frame_1
   - spaceship_1bit_frame_0
   - spaceship_1bit_frame_2
