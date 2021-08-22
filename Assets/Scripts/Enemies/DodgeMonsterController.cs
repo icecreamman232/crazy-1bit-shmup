@@ -5,7 +5,7 @@ public class DodgeMonsterController : MonsterWithCustomPath
 {
     [Header("Dodging Behaviour")]
     public CircleCollider2D circleCollider;
-
+    public EchoEffect echoEffect;
     public int dodgeCount;
     private int counter;
     private Transform currentShipTransform;
@@ -57,6 +57,7 @@ public class DodgeMonsterController : MonsterWithCustomPath
 
     private void DoDodgeIncomingBullet(Collider2D bullet_collider)
     {
+        echoEffect.PlayEchoEffect();
         Vector3 nextPos = transform.position;
 
         //Check the side of bullet, if it's on the left side, monster will dodge to the right side and vice versa
@@ -72,12 +73,13 @@ public class DodgeMonsterController : MonsterWithCustomPath
         nextPos.y += 0.8f;
 
         LeanTween.move(gameObject, nextPos, 0.3f)
-            .setOnComplete(OnFinishDodge)
-            .setEase(LeanTweenType.easeOutQuart);
+            .setOnComplete(OnFinishDodge);
+            //.setEase(LeanTweenType.easeOutQuart);
     }
 
     private void OnFinishDodge()
     {
+        echoEffect.StopEchoEffect();
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)

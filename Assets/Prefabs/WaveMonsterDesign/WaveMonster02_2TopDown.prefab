@@ -57,22 +57,6 @@ MonoBehaviour:
   timer: 0
   isRunning: 0
   isSpawned: 0
---- !u!114 &1615643312763270078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5680671177671533747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f23ddde367776fb48ab9c78fc4ea726a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveToPath: 0
-  moveSpeed: 0
-  loopType: 0
-  path: {fileID: 0}
 --- !u!1001 &2710132392318528339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80,21 +64,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5746181274814401757}
     m_Modifications:
-    - target: {fileID: 7730885452331766636, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: isShowGuideline
-      value: 0
+    - target: {fileID: 5620968014593651613, guid: d7f09980376c32e428d724abb5b59045, type: 3}
+      propertyPath: spawnTime
+      value: 0.03
       objectReference: {fileID: 0}
-    - target: {fileID: 7730885452331766637, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: m_Size.x
-      value: 0.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452331766637, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: m_Size.y
-      value: 0.4375
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452331766637, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
+    - target: {fileID: 5620968014593651613, guid: d7f09980376c32e428d724abb5b59045, type: 3}
+      propertyPath: despawnTime
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7730885452382965728, guid: d7f09980376c32e428d724abb5b59045, type: 3}
       propertyPath: m_Name
@@ -152,42 +128,8 @@ PrefabInstance:
       propertyPath: retreat
       value: 
       objectReference: {fileID: 5016494456923012829}
-    - target: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: introPath
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: dodgeCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: retreatPath
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: base_movespeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: patrolDuration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-      propertyPath: bezierMoveController
-      value: 
-      objectReference: {fileID: 1615643312763270078}
-    m_RemovedComponents:
-    - {fileID: 7642898754985102861, guid: d7f09980376c32e428d724abb5b59045, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7f09980376c32e428d724abb5b59045, type: 3}
---- !u!1 &5680671177671533747 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7730885452382965728, guid: d7f09980376c32e428d724abb5b59045, type: 3}
-  m_PrefabInstance: {fileID: 2710132392318528339}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5680671177671533745 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7730885452382965730, guid: d7f09980376c32e428d724abb5b59045, type: 3}
@@ -198,7 +140,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7730885452382965741, guid: d7f09980376c32e428d724abb5b59045, type: 3}
   m_PrefabInstance: {fileID: 2710132392318528339}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5680671177671533747}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c44769cd4ec2f624f925f2a4f7239aa0, type: 3}

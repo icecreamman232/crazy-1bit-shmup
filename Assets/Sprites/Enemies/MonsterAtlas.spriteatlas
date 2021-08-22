@@ -43,7 +43,6 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
     - {fileID: 2800000, guid: 355a4a28e5add66469a2ec8899e5fc79, type: 3}
     - {fileID: 2800000, guid: a51c72249f2ab7b438d70806ee0a7264, type: 3}
     - {fileID: 2800000, guid: 068f9293602be1740833b1f6571a1c45, type: 3}
@@ -53,7 +52,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 84414657d8651cd4baa8b044e4326605, type: 3}
     - {fileID: 2800000, guid: d599a6e71fbc99e47a16409aca1a3216, type: 3}
     - {fileID: 2800000, guid: 882a639760f336e4fa0fb479d190c913, type: 3}
-    totalSpriteSurfaceArea: 35728
+    totalSpriteSurfaceArea: 24208
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -78,14 +77,6 @@ SpriteAtlas:
   - {fileID: 6707565276462142591, guid: d599a6e71fbc99e47a16409aca1a3216, type: 3}
   - {fileID: 3098370824163427934, guid: d599a6e71fbc99e47a16409aca1a3216, type: 3}
   - {fileID: 21300000, guid: 355a4a28e5add66469a2ec8899e5fc79, type: 3}
-  - {fileID: 5523178553301421463, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
-  - {fileID: -7060665516397423563, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
-  - {fileID: -2823660329500941411, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
-  - {fileID: 1791383674615326710, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
-  - {fileID: 8484458898331286575, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
-  - {fileID: -2862035242790045305, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
-  - {fileID: 7123628045900910386, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
-  - {fileID: -8609130068719886522, guid: 869b9a1e86d3db14191e44731c1db96b, type: 3}
   - {fileID: -6032730100895900246, guid: 7df8dfafbc1c93b489266473f4ec4525, type: 3}
   - {fileID: 4859722140919353979, guid: 7df8dfafbc1c93b489266473f4ec4525, type: 3}
   - {fileID: -3104494460184171958, guid: 7df8dfafbc1c93b489266473f4ec4525, type: 3}
@@ -112,14 +103,6 @@ SpriteAtlas:
   - monster_04_0
   - monster_04_4
   - floating_bot_eye
-  - floating_bot_sheet_6
-  - floating_bot_sheet_7
-  - floating_bot_sheet_4
-  - floating_bot_sheet_5
-  - floating_bot_sheet_2
-  - floating_bot_sheet_3
-  - floating_bot_sheet_0
-  - floating_bot_sheet_1
   - monster_02_1
   - monster_02_0
   - monster_02_3
