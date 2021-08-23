@@ -16,8 +16,12 @@ public class WaveMonsterEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        //Do check null
 
+        GUI.backgroundColor = Color.green;
+        if(GUILayout.Button("Snap To Point"))
+        {
+            targetObject.SnapToControlPoint();
+        }
     }
 
 }

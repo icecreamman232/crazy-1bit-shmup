@@ -52,6 +52,12 @@ MonoBehaviour:
   numberMonsterList: 0
   isWaveFinished: 0
   numberMonsterCompleteDuty: 0
+  numMonsterRan: 0
+  delayNextMonster: 0
+  timer: 0
+  isRunning: 0
+  isSpawned: 0
+  screenBounds: {x: 0, y: 0, z: 0}
 --- !u!1001 &361121864528564982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -170,11 +176,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.87
+      value: -4.79
       objectReference: {fileID: 0}
     - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.08
+      value: -5.53
       objectReference: {fileID: 0}
     - target: {fileID: 2487770130904161672, guid: 008b44ac1b5a5bc4b95e1d28a78309d8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -271,19 +277,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5525971273090357179, guid: a492286827e99f34d928628bbc5ad8c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.4
+      value: -2.24
       objectReference: {fileID: 0}
     - target: {fileID: 5525971273090357179, guid: a492286827e99f34d928628bbc5ad8c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.01
+      value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 5772314867217411178, guid: a492286827e99f34d928628bbc5ad8c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.83
+      value: -4.48
       objectReference: {fileID: 0}
     - target: {fileID: 5772314867217411178, guid: a492286827e99f34d928628bbc5ad8c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.23
+      value: -5.39
       objectReference: {fileID: 0}
     - target: {fileID: 7134793134240094816, guid: a492286827e99f34d928628bbc5ad8c7, type: 3}
       propertyPath: m_Name

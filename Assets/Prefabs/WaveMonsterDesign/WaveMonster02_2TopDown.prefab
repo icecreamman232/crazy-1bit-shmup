@@ -57,6 +57,7 @@ MonoBehaviour:
   timer: 0
   isRunning: 0
   isSpawned: 0
+  screenBounds: {x: 0, y: 0, z: 0}
 --- !u!1001 &2710132392318528339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,11 +83,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730885452382965730, guid: d7f09980376c32e428d724abb5b59045, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.53
+      value: -9.31
       objectReference: {fileID: 0}
     - target: {fileID: 7730885452382965730, guid: d7f09980376c32e428d724abb5b59045, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.98
+      value: 7.09
       objectReference: {fileID: 0}
     - target: {fileID: 7730885452382965730, guid: d7f09980376c32e428d724abb5b59045, type: 3}
       propertyPath: m_LocalPosition.z

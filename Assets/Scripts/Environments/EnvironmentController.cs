@@ -70,14 +70,15 @@ public class EnvironmentController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        //9:16
-        Gizmos.DrawWireCube(transform.position, new Vector3(2.9f * 2, 5.1f * 2));
-        Gizmos.color = Color.blue;
-        //9:18
-        Gizmos.DrawWireCube(transform.position, new Vector3(2.9f * 2, 5.8f * 2));
-    }
+        Vector2 A = new Vector2();
+        A.y = Camera.main.orthographicSize * 2;
+        A.x = (Camera.main.aspect * Camera.main.orthographicSize) * 2;
 
+        //Draw wireframe of screen ratio for better wave designing
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, new Vector3(A.x, A.y));
+    }
+    
 
 #endif
     #endregion
