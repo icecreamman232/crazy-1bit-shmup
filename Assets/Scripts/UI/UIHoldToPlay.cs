@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class UIHoldToPlay : BaseUIController
 {
+    [SerializeField] private Image background;
+    [SerializeField] private Text text;
+    [SerializeField] private Image border;
     private Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -23,7 +26,6 @@ public class UIHoldToPlay : BaseUIController
     }
     public void OnCompleteShow()
     {
-        Debug.Log("Show complete");
         isShow = true;
     }
 

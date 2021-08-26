@@ -15,7 +15,8 @@ public class CustomCamera : MonoBehaviour
         ShowGizmo = true;
         mainCamera = Camera.main;
         GetCurrentAspect();
-        CropViewport();
+        ResizeCamera2D();
+        //CropViewport();
         GetCameraSize();
     }
     private void Start()

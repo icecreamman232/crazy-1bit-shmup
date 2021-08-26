@@ -146,8 +146,8 @@ public class SpaceShipController : MonoBehaviour, IDamageable
 
             if (curPos.x <= -screenBounds.x + shipSpriteWidth * 0.5f) curPos.x = -screenBounds.x + shipSpriteWidth * 0.5f;
             if (curPos.x >= screenBounds.x - shipSpriteWidth * 0.5f) curPos.x = screenBounds.x - shipSpriteWidth * 0.5f;
-            if (curPos.y <= -screenBounds.y) curPos.y = -screenBounds.y;
-            if (curPos.y >= screenBounds.y) curPos.y = screenBounds.y;
+            if (curPos.y <= -screenBounds.y + shipSpriteWidth * 0.5f) curPos.y = -screenBounds.y + shipSpriteWidth * 0.5f;
+            if (curPos.y >= screenBounds.y - shipSpriteWidth * 0.5f) curPos.y = screenBounds.y - shipSpriteWidth * 0.5f;
 
             transform.position = curPos;
 
