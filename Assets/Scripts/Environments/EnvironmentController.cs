@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class EnvironmentHolder
 {
     public EnvironmentWithCustomPath environmentEntity;
@@ -10,6 +11,7 @@ public class EnvironmentHolder
     public float delay;
 }
 
+[Serializable]
 public class EnvironmentController : MonoBehaviour
 {
     //Wrapper class to control how look environment design is
@@ -78,7 +80,14 @@ public class EnvironmentController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(A.x, A.y));
     }
-    
+    public void SnapToControlPoint()
+    {
+        for (int i = 0; i < environmentEntityList.Count; i++)
+        {
+            environmentEntityList[i].environmentEntity.transform.position = 
+                environmentEntityList[i].environmentEntity.IntroPath.GetPos(0);
+        }
+    }
 
 #endif
     #endregion

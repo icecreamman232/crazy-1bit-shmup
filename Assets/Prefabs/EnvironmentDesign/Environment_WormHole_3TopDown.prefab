@@ -425,6 +425,14 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 8831063222694806033, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831063222694806033, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.56
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21fbc792a071a67449b756a2bb80fe0f, type: 3}
 --- !u!4 &4746700591251659366 stripped

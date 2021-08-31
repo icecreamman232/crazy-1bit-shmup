@@ -4,20 +4,20 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
-[CustomEditor(typeof(WaveMonsterController))]
-public class WaveMonsterEditor : Editor
+[CustomEditor(typeof(EnvironmentController))]
+public class EnvironmentControllerEditor : Editor
 {
-
-    WaveMonsterController c;
+    EnvironmentController c;
     SerializedObject targetObject;
 
     private void OnEnable()
     {
-        c = target as WaveMonsterController;
-        targetObject = new SerializedObject(c);
+        c = target as EnvironmentController;
+        targetObject = new SerializedObject(c);      
     }
     public override void OnInspectorGUI()
     {
+        
         base.OnInspectorGUI();
         targetObject.Update();
         GUI.backgroundColor = Color.green;
@@ -26,7 +26,7 @@ public class WaveMonsterEditor : Editor
             c.SnapToControlPoint();
             targetObject.ApplyModifiedProperties();
         }
-        if (GUI.changed)
+        if(GUI.changed)
         {
             EditorUtility.SetDirty(c);
         }

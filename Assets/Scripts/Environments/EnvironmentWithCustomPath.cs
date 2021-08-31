@@ -5,14 +5,30 @@ using UnityEngine;
 public class EnvironmentWithCustomPath : BaseEnvironment
 {
    
-    [SerializeField]
-    protected PathSegment intro;
-
-    [SerializeField]
-    protected PathSegment patrol;
-
-    [SerializeField]
-    protected PathSegment retreat;
+    [SerializeField] protected PathSegment intro;
+    public PathSegment IntroPath
+    {
+        get
+        {
+            return intro;
+        }
+    }
+    [SerializeField] protected PathSegment patrol;
+    public PathSegment PatrolPath
+    {
+        get
+        {
+            return patrol;
+        }
+    }
+    [SerializeField] protected PathSegment retreat;
+    public PathSegment RetreatPath
+    {
+        get
+        {
+            return retreat;
+        }
+    }
 
     public BezierMoveController bezierMoveController;
     public System.Action OnFinishRun;
