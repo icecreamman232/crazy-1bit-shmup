@@ -27,8 +27,7 @@ My name is Khoa, you could call me Stephen.
 I am just game developer who love playing games and making games
 Thanks for visiting.
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F159VOO)
-
 ## Contact me
 - Skype: mrbo2302
 - Telegram: icecreamman232
+- Email: stephen.ho.232@gmail.com
