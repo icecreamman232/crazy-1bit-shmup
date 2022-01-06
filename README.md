@@ -21,15 +21,11 @@ List below is about systems I wrote (updating...)
 - ...
 
 ## About myself 
-<a href="url"><img src="https://user-images.githubusercontent.com/61927620/125173840-8df2dd00-e1eb-11eb-80c1-29d43f4f7d9f.jpg" 
-align="left" height="48" width="48" ></a>
 
 Hi there,
 My name is Khoa, you could call me Stephen.
-I am a game developer. I've been working in game industry for over 4 years, I used to work as game programmer, game designer, game producer.
-This is my hobby project I use to learn Unity and about game programming.
-If this brough you some interests, you can help me to stay balance while making this project.
-Thank you
+I am just game developer who love playing games and making games
+Thanks for visiting.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F159VOO)
 
